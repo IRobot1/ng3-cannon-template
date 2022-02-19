@@ -6,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'ng3-cannon-template';
+  hover = false;
+  active = false;
+
+  onAnimate(mesh: THREE.Object3D) {
+    mesh.rotation.x = mesh.rotation.y += 0.01;
+  }
 }
