@@ -1,32 +1,43 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { NgtColorPipeModule, NgtCoreModule } from '@angular-three/core';
+import { NgtColorPipeModule, NgtCoreModule, NgtRadianPipeModule, NgtVectorPipeModule } from '@angular-three/core';
 import { NgtMeshModule } from '@angular-three/core/meshes'
-import { NgtMeshBasicMaterialModule } from '@angular-three/core/materials';
-import { NgtBoxGeometryModule } from '@angular-three/core/geometries';
-import { NgtHemisphereLightModule } from '@angular-three/core/lights';
+import { NgtMeshLambertMaterialModule, NgtShadowMaterialModule } from '@angular-three/core/materials';
+import { NgtBoxGeometryModule, NgtPlaneGeometryModule } from '@angular-three/core/geometries';
+import { NgtAmbientLightModule, NgtDirectionalLightModule } from '@angular-three/core/lights';
+
+import { NgtPhysicsModule } from '@angular-three/cannon';
+import { NgtPhysicBoxModule,  NgtPhysicPlaneModule} from '@angular-three/cannon/bodies';
 
 import { AppComponent } from './app.component';
-import { NgtPhysicsModule } from '@angular-three/cannon';
+import { PlaneComponent } from './components/storybook-plane.component';
+import { CubeComponent } from './components/storybook-cube.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PlaneComponent,
+    CubeComponent,
   ],
   imports: [
     BrowserModule,
 
-    NgtCoreModule,
-    NgtMeshModule,
-    NgtColorPipeModule,
-
-    NgtHemisphereLightModule,
-
+    NgtAmbientLightModule,
     NgtBoxGeometryModule,
-    NgtMeshBasicMaterialModule,
-
+    NgtColorPipeModule,
+    NgtCoreModule,
+    NgtDirectionalLightModule,
+    NgtMeshLambertMaterialModule,
+    NgtMeshModule,
+    NgtPhysicBoxModule,
+    NgtPhysicPlaneModule,
     NgtPhysicsModule,
+    NgtPlaneGeometryModule,
+    NgtRadianPipeModule,
+    NgtShadowMaterialModule,
+    NgtVectorPipeModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,16 +1,18 @@
 <div style="height:100vh">
-  <ngt-canvas [scene]="{ background: '#505050' | color }"
-              [camera]="{ fov: 50, position: [5, 5, 5]}">
-    <ngt-hemisphere-light [args]="['#606060', '#404040']"></ngt-hemisphere-light>
+  <ngt-canvas [shadows]="true"
+              [gl]="{ alpha: false }"
+              [camera]="{ position: [-1, 5, 5], fov: 45 }"
+              [scene]="{ background: 'lightblue' | color }">
+    <ngt-ambient-light></ngt-ambient-light>
+    <ngt-directional-light [position]="[10, 10, 10]"
+                           [castShadow]="true"
+                           [shadow]="{ mapSize: [2048, 2048] | vector2 }"></ngt-directional-light>
 
     <ngt-physics>
-      <ngt-mesh ngtPhysicBox
-                [getPhysicProps]="getCubeProps"
-                [position]="position"
-                [rotation]="rotation">
-        <ngt-box-geometry></ngt-box-geometry>
-        <ngt-mesh-basic-material [parameters]="{ color: 'tomato' }"></ngt-mesh-basic-material>
-      </ngt-mesh>
+      <storybook-plane [position]="[0, -2.5, 0]"></storybook-plane>
+      <storybook-cube [position]="[0.1, 5, 0]"></storybook-cube>
+      <storybook-cube [position]="[0, 10, -1]"></storybook-cube>
+      <storybook-cube [position]="[0, 20, -2]"></storybook-cube>
     </ngt-physics>
   </ngt-canvas>
 </div>
