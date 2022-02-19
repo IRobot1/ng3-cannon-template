@@ -3,9 +3,14 @@
               [camera]="{ fov: 50, position: [5, 5, 5]}">
     <ngt-hemisphere-light [args]="['#606060', '#404040']"></ngt-hemisphere-light>
 
-    <ngt-mesh [position]="[0, 2, 0]">
-      <ngt-box-geometry></ngt-box-geometry>
-      <ngt-mesh-basic-material [parameters]="{ color: 'tomato' }"></ngt-mesh-basic-material>
-    </ngt-mesh>
+    <ngt-physics>
+      <ngt-mesh ngtPhysicBox
+                [getPhysicProps]="getCubeProps"
+                [position]="position"
+                [rotation]="rotation">
+        <ngt-box-geometry></ngt-box-geometry>
+        <ngt-mesh-basic-material [parameters]="{ color: 'tomato' }"></ngt-mesh-basic-material>
+      </ngt-mesh>
+    </ngt-physics>
   </ngt-canvas>
 </div>

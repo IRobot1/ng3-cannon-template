@@ -8,6 +8,7 @@ import { NgtBoxGeometryModule } from '@angular-three/core/geometries';
 import { NgtHemisphereLightModule } from '@angular-three/core/lights';
 
 import { AppComponent } from './app.component';
+import { NgtPhysicsModule } from '@angular-three/cannon';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,8 @@ import { AppComponent } from './app.component';
 
     NgtBoxGeometryModule,
     NgtMeshBasicMaterialModule,
+
+    NgtPhysicsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

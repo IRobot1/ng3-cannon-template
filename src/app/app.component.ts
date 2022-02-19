@@ -1,15 +1,21 @@
 import { Component } from '@angular/core';
 
+import { NgtEuler, NgtTriplet, NgtVector3 } from '@angular-three/core';
+
+import { BoxProps, GetByIndex } from '@angular-three/cannon';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  hover = false;
-  active = false;
+  position = [0, 2, 0] as NgtVector3;
+  rotation = [0, 0, 0] as NgtEuler;
 
-  onAnimate(mesh: THREE.Object3D) {
-    mesh.rotation.x = mesh.rotation.y += 0.01;
-  }
+  getCubeProps: GetByIndex<BoxProps> = () => ({
+    mass: 1,
+    position: this.position as NgtTriplet,
+    rotation: this.rotation as NgtTriplet,
+  });
 }
