@@ -28,5 +28,9 @@ export class CubeComponent {
     mass: 1,
     position: this.position as NgtTriplet,
     rotation: this.rotation as NgtTriplet,
+    allowSleep: true,
+    sleepSpeedLimit : 0.1,
+    sleepTimeLimit : 0.1,
+    //onCollideEnd: (e) => { console.warn(e); }
   });
 }

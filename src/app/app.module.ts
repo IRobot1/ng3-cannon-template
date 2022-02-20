@@ -13,6 +13,7 @@ import { NgtPhysicBoxModule,  NgtPhysicPlaneModule} from '@angular-three/cannon/
 import { AppComponent } from './app.component';
 import { PlaneComponent } from './components/storybook-plane.component';
 import { CubeComponent } from './components/storybook-cube.component';
+import { NgtCannonDebugModule } from '@angular-three/cannon/debug';
 
 @NgModule({
   declarations: [
@@ -30,14 +31,16 @@ import { CubeComponent } from './components/storybook-cube.component';
     NgtDirectionalLightModule,
     NgtMeshLambertMaterialModule,
     NgtMeshModule,
-    NgtPhysicBoxModule,
-    NgtPhysicPlaneModule,
-    NgtPhysicsModule,
     NgtPlaneGeometryModule,
     NgtRadianPipeModule,
     NgtShadowMaterialModule,
     NgtVectorPipeModule,
 
+    NgtPhysicsModule,
+    NgtPhysicBoxModule,
+    NgtPhysicPlaneModule,
+    NgtPhysicPlaneModule,
+    NgtCannonDebugModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
