@@ -4,9 +4,8 @@
               [camera]="{ position: [-1, 5, 5], fov: 45 }"
               [scene]="{ background: 'lightblue' | color }">
     <ngt-ambient-light></ngt-ambient-light>
-    <ngt-directional-light [position]="[10, 10, 10]"
-                           [castShadow]="true"
-                           [shadow]="{ mapSize: [2048, 2048] | vector2 }"></ngt-directional-light>
+    <ngt-directional-light [position]="[10, 10, 10]" [castShadow]="true">
+    </ngt-directional-light>
 
     <!--
     //
@@ -15,9 +14,10 @@
     //
     -->
     <ngt-physics [allowSleep]="true">
-      <ngt-cannon-debug>
-        <storybook-plane [position]="[0, -2.5, 0]"></storybook-plane>
-        <storybook-cube *ngFor="let cube of cubes" [name]="cube.name" [position]="[0,20,cube.position.z]"></storybook-cube>
+      <storybook-plane [position]="[0, -2.5, 0]"></storybook-plane>
+      <trigger-cube [position]="[-3,0,0]"></trigger-cube>
+      <storybook-cube *ngFor="let cube of cubes" [name]="cube.name" [position]="[0,20,cube.position.z]"></storybook-cube>
+      <ngt-cannon-debug [scale]="1.1" color="black">
       </ngt-cannon-debug>
     </ngt-physics>
   </ngt-canvas>

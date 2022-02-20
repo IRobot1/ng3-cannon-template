@@ -31,8 +31,8 @@ export class CubeComponent {
     position: this.position as NgtTriplet,
     rotation: this.rotation as NgtTriplet,
     allowSleep: true,
-    sleepSpeedLimit : 0.1,
-    sleepTimeLimit : 0.1,
+    sleepSpeedLimit: 0.1,
+    sleepTimeLimit: 0.1,
     //onCollideBegin: (e) => { console.warn('begin', e.body.name); },
     //onCollideEnd: (e) => { console.warn('end', e.body.name); },
   });
