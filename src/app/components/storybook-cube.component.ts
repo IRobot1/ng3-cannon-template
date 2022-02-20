@@ -5,7 +5,7 @@ import { Component, Input } from "@angular/core";
 @Component({
   selector: 'storybook-cube',
   template: `
-        <ngt-mesh
+        <ngt-mesh [name]="name"
             ngtPhysicBox
             [getPhysicProps]="getCubeProps"
             [receiveShadow]="true"
@@ -22,6 +22,8 @@ import { Component, Input } from "@angular/core";
 })
 export class CubeComponent {
   @Input() position?: NgtVector3;
+  @Input() name = 'cube';
+
   rotation = [0.4, 0.2, 0.5] as NgtEuler;
 
   getCubeProps: GetByIndex<BoxProps> = () => ({
@@ -31,6 +33,7 @@ export class CubeComponent {
     allowSleep: true,
     sleepSpeedLimit : 0.1,
     sleepTimeLimit : 0.1,
-    //onCollideEnd: (e) => { console.warn(e); }
+    //onCollideBegin: (e) => { console.warn('begin', e.body.name); },
+    //onCollideEnd: (e) => { console.warn('end', e.body.name); },
   });
 }

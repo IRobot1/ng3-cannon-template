@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
 @Component({
   selector: 'storybook-plane',
   template: `
-        <ngt-mesh
+        <ngt-mesh [name]="name"
             ngtPhysicPlane
             [receiveShadow]="true"
             [position]="position"
@@ -25,4 +25,5 @@ import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
 
 export class PlaneComponent {
   @Input() position?: NgtVector3;
+  @Input() name = 'floor';
 }
