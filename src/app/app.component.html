@@ -9,7 +9,7 @@
                            [shadow]="{ mapSize: [2048, 2048] | vector2 }"></ngt-directional-light>
 
     <!--
-    //  
+    //
     // Summary of ngt-physics properites here
     // https://github.com/IRobot1/angular-three-examples/wiki/Ngt-Physics
     //
@@ -17,9 +17,7 @@
     <ngt-physics [allowSleep]="true">
       <ngt-cannon-debug>
         <storybook-plane [position]="[0, -2.5, 0]"></storybook-plane>
-        <storybook-cube [name]="'cube1'" [position]="[0.1, 5, 0]"></storybook-cube>
-        <storybook-cube [name]="'cube2'" [position]="[0, 10, -1]"></storybook-cube>
-        <storybook-cube [name]="'cube3'" [position]="[0, 20, -2]"></storybook-cube>
+        <storybook-cube *ngFor="let cube of cubes" [name]="cube.name" [position]="[0,20,cube.position.z]"></storybook-cube>
       </ngt-cannon-debug>
     </ngt-physics>
   </ngt-canvas>

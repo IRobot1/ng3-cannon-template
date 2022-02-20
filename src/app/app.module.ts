@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { NgtColorPipeModule, NgtCoreModule, NgtRadianPipeModule, NgtVectorPipeModule } from '@angular-three/core';
-import { NgtMeshModule } from '@angular-three/core/meshes'
+import { NgtMeshModule } from '@angular-three/core/meshes';
+import { NgtGroupModule } from '@angular-three/core/group';
 import { NgtMeshLambertMaterialModule, NgtShadowMaterialModule } from '@angular-three/core/materials';
 import { NgtBoxGeometryModule, NgtPlaneGeometryModule } from '@angular-three/core/geometries';
 import { NgtAmbientLightModule, NgtDirectionalLightModule } from '@angular-three/core/lights';
@@ -24,17 +25,22 @@ import { NgtCannonDebugModule } from '@angular-three/cannon/debug';
   imports: [
     BrowserModule,
 
-    NgtAmbientLightModule,
-    NgtBoxGeometryModule,
-    NgtColorPipeModule,
     NgtCoreModule,
-    NgtDirectionalLightModule,
-    NgtMeshLambertMaterialModule,
     NgtMeshModule,
-    NgtPlaneGeometryModule,
+    NgtGroupModule,
+
+    NgtColorPipeModule,
     NgtRadianPipeModule,
-    NgtShadowMaterialModule,
     NgtVectorPipeModule,
+
+    NgtBoxGeometryModule,
+    NgtPlaneGeometryModule,
+
+    NgtAmbientLightModule,
+    NgtDirectionalLightModule,
+
+    NgtShadowMaterialModule,
+    NgtMeshLambertMaterialModule,
 
     NgtPhysicsModule,
     NgtPhysicBoxModule,
