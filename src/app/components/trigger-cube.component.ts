@@ -28,9 +28,7 @@ export class TriggerCubeComponent {
     isTrigger: true,
     scale: this.scale,
     onCollideBegin: (e) => {
-      const message = 'volume triggered by ' + e.body.name;
-      console.log(message);
-      this.trigger.emit(message);
+      this.trigger.emit('volume triggered by ' + e.body.name);
     },
     args: this.scale as NgtTriplet  // this is required for box geometry
   });
