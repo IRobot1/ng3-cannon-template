@@ -1,7 +1,8 @@
-# Ng3CannonTemplate
+# ng3-cannon-template start kit
 
 This project is a starter template that demonstrates how to add physics to @angular-three components.
 
+![image](https://user-images.githubusercontent.com/25032599/154986955-799ac36c-0c41-4d19-89ad-62889fb15f98.png)
 
 
 ## Original Setup
