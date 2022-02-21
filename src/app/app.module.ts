@@ -11,6 +11,9 @@ import { NgtAmbientLightModule, NgtDirectionalLightModule } from '@angular-three
 import { NgtPhysicsModule } from '@angular-three/cannon';
 import { NgtPhysicBoxModule, NgtPhysicPlaneModule } from '@angular-three/cannon/bodies';
 
+import { NgtSobaTextModule } from '@angular-three/soba/abstractions';
+import { NgtSobaOrbitControlsModule } from '@angular-three/soba/controls';
+
 import { AppComponent } from './app.component';
 import { PlaneComponent } from './components/storybook-plane.component';
 import { CubeComponent } from './components/storybook-cube.component';
@@ -48,6 +51,10 @@ import { TriggerCubeComponent } from './components/trigger-cube.component';
     NgtPhysicBoxModule,
     NgtPhysicPlaneModule,
     NgtCannonDebugModule,
+
+    NgtSobaOrbitControlsModule,
+    NgtSobaTextModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

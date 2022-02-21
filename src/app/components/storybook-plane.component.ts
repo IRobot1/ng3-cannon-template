@@ -10,7 +10,7 @@ import { Component, Input } from "@angular/core";
             [position]="position"
             [rotation]="[-90 | radian, 0, 0]"
         >
-            <ngt-plane-geometry [args]="[10, 10]"></ngt-plane-geometry>
+            <ngt-plane-geometry [args]="[20, 20]"></ngt-plane-geometry>
             <ngt-mesh-standard-material
                 [parameters]="{color: 'white'}"
             ></ngt-mesh-standard-material>

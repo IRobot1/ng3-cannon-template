@@ -1,6 +1,10 @@
 # Ng3CannonTemplate
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.4.
+This project is a starter template that demonstrates how to add physics to @angular-three components.
+
+
+
+## Original Setup
 
 @angular-three added using command
 
@@ -9,6 +13,10 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 @angular-three/cannon added using command
 
 `ng g @angular-three/schematics:cannon ng3-cannon-template`
+
+@angular-three/soba added using command
+
+`ng add @angular-three/soba`
 
 ## Development server
 

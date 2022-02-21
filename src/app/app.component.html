@@ -20,5 +20,33 @@
       <ngt-cannon-debug [scale]="1.1" color="black">
       </ngt-cannon-debug>
     </ngt-physics>
+
+    <ngt-soba-orbit-controls></ngt-soba-orbit-controls>
+
+    <ngt-soba-text [text]="'Physics world'"
+                   [castShadow]="true"
+                   [color]="'red'"
+                   [fontSize]="1"
+                   font="https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff"
+                   anchorY="bottom"
+                   [rotation]="[-30 | radian, 0, 0]"
+                   [position]="[0,-2.2,-4]">
+
+    </ngt-soba-text>
+
+    <ngt-group [rotation]="[0, 90 | radian, 0]" [position]="[-5,-2.2,0]">
+
+      <ngt-soba-text [text]="'Check console for volume trigger messages'"
+                     [castShadow]="true"
+                     [color]="'red'"
+                     [maxWidth]="8"
+                     [fontSize]="0.5"
+                     font="https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff"
+                     anchorX="center"
+                     anchorY="bottom"
+                     [rotation]="[-30 | radian, 0, 0]">
+      </ngt-soba-text>
+    </ngt-group>
+
   </ngt-canvas>
 </div>
