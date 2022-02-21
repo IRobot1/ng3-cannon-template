@@ -13,6 +13,7 @@ class Cube {
 })
 export class AppComponent implements AfterViewInit {
   cubes: Array<Cube> = [];
+  message = 'Check console for volume trigger messages';
 
   ngAfterViewInit(): void {
     let count = 0;

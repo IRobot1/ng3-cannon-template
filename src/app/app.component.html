@@ -15,7 +15,7 @@
     -->
     <ngt-physics [allowSleep]="true">
       <storybook-plane [position]="[0, -2.5, 0]"></storybook-plane>
-      <trigger-cube [position]="[-3,0,0]"></trigger-cube>
+      <trigger-cube [position]="[-3,0,0]" (trigger)="message=$event"></trigger-cube>
       <storybook-cube *ngFor="let cube of cubes" [name]="cube.name" [position]="[0,20,cube.position.z]"></storybook-cube>
       <ngt-cannon-debug [scale]="1.1" color="black">
       </ngt-cannon-debug>
@@ -36,7 +36,7 @@
 
     <ngt-group [rotation]="[0, 90 | radian, 0]" [position]="[-5,-2.2,0]">
 
-      <ngt-soba-text [text]="'Check console for volume trigger messages'"
+      <ngt-soba-text [text]="message"
                      [castShadow]="true"
                      [color]="'red'"
                      [maxWidth]="8"
