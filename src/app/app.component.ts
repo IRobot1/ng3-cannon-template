@@ -19,7 +19,12 @@ export class AppComponent implements AfterViewInit {
   cubes: Array<Cube> = [];
   message = 'volume not triggered';
   vr = false;
-  scale = 1;
+  scale = 0.5;
+  step = 1 / 60;
+  gravity = -9.8;
+
+  private startheight = 10;
+
   concrete: DefaultContactMaterial = {
     restitution: 0, // bouncyness
     contactEquationRelaxation: 1,
@@ -31,22 +36,19 @@ export class AppComponent implements AfterViewInit {
     if (this.vr) {
       document.body.appendChild(VRButton.createButton(event.renderer));
       this.scale = 0.1;
+      this.step = 1 / 120;
+      this.gravity = -2;
+      this.startheight = 2;
     }
   }
 
   ngAfterViewInit(): void {
     let count = 0;
     setInterval(() => {
-      if (this.vr) {
-        if (this.cubes.length < 100) {
-          this.cubes.push(new Cube('cube' + count.toString(), new Vec3(0, 2, Math.random())));
-        }
-      } else {
-        if (this.cubes.length > 29) {
-          this.cubes.splice(0, 1);
-        }
-        this.cubes.push(new Cube('cube' + count.toString(), new Vec3(0, 20, Math.random())));
+      if (this.cubes.length > 100) {
+        this.cubes.splice(0, 1);
       }
+      this.cubes.push(new Cube('cube' + count.toString(), new Vec3(0, this.startheight, Math.random())));
       count++;
     }, 500);
   }

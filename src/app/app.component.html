@@ -12,9 +12,9 @@
     //
     // Summary of ngt-physics properites here
     // https://github.com/IRobot1/angular-three-examples/wiki/Ngt-Physics
-    // [allowSleep]="false" [step]="step" [iterations]="1" [quatNormalizeSkip]="5" [quatNormalizeFast]="true"
+    // [allowSleep]="false"  [quatNormalizeSkip]="5" [quatNormalizeFast]="true"
     -->
-    <ngt-physics [defaultContactMaterial]="concrete">
+    <ngt-physics [gravity]="[0, gravity, 0] " [step]="step" [defaultContactMaterial]="concrete">
       <ngt-cannon-debug [disabled]="true" [scale]="1.1" color="black">
 
         <storybook-plane [position]="[0, 0, 0]"></storybook-plane>
