@@ -17,7 +17,7 @@ class Cube {
 export class AppComponent implements AfterViewInit {
   cubes: Array<Cube> = [];
   message = 'volume not triggered';
-  vr = true;
+  vr = false;
   scale = 1;
 
   created(event: NgtCreatedState) {

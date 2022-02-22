@@ -15,15 +15,15 @@
     // [allowSleep]="false" [step]="step" [iterations]="1" [quatNormalizeSkip]="5" [quatNormalizeFast]="true"
     -->
     <ngt-physics>
-      <storybook-plane [position]="[0, 0, 0]"></storybook-plane>
-      <trigger-cube [position]="[-3,2.5,0]" (trigger)="message=$event"></trigger-cube>
-      <app-xr-controller *ngIf="vr"></app-xr-controller>
-      <ngt-mesh *ngIf="vr" ngtPhysicBox [name]="'table'" [receiveShadow]="true" [position]="[0,0.5,-0.5]">
-        <ngt-box-geometry></ngt-box-geometry>
-        <ngt-mesh-standard-material [parameters]="{ color: 'gray' }"></ngt-mesh-standard-material>
-      </ngt-mesh>
-      <storybook-cube *ngFor="let cube of cubes" [name]="cube.name" [position]="[0,20,cube.position.z]" [scale]="scale"></storybook-cube>
-      <ngt-cannon-debug [scale]="1.1" color="black">
+      <ngt-cannon-debug [disabled]="true" [scale]="1.1" color="black">
+        <storybook-plane [position]="[0, 0, 0]"></storybook-plane>
+        <trigger-cube [position]="[-3,2.5,0]" (trigger)="message=$event"></trigger-cube>
+        <app-xr-controller *ngIf="vr"></app-xr-controller>
+        <ngt-mesh *ngIf="vr" ngtPhysicBox [name]="'table'" [receiveShadow]="true" [position]="[0,0.5,-0.5]">
+          <ngt-box-geometry></ngt-box-geometry>
+          <ngt-mesh-standard-material [parameters]="{ color: 'gray' }"></ngt-mesh-standard-material>
+        </ngt-mesh>
+        <storybook-cube *ngFor="let cube of cubes" [name]="cube.name" [position]="[0,20,cube.position.z]" [scale]="scale"></storybook-cube>
       </ngt-cannon-debug>
     </ngt-physics>
 
