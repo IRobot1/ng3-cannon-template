@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { NgtColorPipeModule, NgtCoreModule, NgtRadianPipeModule, NgtVectorPipeModule } from '@angular-three/core';
+import { NgtStatsModule } from '@angular-three/core/stats';
 import { NgtMeshModule } from '@angular-three/core/meshes';
 import { NgtGroupModule } from '@angular-three/core/group';
 import { NgtMeshLambertMaterialModule, NgtMeshStandardMaterialModule } from '@angular-three/core/materials';
@@ -31,6 +32,8 @@ import { XRControllerComponent } from './xr-controller/xr-controller.component';
   ],
   imports: [
     BrowserModule,
+
+    NgtStatsModule,
 
     NgtCoreModule,
     NgtMeshModule,

@@ -16,7 +16,7 @@ export class XRControllerComponent implements OnInit {
   controller?: Group;
 
   position = [0, 0, 0] as NgtVector3;
-  scale = [0.1, 0.01, 0.5] as NgtVector3;
+  scale = [0.1, 0.1, 0.5] as NgtVector3;
   rotation?: Euler;
 
   radius = 0.05;

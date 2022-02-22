@@ -1,3 +1,4 @@
+import { DefaultContactMaterial } from '@angular-three/cannon/lib/models/default-contact-material';
 import { NgtCreatedState } from '@angular-three/core';
 import { AfterViewInit } from '@angular/core';
 import { Component } from '@angular/core';
@@ -19,6 +20,12 @@ export class AppComponent implements AfterViewInit {
   message = 'volume not triggered';
   vr = false;
   scale = 1;
+  concrete: DefaultContactMaterial = {
+    restitution: 0, // bouncyness
+    contactEquationRelaxation: 1,
+    friction: 30000,
+    //frictionEquationStiffness: 1e7,  // use 10 for ice
+  }
 
   created(event: NgtCreatedState) {
     if (this.vr) {
@@ -31,14 +38,14 @@ export class AppComponent implements AfterViewInit {
     let count = 0;
     setInterval(() => {
       if (this.vr) {
-        if (this.cubes.length < 10) {
-          this.cubes.push(new Cube('cube' + count.toString(), new Vec3(0, 20, -Math.random())));
+        if (this.cubes.length < 100) {
+          this.cubes.push(new Cube('cube' + count.toString(), new Vec3(0, 2, Math.random())));
         }
       } else {
         if (this.cubes.length > 29) {
           this.cubes.splice(0, 1);
         }
-        this.cubes.push(new Cube('cube' + count.toString(), new Vec3(0, 20, -Math.random())));
+        this.cubes.push(new Cube('cube' + count.toString(), new Vec3(0, 20, Math.random())));
       }
       count++;
     }, 500);
