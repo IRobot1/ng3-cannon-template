@@ -1,7 +1,10 @@
+import { NgtCreatedState } from '@angular-three/core';
 import { AfterViewInit } from '@angular/core';
 import { Component } from '@angular/core';
 
 import { Vec3 } from 'cannon-es';
+
+import { VRButton } from 'three/examples/jsm/webxr/VRButton.js';
 
 class Cube {
   constructor(public name: string, public position: Vec3) { }
@@ -14,6 +17,13 @@ class Cube {
 export class AppComponent implements AfterViewInit {
   cubes: Array<Cube> = [];
   message = 'volume not triggered';
+  vr = false;
+
+  created(event: NgtCreatedState) {
+    if (this.vr) {
+      document.body.appendChild(VRButton.createButton(event.renderer));
+    }
+  }
 
   ngAfterViewInit(): void {
     let count = 0;

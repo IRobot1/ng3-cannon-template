@@ -5,11 +5,11 @@ import { NgtColorPipeModule, NgtCoreModule, NgtRadianPipeModule, NgtVectorPipeMo
 import { NgtMeshModule } from '@angular-three/core/meshes';
 import { NgtGroupModule } from '@angular-three/core/group';
 import { NgtMeshLambertMaterialModule, NgtMeshStandardMaterialModule } from '@angular-three/core/materials';
-import { NgtBoxGeometryModule, NgtPlaneGeometryModule } from '@angular-three/core/geometries';
+import { NgtBoxGeometryModule, NgtPlaneGeometryModule, NgtSphereGeometryModule } from '@angular-three/core/geometries';
 import { NgtAmbientLightModule, NgtDirectionalLightModule } from '@angular-three/core/lights';
 
 import { NgtPhysicsModule } from '@angular-three/cannon';
-import { NgtPhysicBoxModule, NgtPhysicPlaneModule } from '@angular-three/cannon/bodies';
+import { NgtPhysicBoxModule, NgtPhysicPlaneModule, NgtPhysicSphereModule } from '@angular-three/cannon/bodies';
 
 import { NgtSobaTextModule } from '@angular-three/soba/abstractions';
 import { NgtSobaOrbitControlsModule } from '@angular-three/soba/controls';
@@ -19,6 +19,7 @@ import { PlaneComponent } from './components/storybook-plane.component';
 import { CubeComponent } from './components/storybook-cube.component';
 import { NgtCannonDebugModule } from '@angular-three/cannon/debug';
 import { TriggerCubeComponent } from './components/trigger-cube.component';
+import { XRControllerComponent } from './xr-controller/xr-controller.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { TriggerCubeComponent } from './components/trigger-cube.component';
     PlaneComponent,
     CubeComponent,
     TriggerCubeComponent,
+    XRControllerComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,6 +42,7 @@ import { TriggerCubeComponent } from './components/trigger-cube.component';
 
     NgtBoxGeometryModule,
     NgtPlaneGeometryModule,
+    NgtSphereGeometryModule,
 
     NgtAmbientLightModule,
     NgtDirectionalLightModule,
@@ -50,6 +53,7 @@ import { TriggerCubeComponent } from './components/trigger-cube.component';
     NgtPhysicsModule,
     NgtPhysicBoxModule,
     NgtPhysicPlaneModule,
+    NgtPhysicSphereModule,
     NgtCannonDebugModule,
 
     NgtSobaOrbitControlsModule,
