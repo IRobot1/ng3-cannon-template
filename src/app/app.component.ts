@@ -17,21 +17,29 @@ class Cube {
 export class AppComponent implements AfterViewInit {
   cubes: Array<Cube> = [];
   message = 'volume not triggered';
-  vr = false;
+  vr = true;
+  scale = 1;
 
   created(event: NgtCreatedState) {
     if (this.vr) {
       document.body.appendChild(VRButton.createButton(event.renderer));
+      this.scale = 0.1;
     }
   }
 
   ngAfterViewInit(): void {
     let count = 0;
     setInterval(() => {
-      if (this.cubes.length > 29) {
-        this.cubes.splice(0, 1);
+      if (this.vr) {
+        if (this.cubes.length < 10) {
+          this.cubes.push(new Cube('cube' + count.toString(), new Vec3(0, 20, -Math.random())));
+        }
+      } else {
+        if (this.cubes.length > 29) {
+          this.cubes.splice(0, 1);
+        }
+        this.cubes.push(new Cube('cube' + count.toString(), new Vec3(0, 20, -Math.random())));
       }
-      this.cubes.push(new Cube('cube' + count.toString(), new Vec3(0, 20, Math.random())));
       count++;
     }, 500);
   }

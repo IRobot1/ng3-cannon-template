@@ -12,7 +12,7 @@ import { Component, Input } from "@angular/core";
             [castShadow]="true"
             [position]="position"
             [rotation]="rotation"
-        >
+            [scale]="scale">
             <ngt-box-geometry></ngt-box-geometry>
             <ngt-mesh-lambert-material
                 [parameters]="{ color: 'hotpink' }"
@@ -21,15 +21,17 @@ import { Component, Input } from "@angular/core";
     `
 })
 export class CubeComponent {
-  @Input() position?: NgtVector3;
+  @Input() position = [0, 0, 0] as NgtVector3;
+  @Input() scale = 0.5 as NgtVector3;
+  @Input() rotation = [0.4, 0.2, 0.5] as NgtEuler;
   @Input() name = 'cube';
 
-  rotation = [0.4, 0.2, 0.5] as NgtEuler;
 
   getCubeProps: GetByIndex<BoxProps> = () => ({
     mass: 1,
     position: this.position as NgtTriplet,
     rotation: this.rotation as NgtTriplet,
+    args: [this.scale, this.scale, this.scale] as NgtTriplet,
     //allowSleep: true,
     //sleepSpeedLimit: 0.1,
     //sleepTimeLimit: 0.1,
