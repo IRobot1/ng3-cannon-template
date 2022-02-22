@@ -1,7 +1,7 @@
-import { GetByIndex, SphereProps } from "@angular-three/cannon";
-import { NgtCanvasStore, NgtRender, NgtVector3 } from "@angular-three/core";
+import { GetByIndex, BoxProps } from "@angular-three/cannon";
+import { NgtCanvasStore, NgtRender, NgtTriplet, NgtVector3 } from "@angular-three/core";
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from "@angular/core";
-import { Group, } from "three";
+import { Euler, Group, } from "three";
 import { XRControllerModelFactory } from "three/examples/jsm/webxr/XRControllerModelFactory";
 
 @Component({
@@ -16,6 +16,8 @@ export class XRControllerComponent implements OnInit {
   controller?: Group;
 
   position = [0, 0, 0] as NgtVector3;
+  scale = [0.1, 0.01, 0.5] as NgtVector3;
+  rotation?: Euler;
 
   radius = 0.05;
 
@@ -42,21 +44,22 @@ export class XRControllerComponent implements OnInit {
     scene.add(controllerGrip);
   }
 
-  getSphereProps: GetByIndex<SphereProps> = (index) => (
+  getCubeProps: GetByIndex<BoxProps> = (index) => (
     {
       type: 'Static',
-      radius: this.radius,
+      mass: 100,
       onCollideBegin: (e) => {
         const message = 'collide begin ' + e.body.name;
         this.trigger.emit(message);
       },
-      args: [this.radius]
+      args: this.scale as NgtTriplet
     });
 
 
   animateGroup(event: NgtRender) {
     if (this.controller) {
       this.position = this.controller.position.toArray();
+      this.rotation = this.controller.rotation;
       this.cd.detectChanges();
     }
   }
