@@ -1,12 +1,13 @@
-import { GetByIndex,  SphereProps } from "@angular-three/cannon";
-import { NgtCanvasStore, NgtRender, NgtTriplet, NgtVector3} from "@angular-three/core";
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { AdditiveBlending, Group, Matrix4, Mesh, Object3D, Raycaster, Vector3, XRInputSource } from "three";
+import { GetByIndex, SphereProps } from "@angular-three/cannon";
+import { NgtCanvasStore, NgtRender, NgtVector3 } from "@angular-three/core";
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from "@angular/core";
+import { Group, } from "three";
 import { XRControllerModelFactory } from "three/examples/jsm/webxr/XRControllerModelFactory";
 
 @Component({
   selector: 'app-xr-controller',
   templateUrl: './xr-controller.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class XRControllerComponent implements OnInit {
   @Output() trigger = new EventEmitter<string>();
@@ -14,14 +15,13 @@ export class XRControllerComponent implements OnInit {
 
   controller?: Group;
 
-  position = [0,0,0] as NgtVector3;
+  position = [0, 0, 0] as NgtVector3;
 
   radius = 0.05;
 
-  bat?: Mesh;
-
   constructor(
     private canvasStore: NgtCanvasStore,
+    private cd: ChangeDetectorRef,
   ) { }
 
   ngOnInit(): void {
@@ -40,20 +40,6 @@ export class XRControllerComponent implements OnInit {
     const controllerGrip = renderer.xr.getControllerGrip(this.index);
     controllerGrip.add(controllerModelFactory.createControllerModel(controllerGrip));
     scene.add(controllerGrip);
-
-    this.controller.addEventListener('connected', (event) => {
-      const controller = <Group>event.target;
-      const source = <XRInputSource>event['data'];
-      controller.name = source.handedness;
-      if (this.bat) {
-        controller.add(this.bat);
-      }
-    });
-
-  }
-
-  ready(bat: Mesh) {
-    this.bat = bat;
   }
 
   getSphereProps: GetByIndex<SphereProps> = (index) => (
@@ -70,8 +56,8 @@ export class XRControllerComponent implements OnInit {
 
   animateGroup(event: NgtRender) {
     if (this.controller) {
-      const position = this.controller.position;
-      this.position = [position.x, position.y, position.z] as NgtVector3;
+      this.position = this.controller.position.toArray();
+      this.cd.detectChanges();
     }
   }
 }
