@@ -1,13 +1,12 @@
 import { GetByIndex, BoxProps } from "@angular-three/cannon";
-import { NgtCanvasStore, NgtRender, NgtTriplet, NgtVector3 } from "@angular-three/core";
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from "@angular/core";
-import { Euler, Group, } from "three";
+import { NgtCanvasStore, NgtTriplet, NgtVector3 } from "@angular-three/core";
+import { Component, EventEmitter, OnInit, Output } from "@angular/core";
+import { Euler, Group  } from "three";
 import { XRControllerModelFactory } from "three/examples/jsm/webxr/XRControllerModelFactory";
 
 @Component({
   selector: 'app-xr-controller',
   templateUrl: './xr-controller.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class XRControllerComponent implements OnInit {
   @Output() trigger = new EventEmitter<string>();
@@ -23,7 +22,6 @@ export class XRControllerComponent implements OnInit {
 
   constructor(
     private canvasStore: NgtCanvasStore,
-    private cd: ChangeDetectorRef,
   ) { }
 
   ngOnInit(): void {
@@ -42,25 +40,23 @@ export class XRControllerComponent implements OnInit {
     const controllerGrip = renderer.xr.getControllerGrip(this.index);
     controllerGrip.add(controllerModelFactory.createControllerModel(controllerGrip));
     scene.add(controllerGrip);
+
+    setInterval(() => {
+      if (this.controller) {
+        this.position = this.controller.position.toArray();
+        this.rotation = this.controller.rotation;
+      }
+    }, 1000/90)
+
   }
 
   getCubeProps: GetByIndex<BoxProps> = (index) => (
     {
       type: 'Static',
-      mass: 100,
       onCollideBegin: (e) => {
         const message = 'collide begin ' + e.body.name;
         this.trigger.emit(message);
       },
       args: this.scale as NgtTriplet
     });
-
-
-  animateGroup(event: NgtRender) {
-    if (this.controller) {
-      this.position = this.controller.position.toArray();
-      this.rotation = this.controller.rotation;
-      this.cd.detectChanges();
-    }
-  }
 }
