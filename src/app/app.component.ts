@@ -11,6 +11,8 @@ class Cube {
   constructor(public name: string, public position: Vec3) { }
 }
 
+type XRMode = 'bat' | 'inspect';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html'
@@ -18,7 +20,9 @@ class Cube {
 export class AppComponent implements AfterViewInit {
   cubes: Array<Cube> = [];
   message = 'volume not triggered';
-  vr = false;
+  vr = true;
+  xrmode: XRMode = 'inspect';
+
   scale = 0.5;
   step = 1 / 60;
   gravity = -9.8;

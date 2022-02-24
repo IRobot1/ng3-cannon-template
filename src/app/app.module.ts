@@ -20,7 +20,8 @@ import { PlaneComponent } from './components/storybook-plane.component';
 import { CubeComponent } from './components/storybook-cube.component';
 import { NgtCannonDebugModule } from '@angular-three/cannon/debug';
 import { TriggerCubeComponent } from './components/trigger-cube.component';
-import { XRControllerComponent } from './xr-controller/xr-controller.component';
+import { XRBatComponent } from './xr-bat/xr-bat.component';
+import { XRInspectComponent } from './xr-inspect/xr-inspect.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { XRControllerComponent } from './xr-controller/xr-controller.component';
     PlaneComponent,
     CubeComponent,
     TriggerCubeComponent,
-    XRControllerComponent,
+    XRBatComponent,
+    XRInspectComponent,
   ],
   imports: [
     BrowserModule,

@@ -14,14 +14,16 @@
     // https://github.com/IRobot1/angular-three-examples/wiki/Ngt-Physics
     // [allowSleep]="false"  [quatNormalizeSkip]="5" [quatNormalizeFast]="true"
     -->
-    <ngt-physics [gravity]="[0, gravity, 0] " [step]="step" [defaultContactMaterial]="concrete">
+    <ngt-physics [allowSleep]="false" [gravity]="[0, gravity, 0] " [step]="step" [defaultContactMaterial]="concrete">
       <ngt-cannon-debug [disabled]="true" [scale]="1.1" color="black">
 
         <storybook-plane [position]="[0, 0, 0]"></storybook-plane>
         <trigger-cube [position]="[-3,2.5,0]" (trigger)="message=$event"></trigger-cube>
         <storybook-cube *ngFor="let cube of cubes" [name]="cube.name" [position]="[0,cube.position.y,cube.position.z]" [scale]="scale"></storybook-cube>
 
-        <app-xr-controller *ngIf="vr"></app-xr-controller>
+        <app-xr-bat *ngIf="vr && xrmode=='bat'"></app-xr-bat>
+        <app-xr-inspect *ngIf="vr && xrmode=='inspect'"></app-xr-inspect>
+
         <ngt-mesh *ngIf="vr" ngtPhysicBox [name]="'table'" [receiveShadow]="true" [position]="[0,0.5,0.5]">
           <ngt-box-geometry></ngt-box-geometry>
           <ngt-mesh-standard-material [parameters]="{ color: 'gray' }"></ngt-mesh-standard-material>

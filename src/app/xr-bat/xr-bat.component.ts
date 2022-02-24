@@ -5,11 +5,10 @@ import { Euler, Group  } from "three";
 import { XRControllerModelFactory } from "three/examples/jsm/webxr/XRControllerModelFactory";
 
 @Component({
-  selector: 'app-xr-controller',
-  templateUrl: './xr-controller.component.html',
+  selector: 'app-xr-bat',
+  templateUrl: './xr-bat.component.html',
 })
-export class XRControllerComponent implements OnInit {
-  @Output() trigger = new EventEmitter<string>();
+export class XRBatComponent implements OnInit {
   index = 0;
 
   controller?: Group;
@@ -53,10 +52,6 @@ export class XRControllerComponent implements OnInit {
   getCubeProps: GetByIndex<BoxProps> = (index) => (
     {
       type: 'Static',
-      onCollideBegin: (e) => {
-        const message = 'collide begin ' + e.body.name;
-        this.trigger.emit(message);
-      },
       args: this.scale as NgtTriplet
     });
 }
