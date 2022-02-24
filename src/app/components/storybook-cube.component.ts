@@ -1,7 +1,8 @@
 import { BoxProps, GetByIndex } from "@angular-three/cannon";
+import { NgtPhysicBox } from "@angular-three/cannon/bodies";
 import { NgtEuler, NgtTriplet, NgtVector3 } from "@angular-three/core";
-import { Component, Input } from "@angular/core";
-import { Group, Mesh } from "three";
+import { Component, Input, ViewChild } from "@angular/core";
+import { Group, Mesh, Vector3 } from "three";
 import { Inspect } from "../inspect";
 
 @Component({
@@ -28,6 +29,8 @@ export class CubeComponent implements Inspect {
   @Input() rotation = [0.4, 0.2, 0.5] as NgtEuler;
   @Input() name = 'cube';
 
+  @ViewChild(NgtPhysicBox) physics!: NgtPhysicBox;
+
   private mesh?: Mesh;
 
   getCubeProps: GetByIndex<BoxProps> = () => ({
@@ -46,19 +49,15 @@ export class CubeComponent implements Inspect {
     this.mesh = mesh;
     this.mesh.userData['inspect'] = <Inspect>this;
   }
+
   Pickup(controller: Group): void {
-    //this.simulatephysics = false;
-    if (this.mesh)
-      controller.attach(this.mesh);
+    console.warn('cube pickup');
+    this.physics.api.mass.set(0);
+
   }
 
   Drop(controller: Group): void {
-    //this.simulatephysics = true;
-    if (this.mesh) {
-      controller.remove(this.mesh);
-
-      // reposition to world space
-      //this.mesh.position.copy(this.mesh.localToWorld(this.mesh.position));
-    }
+    console.warn('cube drop');
+    this.physics.api.mass.set(1);
   }
 }

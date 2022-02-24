@@ -49,10 +49,10 @@ export class AppComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     let count = 0;
     setInterval(() => {
-      if (this.cubes.length > 100) {
-        this.cubes.splice(0, 1);
-      }
+      if (this.cubes.length < 15) {
+        //this.cubes.splice(0, 1);
       this.cubes.push(new Cube('cube' + count.toString(), new Vec3(0, this.startheight, Math.random())));
+      }
       count++;
     }, 500);
   }

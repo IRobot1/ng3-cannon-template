@@ -11,7 +11,7 @@ import { Inspect } from "../inspect";
   selector: 'app-xr-inspect',
   //templateUrl: './xr-inspect.component.html',
   template: `
-      <ngt-mesh ngtPhysicBox [getPhysicProps]="getInspectorProps" [name]="'inspector'"
+      <ngt-mesh ngtPhysicBox [getPhysicProps]="getInspectorProps" [name]="'inspector'" (animateReady)="animate()"
                 [scale]="scale" [rotation]="rotation" [position]="position">
         <ngt-box-geometry></ngt-box-geometry>
         <ngt-mesh-standard-material [parameters]="{ wireframe: true, color: 'darkgray' }"></ngt-mesh-standard-material>
@@ -19,11 +19,11 @@ import { Inspect } from "../inspect";
 `
 })
 export class XRInspectComponent implements OnInit {
-  @ViewChild(NgtPhysicBox) box?: NgtPhysicBox;
+  @ViewChild(NgtPhysicBox) physics!: NgtPhysicBox;
 
   index = 0;
 
-  controller?: Group;
+  controller!: Group;
 
   position = [0, 0, 0] as NgtVector3;
   scale = [.1, .1, .1] as NgtVector3;
@@ -66,36 +66,26 @@ export class XRInspectComponent implements OnInit {
       this.drop();
     });
 
-    setInterval(() => {
-      if (this.controller) {
-        const p = this.controller.position;
-        this.position = p.toArray();
-        this.rotation = this.controller.rotation;
-        if (this.box) {
-          this.box.api.velocity.set(1, 0, 0);
-          //console.warn(p)
-        }
-      }
-    }, 1000 / 10);
   }
 
   private pickup() {
-    if (this.overlapping && this.controller && !this.inspecting) {
-      const inspect = <Inspect>this.overlapping.userData['inspect'];
-      console.warn('pickup', inspect)
+    if (this.overlapping && !this.inspecting) {
+        const inspect = <Inspect>this.overlapping.userData['inspect'];
+        console.clear();
+        console.warn('pickup', inspect)
 
-      if (inspect) {
-        this.overlapping.position.copy(new Vector3());
-        inspect.Pickup(this.controller);
-        this.inspecting = inspect;
-      }
+        if (inspect) {
+          inspect.physics.api.mass.set(0);
+          inspect.Pickup(this.controller);
+          this.inspecting = inspect;
+        }
     }
 
   }
 
   private drop() {
-    console.warn('drop', this.inspecting)
-    if (this.inspecting && this.controller) {
+    if (this.inspecting) {
+      console.warn('drop', this.inspecting)
       this.inspecting.Drop(this.controller);
       this.inspecting = undefined;
     }
@@ -115,9 +105,24 @@ export class XRInspectComponent implements OnInit {
         }
       },
       onCollideEnd: (e) => {
-        console.warn('end overlapping', e.body.name)
-        this.overlapping = undefined;
+        if (e.body == this.overlapping) {
+          console.warn('end overlapping', e.body.name)
+          this.overlapping = undefined;
+        }
       },
       args: this.scale as NgtTriplet
     });
+
+  animate() {
+    const p = this.controller.position;
+    this.physics.api.position.set(p.x, p.y, p.z);
+
+    const r = this.controller.rotation;
+    this.physics.api.rotation.set(r.x, r.y, r.z);
+
+    if (this.inspecting) {
+      this.inspecting.physics.api.position.set(p.x, p.y, p.z);
+      this.inspecting.physics.api.rotation.set(r.x, r.y, r.z);
+    }
+  }
 }

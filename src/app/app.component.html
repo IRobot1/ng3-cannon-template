@@ -15,7 +15,7 @@
     // [allowSleep]="false"  [quatNormalizeSkip]="5" [quatNormalizeFast]="true"
     -->
     <ngt-physics [allowSleep]="false" [gravity]="[0, gravity, 0] " [step]="step" [defaultContactMaterial]="concrete">
-      <ngt-cannon-debug [disabled]="true" [scale]="1.1" color="black">
+      <ngt-cannon-debug [disabled]="false" [scale]="1.1" color="black">
 
         <storybook-plane [position]="[0, 0, 0]"></storybook-plane>
         <trigger-cube [position]="[-3,2.5,0]" (trigger)="message=$event"></trigger-cube>
