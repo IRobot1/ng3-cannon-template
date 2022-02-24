@@ -1,4 +1,4 @@
-<ngt-mesh ngtPhysicBox [getPhysicProps]="getCubeProps"
+<ngt-mesh ngtPhysicBox [getPhysicProps]="getCubeProps" (animateReady)="animate()"
           [scale]="scale" [rotation]="rotation" [position]="position">
   <ngt-box-geometry></ngt-box-geometry>
   <ngt-mesh-standard-material [parameters]="{ color: 'darkgray' }"></ngt-mesh-standard-material>

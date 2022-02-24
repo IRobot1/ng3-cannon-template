@@ -1,7 +1,8 @@
 import { GetByIndex, BoxProps } from "@angular-three/cannon";
+import { NgtPhysicBox } from "@angular-three/cannon/bodies";
 import { NgtCanvasStore, NgtTriplet, NgtVector3 } from "@angular-three/core";
-import { Component, EventEmitter, OnInit, Output } from "@angular/core";
-import { Euler, Group  } from "three";
+import { Component, EventEmitter, OnInit, Output, ViewChild } from "@angular/core";
+import { Euler, Group } from "three";
 import { XRControllerModelFactory } from "three/examples/jsm/webxr/XRControllerModelFactory";
 
 @Component({
@@ -9,9 +10,11 @@ import { XRControllerModelFactory } from "three/examples/jsm/webxr/XRControllerM
   templateUrl: './xr-bat.component.html',
 })
 export class XRBatComponent implements OnInit {
+  @ViewChild(NgtPhysicBox) physics!: NgtPhysicBox;
+
   index = 0;
 
-  controller?: Group;
+  controller!: Group;
 
   position = [0, 0, 0] as NgtVector3;
   scale = [0.1, 0.1, 0.5] as NgtVector3;
@@ -40,13 +43,6 @@ export class XRBatComponent implements OnInit {
     controllerGrip.add(controllerModelFactory.createControllerModel(controllerGrip));
     scene.add(controllerGrip);
 
-    setInterval(() => {
-      if (this.controller) {
-        this.position = this.controller.position.toArray();
-        this.rotation = this.controller.rotation;
-      }
-    }, 1000/90)
-
   }
 
   getCubeProps: GetByIndex<BoxProps> = (index) => (
@@ -54,4 +50,12 @@ export class XRBatComponent implements OnInit {
       type: 'Static',
       args: this.scale as NgtTriplet
     });
+
+  animate() {
+    const p = this.controller.position;
+    this.physics.api.position.set(p.x, p.y, p.z);
+
+    const r = this.controller.rotation;
+    this.physics.api.rotation.set(r.x, r.y, r.z);
+  }
 }
