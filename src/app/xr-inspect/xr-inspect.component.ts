@@ -23,7 +23,7 @@ export class XRInspectComponent implements OnInit {
 
   index = 0;
 
-  controller!: Group;
+  private controller!: Group;
 
   position = [0, 0, 0] as NgtVector3;
   scale = [.1, .1, .1] as NgtVector3;
@@ -68,31 +68,48 @@ export class XRInspectComponent implements OnInit {
 
   }
 
+  private overlapping?: Object3D;
+  private inspecting?: Inspect;
+  private velocity!: NgtTriplet;
+  private angularvelocity!: NgtTriplet;
+  private velocity_subscription?: () => void;
+  private angularvelocity_subscription?: () => void;
+
   private pickup() {
     if (this.overlapping && !this.inspecting) {
-        const inspect = <Inspect>this.overlapping.userData['inspect'];
-        console.clear();
-        console.warn('pickup', inspect)
+      const inspect = <Inspect>this.overlapping.userData['inspect'];
+      console.clear();
+      console.warn('pickup', inspect)
 
-        if (inspect) {
-          inspect.physics.api.mass.set(0);
-          inspect.Pickup(this.controller);
-          this.inspecting = inspect;
-        }
+      if (inspect) {
+        inspect.Pickup();
+        this.inspecting = inspect;
+        this.velocity_subscription = this.inspecting.physics.api.velocity.subscribe(next => {
+          this.velocity = next;
+        });
+        this.angularvelocity_subscription = this.inspecting.physics.api.angularVelocity.subscribe(next => {
+          this.angularvelocity = next;
+        });
+      }
     }
 
   }
 
   private drop() {
     if (this.inspecting) {
+      this.inspecting.Drop();
       console.warn('drop', this.inspecting)
-      this.inspecting.Drop(this.controller);
+
+      this.inspecting.physics.api.velocity.set(this.velocity[0], this.velocity[1], this.velocity[2]);
+      this.inspecting.physics.api.angularVelocity.set(this.angularvelocity[0], this.angularvelocity[1], this.angularvelocity[2]);
+
+      this.velocity_subscription?.();
+      this.angularvelocity_subscription?.();
       this.inspecting = undefined;
     }
   }
 
-  private overlapping?: Object3D;
-  private inspecting?: Inspect;
+
 
   getInspectorProps: GetByIndex<BoxProps> = (index) => (
     {

@@ -2,7 +2,7 @@ import { BoxProps, GetByIndex } from "@angular-three/cannon";
 import { NgtPhysicBox } from "@angular-three/cannon/bodies";
 import { NgtEuler, NgtTriplet, NgtVector3 } from "@angular-three/core";
 import { Component, Input, ViewChild } from "@angular/core";
-import { Group, Mesh, Vector3 } from "three";
+import { Mesh } from "three";
 import { Inspect } from "../inspect";
 
 @Component({
@@ -50,13 +50,13 @@ export class CubeComponent implements Inspect {
     this.mesh.userData['inspect'] = <Inspect>this;
   }
 
-  Pickup(controller: Group): void {
+  Pickup(): void {
     console.warn('cube pickup');
     this.physics.api.mass.set(0);
 
   }
 
-  Drop(controller: Group): void {
+  Drop(): void {
     console.warn('cube drop');
     this.physics.api.mass.set(1);
   }
