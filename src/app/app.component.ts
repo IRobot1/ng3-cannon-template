@@ -28,6 +28,7 @@ export class AppComponent implements AfterViewInit {
   gravity = -9.8;
 
   private startheight = 10;
+  private recycle = true;
 
   concrete: DefaultContactMaterial = {
     restitution: 0, // bouncyness
@@ -43,17 +44,29 @@ export class AppComponent implements AfterViewInit {
       this.step = 1 / 120;
       this.gravity = -2;
       this.startheight = 2;
+      this.recycle = false;
     }
   }
 
   ngAfterViewInit(): void {
     let count = 0;
     setInterval(() => {
-      if (this.cubes.length < 15) {
-        //this.cubes.splice(0, 1);
-      this.cubes.push(new Cube('cube' + count.toString(), new Vec3(0, this.startheight, Math.random())));
+      if (this.cubes.length < 29) {
+        this.cubes.push(new Cube('cube' + count.toString(), new Vec3(0, this.startheight, Math.random())));
       }
-      count++;
+      else if (this.recycle) {
+        const position = this.cubes[count].position;
+        position.x = 0;
+        position.y = this.startheight;
+        position.z = Math.random();
+        if (count < this.cubes.length-1) {
+          count++;
+        }
+        else {
+          count = 0;
+        }
+      }
+
     }, 500);
   }
 }
