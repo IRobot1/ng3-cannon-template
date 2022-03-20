@@ -12,12 +12,11 @@
         <ngt-mesh-standard-material [parameters]="{ color: '#777777' | color }"></ngt-mesh-standard-material>
       </ngt-mesh>
 
-      <ngt-mesh *ngFor="let position of cubes"
-                ngtPhysicBox [getPhysicProps]="getCubeProps"
-                [position]="position" [castShadow]="true">
+      <ngt-instanced-mesh ngtPhysicBox [getPhysicProps]="getCubeProps" [args]="[count]"
+                [castShadow]="true">
         <ngt-box-geometry></ngt-box-geometry>
         <ngt-mesh-standard-material [parameters]="{ color: '#888888' | color }"></ngt-mesh-standard-material>
-      </ngt-mesh>
+      </ngt-instanced-mesh>
 
     </ngt-physics>
 
