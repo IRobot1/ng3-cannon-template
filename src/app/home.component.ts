@@ -13,7 +13,6 @@ export class HomeComponent  {
     'threejs_voxel_fps',
     'threejs',
     'worker',
-    'worker_sharedarraybuffer',
     'body_types',
     'bounce',
     'bunny',
