@@ -1,0 +1,27 @@
+<div style="height:100vh">
+  <ngt-canvas [camera]="{ position: [20, 10, 20], fov: 30, near:0.5, far:10000 }"
+              [shadows]="true" [scene]="{ background: 'black' | color }">
+    <ngt-directional-light [args]="['white' | color, 1.75]"
+                           [position]="[20, 20, 20]" [castShadow]="true">
+    </ngt-directional-light>
+
+    <ngt-physics>
+
+      <ngt-mesh ngtPhysicPlane [receiveShadow]="true" [rotation]="[-90 | radian, 0, 0]">
+        <ngt-plane-geometry [args]="[100, 100]"></ngt-plane-geometry>
+        <ngt-mesh-standard-material [parameters]="{ color: '#777777' | color }"></ngt-mesh-standard-material>
+      </ngt-mesh>
+
+      <ngt-mesh *ngFor="let position of cubes"
+                ngtPhysicBox [getPhysicProps]="getCubeProps"
+                [position]="position" [castShadow]="true">
+        <ngt-box-geometry></ngt-box-geometry>
+        <ngt-mesh-standard-material [parameters]="{ color: '#888888' | color }"></ngt-mesh-standard-material>
+      </ngt-mesh>
+
+    </ngt-physics>
+
+    <ngt-soba-orbit-controls></ngt-soba-orbit-controls>
+    <ngt-stats></ngt-stats>
+  </ngt-canvas>
+</div>

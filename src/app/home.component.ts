@@ -1,0 +1,53 @@
+import { Component } from "@angular/core";
+
+@Component({
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css']
+})
+export class HomeComponent  {
+  examples = [
+    'threejs_cloth',
+    'threejs_fps',
+    'threejs_mousepick',
+    'threejs_voxel_fps',
+    'threejs',
+    'worker',
+    'worker_sharedarraybuffer',
+    'body_types',
+    'bounce',
+    'bunny',
+    'callbacks',
+    'canvas_interpolation',
+    'collision_filter',
+    'collisions',
+    'compound',
+    'constraints',
+    'container',
+    'convex',
+    'events',
+    'fixed_rotation',
+    'friction',
+    'heightfield',
+    'hinge',
+    'impulses',
+    'jenga',
+    'pile',
+    'performance',
+    'ragdoll',
+    'raycast_vehicle',
+    'rigid_vehicle',
+    'shapes',
+    'simple_friction',
+    'single_body_on_plane',
+    'sleep',
+    'sph',
+    'split_solver',
+    'spring',
+    'stacks',
+    'tear',
+    'trigger',
+    'trimesh',
+    'tween',
+  ]
+}

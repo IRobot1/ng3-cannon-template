@@ -22,10 +22,23 @@ import { NgtCannonDebugModule } from '@angular-three/cannon/debug';
 import { TriggerCubeComponent } from './components/trigger-cube.component';
 import { XRBatComponent } from './xr-bat/xr-bat.component';
 import { XRInspectComponent } from './xr-inspect/xr-inspect.component';
+import { AppRoutingModule } from './app-routing.module';
+import { VRComponent } from './examples/vr/vr.component';
+import { HomeComponent } from './home.component';
+import { TodoComponent } from './todo.component';
+import { ThreeJSComponent } from './examples/threejs/threejs.component';
+import { WorkerComponent } from './examples/worker/worker.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    HomeComponent,
+    TodoComponent,
+    ThreeJSComponent,
+    WorkerComponent,
+
+    VRComponent,
+
     PlaneComponent,
     CubeComponent,
     TriggerCubeComponent,
@@ -34,6 +47,7 @@ import { XRInspectComponent } from './xr-inspect/xr-inspect.component';
   ],
   imports: [
     BrowserModule,
+    AppRoutingModule,
 
     NgtStatsModule,
 
