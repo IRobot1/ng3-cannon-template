@@ -28,6 +28,7 @@ import { HomeComponent } from './home.component';
 import { TodoComponent } from './todo.component';
 import { ThreeJSComponent } from './examples/threejs/threejs.component';
 import { WorkerComponent } from './examples/worker/worker.component';
+import { BounceComponent } from './examples/bounce/bounce.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { WorkerComponent } from './examples/worker/worker.component';
     TodoComponent,
     ThreeJSComponent,
     WorkerComponent,
+    BounceComponent,
 
     VRComponent,
 

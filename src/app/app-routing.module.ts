@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { BounceComponent } from './examples/bounce/bounce.component';
 import { ThreeJSComponent } from './examples/threejs/threejs.component';
 import { VRComponent } from './examples/vr/vr.component';
 import { WorkerComponent } from './examples/worker/worker.component';
@@ -17,7 +18,7 @@ const routes: Routes = [
   { path: 'worker', component: WorkerComponent },
   { path: 'worker_sharedarraybuffer', component: TodoComponent },
   { path: 'body_types', component: TodoComponent },
-  { path: 'bounce', component: TodoComponent },
+  { path: 'bounce', component: BounceComponent },
   { path: 'bunny', component: TodoComponent },
   { path: 'callbacks', component: TodoComponent },
   { path: 'canvas_interpolation', component: TodoComponent },
