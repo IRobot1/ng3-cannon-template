@@ -24,14 +24,16 @@ export class TriggerCubeComponent {
 
   @Output() trigger = new EventEmitter<string>();
 
-  getCubeProps: GetByIndex<BoxProps> = () => ({
-    isTrigger: true,
-    scale: this.scale,
-    onCollideBegin: (e) => {
-      this.trigger.emit('volume triggered by ' + e.body.name);
-    },
-    args: this.scale as NgtTriplet  // this is required for box geometry
-  });
+  getCubeProps(): BoxProps {
+    return {
+      isTrigger: true,
+      scale: this.scale,
+      onCollideBegin: (e) => {
+        this.trigger.emit('volume triggered by ' + e.body.name);
+      },
+      args: this.scale as NgtTriplet  // this is required for box geometry
+    } as BoxProps;
+  }
 
 
 }

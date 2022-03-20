@@ -33,17 +33,19 @@ export class CubeComponent implements Inspect {
 
   private mesh?: Mesh;
 
-  getCubeProps: GetByIndex<BoxProps> = () => ({
-    mass: 1,
-    position: this.position as NgtTriplet,
-    rotation: this.rotation as NgtTriplet,
-    args: [this.scale, this.scale, this.scale] as NgtTriplet,
-    allowSleep: false,
-    //sleepSpeedLimit: 0.1,
-    //sleepTimeLimit: 0.1,
-    //onCollideBegin: (e) => { console.warn('begin', e.body.name); },
-    //onCollideEnd: (e) => { console.warn('end', e.body.name); },
-  });
+  getCubeProps(): BoxProps {
+    return {
+      mass: 1,
+      position: this.position as NgtTriplet,
+      rotation: this.rotation as NgtTriplet,
+      args: [this.scale, this.scale, this.scale] as NgtTriplet,
+      allowSleep: false,
+      //sleepSpeedLimit: 0.1,
+      //sleepTimeLimit: 0.1,
+      //onCollideBegin: (e) => { console.warn('begin', e.body.name); },
+      //onCollideEnd: (e) => { console.warn('end', e.body.name); },
+    } as BoxProps;
+  }
 
   ready(mesh: Mesh) {
     this.mesh = mesh;

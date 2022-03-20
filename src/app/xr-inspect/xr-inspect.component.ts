@@ -111,8 +111,8 @@ export class XRInspectComponent implements OnInit {
 
 
 
-  getInspectorProps: GetByIndex<BoxProps> = (index) => (
-    {
+  getInspectorProps(): BoxProps {
+    return {
       isTrigger: true,
 
       onCollideBegin: (e) => {
@@ -128,7 +128,8 @@ export class XRInspectComponent implements OnInit {
         }
       },
       args: this.scale as NgtTriplet
-    });
+    } as BoxProps;
+  }
 
   animate() {
     const p = this.controller.position;

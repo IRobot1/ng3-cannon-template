@@ -45,11 +45,12 @@ export class XRBatComponent implements OnInit {
 
   }
 
-  getCubeProps: GetByIndex<BoxProps> = (index) => (
-    {
+  getCubeProps(): BoxProps {
+    return {
       type: 'Static',
       args: this.scale as NgtTriplet
-    });
+    } as BoxProps;
+  }
 
   animate() {
     const p = this.controller.position;

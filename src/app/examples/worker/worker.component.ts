@@ -18,9 +18,9 @@ export class WorkerComponent {
     }
   }
 
-  getCubeProps: GetByIndex<BoxProps> = () => ({
-    mass: 1,
-  });
-
-
+  getCubeProps(): BoxProps {
+    return {
+      mass: 1,
+    } as BoxProps;
+  }
 }
