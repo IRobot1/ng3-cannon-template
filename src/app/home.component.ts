@@ -17,7 +17,6 @@ export class HomeComponent  {
     'bounce',
     'bunny',
     'callbacks',
-    'canvas_interpolation',
     'collision_filter',
     'collisions',
     'compound',

@@ -11,7 +11,7 @@ import { NgtAmbientLightModule, NgtDirectionalLightModule } from '@angular-three
 import { NgtBoxHelperModule } from '@angular-three/core/helpers';
 
 import { NgtPhysicsModule } from '@angular-three/cannon';
-import { NgtPhysicBoxModule, NgtPhysicCylinderModule, NgtPhysicPlaneModule, NgtPhysicSphereModule } from '@angular-three/cannon/bodies';
+import { NgtPhysicBoxModule, NgtPhysicCompoundModule, NgtPhysicCylinderModule, NgtPhysicPlaneModule, NgtPhysicSphereModule } from '@angular-three/cannon/bodies';
 
 import { NgtSobaTextModule } from '@angular-three/soba/abstractions';
 import { NgtSobaOrbitControlsModule } from '@angular-three/soba/controls';
@@ -32,6 +32,7 @@ import { WorkerComponent } from './examples/worker/worker.component';
 import { BounceComponent } from './examples/bounce/bounce.component';
 import { CollisionFilterComponent } from './examples/collision-filter/collision-filter.component';
 import { CollisionsComponent } from './examples/collisions/collisions.component';
+import { CompoundComponent } from './examples/compound/compound.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { CollisionsComponent } from './examples/collisions/collisions.component'
     BounceComponent,
     CollisionFilterComponent,
     CollisionsComponent,
+    CompoundComponent,
 
     VRComponent,
 
@@ -86,6 +88,7 @@ import { CollisionsComponent } from './examples/collisions/collisions.component'
     NgtPhysicPlaneModule,
     NgtPhysicSphereModule,
     NgtPhysicCylinderModule,
+    NgtPhysicCompoundModule,
     NgtCannonDebugModule,
 
     NgtSobaOrbitControlsModule,
