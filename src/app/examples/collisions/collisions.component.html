@@ -1,0 +1,54 @@
+<div style="height:100vh">
+  <ngt-canvas [camera]="{ position: [10, 2, 0], fov: 45, near:1, far:100 }"
+              [scene]="{ background: 'black' | color }">
+    <ngt-directional-light [args]="['white' | color, 1.75]"
+                           [position]="[20, 20, 20]" [castShadow]="true">
+    </ngt-directional-light>
+
+
+    <ngt-physics [gravity]="[0, 0, 0]">
+
+      <ngt-cannon-debug [disabled]="true" [scale]="1.1" color="red">
+
+        <!-- sphere and sphere -->
+        <ngt-mesh ngtPhysicSphere [getPhysicProps]="getSphere1Props" [castShadow]="true">
+          <ngt-sphere-geometry [args]="[0.5]"></ngt-sphere-geometry>
+          <ngt-mesh-standard-material [parameters]="{ color: 'red' | color }"></ngt-mesh-standard-material>
+        </ngt-mesh>
+
+        <ngt-mesh ngtPhysicSphere [getPhysicProps]="getSphere2Props" [castShadow]="true">
+          <ngt-sphere-geometry [args]="[0.5]"></ngt-sphere-geometry>
+          <ngt-mesh-standard-material [parameters]="{ color: 'red' | color }"></ngt-mesh-standard-material>
+        </ngt-mesh>
+
+        <!-- sphere and box-->
+        <ngt-mesh ngtPhysicBox [getPhysicProps]="getBoxProps" [castShadow]="true">
+          <ngt-box-geometry></ngt-box-geometry>
+          <ngt-mesh-standard-material [parameters]="{ color: 'white' | color }"></ngt-mesh-standard-material>
+        </ngt-mesh>
+
+        <ngt-mesh ngtPhysicSphere [getPhysicProps]="getSphere3Props" [castShadow]="true">
+          <ngt-sphere-geometry [args]="[0.5]"></ngt-sphere-geometry>
+          <ngt-mesh-standard-material [parameters]="{ color: 'red' | color }"></ngt-mesh-standard-material>
+        </ngt-mesh>
+
+        <!-- sphere and cylinder -->
+        <ngt-mesh ngtPhysicCylinder [getPhysicProps]="getCylinderProps" [castShadow]="true">
+          <ngt-cylinder-geometry [args]="[0.5, 0.5, 1, 20]"></ngt-cylinder-geometry>
+          <ngt-mesh-standard-material [parameters]="{ color: 'blue' | color }"></ngt-mesh-standard-material>
+        </ngt-mesh>
+
+        <ngt-mesh ngtPhysicSphere [getPhysicProps]="getSphere4Props" [castShadow]="true">
+          <ngt-sphere-geometry [args]="[0.5]"></ngt-sphere-geometry>
+          <ngt-mesh-standard-material [parameters]="{ color: 'red' | color }"></ngt-mesh-standard-material>
+        </ngt-mesh>
+
+
+      </ngt-cannon-debug>
+
+    </ngt-physics>
+
+    <ngt-soba-orbit-controls></ngt-soba-orbit-controls>
+    <ngt-stats></ngt-stats>
+  </ngt-canvas>
+</div>

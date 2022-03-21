@@ -31,6 +31,7 @@ import { ThreeJSComponent } from './examples/threejs/threejs.component';
 import { WorkerComponent } from './examples/worker/worker.component';
 import { BounceComponent } from './examples/bounce/bounce.component';
 import { CollisionFilterComponent } from './examples/collision-filter/collision-filter.component';
+import { CollisionsComponent } from './examples/collisions/collisions.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { CollisionFilterComponent } from './examples/collision-filter/collision-
     WorkerComponent,
     BounceComponent,
     CollisionFilterComponent,
+    CollisionsComponent,
 
     VRComponent,
 
