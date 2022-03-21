@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BounceComponent } from './examples/bounce/bounce.component';
+import { CollisionFilterComponent } from './examples/collision-filter/collision-filter.component';
 import { ThreeJSComponent } from './examples/threejs/threejs.component';
 import { VRComponent } from './examples/vr/vr.component';
 import { WorkerComponent } from './examples/worker/worker.component';
@@ -22,7 +23,7 @@ const routes: Routes = [
   { path: 'bunny', component: TodoComponent },
   { path: 'callbacks', component: TodoComponent },
   { path: 'canvas_interpolation', component: TodoComponent },
-  { path: 'collision_filter', component: TodoComponent },
+  { path: 'collision_filter', component: CollisionFilterComponent },
   { path: 'collisions', component: TodoComponent },
   { path: 'compound', component: TodoComponent },
   { path: 'constraints', component: TodoComponent },
