@@ -7,8 +7,8 @@ import { NgtInstancedMeshModule, NgtMeshModule } from '@angular-three/core/meshe
 import { NgtGroupModule } from '@angular-three/core/group';
 import { NgtMeshLambertMaterialModule, NgtMeshStandardMaterialModule } from '@angular-three/core/materials';
 import { NgtBoxGeometryModule, NgtCylinderGeometryModule, NgtPlaneGeometryModule, NgtSphereGeometryModule } from '@angular-three/core/geometries';
-import { NgtAmbientLightModule, NgtDirectionalLightModule } from '@angular-three/core/lights';
-import { NgtBoxHelperModule } from '@angular-three/core/helpers';
+import { NgtAmbientLightModule, NgtDirectionalLightModule, NgtSpotLightModule } from '@angular-three/core/lights';
+import { NgtArrowHelperModule, NgtBoxHelperModule } from '@angular-three/core/helpers';
 
 import { NgtPhysicsModule } from '@angular-three/cannon';
 import { NgtPhysicBoxModule, NgtPhysicCompoundModule, NgtPhysicCylinderModule, NgtPhysicPlaneModule, NgtPhysicSphereModule } from '@angular-three/cannon/bodies';
@@ -33,6 +33,7 @@ import { BounceComponent } from './examples/bounce/bounce.component';
 import { CollisionFilterComponent } from './examples/collision-filter/collision-filter.component';
 import { CollisionsComponent } from './examples/collisions/collisions.component';
 import { CompoundComponent } from './examples/compound/compound.component';
+import { ContainerComponent } from './examples/container/container.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { CompoundComponent } from './examples/compound/compound.component';
     CollisionFilterComponent,
     CollisionsComponent,
     CompoundComponent,
+    ContainerComponent,
 
     VRComponent,
 
@@ -60,6 +62,7 @@ import { CompoundComponent } from './examples/compound/compound.component';
 
     NgtStatsModule,
     NgtBoxHelperModule,
+    NgtArrowHelperModule,
 
     NgtCoreModule,
     NgtMeshModule,
@@ -74,11 +77,11 @@ import { CompoundComponent } from './examples/compound/compound.component';
     NgtPlaneGeometryModule,
     NgtSphereGeometryModule,
     NgtCylinderGeometryModule,
-
     
 
     NgtAmbientLightModule,
     NgtDirectionalLightModule,
+    NgtSpotLightModule,
 
     NgtMeshLambertMaterialModule,
     NgtMeshStandardMaterialModule,

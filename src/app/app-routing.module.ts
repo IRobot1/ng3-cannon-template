@@ -4,6 +4,7 @@ import { BounceComponent } from './examples/bounce/bounce.component';
 import { CollisionFilterComponent } from './examples/collision-filter/collision-filter.component';
 import { CollisionsComponent } from './examples/collisions/collisions.component';
 import { CompoundComponent } from './examples/compound/compound.component';
+import { ContainerComponent } from './examples/container/container.component';
 import { ThreeJSComponent } from './examples/threejs/threejs.component';
 import { VRComponent } from './examples/vr/vr.component';
 import { WorkerComponent } from './examples/worker/worker.component';
@@ -28,7 +29,7 @@ const routes: Routes = [
   { path: 'collisions', component: CollisionsComponent },
   { path: 'compound', component: CompoundComponent },
   { path: 'constraints', component: TodoComponent },
-  { path: 'container', component: TodoComponent },
+  { path: 'container', component: ContainerComponent },
   { path: 'convex', component: TodoComponent },
   { path: 'events', component: TodoComponent },
   { path: 'fixed_rotation', component: TodoComponent },

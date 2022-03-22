@@ -1,0 +1,60 @@
+<div style="height:100vh">
+  <ngt-canvas [camera]="{ position: [15, 40, 0], fov: 45, near:1, far:250 }"
+              [shadows]="true"
+              [scene]="{ background: 'gray' | color }">
+    <ngt-spot-light [args]="['white' | color]" [castShadow]="true"
+                    [position]="[50, 50, 0]" [rotation]="[90 | radian, -45 | radian, 0]">
+      <ngt-arrow-helper [scale]="2"></ngt-arrow-helper>
+    </ngt-spot-light>
+
+    <ngt-plane-geometry #plane="ngtPlaneGeometry" [args]="[wallsize, wallsize]"></ngt-plane-geometry>
+    <ngt-mesh-standard-material #standard="ngtMeshStandardMaterial"
+                                [parameters]="{ transparent: true, opacity: 0 }"></ngt-mesh-standard-material>
+
+    <ngt-physics [allowSleep]="true" [defaultContactMaterial]="stone">
+
+      <ngt-cannon-debug [disabled]="true" [scale]="1.1" color="red">
+
+        // floor
+        <ngt-mesh ngtPhysicPlane [getPhysicProps]="getPlaneProps"
+                  [receiveShadow]="true" [rotation]="[-90 | radian, 0, 0]">
+          <ngt-plane-geometry [args]="[floorsize, floorsize]"></ngt-plane-geometry>
+          <ngt-mesh-standard-material [parameters]="{ color: '#777777' | color }"></ngt-mesh-standard-material>
+        </ngt-mesh>
+
+        // walls
+        <ngt-mesh ngtPhysicPlane [getPhysicProps]="getWallProps" [position]="[0, 5, -5]"
+                  [rotation]="[0, 0, 0]"
+                  [geometry]="plane.geometry" [material]="standard.material">
+        </ngt-mesh>
+
+        <ngt-mesh ngtPhysicPlane [getPhysicProps]="getWallProps" [position]="[0, 5, 5]"
+                  [rotation]="[180 | radian, 0, 0]"
+                  [geometry]="plane.geometry" [material]="standard.material">
+        </ngt-mesh>
+
+        <ngt-mesh ngtPhysicPlane [getPhysicProps]="getWallProps" [position]="[-5, 5, 0]"
+                  [rotation]="[0, 90 | radian, 0]"
+                  [geometry]="plane.geometry" [material]="standard.material">
+        </ngt-mesh>
+
+        <ngt-mesh ngtPhysicPlane [getPhysicProps]="getWallProps" [position]="[5, 5, 0]"
+                  [rotation]="[0, -90 | radian, 0]"
+                  [geometry]="plane.geometry" [material]="standard.material">
+        </ngt-mesh>
+
+        <ngt-mesh *ngFor="let cube of spheres"
+                  ngtPhysicSphere [getPhysicProps]="getSphereProps"
+                  [position]="cube.position" [scale]="spheresize" [castShadow]="true">
+          <ngt-sphere-geometry></ngt-sphere-geometry>
+          <ngt-mesh-standard-material [parameters]="{ color: cube.color | color }"></ngt-mesh-standard-material>
+        </ngt-mesh>
+
+      </ngt-cannon-debug>
+
+    </ngt-physics>
+
+    <ngt-soba-orbit-controls></ngt-soba-orbit-controls>
+    <ngt-stats></ngt-stats>
+  </ngt-canvas>
+</div>
