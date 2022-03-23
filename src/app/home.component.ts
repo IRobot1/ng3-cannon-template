@@ -12,6 +12,7 @@ export class HomeComponent  {
     'collisions',
     'compound',
     'container',
+    'events',
     'threejs',
     'worker',
   ]
@@ -25,7 +26,6 @@ export class HomeComponent  {
     'callbacks',
     'constraints',
     'convex',
-    'events',
     'fixed_rotation',
     'friction',
     'heightfield',

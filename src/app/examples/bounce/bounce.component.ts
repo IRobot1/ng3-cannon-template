@@ -11,7 +11,7 @@ export class BounceComponent {
   getPlaneProps(): PlaneProps {
     return {
       material: { restitution: 1 },
-    } as SphereProps;
+    } as PlaneProps;
   }
 
   getSphere1Props(): SphereProps {

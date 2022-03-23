@@ -34,6 +34,7 @@ import { CollisionFilterComponent } from './examples/collision-filter/collision-
 import { CollisionsComponent } from './examples/collisions/collisions.component';
 import { CompoundComponent } from './examples/compound/compound.component';
 import { ContainerComponent } from './examples/container/container.component';
+import { EventsComponent } from './examples/events/events.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { ContainerComponent } from './examples/container/container.component';
     CollisionsComponent,
     CompoundComponent,
     ContainerComponent,
+    EventsComponent,
 
     VRComponent,
 
