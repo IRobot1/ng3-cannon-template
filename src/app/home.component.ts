@@ -7,21 +7,23 @@ import { Component } from "@angular/core";
 })
 export class HomeComponent  {
   examples = [
+    'bounce',
+    'collision_filter',
+    'collisions',
+    'compound',
+    'container',
+    'threejs',
+    'worker',
+  ]
+  todo = [
     'threejs_cloth',
     'threejs_fps',
     'threejs_mousepick',
     'threejs_voxel_fps',
-    'threejs',
-    'worker',
     'body_types',
-    'bounce',
     'bunny',
     'callbacks',
-    'collision_filter',
-    'collisions',
-    'compound',
     'constraints',
-    'container',
     'convex',
     'events',
     'fixed_rotation',
