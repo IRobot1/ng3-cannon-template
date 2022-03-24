@@ -13,6 +13,7 @@ export class HomeComponent  {
     'compound',
     'container',
     'events',
+    'fixed_rotation',
     'threejs',
     'worker',
   ]
@@ -26,7 +27,6 @@ export class HomeComponent  {
     'callbacks',
     'constraints',
     'convex',
-    'fixed_rotation',
     'friction',
     'heightfield',
     'hinge',

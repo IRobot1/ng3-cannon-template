@@ -35,6 +35,7 @@ import { CollisionsComponent } from './examples/collisions/collisions.component'
 import { CompoundComponent } from './examples/compound/compound.component';
 import { ContainerComponent } from './examples/container/container.component';
 import { EventsComponent } from './examples/events/events.component';
+import { FixedRotationComponent } from './examples/fixed-rotation/fixed-rotation.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { EventsComponent } from './examples/events/events.component';
     CompoundComponent,
     ContainerComponent,
     EventsComponent,
+    FixedRotationComponent,
 
     VRComponent,
 
