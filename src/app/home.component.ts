@@ -14,6 +14,7 @@ export class HomeComponent  {
     'container',
     'events',
     'fixed_rotation',
+    'friction',
     'threejs',
     'worker',
   ]
@@ -27,7 +28,6 @@ export class HomeComponent  {
     'callbacks',
     'constraints',
     'convex',
-    'friction',
     'heightfield',
     'hinge',
     'impulses',
