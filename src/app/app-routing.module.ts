@@ -8,6 +8,7 @@ import { ContainerComponent } from './examples/container/container.component';
 import { EventsComponent } from './examples/events/events.component';
 import { FixedRotationComponent } from './examples/fixed-rotation/fixed-rotation.component';
 import { FrictionComponent } from './examples/friction/friction.component';
+import { ImpulseComponent } from './examples/impulse/impulse.component';
 import { ThreeJSComponent } from './examples/threejs/threejs.component';
 import { VRComponent } from './examples/vr/vr.component';
 import { WorkerComponent } from './examples/worker/worker.component';
@@ -39,7 +40,7 @@ const routes: Routes = [
   { path: 'friction', component: FrictionComponent },
   { path: 'heightfield', component: TodoComponent },
   { path: 'hinge', component: TodoComponent },
-  { path: 'impulses', component: TodoComponent },
+  { path: 'impulses', component: ImpulseComponent },
   { path: 'jenga', component: TodoComponent },
   { path: 'pile', component: TodoComponent },
   { path: 'performance', component: TodoComponent },

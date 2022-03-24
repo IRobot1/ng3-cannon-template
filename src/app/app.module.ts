@@ -37,6 +37,7 @@ import { ContainerComponent } from './examples/container/container.component';
 import { EventsComponent } from './examples/events/events.component';
 import { FixedRotationComponent } from './examples/fixed-rotation/fixed-rotation.component';
 import { FrictionComponent } from './examples/friction/friction.component';
+import { ImpulseComponent } from './examples/impulse/impulse.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { FrictionComponent } from './examples/friction/friction.component';
     EventsComponent,
     FixedRotationComponent,
     FrictionComponent,
+    ImpulseComponent,
 
     VRComponent,
 
