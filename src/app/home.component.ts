@@ -21,6 +21,11 @@ export class HomeComponent  {
     'trigger',
     'worker',
   ]
+
+  almost = [
+    'trimesh',
+  ]
+
   todo = [
     'threejs_cloth',
     'threejs_fps',
@@ -47,7 +52,6 @@ export class HomeComponent  {
     'spring',
     'stacks',
     'tear',
-    'trimesh',
     'tween',
   ]
 }
