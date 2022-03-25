@@ -18,6 +18,7 @@ export class HomeComponent  {
     'impulses',
     'jenga',
     'threejs',
+    'trigger',
     'worker',
   ]
   todo = [
@@ -46,7 +47,6 @@ export class HomeComponent  {
     'spring',
     'stacks',
     'tear',
-    'trigger',
     'trimesh',
     'tween',
   ]

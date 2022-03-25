@@ -11,6 +11,7 @@ import { FrictionComponent } from './examples/friction/friction.component';
 import { ImpulseComponent } from './examples/impulse/impulse.component';
 import { JengaComponent } from './examples/jenga/jenga.component';
 import { ThreeJSComponent } from './examples/threejs/threejs.component';
+import { TriggerComponent } from './examples/trigger/trigger.component';
 import { VRComponent } from './examples/vr/vr.component';
 import { WorkerComponent } from './examples/worker/worker.component';
 import { HomeComponent } from './home.component';
@@ -57,7 +58,7 @@ const routes: Routes = [
   { path: 'spring', component: TodoComponent },
   { path: 'stacks', component: TodoComponent },
   { path: 'tear', component: TodoComponent },
-  { path: 'trigger', component: TodoComponent },
+  { path: 'trigger', component: TriggerComponent },
   { path: 'trimesh', component: TodoComponent },
   { path: 'tween', component: TodoComponent },
   { path: 'vr', component: VRComponent },

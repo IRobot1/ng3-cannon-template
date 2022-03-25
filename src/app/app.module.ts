@@ -40,6 +40,7 @@ import { FixedRotationComponent } from './examples/fixed-rotation/fixed-rotation
 import { FrictionComponent } from './examples/friction/friction.component';
 import { ImpulseComponent } from './examples/impulse/impulse.component';
 import { JengaComponent } from './examples/jenga/jenga.component';
+import { TriggerComponent } from './examples/trigger/trigger.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { JengaComponent } from './examples/jenga/jenga.component';
     FrictionComponent,
     ImpulseComponent,
     JengaComponent,
+    TriggerComponent,
 
     VRComponent,
 
