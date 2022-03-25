@@ -16,6 +16,7 @@ export class HomeComponent  {
     'fixed_rotation',
     'friction',
     'impulses',
+    'jenga',
     'threejs',
     'worker',
   ]
@@ -31,7 +32,6 @@ export class HomeComponent  {
     'convex',
     'heightfield',
     'hinge',
-    'jenga',
     'pile',
     'performance',
     'ragdoll',

@@ -9,6 +9,7 @@ import { NgtMeshLambertMaterialModule, NgtMeshStandardMaterialModule } from '@an
 import { NgtBoxGeometryModule, NgtCylinderGeometryModule, NgtPlaneGeometryModule, NgtSphereGeometryModule } from '@angular-three/core/geometries';
 import { NgtAmbientLightModule, NgtDirectionalLightModule, NgtSpotLightModule } from '@angular-three/core/lights';
 import { NgtArrowHelperModule, NgtBoxHelperModule } from '@angular-three/core/helpers';
+import { NgtInstancedBufferAttributeModule } from '@angular-three/core/attributes';
 
 import { NgtPhysicsModule } from '@angular-three/cannon';
 import { NgtPhysicBoxModule, NgtPhysicCompoundModule, NgtPhysicCylinderModule, NgtPhysicPlaneModule, NgtPhysicSphereModule } from '@angular-three/cannon/bodies';
@@ -38,6 +39,7 @@ import { EventsComponent } from './examples/events/events.component';
 import { FixedRotationComponent } from './examples/fixed-rotation/fixed-rotation.component';
 import { FrictionComponent } from './examples/friction/friction.component';
 import { ImpulseComponent } from './examples/impulse/impulse.component';
+import { JengaComponent } from './examples/jenga/jenga.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +57,7 @@ import { ImpulseComponent } from './examples/impulse/impulse.component';
     FixedRotationComponent,
     FrictionComponent,
     ImpulseComponent,
+    JengaComponent,
 
     VRComponent,
 
@@ -85,7 +88,7 @@ import { ImpulseComponent } from './examples/impulse/impulse.component';
     NgtPlaneGeometryModule,
     NgtSphereGeometryModule,
     NgtCylinderGeometryModule,
-    
+    NgtInstancedBufferAttributeModule,
 
     NgtAmbientLightModule,
     NgtDirectionalLightModule,
