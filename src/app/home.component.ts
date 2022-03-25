@@ -45,7 +45,6 @@ export class HomeComponent  {
     'rigid_vehicle',
     'shapes',
     'simple_friction',
-    'single_body_on_plane',
     'sleep',
     'sph',
     'split_solver',
