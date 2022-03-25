@@ -23,6 +23,7 @@ export class HomeComponent  {
   ]
 
   almost = [
+    'sleep',
     'trimesh',
   ]
 
@@ -45,7 +46,6 @@ export class HomeComponent  {
     'rigid_vehicle',
     'shapes',
     'simple_friction',
-    'sleep',
     'sph',
     'split_solver',
     'spring',

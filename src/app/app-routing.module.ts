@@ -10,6 +10,7 @@ import { FixedRotationComponent } from './examples/fixed-rotation/fixed-rotation
 import { FrictionComponent } from './examples/friction/friction.component';
 import { ImpulseComponent } from './examples/impulse/impulse.component';
 import { JengaComponent } from './examples/jenga/jenga.component';
+import { SleepComponent } from './examples/sleep/sleep.component';
 import { ThreeJSComponent } from './examples/threejs/threejs.component';
 import { TriggerComponent } from './examples/trigger/trigger.component';
 import { TrimeshComponent } from './examples/trimesh/trimesh.component';
@@ -27,7 +28,6 @@ const routes: Routes = [
   { path: 'threejs_voxel_fps', component: TodoComponent },
   { path: 'threejs', component: ThreeJSComponent },
   { path: 'worker', component: WorkerComponent },
-  { path: 'worker_sharedarraybuffer', component: TodoComponent },
   { path: 'body_types', component: TodoComponent },
   { path: 'bounce', component: BounceComponent },
   { path: 'bunny', component: TodoComponent },
@@ -52,8 +52,7 @@ const routes: Routes = [
   { path: 'rigid_vehicle', component: TodoComponent },
   { path: 'shapes', component: TodoComponent },
   { path: 'simple_friction', component: TodoComponent },
-  { path: 'single_body_on_plane', component: TodoComponent },
-  { path: 'sleep', component: TodoComponent },
+  { path: 'sleep', component: SleepComponent },
   { path: 'sph', component: TodoComponent },
   { path: 'split_solver', component: TodoComponent },
   { path: 'spring', component: TodoComponent },
