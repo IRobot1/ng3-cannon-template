@@ -5,6 +5,7 @@ import { CollisionFilterComponent } from './examples/collision-filter/collision-
 import { CollisionsComponent } from './examples/collisions/collisions.component';
 import { CompoundComponent } from './examples/compound/compound.component';
 import { ContainerComponent } from './examples/container/container.component';
+import { ConvexComponent } from './examples/convex/convex.component';
 import { EventsComponent } from './examples/events/events.component';
 import { FixedRotationComponent } from './examples/fixed-rotation/fixed-rotation.component';
 import { FrictionComponent } from './examples/friction/friction.component';
@@ -38,7 +39,7 @@ const routes: Routes = [
   { path: 'compound', component: CompoundComponent },
   { path: 'constraints', component: TodoComponent },
   { path: 'container', component: ContainerComponent },
-  { path: 'convex', component: TodoComponent },
+  { path: 'convex', component: ConvexComponent },
   { path: 'events', component: EventsComponent },
   { path: 'fixed_rotation', component: FixedRotationComponent },
   { path: 'friction', component: FrictionComponent },

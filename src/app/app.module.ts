@@ -6,13 +6,13 @@ import { NgtStatsModule } from '@angular-three/core/stats';
 import { NgtInstancedMeshModule, NgtMeshModule } from '@angular-three/core/meshes';
 import { NgtGroupModule } from '@angular-three/core/group';
 import { NgtMeshLambertMaterialModule, NgtMeshStandardMaterialModule } from '@angular-three/core/materials';
-import { NgtBoxGeometryModule, NgtCylinderGeometryModule, NgtPlaneGeometryModule, NgtSphereGeometryModule, NgtTorusGeometryModule } from '@angular-three/core/geometries';
+import { NgtBoxGeometryModule, NgtCylinderGeometryModule, NgtPlaneGeometryModule, NgtPolyhedronGeometryModule, NgtSphereGeometryModule, NgtTorusGeometryModule } from '@angular-three/core/geometries';
 import { NgtAmbientLightModule, NgtDirectionalLightModule, NgtSpotLightModule } from '@angular-three/core/lights';
 import { NgtArrowHelperModule, NgtBoxHelperModule } from '@angular-three/core/helpers';
 import { NgtInstancedBufferAttributeModule } from '@angular-three/core/attributes';
 
 import { NgtPhysicsModule } from '@angular-three/cannon';
-import { NgtPhysicBoxModule, NgtPhysicCompoundModule, NgtPhysicCylinderModule, NgtPhysicPlaneModule, NgtPhysicSphereModule, NgtPhysicTrimeshModule } from '@angular-three/cannon/bodies';
+import { NgtPhysicBoxModule, NgtPhysicCompoundModule, NgtPhysicConvexPolyhedronModule, NgtPhysicCylinderModule, NgtPhysicPlaneModule, NgtPhysicSphereModule, NgtPhysicTrimeshModule } from '@angular-three/cannon/bodies';
 
 import { NgtSobaTextModule } from '@angular-three/soba/abstractions';
 import { NgtSobaOrbitControlsModule } from '@angular-three/soba/controls';
@@ -44,6 +44,7 @@ import { TriggerComponent } from './examples/trigger/trigger.component';
 import { TrimeshComponent } from './examples/trimesh/trimesh.component';
 import { SleepComponent } from './examples/sleep/sleep.component';
 import { TweenComponent } from './examples/tween/tween.component';
+import { ConvexComponent } from './examples/convex/convex.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { TweenComponent } from './examples/tween/tween.component';
     TrimeshComponent,
     SleepComponent,
     TweenComponent,
+    ConvexComponent,
 
     VRComponent,
 
@@ -97,6 +99,7 @@ import { TweenComponent } from './examples/tween/tween.component';
     NgtSphereGeometryModule,
     NgtCylinderGeometryModule,
     NgtTorusGeometryModule,
+    NgtPolyhedronGeometryModule,
     NgtInstancedBufferAttributeModule,
 
     NgtAmbientLightModule,
@@ -113,6 +116,7 @@ import { TweenComponent } from './examples/tween/tween.component';
     NgtPhysicCylinderModule,
     NgtPhysicCompoundModule,
     NgtPhysicTrimeshModule,
+    NgtPhysicConvexPolyhedronModule,
     NgtCannonDebugModule,
 
     NgtSobaOrbitControlsModule,

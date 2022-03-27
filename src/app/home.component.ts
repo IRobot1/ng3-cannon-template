@@ -24,6 +24,7 @@ export class HomeComponent  {
   ]
 
   almost = [
+    'convex',
     'sleep',
     'trimesh',
   ]
@@ -37,7 +38,6 @@ export class HomeComponent  {
     'bunny',
     'callbacks',
     'constraints',
-    'convex',
     'heightfield',
     'hinge',
     'pile',
