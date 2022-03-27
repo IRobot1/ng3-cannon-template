@@ -47,7 +47,6 @@ export class HomeComponent  {
     'rigid_vehicle',
     'shapes',
     'simple_friction',
-    'sph',
     'split_solver',
     'spring',
     'stacks',

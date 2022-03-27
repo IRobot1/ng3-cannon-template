@@ -54,7 +54,6 @@ const routes: Routes = [
   { path: 'shapes', component: TodoComponent },
   { path: 'simple_friction', component: TodoComponent },
   { path: 'sleep', component: SleepComponent },
-  { path: 'sph', component: TodoComponent },
   { path: 'split_solver', component: TodoComponent },
   { path: 'spring', component: TodoComponent },
   { path: 'stacks', component: TodoComponent },
