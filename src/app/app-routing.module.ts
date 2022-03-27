@@ -14,6 +14,7 @@ import { SleepComponent } from './examples/sleep/sleep.component';
 import { ThreeJSComponent } from './examples/threejs/threejs.component';
 import { TriggerComponent } from './examples/trigger/trigger.component';
 import { TrimeshComponent } from './examples/trimesh/trimesh.component';
+import { TweenComponent } from './examples/tween/tween.component';
 import { VRComponent } from './examples/vr/vr.component';
 import { WorkerComponent } from './examples/worker/worker.component';
 import { HomeComponent } from './home.component';
@@ -60,7 +61,7 @@ const routes: Routes = [
   { path: 'tear', component: TodoComponent },
   { path: 'trigger', component: TriggerComponent },
   { path: 'trimesh', component: TrimeshComponent },
-  { path: 'tween', component: TodoComponent },
+  { path: 'tween', component: TweenComponent },
   { path: 'vr', component: VRComponent },
   { path: '**', redirectTo: '/' },
 

@@ -43,6 +43,7 @@ import { JengaComponent } from './examples/jenga/jenga.component';
 import { TriggerComponent } from './examples/trigger/trigger.component';
 import { TrimeshComponent } from './examples/trimesh/trimesh.component';
 import { SleepComponent } from './examples/sleep/sleep.component';
+import { TweenComponent } from './examples/tween/tween.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { SleepComponent } from './examples/sleep/sleep.component';
     TriggerComponent,
     TrimeshComponent,
     SleepComponent,
+    TweenComponent,
 
     VRComponent,
 

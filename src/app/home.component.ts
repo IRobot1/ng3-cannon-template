@@ -19,6 +19,7 @@ export class HomeComponent  {
     'jenga',
     'threejs',
     'trigger',
+    'tween',
     'worker',
   ]
 
@@ -51,6 +52,5 @@ export class HomeComponent  {
     'spring',
     'stacks',
     'tear',
-    'tween',
   ]
 }
