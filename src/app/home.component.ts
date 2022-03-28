@@ -24,6 +24,7 @@ export class HomeComponent  {
   ]
 
   almost = [
+    'body_types',
     'convex',
     'sleep',
     'trimesh',
@@ -34,7 +35,6 @@ export class HomeComponent  {
     'threejs_fps',
     'threejs_mousepick',
     'threejs_voxel_fps',
-    'body_types',
     'bunny',
     'callbacks',
     'constraints',

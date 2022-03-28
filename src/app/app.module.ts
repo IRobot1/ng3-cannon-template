@@ -45,6 +45,7 @@ import { TrimeshComponent } from './examples/trimesh/trimesh.component';
 import { SleepComponent } from './examples/sleep/sleep.component';
 import { TweenComponent } from './examples/tween/tween.component';
 import { ConvexComponent } from './examples/convex/convex.component';
+import { BodyTypesComponent } from './examples/body-types/body-types.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import { ConvexComponent } from './examples/convex/convex.component';
     SleepComponent,
     TweenComponent,
     ConvexComponent,
+    BodyTypesComponent,
 
     VRComponent,
 

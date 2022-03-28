@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { BodyTypesComponent } from './examples/body-types/body-types.component';
 import { BounceComponent } from './examples/bounce/bounce.component';
 import { CollisionFilterComponent } from './examples/collision-filter/collision-filter.component';
 import { CollisionsComponent } from './examples/collisions/collisions.component';
@@ -30,7 +31,7 @@ const routes: Routes = [
   { path: 'threejs_voxel_fps', component: TodoComponent },
   { path: 'threejs', component: ThreeJSComponent },
   { path: 'worker', component: WorkerComponent },
-  { path: 'body_types', component: TodoComponent },
+  { path: 'body_types', component: BodyTypesComponent },
   { path: 'bounce', component: BounceComponent },
   { path: 'bunny', component: TodoComponent },
   { path: 'callbacks', component: TodoComponent },
