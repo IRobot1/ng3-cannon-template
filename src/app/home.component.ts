@@ -35,7 +35,6 @@ export class HomeComponent  {
     'threejs_fps',
     'threejs_mousepick',
     'threejs_voxel_fps',
-    'bunny',
     'callbacks',
     'constraints',
     'heightfield',
