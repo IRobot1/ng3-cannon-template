@@ -1,0 +1,29 @@
+<div style="height:100vh">
+  <ngt-canvas [camera]="{ position: [20, 20, 20], fov: 40, near:0.5, far:10000 }"
+              [shadows]="true" [scene]="{ background: 'black' | color }">
+    <ngt-directional-light [args]="['white' | color, 1.75]" [shadow]="{ mapSize: [512, 512] | vector2 }"
+                           [position]="[100, 100, 100]" [castShadow]="true">
+    </ngt-directional-light>
+
+    <ngt-physics [gravity]="[0, -100, 0]">
+      <ngt-cannon-debug [disabled]="true" [scale]="1.1" color="red">
+
+        <ngt-mesh ngtPhysicPlane [receiveShadow]="true" [rotation]="[-90 | radian, 0, 0]">
+          <ngt-plane-geometry [args]="[100, 100]"></ngt-plane-geometry>
+          <ngt-mesh-standard-material [parameters]="{ color: '#777777' | color }"></ngt-mesh-standard-material>
+        </ngt-mesh>
+
+        <ngt-instanced-mesh #physics="ngtPhysicBox" (animateReady)="tick(physics)"
+                            ngtPhysicBox [getPhysicProps]="getCubeProps" [args]="[count]"
+                            [castShadow]="true">
+          <ngt-box-geometry></ngt-box-geometry>
+          <ngt-mesh-standard-material [parameters]="{ color: '#888888' | color }"></ngt-mesh-standard-material>
+        </ngt-instanced-mesh>
+
+      </ngt-cannon-debug>
+    </ngt-physics>
+
+    <ngt-soba-orbit-controls></ngt-soba-orbit-controls>
+    <ngt-stats></ngt-stats>
+  </ngt-canvas>
+</div>

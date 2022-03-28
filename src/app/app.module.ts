@@ -46,6 +46,7 @@ import { SleepComponent } from './examples/sleep/sleep.component';
 import { TweenComponent } from './examples/tween/tween.component';
 import { ConvexComponent } from './examples/convex/convex.component';
 import { BodyTypesComponent } from './examples/body-types/body-types.component';
+import { PerformanceComponent } from './examples/performance/performance.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { BodyTypesComponent } from './examples/body-types/body-types.component';
     TweenComponent,
     ConvexComponent,
     BodyTypesComponent,
+    PerformanceComponent,
 
     VRComponent,
 
