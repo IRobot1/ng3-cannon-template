@@ -1,0 +1,64 @@
+<div style="height:100vh">
+  <ngt-canvas [camera]="{ position: [20, 5, 0], fov: 45, near:1, far:100 }"
+              [scene]="{ background: 'gray' | color }">
+    <ngt-directional-light [args]="['white' | color, 1]"
+                           [position]="[20, 20, 20]" [castShadow]="true">
+    </ngt-directional-light>
+
+    <ngt-physics>
+      <ngt-cannon-debug [disabled]="true" [scale]="1.1" color="red">
+
+        <ngt-mesh ngtPhysicPlane [name]="'plane'"
+                  [receiveShadow]="true" [rotation]="[-90 | radian, 0, 0]">
+          <ngt-plane-geometry [args]="[100, 100]"></ngt-plane-geometry>
+          <ngt-mesh-standard-material [parameters]="{ color: '#777777' | color }"></ngt-mesh-standard-material>
+        </ngt-mesh>
+
+        <!--sphere / compound-->
+        <ngt-mesh ngtPhysicSphere [getPhysicProps]="getSphereProps" [castShadow]="true" [position]="[0, 10, 4]">
+          <ngt-sphere-geometry></ngt-sphere-geometry>
+          <ngt-mesh-standard-material [parameters]="{ color: 'white' | color }"></ngt-mesh-standard-material>
+        </ngt-mesh>
+
+        <ngt-group ngtPhysicCompound [getPhysicProps]="getBoxCompoundProps" [position]="[0, 3, 6]">
+          <ngt-mesh *ngFor="let position of cubes" [position]="position" [scale]="cubesize" [castShadow]="true">
+            <ngt-box-geometry></ngt-box-geometry>
+            <ngt-mesh-standard-material [parameters]="{ color: 'blue' | color }"></ngt-mesh-standard-material>
+          </ngt-mesh>
+        </ngt-group>
+
+        <!--sphere / convex-->
+        <ngt-mesh ngtPhysicSphere [getPhysicProps]="getSphereProps" [castShadow]="true" [position]="[0, 10, 0]">
+          <ngt-sphere-geometry></ngt-sphere-geometry>
+          <ngt-mesh-standard-material [parameters]="{ color: 'red' | color }"></ngt-mesh-standard-material>
+        </ngt-mesh>
+
+        <ngt-mesh ngtPhysicConvexPolyhedron [getPhysicProps]="getTetraProps"
+                  [castShadow]="true" [scale]="[tetrascale, this.tetrascale, this.tetrascale]"
+                  [position]="[0, 1.5, 0]">
+          <ngt-polyhedron-geometry [args]="[tetrageovertices, tetrageofaces]"></ngt-polyhedron-geometry>
+          <ngt-mesh-standard-material [parameters]="{ color: 'blue' | color }"></ngt-mesh-standard-material>
+        </ngt-mesh>
+
+
+        <!--box / compound-->
+        <ngt-mesh ngtPhysicBox [getPhysicProps]="getBoxProps"
+                  [castShadow]="true" [scale]="[cubesize, cubesize, cubesize]" [position]="[0, 10, -6]">
+          <ngt-box-geometry></ngt-box-geometry>
+          <ngt-mesh-standard-material [parameters]="{ color: 'white' | color }"></ngt-mesh-standard-material>
+        </ngt-mesh>
+
+        <ngt-group ngtPhysicCompound [getPhysicProps]="getBoxCompoundProps" [position]="[0, 3, -5]">
+          <ngt-mesh *ngFor="let position of cubes" [position]="position" [scale]="cubesize" [castShadow]="true">
+            <ngt-box-geometry></ngt-box-geometry>
+            <ngt-mesh-standard-material [parameters]="{ color: 'blue' | color }"></ngt-mesh-standard-material>
+          </ngt-mesh>
+        </ngt-group>
+
+      </ngt-cannon-debug>
+    </ngt-physics>
+
+    <ngt-soba-orbit-controls></ngt-soba-orbit-controls>
+    <ngt-stats></ngt-stats>
+  </ngt-canvas>
+</div>

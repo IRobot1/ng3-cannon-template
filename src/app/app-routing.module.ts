@@ -15,6 +15,7 @@ import { JengaComponent } from './examples/jenga/jenga.component';
 import { PerformanceComponent } from './examples/performance/performance.component';
 import { PileComponent } from './examples/pile/pile.component';
 import { SleepComponent } from './examples/sleep/sleep.component';
+import { StacksComponent } from './examples/stacks/stacks.component';
 import { ThreeJSComponent } from './examples/threejs/threejs.component';
 import { TriggerComponent } from './examples/trigger/trigger.component';
 import { TrimeshComponent } from './examples/trimesh/trimesh.component';
@@ -55,12 +56,10 @@ const routes: Routes = [
   { path: 'ragdoll', component: TodoComponent },
   { path: 'raycast_vehicle', component: TodoComponent },
   { path: 'rigid_vehicle', component: TodoComponent },
-  { path: 'shapes', component: TodoComponent },
-  { path: 'simple_friction', component: TodoComponent },
   { path: 'sleep', component: SleepComponent },
   { path: 'split_solver', component: TodoComponent },
   { path: 'spring', component: TodoComponent },
-  { path: 'stacks', component: TodoComponent },
+  { path: 'stacks', component: StacksComponent },
   { path: 'tear', component: TodoComponent },
   { path: 'trigger', component: TriggerComponent },
   { path: 'trimesh', component: TrimeshComponent },

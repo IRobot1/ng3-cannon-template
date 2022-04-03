@@ -19,6 +19,7 @@ export class HomeComponent  {
     'jenga',
     'performance',
     'pile',
+    'stacks',
     'threejs',
     'trigger',
     'tween',
@@ -44,11 +45,8 @@ export class HomeComponent  {
     'ragdoll',
     'raycast_vehicle',
     'rigid_vehicle',
-    'shapes',
-    'simple_friction',
     'split_solver',
     'spring',
-    'stacks',
     'tear',
   ]
 }

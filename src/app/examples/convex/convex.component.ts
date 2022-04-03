@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 
 import { NgtTriplet } from "@angular-three/core";
 
-import { BoxProps, ConvexPolyhedronProps, CylinderProps, GetByIndex, PlaneProps, SphereProps } from "@angular-three/cannon";
+import { BoxProps, ConvexPolyhedronProps, CylinderProps, GetByIndex } from "@angular-three/cannon";
 import { Vector3 } from "three";
 import { NgtBoxGeometry } from "@angular-three/core/geometries";
 
