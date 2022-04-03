@@ -1,5 +1,5 @@
 <div style="height:100vh">
-  <ngt-canvas [camera]="{ position: [45, 20, 0], fov: 45, near:1, far:250 }"
+  <ngt-canvas [camera]="{ position: [30, 40, 0], fov: 45, near:1, far:250 }"
               [shadows]="true"
               [scene]="{ background: 'gray' | color }">
     <ngt-spot-light [args]="['white' | color]" [castShadow]="true"
@@ -11,7 +11,7 @@
     <ngt-mesh-standard-material #standard="ngtMeshStandardMaterial"
                                 [parameters]="{ transparent: true, opacity: 0 }"></ngt-mesh-standard-material>
 
-    <ngt-physics [allowSleep]="true" [defaultContactMaterial]="stone" [quatNormalizeFast]="true" [quatNormalizeSkip]="3">
+    <ngt-physics [quatNormalizeFast]="true" [quatNormalizeSkip]="3">
 
       <ngt-cannon-debug [disabled]="true" [scale]="1.1" color="red">
 

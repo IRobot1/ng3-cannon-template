@@ -27,7 +27,7 @@ export class ContainerComponent {
   constructor() {
     let nx = 4;
     let ny = 4;
-    let nz = 4;
+    let nz = 12;
     let heightOffset = 0;
     let randRange = 0.1;
 

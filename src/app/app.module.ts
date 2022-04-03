@@ -47,6 +47,7 @@ import { TweenComponent } from './examples/tween/tween.component';
 import { ConvexComponent } from './examples/convex/convex.component';
 import { BodyTypesComponent } from './examples/body-types/body-types.component';
 import { PerformanceComponent } from './examples/performance/performance.component';
+import { PileComponent } from './examples/pile/pile.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +73,7 @@ import { PerformanceComponent } from './examples/performance/performance.compone
     ConvexComponent,
     BodyTypesComponent,
     PerformanceComponent,
+    PileComponent,
 
     VRComponent,
 

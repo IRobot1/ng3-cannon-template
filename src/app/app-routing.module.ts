@@ -13,6 +13,7 @@ import { FrictionComponent } from './examples/friction/friction.component';
 import { ImpulseComponent } from './examples/impulse/impulse.component';
 import { JengaComponent } from './examples/jenga/jenga.component';
 import { PerformanceComponent } from './examples/performance/performance.component';
+import { PileComponent } from './examples/pile/pile.component';
 import { SleepComponent } from './examples/sleep/sleep.component';
 import { ThreeJSComponent } from './examples/threejs/threejs.component';
 import { TriggerComponent } from './examples/trigger/trigger.component';
@@ -49,7 +50,7 @@ const routes: Routes = [
   { path: 'hinge', component: TodoComponent },
   { path: 'impulses', component: ImpulseComponent },
   { path: 'jenga', component: JengaComponent },
-  { path: 'pile', component: TodoComponent },
+  { path: 'pile', component: PileComponent },
   { path: 'performance', component: PerformanceComponent },
   { path: 'ragdoll', component: TodoComponent },
   { path: 'raycast_vehicle', component: TodoComponent },
