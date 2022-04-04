@@ -28,7 +28,6 @@ import { TodoComponent } from './todo.component';
 
 
 const routes: Routes = [
-  { path: '', component: HomeComponent, },
   { path: 'threejs_cloth', component: ClothComponent },
   { path: 'threejs_fps', component: TodoComponent },
   { path: 'threejs_mousepick', component: TodoComponent },
@@ -66,6 +65,7 @@ const routes: Routes = [
   { path: 'trimesh', component: TrimeshComponent },
   { path: 'tween', component: TweenComponent },
   { path: 'vr', component: VRComponent },
+  { path: '', component: HomeComponent, },
   { path: '**', redirectTo: '/' },
 
 ];
