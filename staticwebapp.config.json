@@ -2,6 +2,13 @@
   "navigationFallback": {
     "rewrite": "index.html"
   },
+  "routes": [
+    {
+      "route": "/*",
+      "redirect": "/index.html",
+      "statusCode": 200
+    }
+  ],
   "mimeTypes": {
     ".json": "text/json"
   }
