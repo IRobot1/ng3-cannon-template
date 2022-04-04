@@ -49,6 +49,7 @@ import { BodyTypesComponent } from './examples/body-types/body-types.component';
 import { PerformanceComponent } from './examples/performance/performance.component';
 import { PileComponent } from './examples/pile/pile.component';
 import { StacksComponent } from './examples/stacks/stacks.component';
+import { ClothComponent } from './examples/cloth/cloth.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,8 @@ import { StacksComponent } from './examples/stacks/stacks.component';
     PerformanceComponent,
     PileComponent,
     StacksComponent,
+
+    ClothComponent,
 
     VRComponent,
 

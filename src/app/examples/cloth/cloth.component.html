@@ -1,0 +1,29 @@
+<div style="height:100vh">
+  <ngt-canvas [camera]="{ position: [2, 0, 1], fov: 30, near:1, far:1000 }"
+              [scene]="{ background: 'black' | color }">
+
+    <ngt-ambient-light [args]="['white', 0.4]" ></ngt-ambient-light>
+
+    <ngt-physics>
+      <ngt-cannon-debug [disabled]="true" [scale]="1.1" color="red">
+
+        <ngt-group (animateReady)="tick($event.state)">
+          <ngt-mesh>
+            <ngt-plane-geometry [args]="[1, 1]"></ngt-plane-geometry>
+            <!--<ngt-parametric-geometry  [args]="[Nx, Ny]"></ngt-parametric-geometry>-->
+            <ngt-mesh-standard-material [parameters]="parameters"></ngt-mesh-standard-material>
+          </ngt-mesh>
+
+          <ngt-mesh ngtPhysicSphere [getPhysicProps]="getSphereProps" [scale]="[sphereSize, sphereSize, sphereSize]">
+            <ngt-sphere-geometry></ngt-sphere-geometry>
+            <ngt-mesh-standard-material [parameters]="{ color: 'white' | color }"></ngt-mesh-standard-material>
+          </ngt-mesh>
+        </ngt-group>
+
+      </ngt-cannon-debug>
+    </ngt-physics>
+
+    <ngt-soba-orbit-controls></ngt-soba-orbit-controls>
+    <ngt-stats></ngt-stats>
+  </ngt-canvas>
+</div>

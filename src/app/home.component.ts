@@ -33,8 +33,11 @@ export class HomeComponent  {
     'trimesh',
   ]
 
-  todo = [
+  feature = [
     'threejs_cloth',
+  ]
+
+  todo = [
     'threejs_fps',
     'threejs_mousepick',
     'threejs_voxel_fps',

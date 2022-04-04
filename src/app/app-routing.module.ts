@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BodyTypesComponent } from './examples/body-types/body-types.component';
 import { BounceComponent } from './examples/bounce/bounce.component';
+import { ClothComponent } from './examples/cloth/cloth.component';
 import { CollisionFilterComponent } from './examples/collision-filter/collision-filter.component';
 import { CollisionsComponent } from './examples/collisions/collisions.component';
 import { CompoundComponent } from './examples/compound/compound.component';
@@ -28,7 +29,7 @@ import { TodoComponent } from './todo.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, },
-  { path: 'threejs_cloth', component: TodoComponent },
+  { path: 'threejs_cloth', component: ClothComponent },
   { path: 'threejs_fps', component: TodoComponent },
   { path: 'threejs_mousepick', component: TodoComponent },
   { path: 'threejs_voxel_fps', component: TodoComponent },
