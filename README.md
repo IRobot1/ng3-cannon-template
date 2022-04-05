@@ -2,7 +2,7 @@
 
 This project is a starter template that demonstrates how to add physics to @angular-three components.
 
-[DEMO here](https://angularcannon.z9.web.core.windows.net/)
+[DEMO here](https://ng3cannon.z9.web.core.windows.net)
 
 <!--
 ![image](https://user-images.githubusercontent.com/25032599/154986955-799ac36c-0c41-4d19-89ad-62889fb15f98.png) 
