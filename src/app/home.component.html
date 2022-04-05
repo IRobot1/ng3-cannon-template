@@ -11,7 +11,7 @@
   <h2>Working Examples</h2>
   <div class="examples">
     <div *ngFor="let name of examples">
-      <a href="{{name}}" class="image"><img src="assets/screenshots/{{name}}.png" /></a>
+      <a [routerLink]="['/', name]" class="image"><img src="assets/screenshots/{{name}}.png" /></a>
       <div class="caption">
         <a href="{{name}}" class="name">{{name}}</a>
         <a href="https://github.com/pmndrs/cannon-es/blob/master/examples/{{name}}.html"
@@ -27,7 +27,7 @@
   <h2>Almost Working</h2>
   <div class="examples">
     <div *ngFor="let name of almost">
-      <a href="{{name}}" class="image"><img src="assets/screenshots/{{name}}.png" /></a>
+      <a [routerLink]="['/', name]" class="image"><img src="assets/screenshots/{{name}}.png" /></a>
       <div class="caption">
         <a href="{{name}}" class="name">{{name}}</a>
         <a href="https://github.com/pmndrs/cannon-es/blob/master/examples/{{name}}.html"
@@ -43,7 +43,7 @@
   <h2>Missing Features in @angular-three/cannon </h2>
   <div class="examples">
     <div *ngFor="let name of feature">
-      <a href="{{name}}" class="image"><img src="assets/screenshots/{{name}}.png" /></a>
+      <a [routerLink]="['/', name]" class="image"><img src="assets/screenshots/{{name}}.png" /></a>
       <div class="caption">
         <a href="{{name}}" class="name">{{name}}</a>
         <a href="https://github.com/pmndrs/cannon-es/blob/master/examples/{{name}}.html"
@@ -59,7 +59,7 @@
   <h2>To Do</h2>
   <div class="examples">
     <div *ngFor="let name of todo">
-      <a href="{{name}}" class="image"><img src="assets/screenshots/{{name}}.png" /></a>
+      <a [routerLink]="['/', name]" class="image"><img src="assets/screenshots/{{name}}.png" /></a>
       <div class="caption">
         {{name}}
       </div>
