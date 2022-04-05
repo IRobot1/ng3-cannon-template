@@ -23,6 +23,6 @@ steps:
 
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: 'dist'
+    PathtoPublish: 'dist/ng3-cannon-template'
     ArtifactName: 'drop'
     publishLocation: 'Container'
