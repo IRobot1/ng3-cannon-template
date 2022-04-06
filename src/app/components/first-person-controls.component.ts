@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
 import { Camera, Vector3 } from 'three';
 import { NgtCanvasStore, NgtRender } from '@angular-three/core';
 
@@ -9,8 +9,8 @@ import { NgtCanvasStore, NgtRender } from '@angular-three/core';
   selector: 'first-person-controls',
   template: '<ngt-group (ready)="ready()" (animateReady)="animate($event.state)"></ngt-group>'
 })
-export class FirstPersonControlsComponent {
-  @Input() container?: HTMLElement;
+export class FirstPersonControlsComponent implements OnDestroy {
+  @Input() container: HTMLElement = document.body;
   @Input() viewerheight = 1.5;
   @Input() movespeed = 1;
   @Input() rotatefactor = 2000;
@@ -20,7 +20,13 @@ export class FirstPersonControlsComponent {
   private keyStates = new Map<string, boolean>([]);
   private camera!: Camera;
 
+  private cleanup!: () => void;
+
   constructor(private canvasStore: NgtCanvasStore) { }
+
+  ngOnDestroy(): void {
+    this.cleanup();
+  }
 
   ready() {
     const camera = this.canvasStore.get((s) => s.camera);
@@ -28,32 +34,43 @@ export class FirstPersonControlsComponent {
     this.camera = camera;
 
     // movement
-    document.addEventListener('keydown', (event) => {
+    const keydown = (event: KeyboardEvent) => {
       this.keyStates.set(event.code, true);
-    });
-    document.addEventListener('keyup', (event) => {
-      this.keyStates.set(event.code, false);
-    });
-
-    if (!this.container) {
-      this.container = document.body;
     }
+    document.addEventListener('keydown', keydown);
 
-    this.container.addEventListener('mousedown', () => {
+    const keyup = (event: KeyboardEvent) => {
+      this.keyStates.set(event.code, false);
+    }
+    document.addEventListener('keyup', keyup);
+
+    const mousedown = () => {
       document.body.requestPointerLock();
-    });
+    }
+    this.container.addEventListener('mousedown', mousedown);
 
-    this.container.addEventListener('mouseup', () => {
+    const mouseup = () => {
       this.shoot.emit();
-    });
+    }
+    document.body.addEventListener('mouseup', mouseup);
 
     // rotation
-    document.body.addEventListener('mousemove', (event) => {
+    const mousemove = (event: MouseEvent) => {
       if (document.pointerLockElement === document.body) {
         camera.rotation.y -= event.movementX / this.rotatefactor;
         camera.rotation.x -= event.movementY / this.rotatefactor;
       }
-    });
+    }
+    document.body.addEventListener('mousemove', mousemove);
+
+    this.cleanup = () => {
+      document.exitPointerLock();
+      document.removeEventListener('keydown', keydown);
+      document.removeEventListener('keyup', keyup);
+      this.container.removeEventListener('mousedown', mousedown);
+      document.body.removeEventListener('mouseup', mouseup);
+      document.body.removeEventListener('mousemove', mousemove);
+    }
   }
 
   private getForwardVector(): Vector3 {
@@ -113,7 +130,7 @@ export class FirstPersonControlsComponent {
   }
 
   animate({ delta }: NgtRender) {
-    this.updateVelocity(delta*this.movespeed);  // check for input
+    this.updateVelocity(delta * this.movespeed);  // check for input
     this.moveCamera(delta); // move player
   }
 }
