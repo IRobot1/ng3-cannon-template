@@ -7,7 +7,7 @@ import { NgtInstancedMeshModule, NgtMeshModule } from '@angular-three/core/meshe
 import { NgtGroupModule } from '@angular-three/core/group';
 import { NgtMeshLambertMaterialModule, NgtMeshStandardMaterialModule } from '@angular-three/core/materials';
 import { NgtBoxGeometryModule, NgtCylinderGeometryModule, NgtPlaneGeometryModule, NgtPolyhedronGeometryModule, NgtSphereGeometryModule, NgtTorusGeometryModule } from '@angular-three/core/geometries';
-import { NgtAmbientLightModule, NgtDirectionalLightModule, NgtSpotLightModule } from '@angular-three/core/lights';
+import { NgtAmbientLightModule, NgtDirectionalLightModule, NgtPointLightModule, NgtSpotLightModule } from '@angular-three/core/lights';
 import { NgtArrowHelperModule, NgtBoxHelperModule } from '@angular-three/core/helpers';
 import { NgtInstancedBufferAttributeModule } from '@angular-three/core/attributes';
 
@@ -50,6 +50,8 @@ import { PerformanceComponent } from './examples/performance/performance.compone
 import { PileComponent } from './examples/pile/pile.component';
 import { StacksComponent } from './examples/stacks/stacks.component';
 import { ClothComponent } from './examples/cloth/cloth.component';
+import { FPSComponent } from './examples/fps/fps.component';
+import { FirstPersonControlsComponent } from './components/first-person-controls.component';
 
 @NgModule({
   declarations: [
@@ -79,6 +81,7 @@ import { ClothComponent } from './examples/cloth/cloth.component';
     StacksComponent,
 
     ClothComponent,
+    FPSComponent,
 
     VRComponent,
 
@@ -87,6 +90,7 @@ import { ClothComponent } from './examples/cloth/cloth.component';
     TriggerCubeComponent,
     XRBatComponent,
     XRInspectComponent,
+    FirstPersonControlsComponent,
   ],
   imports: [
     BrowserModule,
@@ -116,6 +120,7 @@ import { ClothComponent } from './examples/cloth/cloth.component';
     NgtAmbientLightModule,
     NgtDirectionalLightModule,
     NgtSpotLightModule,
+    NgtPointLightModule,
 
     NgtMeshLambertMaterialModule,
     NgtMeshStandardMaterialModule,

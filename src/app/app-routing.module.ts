@@ -10,6 +10,7 @@ import { ContainerComponent } from './examples/container/container.component';
 import { ConvexComponent } from './examples/convex/convex.component';
 import { EventsComponent } from './examples/events/events.component';
 import { FixedRotationComponent } from './examples/fixed-rotation/fixed-rotation.component';
+import { FPSComponent } from './examples/fps/fps.component';
 import { FrictionComponent } from './examples/friction/friction.component';
 import { ImpulseComponent } from './examples/impulse/impulse.component';
 import { JengaComponent } from './examples/jenga/jenga.component';
@@ -22,14 +23,14 @@ import { TriggerComponent } from './examples/trigger/trigger.component';
 import { TrimeshComponent } from './examples/trimesh/trimesh.component';
 import { TweenComponent } from './examples/tween/tween.component';
 import { VRComponent } from './examples/vr/vr.component';
-import { WorkerComponent } from './examples/worker/worker.component';
+import { WorkerComponent } from './examples/worker/worker.component'; 
 import { HomeComponent } from './home.component';
 import { TodoComponent } from './todo.component';
 
 
 const routes: Routes = [
   { path: 'threejs_cloth', component: ClothComponent },
-  { path: 'threejs_fps', component: TodoComponent },
+  { path: 'fps', component: FPSComponent },
   { path: 'threejs_mousepick', component: TodoComponent },
   { path: 'threejs_voxel_fps', component: TodoComponent },
   { path: 'threejs', component: ThreeJSComponent },

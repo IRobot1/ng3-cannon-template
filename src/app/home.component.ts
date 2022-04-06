@@ -7,6 +7,7 @@ import { Component } from "@angular/core";
 })
 export class HomeComponent  {
   examples = [
+    'fps',
     'bounce',
     'collision_filter',
     'collisions',
@@ -38,7 +39,6 @@ export class HomeComponent  {
   ]
 
   todo = [
-    'threejs_fps',
     'threejs_mousepick',
     'threejs_voxel_fps',
     'callbacks',
