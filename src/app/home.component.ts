@@ -8,6 +8,7 @@ import { Component } from "@angular/core";
 export class HomeComponent  {
   examples = [
     'fps',
+    'conveyor',
     'bounce',
     'collision_filter',
     'collisions',

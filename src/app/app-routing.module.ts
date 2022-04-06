@@ -26,10 +26,12 @@ import { VRComponent } from './examples/vr/vr.component';
 import { WorkerComponent } from './examples/worker/worker.component'; 
 import { HomeComponent } from './home.component';
 import { TodoComponent } from './todo.component';
+import { ConveyorComponent } from './examples/conveyor/conveyor.component';
 
 
 const routes: Routes = [
-  { path: 'threejs_cloth', component: ClothComponent },
+  { path: 'conveyor', component: ConveyorComponent },
+  { path: 'cloth', component: ClothComponent },
   { path: 'fps', component: FPSComponent },
   { path: 'mousepick', component: TodoComponent },
   { path: 'voxel_fps', component: TodoComponent },

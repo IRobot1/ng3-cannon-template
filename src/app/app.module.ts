@@ -52,6 +52,8 @@ import { StacksComponent } from './examples/stacks/stacks.component';
 import { ClothComponent } from './examples/cloth/cloth.component';
 import { FPSComponent } from './examples/fps/fps.component';
 import { FirstPersonControlsComponent } from './components/first-person-controls.component';
+import { ConveyorComponent } from './examples/conveyor/conveyor.component';
+import { ConveyorVolumeComponent } from './components/conveyor-volume.component';
 
 @NgModule({
   declarations: [
@@ -79,6 +81,8 @@ import { FirstPersonControlsComponent } from './components/first-person-controls
     PerformanceComponent,
     PileComponent,
     StacksComponent,
+    ConveyorComponent,
+    ConveyorVolumeComponent,
 
     ClothComponent,
     FPSComponent,
