@@ -10,9 +10,9 @@
 
         <storybook-cube *ngFor="let cube of cubes" [position]="cube.position" [scale]="cube.scale" [color]="'white'"></storybook-cube>
 
-        <conveyor-volume [hiddeningame]="true" [position]="[0,platformheight+0.2,0.5]" [scale]="platformscale" [rotation]="[0,-90 | radian,0]"></conveyor-volume>
+        <conveyor-volume [hiddeningame]="true" [position]="[0,platformheight,0.5]" [scale]="platformscale" [rotation]="[0,-90 | radian,0]"></conveyor-volume>
 
-        <storybook-cube [color]="'cornflowerblue'" [position]="[0,platformheight,0.5]" [scale]="[2,0.2,10]" [rotation]="[0,-90 | radian,0]" [mass]="0"></storybook-cube>
+        <storybook-cube [color]="'cornflowerblue'" [position]="[0,platformheight,0.5]" [scale]="platformscale" [rotation]="[0,-90 | radian,0]" [mass]="0"></storybook-cube>
 
         <ngt-mesh ngtPhysicPlane
                   [receiveShadow]="true" [rotation]="[-90 | radian, 0, 0]">

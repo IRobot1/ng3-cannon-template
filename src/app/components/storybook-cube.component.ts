@@ -41,6 +41,7 @@ export class CubeComponent implements AfterViewInit, Inspect {
     position: this.position as NgtTriplet,
     rotation: this.rotation as NgtTriplet,
     args: this.scale as NgtTriplet,
+    material: { friction: 0.1 },
   });
 
   ngAfterViewInit(): void {

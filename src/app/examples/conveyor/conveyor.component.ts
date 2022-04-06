@@ -44,6 +44,6 @@ export class ConveyorComponent implements AfterViewInit {
         else
           count = 0;
       }
-    }, 500);
+    }, 750);
   }
 }
