@@ -5,7 +5,7 @@ import { BoxProps, SphereProps } from "@angular-three/cannon";
 import { NgtPhysicBox } from "@angular-three/cannon/bodies";
 
 @Component({
-  templateUrl: './body-types.component.html'
+  templateUrl: './body_types.component.html'
 })
 export class BodyTypesComponent implements AfterViewInit {
   @ViewChild(NgtPhysicBox) box!: NgtPhysicBox;

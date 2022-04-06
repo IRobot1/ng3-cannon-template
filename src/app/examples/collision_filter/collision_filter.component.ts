@@ -5,7 +5,7 @@ import { NgtTriplet } from "@angular-three/core";
 import { BoxProps, CylinderProps, SphereProps } from "@angular-three/cannon";
 
 @Component({
-  templateUrl: './collision-filter.component.html'
+  templateUrl: './collision_filter.component.html'
 })
 export class CollisionFilterComponent {
   getSphereProps(): SphereProps {

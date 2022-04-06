@@ -23,7 +23,7 @@ export class HomeComponent  {
     'stacks',
     'threejs',
     'trigger',
-    'tween',
+    'tween', 
     'worker',
   ]
 
@@ -35,12 +35,12 @@ export class HomeComponent  {
   ]
 
   feature = [
-    'threejs_cloth',
+    'cloth',
   ]
 
   todo = [
-    'threejs_mousepick',
-    'threejs_voxel_fps',
+    'mousepick',
+    'voxel_fps',
     'callbacks',
     'constraints',
     'heightfield',

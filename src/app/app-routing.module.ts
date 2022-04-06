@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { BodyTypesComponent } from './examples/body-types/body-types.component';
+import { BodyTypesComponent } from './examples/body_types/body_types.component';
 import { BounceComponent } from './examples/bounce/bounce.component';
 import { ClothComponent } from './examples/cloth/cloth.component';
-import { CollisionFilterComponent } from './examples/collision-filter/collision-filter.component';
+import { CollisionFilterComponent } from './examples/collision_filter/collision_filter.component';
 import { CollisionsComponent } from './examples/collisions/collisions.component';
 import { CompoundComponent } from './examples/compound/compound.component';
 import { ContainerComponent } from './examples/container/container.component';
 import { ConvexComponent } from './examples/convex/convex.component';
 import { EventsComponent } from './examples/events/events.component';
-import { FixedRotationComponent } from './examples/fixed-rotation/fixed-rotation.component';
+import { FixedRotationComponent } from './examples/fixed_rotation/fixed_rotation.component';
 import { FPSComponent } from './examples/fps/fps.component';
 import { FrictionComponent } from './examples/friction/friction.component';
 import { ImpulseComponent } from './examples/impulse/impulse.component';
@@ -31,8 +31,8 @@ import { TodoComponent } from './todo.component';
 const routes: Routes = [
   { path: 'threejs_cloth', component: ClothComponent },
   { path: 'fps', component: FPSComponent },
-  { path: 'threejs_mousepick', component: TodoComponent },
-  { path: 'threejs_voxel_fps', component: TodoComponent },
+  { path: 'mousepick', component: TodoComponent },
+  { path: 'voxel_fps', component: TodoComponent },
   { path: 'threejs', component: ThreeJSComponent },
   { path: 'worker', component: WorkerComponent },
   { path: 'body_types', component: BodyTypesComponent },

@@ -4,7 +4,7 @@ import { BoxProps } from "@angular-three/cannon";
 
 
 @Component({
-  templateUrl: './fixed-rotation.component.html'
+  templateUrl: './fixed_rotation.component.html'
 })
 export class FixedRotationComponent {
   getBoxProps(): BoxProps {
