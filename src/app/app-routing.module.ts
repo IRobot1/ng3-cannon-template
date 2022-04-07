@@ -27,9 +27,11 @@ import { WorkerComponent } from './examples/worker/worker.component';
 import { HomeComponent } from './home.component';
 import { TodoComponent } from './todo.component';
 import { ConveyorComponent } from './examples/conveyor/conveyor.component';
+import { ConditionalComponent } from './examples/conditional/conditional.component';
 
 
 const routes: Routes = [
+  { path: 'conditional', component: ConditionalComponent },
   { path: 'conveyor', component: ConveyorComponent },
   { path: 'cloth', component: ClothComponent },
   { path: 'fps', component: FPSComponent },

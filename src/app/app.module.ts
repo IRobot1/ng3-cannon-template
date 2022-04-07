@@ -54,6 +54,7 @@ import { FPSComponent } from './examples/fps/fps.component';
 import { FirstPersonControlsComponent } from './components/first-person-controls.component';
 import { ConveyorComponent } from './examples/conveyor/conveyor.component';
 import { ConveyorVolumeComponent } from './components/conveyor-volume.component';
+import { ConditionalComponent } from './examples/conditional/conditional.component';
 
 @NgModule({
   declarations: [
@@ -83,6 +84,7 @@ import { ConveyorVolumeComponent } from './components/conveyor-volume.component'
     StacksComponent,
     ConveyorComponent,
     ConveyorVolumeComponent,
+    ConditionalComponent,
 
     ClothComponent,
     FPSComponent,

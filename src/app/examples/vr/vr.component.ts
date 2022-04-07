@@ -1,5 +1,5 @@
 import { DefaultContactMaterial } from '@angular-three/cannon/lib/models/default-contact-material';
-import { NgtCreatedState } from '@angular-three/core';
+import { NgtCreatedState, NgtTriplet } from '@angular-three/core';
 import { AfterViewInit } from '@angular/core';
 import { Component } from '@angular/core';
 
@@ -23,7 +23,7 @@ export class VRComponent implements AfterViewInit {
   vr = true;
   xrmode: XRMode = 'inspect';
 
-  scale = 0.5;
+  scale = [0.5, 0.5, 0.5] as NgtTriplet;
   step = 1 / 60;
   gravity = -9.8;
 
@@ -40,7 +40,7 @@ export class VRComponent implements AfterViewInit {
   created(event: NgtCreatedState) {
     if (this.vr) {
       document.body.appendChild(VRButton.createButton(event.renderer));
-      this.scale = 0.1;
+      this.scale = [0.1, 0.1, 0.1] as NgtTriplet;
       this.step = 1 / 120;
       this.gravity = -2;
       this.startheight = 2;

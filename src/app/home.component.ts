@@ -9,6 +9,7 @@ export class HomeComponent  {
   examples = [
     'fps',
     'conveyor',
+    'conditional',
     'bounce',
     'collision_filter',
     'collisions',
