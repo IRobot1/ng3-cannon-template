@@ -28,6 +28,7 @@ import { HomeComponent } from './home.component';
 import { TodoComponent } from './todo.component';
 import { ConveyorComponent } from './examples/conveyor/conveyor.component';
 import { ConditionalComponent } from './examples/conditional/conditional.component';
+import { MousePickComponent } from './examples/mousepick/mousepick.component';
 
 
 const routes: Routes = [
@@ -35,7 +36,7 @@ const routes: Routes = [
   { path: 'conveyor', component: ConveyorComponent },
   { path: 'cloth', component: ClothComponent },
   { path: 'fps', component: FPSComponent },
-  { path: 'mousepick', component: TodoComponent },
+  { path: 'mousepick', component: MousePickComponent },
   { path: 'voxel_fps', component: TodoComponent },
   { path: 'threejs', component: ThreeJSComponent },
   { path: 'worker', component: WorkerComponent },

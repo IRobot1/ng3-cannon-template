@@ -30,6 +30,7 @@ export class HomeComponent  {
   ]
 
   almost = [
+    'mousepick',
     'body_types',
     'convex',
     'sleep',
@@ -41,7 +42,6 @@ export class HomeComponent  {
   ]
 
   todo = [
-    'mousepick',
     'voxel_fps',
     'callbacks',
     'constraints',
