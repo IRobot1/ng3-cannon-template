@@ -1,0 +1,30 @@
+<div style="height:100vh">
+  <ngt-canvas [camera]="{ position: [30, 20, 0], fov: 35, near:1, far:100 }"
+              [scene]="{ background: 'gray' | color }">
+    <ngt-directional-light [args]="['white' | color, 1.75]"
+                           [position]="[20, 20, 20]" [castShadow]="true">
+    </ngt-directional-light>
+
+    <ngt-physics>
+      <ngt-cannon-debug [disabled]="false" [scale]="1.1" color="red">
+
+        <ngt-mesh ngtPhysicHeightfield [getPhysicProps]="getHFProps"
+                  [position]="position"
+                  [receiveShadow]="true"
+                  [rotation]="[-90 | radian, 0, 0]">
+          <ngt-mesh-standard-material></ngt-mesh-standard-material>
+        </ngt-mesh>
+
+        <ngt-mesh *ngFor="let position of spheres" ngtPhysicSphere [getPhysicProps]="getSphereProps"
+                  [position]="position" [castShadow]="true">
+          <ngt-sphere-geometry [args]="[0.1]"></ngt-sphere-geometry>
+          <ngt-mesh-standard-material [parameters]="{ color: 'white' | color }"></ngt-mesh-standard-material>
+        </ngt-mesh>
+
+      </ngt-cannon-debug>
+    </ngt-physics>
+
+    <ngt-soba-orbit-controls></ngt-soba-orbit-controls>
+    <ngt-stats></ngt-stats>
+  </ngt-canvas>
+</div>

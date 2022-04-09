@@ -12,7 +12,7 @@ import { NgtArrowHelperModule, NgtBoxHelperModule } from '@angular-three/core/he
 import { NgtInstancedBufferAttributeModule } from '@angular-three/core/attributes';
 
 import { NgtPhysicsModule } from '@angular-three/cannon';
-import { NgtPhysicBoxModule, NgtPhysicCompoundModule, NgtPhysicConvexPolyhedronModule, NgtPhysicCylinderModule, NgtPhysicPlaneModule, NgtPhysicSphereModule, NgtPhysicTrimeshModule } from '@angular-three/cannon/bodies';
+import { NgtPhysicBoxModule, NgtPhysicCompoundModule, NgtPhysicConvexPolyhedronModule, NgtPhysicCylinderModule, NgtPhysicHeightfieldModule, NgtPhysicPlaneModule, NgtPhysicSphereModule, NgtPhysicTrimeshModule } from '@angular-three/cannon/bodies';
 
 import { NgtSobaTextModule } from '@angular-three/soba/abstractions';
 import { NgtSobaOrbitControlsModule } from '@angular-three/soba/controls';
@@ -57,6 +57,7 @@ import { ConveyorVolumeComponent } from './components/conveyor-volume.component'
 import { ConditionalComponent } from './examples/conditional/conditional.component';
 import { MousePickComponent } from './examples/mousepick/mousepick.component';
 import { CallbacksComponent } from './examples/callbacks/callbacks.component';
+import { HeightfieldComponent } from './examples/heightfield/heightfield.component';
 
 @NgModule({
   declarations: [
@@ -89,6 +90,7 @@ import { CallbacksComponent } from './examples/callbacks/callbacks.component';
     ConditionalComponent,
     MousePickComponent,
     CallbacksComponent,
+    HeightfieldComponent,
 
     ClothComponent,
     FPSComponent,
@@ -125,6 +127,7 @@ import { CallbacksComponent } from './examples/callbacks/callbacks.component';
     NgtCylinderGeometryModule,
     NgtTorusGeometryModule,
     NgtPolyhedronGeometryModule,
+    NgtPhysicHeightfieldModule,
     NgtInstancedBufferAttributeModule,
 
     NgtAmbientLightModule,

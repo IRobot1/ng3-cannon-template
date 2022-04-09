@@ -30,6 +30,7 @@ export class HomeComponent  {
   ]
 
   almost = [
+    'heightfield',
     'mousepick',
     'body_types',
     'convex',
@@ -44,7 +45,6 @@ export class HomeComponent  {
 
   todo = [
     'constraints',
-    'heightfield',
     'hinge',
     'ragdoll',
     'raycast_vehicle',

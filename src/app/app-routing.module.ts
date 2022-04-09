@@ -30,6 +30,7 @@ import { ConveyorComponent } from './examples/conveyor/conveyor.component';
 import { ConditionalComponent } from './examples/conditional/conditional.component';
 import { MousePickComponent } from './examples/mousepick/mousepick.component';
 import { CallbacksComponent } from './examples/callbacks/callbacks.component';
+import { HeightfieldComponent } from './examples/heightfield/heightfield.component';
 
 
 const routes: Routes = [
@@ -53,7 +54,7 @@ const routes: Routes = [
   { path: 'events', component: EventsComponent },
   { path: 'fixed_rotation', component: FixedRotationComponent },
   { path: 'friction', component: FrictionComponent },
-  { path: 'heightfield', component: TodoComponent },
+  { path: 'heightfield', component: HeightfieldComponent },
   { path: 'hinge', component: TodoComponent },
   { path: 'impulses', component: ImpulseComponent },
   { path: 'jenga', component: JengaComponent },
