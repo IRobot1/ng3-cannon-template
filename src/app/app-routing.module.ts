@@ -38,7 +38,6 @@ const routes: Routes = [
   { path: 'cloth', component: ClothComponent },
   { path: 'fps', component: FPSComponent },
   { path: 'mousepick', component: MousePickComponent },
-  { path: 'voxel_fps', component: TodoComponent },
   { path: 'threejs', component: ThreeJSComponent },
   { path: 'worker', component: WorkerComponent },
   { path: 'body_types', component: BodyTypesComponent },

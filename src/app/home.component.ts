@@ -43,7 +43,6 @@ export class HomeComponent  {
   ]
 
   todo = [
-    'voxel_fps',
     'constraints',
     'heightfield',
     'hinge',
