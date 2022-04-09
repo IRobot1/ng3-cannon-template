@@ -29,6 +29,7 @@ import { TodoComponent } from './todo.component';
 import { ConveyorComponent } from './examples/conveyor/conveyor.component';
 import { ConditionalComponent } from './examples/conditional/conditional.component';
 import { MousePickComponent } from './examples/mousepick/mousepick.component';
+import { CallbacksComponent } from './examples/callbacks/callbacks.component';
 
 
 const routes: Routes = [
@@ -43,7 +44,7 @@ const routes: Routes = [
   { path: 'body_types', component: BodyTypesComponent },
   { path: 'bounce', component: BounceComponent },
   { path: 'bunny', component: TodoComponent },
-  { path: 'callbacks', component: TodoComponent },
+  { path: 'callbacks', component: CallbacksComponent },
   { path: 'collision_filter', component: CollisionFilterComponent },
   { path: 'collisions', component: CollisionsComponent },
   { path: 'compound', component: CompoundComponent },

@@ -56,6 +56,7 @@ import { ConveyorComponent } from './examples/conveyor/conveyor.component';
 import { ConveyorVolumeComponent } from './components/conveyor-volume.component';
 import { ConditionalComponent } from './examples/conditional/conditional.component';
 import { MousePickComponent } from './examples/mousepick/mousepick.component';
+import { CallbacksComponent } from './examples/callbacks/callbacks.component';
 
 @NgModule({
   declarations: [
@@ -87,6 +88,7 @@ import { MousePickComponent } from './examples/mousepick/mousepick.component';
     ConveyorVolumeComponent,
     ConditionalComponent,
     MousePickComponent,
+    CallbacksComponent,
 
     ClothComponent,
     FPSComponent,
