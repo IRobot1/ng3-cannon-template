@@ -31,6 +31,7 @@ import { ConditionalComponent } from './examples/conditional/conditional.compone
 import { MousePickComponent } from './examples/mousepick/mousepick.component';
 import { CallbacksComponent } from './examples/callbacks/callbacks.component';
 import { HeightfieldComponent } from './examples/heightfield/heightfield.component';
+import { HingeComponent } from './examples/hinge/hinge.component';
 
 
 const routes: Routes = [
@@ -55,7 +56,7 @@ const routes: Routes = [
   { path: 'fixed_rotation', component: FixedRotationComponent },
   { path: 'friction', component: FrictionComponent },
   { path: 'heightfield', component: HeightfieldComponent },
-  { path: 'hinge', component: TodoComponent },
+  { path: 'hinge', component: HingeComponent },
   { path: 'impulses', component: ImpulseComponent },
   { path: 'jenga', component: JengaComponent },
   { path: 'pile', component: PileComponent },

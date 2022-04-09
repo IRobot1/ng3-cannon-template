@@ -58,6 +58,8 @@ import { ConditionalComponent } from './examples/conditional/conditional.compone
 import { MousePickComponent } from './examples/mousepick/mousepick.component';
 import { CallbacksComponent } from './examples/callbacks/callbacks.component';
 import { HeightfieldComponent } from './examples/heightfield/heightfield.component';
+import { HingeComponent } from './examples/hinge/hinge.component';
+import { NgtPhysicHingeConstraintModule } from '@angular-three/cannon/constraints';
 
 @NgModule({
   declarations: [
@@ -91,6 +93,7 @@ import { HeightfieldComponent } from './examples/heightfield/heightfield.compone
     MousePickComponent,
     CallbacksComponent,
     HeightfieldComponent,
+    HingeComponent,
 
     ClothComponent,
     FPSComponent,
@@ -147,6 +150,8 @@ import { HeightfieldComponent } from './examples/heightfield/heightfield.compone
     NgtPhysicTrimeshModule,
     NgtPhysicConvexPolyhedronModule,
     NgtCannonDebugModule,
+
+    NgtPhysicHingeConstraintModule,
 
     NgtSobaOrbitControlsModule,
     NgtSobaTextModule,

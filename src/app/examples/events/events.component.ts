@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 
 import { NgtTriplet } from "@angular-three/core";
 
-import { PlaneProps, SphereProps } from "@angular-three/cannon";
+import { SphereProps } from "@angular-three/cannon";
 
 @Component({
   templateUrl: './events.component.html'
