@@ -59,7 +59,8 @@ import { MousePickComponent } from './examples/mousepick/mousepick.component';
 import { CallbacksComponent } from './examples/callbacks/callbacks.component';
 import { HeightfieldComponent } from './examples/heightfield/heightfield.component';
 import { HingeComponent } from './examples/hinge/hinge.component';
-import { NgtPhysicHingeConstraintModule } from '@angular-three/cannon/constraints';
+import { NgtPhysicHingeConstraintModule, NgtPhysicLockConstraintModule, NgtPhysicPointToPointConstraintModule } from '@angular-three/cannon/constraints';
+import { ConstraintsComponent } from './examples/constraints/constraints.component';
 
 @NgModule({
   declarations: [
@@ -94,6 +95,7 @@ import { NgtPhysicHingeConstraintModule } from '@angular-three/cannon/constraint
     CallbacksComponent,
     HeightfieldComponent,
     HingeComponent,
+    ConstraintsComponent,
 
     ClothComponent,
     FPSComponent,
@@ -152,6 +154,8 @@ import { NgtPhysicHingeConstraintModule } from '@angular-three/cannon/constraint
     NgtCannonDebugModule,
 
     NgtPhysicHingeConstraintModule,
+    NgtPhysicLockConstraintModule,
+    NgtPhysicPointToPointConstraintModule,
 
     NgtSobaOrbitControlsModule,
     NgtSobaTextModule,

@@ -32,6 +32,7 @@ import { MousePickComponent } from './examples/mousepick/mousepick.component';
 import { CallbacksComponent } from './examples/callbacks/callbacks.component';
 import { HeightfieldComponent } from './examples/heightfield/heightfield.component';
 import { HingeComponent } from './examples/hinge/hinge.component';
+import { ConstraintsComponent } from './examples/constraints/constraints.component';
 
 
 const routes: Routes = [
@@ -49,7 +50,7 @@ const routes: Routes = [
   { path: 'collision_filter', component: CollisionFilterComponent },
   { path: 'collisions', component: CollisionsComponent },
   { path: 'compound', component: CompoundComponent },
-  { path: 'constraints', component: TodoComponent },
+  { path: 'constraints', component: ConstraintsComponent },
   { path: 'container', component: ContainerComponent },
   { path: 'convex', component: ConvexComponent },
   { path: 'events', component: EventsComponent },

@@ -18,6 +18,7 @@ export class HomeComponent  {
     'events',
     'fixed_rotation',
     'friction',
+    'hinge',
     'impulses',
     'jenga',
     'performance',
@@ -30,7 +31,7 @@ export class HomeComponent  {
   ]
 
   almost = [
-    'hinge',
+    'constraints',
     'heightfield',
     'mousepick',
     'body_types',
@@ -45,7 +46,6 @@ export class HomeComponent  {
   ]
 
   todo = [
-    'constraints',
     'ragdoll',
     'raycast_vehicle',
     'rigid_vehicle',
