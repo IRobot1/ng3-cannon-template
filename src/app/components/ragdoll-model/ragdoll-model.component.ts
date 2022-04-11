@@ -9,13 +9,23 @@ import { Vector3 } from "three";
 })
 export class RagdollModelComponent {
   @Input() name = 'ragdoll';
-  @Input() position = [0, 0, 0] as NgtVector3;
+
+  private _position = [0, 0, 0] as NgtTriplet;
+  @Input()
+  get position(): NgtTriplet {
+    return this._position;
+  }
+  set position(newvalue: NgtTriplet) {
+    this._position = newvalue;
+    this.updatePositions(new Vector3(this.position[0], this.position[1], this.position[2]));
+  }
+
   @Input() rotation = [0, 0, 0] as NgtEuler;
   @Input() scale = 1;
   @Input() angle = 0;
   @Input() angleShoulders = 0;
   @Input() twistAngle = 0;
-  @Input() mass = 0;
+  @Input() mass = 1;
 
   headRadius = 0.25 * this.scale;
   shouldersDistance = 0.5 * this.scale
@@ -31,29 +41,48 @@ export class RagdollModelComponent {
   lowerLegSize = 0.2 * this.scale
   lowerLegLength = 0.5 * this.scale
 
-  upperArmArgs = [this.upperArmLength * 0.5, this.upperArmSize * 0.5, this.upperArmSize * 0.5] as NgtTriplet;
-  lowerArmArgs = [this.lowerArmLength * 0.5, this.lowerArmSize * 0.5, this.lowerArmSize * 0.5] as NgtTriplet;
-  upperBodyArgs = [this.shouldersDistance * 0.5, this.lowerArmSize * 0.5, this.upperBodyLength * 0.5] as NgtTriplet;
-  pelvisArgs = [this.shouldersDistance * 0.5, this.lowerArmSize * 0.5, this.pelvisLength * 0.5] as NgtTriplet;
-  upperLegArgs = [this.upperLegSize * 0.5, this.lowerArmSize * 0.5, this.upperLegLength * 0.5] as NgtTriplet;
-  lowerLegArgs = [this.lowerLegSize * 0.5, this.lowerArmSize * 0.5, this.lowerLegLength * 0.5] as NgtTriplet;
+  upperArmArgs = [this.upperArmLength, this.upperArmSize , this.upperArmSize ] as NgtTriplet;
+  lowerArmArgs = [this.lowerArmLength , this.lowerArmSize , this.lowerArmSize ] as NgtTriplet;
+  upperBodyArgs = [this.shouldersDistance , this.lowerArmSize , this.upperBodyLength ] as NgtTriplet;
+  pelvisArgs = [this.shouldersDistance , this.lowerArmSize , this.pelvisLength ] as NgtTriplet;
+  upperLegArgs = [this.upperLegSize , this.lowerArmSize , this.upperLegLength ] as NgtTriplet;
+  lowerLegArgs = [this.lowerLegSize , this.lowerArmSize , this.lowerLegLength ] as NgtTriplet;
 
-  lowerLeftLegPosition = new Vector3(this.shouldersDistance / 2, 0, this.lowerLegLength / 2);
-  lowerRightLegPosition = new Vector3(-this.shouldersDistance / 2, 0, this.lowerLegLength / 2);
+  lowerLeftLegPosition!: Vector3;
+  lowerRightLegPosition!: Vector3;
 
-  upperLeftLegPosition = new Vector3(this.shouldersDistance / 2, 0, this.lowerLeftLegPosition.z + this.lowerLegLength / 2 + this.upperLegLength / 2);
-  upperRightLegPosition = new Vector3(-this.shouldersDistance / 2, 0, this.lowerRightLegPosition.z + this.lowerLegLength / 2 + this.upperLegLength / 2);
+  upperLeftLegPosition!: Vector3;
+  upperRightLegPosition!: Vector3;
 
-  pelvisPosition = new Vector3(0, 0, this.upperLeftLegPosition.z + this.upperLegLength / 2 + this.pelvisLength / 2);
-  upperBodyPosition = new Vector3(0, 0, this.pelvisPosition.z + this.pelvisLength / 2 + this.upperBodyLength / 2);
+  pelvisPosition!: Vector3;
+  upperBodyPosition!: Vector3;
 
-  headPosition = new Vector3(0, 0, this.upperBodyPosition.z + this.upperBodyLength / 2 + this.headRadius + this.neckLength);
+  headPosition!: Vector3;
 
-  upperLeftArmPosition = new Vector3(this.shouldersDistance / 2 + this.upperArmLength / 2, 0, this.upperBodyPosition.z + this.upperBodyLength / 2);
-  upperRightArmPosition = new Vector3(-this.shouldersDistance / 2 - this.upperArmLength / 2, 0, this.upperBodyPosition.z + this.upperBodyLength / 2);
+  upperLeftArmPosition!: Vector3;
+  upperRightArmPosition!: Vector3;
 
-  lowerLeftArmPosition = new Vector3(this.upperLeftArmPosition.x + this.lowerArmLength / 2 + this.upperArmLength / 2, 0, this.upperLeftArmPosition.z);
-  lowerRightArmPosition = new Vector3(this.upperRightArmPosition.x - this.lowerArmLength / 2 - this.upperArmLength / 2, 0, this.upperRightArmPosition.z);
+  lowerLeftArmPosition!: Vector3;
+  lowerRightArmPosition!: Vector3;
+
+  private updatePositions(position: Vector3) {
+    this.lowerLeftLegPosition = new Vector3(this.shouldersDistance / 2, 0, this.lowerLegLength / 2).add(position);
+    this.lowerRightLegPosition = new Vector3(-this.shouldersDistance / 2, 0, this.lowerLegLength / 2).add(position);
+
+    this.upperLeftLegPosition = new Vector3(this.shouldersDistance / 2, 0, this.lowerLeftLegPosition.z + this.lowerLegLength / 2 + this.upperLegLength / 2).add(position);
+    this.upperRightLegPosition = new Vector3(-this.shouldersDistance / 2, 0, this.lowerRightLegPosition.z + this.lowerLegLength / 2 + this.upperLegLength / 2).add(position);
+
+    this.pelvisPosition = new Vector3(0, 0, this.upperLeftLegPosition.z + this.upperLegLength / 2 + this.pelvisLength / 2).add(position);
+    this.upperBodyPosition = new Vector3(0, 0, this.pelvisPosition.z + this.pelvisLength / 2 + this.upperBodyLength / 2).add(position);
+
+    this.headPosition = new Vector3(0, 0, this.upperBodyPosition.z + this.upperBodyLength / 2 + this.headRadius + this.neckLength).add(position);
+
+    this.upperLeftArmPosition = new Vector3(this.shouldersDistance / 2 + this.upperArmLength / 2, 0, this.upperBodyPosition.z + this.upperBodyLength / 2).add(position);
+    this.upperRightArmPosition = new Vector3(-this.shouldersDistance / 2 - this.upperArmLength / 2, 0, this.upperBodyPosition.z + this.upperBodyLength / 2).add(position);
+
+    this.lowerLeftArmPosition = new Vector3(this.upperLeftArmPosition.x + this.lowerArmLength / 2 + this.upperArmLength / 2, 0, this.upperLeftArmPosition.z).add(position);
+    this.lowerRightArmPosition = new Vector3(this.upperRightArmPosition.x - this.lowerArmLength / 2 - this.upperArmLength / 2, 0, this.upperRightArmPosition.z).add(position);
+  }
 
   neckjoint: Record<string, any> = {
     pivotA: [0, 0, -this.headRadius - this.neckLength / 2],
@@ -81,7 +110,6 @@ export class RagdollModelComponent {
     angle: this.angle,
     twistAngle: this.twistAngle,
   }
-
 
   getLowerLeftLegProps: GetByIndex<BoxProps> = (index: number) => (
     {
@@ -172,4 +200,7 @@ export class RagdollModelComponent {
   )
 
 
+  constructor() {
+    this.updatePositions(new Vector3(this.position[0], this.position[1], this.position[2]));
+  }
 }

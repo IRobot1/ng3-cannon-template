@@ -1,14 +1,17 @@
 <div style="height:100vh">
   <ngt-canvas [camera]="{ position: [10, 2, 0], fov: 45, near:1, far:100 }"
+              [shadows]="true"
               [scene]="{ background: 'gray' | color }">
     <ngt-directional-light [args]="['white' | color, 1.75]"
-                           [position]="[20, 20, 20]" [castShadow]="true">
+                           [position]="[20, 20, 0]" [castShadow]="true">
     </ngt-directional-light>
 
     <ngt-physics>
       <ngt-cannon-debug [disabled]="false" [scale]="1.1" color="black">
 
-        <ragdoll-model [position]="[0, 2, 0]"></ragdoll-model>
+
+        <ragdoll-model [mass]="0" ></ragdoll-model>
+        <ragdoll-model [mass]="1" [position]="[2, 0.1, 0]" ></ragdoll-model>
 
         <!--<ngt-mesh ngtPhysicSphere [castShadow]="true">
           <ngt-sphere-geometry></ngt-sphere-geometry>
