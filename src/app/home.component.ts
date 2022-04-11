@@ -41,12 +41,12 @@ export class HomeComponent  {
   ]
 
   feature = [
+    'ragdoll',
     'cloth',
     'callbacks',
   ]
 
   todo = [
-    'ragdoll',
     'raycast_vehicle',
     'rigid_vehicle',
     'spring',

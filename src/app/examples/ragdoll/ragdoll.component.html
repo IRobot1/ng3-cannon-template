@@ -1,0 +1,31 @@
+<div style="height:100vh">
+  <ngt-canvas [camera]="{ position: [10, 2, 0], fov: 45, near:1, far:100 }"
+              [scene]="{ background: 'gray' | color }">
+    <ngt-directional-light [args]="['white' | color, 1.75]"
+                           [position]="[20, 20, 20]" [castShadow]="true">
+    </ngt-directional-light>
+
+    <ngt-physics>
+      <ngt-cannon-debug [disabled]="false" [scale]="1.1" color="black">
+
+        <ragdoll-model [position]="[0, 2, 0]"></ragdoll-model>
+
+        <!--<ngt-mesh ngtPhysicSphere [castShadow]="true">
+          <ngt-sphere-geometry></ngt-sphere-geometry>
+          <ngt-mesh-standard-material></ngt-mesh-standard-material>
+        </ngt-mesh>-->
+
+        <ngt-mesh ngtPhysicPlane [name]="'plane'"
+                  [receiveShadow]="true" [rotation]="[-90 | radian, 0, 0]">
+          <ngt-plane-geometry [args]="[100, 100]"></ngt-plane-geometry>
+          <ngt-mesh-standard-material [parameters]="{ color: '#777777' | color }"></ngt-mesh-standard-material>
+        </ngt-mesh>
+
+
+      </ngt-cannon-debug>
+    </ngt-physics>
+
+    <ngt-soba-orbit-controls></ngt-soba-orbit-controls>
+    <ngt-stats></ngt-stats>
+  </ngt-canvas>
+</div>

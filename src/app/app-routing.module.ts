@@ -33,6 +33,7 @@ import { CallbacksComponent } from './examples/callbacks/callbacks.component';
 import { HeightfieldComponent } from './examples/heightfield/heightfield.component';
 import { HingeComponent } from './examples/hinge/hinge.component';
 import { ConstraintsComponent } from './examples/constraints/constraints.component';
+import { RagdollComponent } from './examples/ragdoll/ragdoll.component';
 
 
 const routes: Routes = [
@@ -62,7 +63,7 @@ const routes: Routes = [
   { path: 'jenga', component: JengaComponent },
   { path: 'pile', component: PileComponent },
   { path: 'performance', component: PerformanceComponent },
-  { path: 'ragdoll', component: TodoComponent },
+  { path: 'ragdoll', component: RagdollComponent },
   { path: 'raycast_vehicle', component: TodoComponent },
   { path: 'rigid_vehicle', component: TodoComponent },
   { path: 'sleep', component: SleepComponent },

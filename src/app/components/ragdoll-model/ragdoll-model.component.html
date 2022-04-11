@@ -1,0 +1,55 @@
+<!--<ngt-group [name]="name" [position]="position" [rotation]="rotation">
+</ngt-group>-->
+<ng-container ngtPhysicConeTwistConstraint [options]="neckjoint">
+  <ngt-mesh ngtPhysicSphere [getPhysicProps]="getHeadProps">
+    <ngt-sphere-geometry [args]="[headRadius]"></ngt-sphere-geometry>
+  </ngt-mesh>
+
+  <ngt-mesh ngtPhysicBox [getPhysicProps]="getUpperBodyProps">
+    <ngt-box-geometry [args]="upperBodyArgs"></ngt-box-geometry>
+  </ngt-mesh>
+</ng-container>
+
+<ng-container ngtPhysicConeTwistConstraint [options]="elbowJoint">
+  <ngt-mesh ngtPhysicBox [getPhysicProps]="getUpperLeftArmProps">
+    <ngt-box-geometry [args]="upperArmArgs"></ngt-box-geometry>
+  </ngt-mesh>
+
+  <ngt-mesh ngtPhysicBox [getPhysicProps]="getLowerLeftArmProps">
+    <ngt-box-geometry [args]="lowerArmArgs"></ngt-box-geometry>
+  </ngt-mesh>
+</ng-container>
+
+<ng-container ngtPhysicConeTwistConstraint [options]="elbowJoint">
+  <ngt-mesh ngtPhysicBox [getPhysicProps]="getUpperRightArmProps">
+    <ngt-box-geometry [args]="upperArmArgs"></ngt-box-geometry>
+  </ngt-mesh>
+
+  <ngt-mesh ngtPhysicBox [getPhysicProps]="getLowerRightArmProps">
+    <ngt-box-geometry [args]="lowerArmArgs"></ngt-box-geometry>
+  </ngt-mesh>
+</ng-container>
+
+<ngt-mesh ngtPhysicBox [getPhysicProps]="getPelvisProps">
+  <ngt-box-geometry [args]="pelvisArgs"></ngt-box-geometry>
+</ngt-mesh>
+
+<ng-container ngtPhysicConeTwistConstraint [options]="kneeJoint">
+  <ngt-mesh ngtPhysicBox [getPhysicProps]="getUpperLeftLegProps">
+    <ngt-box-geometry [args]="upperLegArgs"></ngt-box-geometry>
+  </ngt-mesh>
+
+  <ngt-mesh ngtPhysicBox [getPhysicProps]="getLowerLeftLegProps">
+    <ngt-box-geometry [args]="lowerLegArgs"></ngt-box-geometry>
+  </ngt-mesh>
+</ng-container>
+
+<ng-container ngtPhysicConeTwistConstraint [options]="kneeJoint">
+  <ngt-mesh ngtPhysicBox [getPhysicProps]="getUpperRightLegProps">
+    <ngt-box-geometry [args]="upperLegArgs"></ngt-box-geometry>
+  </ngt-mesh>
+
+  <ngt-mesh ngtPhysicBox [getPhysicProps]="getLowerRightLegProps">
+    <ngt-box-geometry [args]="lowerLegArgs"></ngt-box-geometry>
+  </ngt-mesh>
+</ng-container>
