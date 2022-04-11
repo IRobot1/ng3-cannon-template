@@ -6,18 +6,20 @@
     </ngt-directional-light>
 
     <ngt-physics>
+      <ngt-cannon-debug [disabled]="true" [scale]="1.1" color="black">
 
-      <ngt-mesh ngtPhysicPlane [name]="'plane'"
-                [receiveShadow]="true" [rotation]="[-90 | radian, 0, 0]">
-        <ngt-plane-geometry [args]="[100, 100]"></ngt-plane-geometry>
-        <ngt-mesh-standard-material [parameters]="{ color: '#777777' | color }"></ngt-mesh-standard-material>
-      </ngt-mesh>
+        <ngt-mesh ngtPhysicPlane [name]="'plane'"
+                  [receiveShadow]="true" [rotation]="[-90 | radian, 0, 0]">
+          <ngt-plane-geometry [args]="[100, 100]"></ngt-plane-geometry>
+          <ngt-mesh-standard-material [parameters]="{ color: '#777777' | color }"></ngt-mesh-standard-material>
+        </ngt-mesh>
 
-      <ngt-mesh ngtPhysicSphere [getPhysicProps]="getSphereProps" [castShadow]="true">
-        <ngt-sphere-geometry></ngt-sphere-geometry>
-        <ngt-mesh-standard-material [parameters]="{ color: 'white' | color }"></ngt-mesh-standard-material>
-      </ngt-mesh>
+        <ngt-mesh ngtPhysicSphere [getPhysicProps]="getSphereProps" [castShadow]="true">
+          <ngt-sphere-geometry></ngt-sphere-geometry>
+          <ngt-mesh-standard-material [parameters]="{ color: 'white' | color }"></ngt-mesh-standard-material>
+        </ngt-mesh>
 
+      </ngt-cannon-debug>
     </ngt-physics>
 
     <ngt-soba-orbit-controls></ngt-soba-orbit-controls>
