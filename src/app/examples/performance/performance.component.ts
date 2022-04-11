@@ -1,7 +1,10 @@
 import { Component } from "@angular/core";
 
-import { BoxProps, GetByIndex } from "@angular-three/cannon";
+import { Color, InstancedMesh } from "three";
+
 import { NgtTriplet } from "@angular-three/core";
+
+import { BoxProps, GetByIndex } from "@angular-three/cannon";
 import { NgtPhysicBox } from "@angular-three/cannon/bodies";
 
 @Component({
@@ -30,6 +33,12 @@ export class PerformanceComponent {
       args: [1, 1, 1],
     }
   );
+
+  ready(inst: InstancedMesh) {
+    for (let i = 0; i < this.count; i++) {
+      inst.setColorAt(i, new Color().setHex(Math.random() * 0xffffff));
+    }
+  }
 
   tick(physics: NgtPhysicBox) {
     const index = Math.floor(Math.random() * this.count)

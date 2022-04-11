@@ -14,7 +14,8 @@
         </ngt-mesh>
 
         <ngt-instanced-mesh #physics="ngtPhysicBox" (animateReady)="tick(physics)"
-                            ngtPhysicBox [getPhysicProps]="getCubeProps" [args]="[count]"
+                            ngtPhysicBox [getPhysicProps]="getCubeProps"
+                            #inst="ngtInstancedMesh" (ready)="ready(inst.mesh)" [args]="[count]"
                             [castShadow]="true">
           <ngt-box-geometry></ngt-box-geometry>
           <ngt-mesh-standard-material [parameters]="{ color: '#888888' | color }"></ngt-mesh-standard-material>
