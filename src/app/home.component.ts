@@ -49,7 +49,6 @@ export class HomeComponent  {
     'ragdoll',
     'raycast_vehicle',
     'rigid_vehicle',
-    'split_solver',
     'spring',
     'tear',
   ]

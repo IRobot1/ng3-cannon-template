@@ -66,7 +66,6 @@ const routes: Routes = [
   { path: 'raycast_vehicle', component: TodoComponent },
   { path: 'rigid_vehicle', component: TodoComponent },
   { path: 'sleep', component: SleepComponent },
-  { path: 'split_solver', component: TodoComponent },
   { path: 'spring', component: TodoComponent },
   { path: 'stacks', component: StacksComponent },
   { path: 'tear', component: TodoComponent },
