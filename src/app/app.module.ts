@@ -63,6 +63,7 @@ import { NgtPhysicConeTwistConstraintModule, NgtPhysicHingeConstraintModule, Ngt
 import { ConstraintsComponent } from './examples/constraints/constraints.component';
 import { RagdollComponent } from './examples/ragdoll/ragdoll.component';
 import { RagdollModelComponent } from './components/ragdoll-model/ragdoll-model.component';
+import { SpringComponent } from './examples/spring/spring.component';
 
 @NgModule({
   declarations: [
@@ -100,6 +101,7 @@ import { RagdollModelComponent } from './components/ragdoll-model/ragdoll-model.
     ConstraintsComponent,
     RagdollComponent,
     RagdollModelComponent,
+    SpringComponent,
 
     ClothComponent,
     FPSComponent,
@@ -161,6 +163,7 @@ import { RagdollModelComponent } from './components/ragdoll-model/ragdoll-model.
     NgtPhysicLockConstraintModule,
     NgtPhysicPointToPointConstraintModule,
     NgtPhysicConeTwistConstraintModule,
+    
 
     NgtSobaOrbitControlsModule,
     NgtSobaTextModule,

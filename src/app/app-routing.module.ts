@@ -34,9 +34,11 @@ import { HeightfieldComponent } from './examples/heightfield/heightfield.compone
 import { HingeComponent } from './examples/hinge/hinge.component';
 import { ConstraintsComponent } from './examples/constraints/constraints.component';
 import { RagdollComponent } from './examples/ragdoll/ragdoll.component';
+import { SpringComponent } from './examples/spring/spring.component';
 
 
 const routes: Routes = [
+  { path: '', component: HomeComponent, },
   { path: 'conditional', component: ConditionalComponent },
   { path: 'conveyor', component: ConveyorComponent },
   { path: 'cloth', component: ClothComponent },
@@ -67,14 +69,13 @@ const routes: Routes = [
   { path: 'raycast_vehicle', component: TodoComponent },
   { path: 'rigid_vehicle', component: TodoComponent },
   { path: 'sleep', component: SleepComponent },
-  { path: 'spring', component: TodoComponent },
+  { path: 'spring', component: SpringComponent },
   { path: 'stacks', component: StacksComponent },
   { path: 'tear', component: TodoComponent },
   { path: 'trigger', component: TriggerComponent },
   { path: 'trimesh', component: TrimeshComponent },
   { path: 'tween', component: TweenComponent },
   { path: 'vr', component: VRComponent },
-  { path: '', component: HomeComponent, },
   { path: '**', redirectTo: '/' },
 
 ];

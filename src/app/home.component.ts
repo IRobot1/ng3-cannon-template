@@ -43,13 +43,13 @@ export class HomeComponent  {
   feature = [
     'ragdoll',
     'cloth',
+    'spring',
     'callbacks',
   ]
 
   todo = [
     'raycast_vehicle',
     'rigid_vehicle',
-    'spring',
     'tear',
   ]
 }
