@@ -44,12 +44,12 @@ export class HomeComponent  {
     'ragdoll',
     'cloth',
     'spring',
+    'tear',
     'callbacks',
   ]
 
   todo = [
     'raycast_vehicle',
     'rigid_vehicle',
-    'tear',
   ]
 }

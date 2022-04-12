@@ -64,6 +64,7 @@ import { ConstraintsComponent } from './examples/constraints/constraints.compone
 import { RagdollComponent } from './examples/ragdoll/ragdoll.component';
 import { RagdollModelComponent } from './components/ragdoll-model/ragdoll-model.component';
 import { SpringComponent } from './examples/spring/spring.component';
+import { TearComponent } from './examples/tear/tear.component';
 
 @NgModule({
   declarations: [
@@ -102,6 +103,7 @@ import { SpringComponent } from './examples/spring/spring.component';
     RagdollComponent,
     RagdollModelComponent,
     SpringComponent,
+    TearComponent,
 
     ClothComponent,
     FPSComponent,

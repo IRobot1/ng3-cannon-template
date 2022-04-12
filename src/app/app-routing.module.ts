@@ -35,6 +35,7 @@ import { HingeComponent } from './examples/hinge/hinge.component';
 import { ConstraintsComponent } from './examples/constraints/constraints.component';
 import { RagdollComponent } from './examples/ragdoll/ragdoll.component';
 import { SpringComponent } from './examples/spring/spring.component';
+import { TearComponent } from './examples/tear/tear.component';
 
 
 const routes: Routes = [
@@ -71,7 +72,7 @@ const routes: Routes = [
   { path: 'sleep', component: SleepComponent },
   { path: 'spring', component: SpringComponent },
   { path: 'stacks', component: StacksComponent },
-  { path: 'tear', component: TodoComponent },
+  { path: 'tear', component: TearComponent },
   { path: 'trigger', component: TriggerComponent },
   { path: 'trimesh', component: TrimeshComponent },
   { path: 'tween', component: TweenComponent },
