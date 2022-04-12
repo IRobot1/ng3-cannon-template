@@ -27,6 +27,12 @@ export class RagdollModelComponent {
   @Input() twistAngle = 0;
   @Input() mass = 1;
 
+  // https://www.w3schools.com/colors/colors_palettes.asp 2016 palettes
+  @Input() headcolor = '#f7cac9';
+  @Input() bodycolor = '#034f84';
+  @Input() armcolor = '#92a8d1';
+  @Input() legcolor = '#f7786b';
+
   headRadius = 0.25 * this.scale;
   shouldersDistance = 0.5 * this.scale
   upperArmLength = 0.4 * this.scale
