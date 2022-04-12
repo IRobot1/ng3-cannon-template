@@ -42,6 +42,7 @@ export class HomeComponent  {
 
   feature = [
     'ragdoll',
+    'rigid_vehicle',
     'cloth',
     'spring',
     'tear',
@@ -50,6 +51,5 @@ export class HomeComponent  {
 
   todo = [
     'raycast_vehicle',
-    'rigid_vehicle',
   ]
 }

@@ -65,6 +65,8 @@ import { RagdollComponent } from './examples/ragdoll/ragdoll.component';
 import { RagdollModelComponent } from './components/ragdoll-model/ragdoll-model.component';
 import { SpringComponent } from './examples/spring/spring.component';
 import { TearComponent } from './examples/tear/tear.component';
+import { RigidVehicleComponent } from './examples/rigid_vehicle/rigid_vehicle.component';
+import { RigidBodyModelComponent } from './components/rigidbody-model/rigidbody-model.component';
 
 @NgModule({
   declarations: [
@@ -104,6 +106,8 @@ import { TearComponent } from './examples/tear/tear.component';
     RagdollModelComponent,
     SpringComponent,
     TearComponent,
+    RigidVehicleComponent,
+    RigidBodyModelComponent,
 
     ClothComponent,
     FPSComponent,

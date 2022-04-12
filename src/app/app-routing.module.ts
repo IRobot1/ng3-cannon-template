@@ -36,6 +36,7 @@ import { ConstraintsComponent } from './examples/constraints/constraints.compone
 import { RagdollComponent } from './examples/ragdoll/ragdoll.component';
 import { SpringComponent } from './examples/spring/spring.component';
 import { TearComponent } from './examples/tear/tear.component';
+import { RigidVehicleComponent } from './examples/rigid_vehicle/rigid_vehicle.component';
 
 
 const routes: Routes = [
@@ -68,7 +69,7 @@ const routes: Routes = [
   { path: 'performance', component: PerformanceComponent },
   { path: 'ragdoll', component: RagdollComponent },
   { path: 'raycast_vehicle', component: TodoComponent },
-  { path: 'rigid_vehicle', component: TodoComponent },
+  { path: 'rigid_vehicle', component: RigidVehicleComponent },
   { path: 'sleep', component: SleepComponent },
   { path: 'spring', component: SpringComponent },
   { path: 'stacks', component: StacksComponent },

@@ -1,0 +1,26 @@
+<!--rigid-vehicle-->
+<ngt-mesh ngtPhysicBox [getPhysicProps]="getBodyProps" [position]="bodyposition">
+  <ngt-box-geometry [args]="bodyArgs"></ngt-box-geometry>
+  <ngt-mesh-standard-material [parameters]="{ color: bodycolor}"></ngt-mesh-standard-material>
+</ngt-mesh>
+
+<ngt-mesh ngtPhysicSphere [getPhysicProps]="getWheelProps" [position]="leftfrontposition">
+  <ngt-sphere-geometry [args]="[wheelRadius, 8, 8]"></ngt-sphere-geometry>
+  <ngt-mesh-standard-material [parameters]="{ color: wheelcolor}"></ngt-mesh-standard-material>
+</ngt-mesh>
+
+<ngt-mesh ngtPhysicSphere [getPhysicProps]="getWheelProps" [position]="rightfrontposition">
+  <ngt-sphere-geometry [args]="[wheelRadius, 8, 8]"></ngt-sphere-geometry>
+  <ngt-mesh-standard-material [parameters]="{ color: wheelcolor}"></ngt-mesh-standard-material>
+</ngt-mesh>
+
+<ngt-mesh ngtPhysicSphere [getPhysicProps]="getWheelProps" [position]="leftbackposition">
+  <ngt-sphere-geometry [args]="[wheelRadius, 8, 8]"></ngt-sphere-geometry>
+  <ngt-mesh-standard-material [parameters]="{ color: wheelcolor}"></ngt-mesh-standard-material>
+</ngt-mesh>
+
+<ngt-mesh ngtPhysicSphere [getPhysicProps]="getWheelProps" [position]="rightbackposition">
+  <ngt-sphere-geometry [args]="[wheelRadius, 8, 8]"></ngt-sphere-geometry>
+  <ngt-mesh-standard-material [parameters]="{ color: wheelcolor}"></ngt-mesh-standard-material>
+</ngt-mesh>
+
