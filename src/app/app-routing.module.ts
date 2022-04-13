@@ -25,7 +25,6 @@ import { TweenComponent } from './examples/tween/tween.component';
 import { VRComponent } from './examples/vr/vr.component';
 import { WorkerComponent } from './examples/worker/worker.component'; 
 import { HomeComponent } from './home.component';
-import { TodoComponent } from './todo.component';
 import { ConveyorComponent } from './examples/conveyor/conveyor.component';
 import { ConditionalComponent } from './examples/conditional/conditional.component';
 import { MousePickComponent } from './examples/mousepick/mousepick.component';
@@ -37,6 +36,7 @@ import { RagdollComponent } from './examples/ragdoll/ragdoll.component';
 import { SpringComponent } from './examples/spring/spring.component';
 import { TearComponent } from './examples/tear/tear.component';
 import { RigidVehicleComponent } from './examples/rigid_vehicle/rigid_vehicle.component';
+import { RaycastVehicleComponent } from './examples/raycast_vehicle/raycast_vehicle.component';
 
 
 const routes: Routes = [
@@ -50,7 +50,6 @@ const routes: Routes = [
   { path: 'worker', component: WorkerComponent },
   { path: 'body_types', component: BodyTypesComponent },
   { path: 'bounce', component: BounceComponent },
-  { path: 'bunny', component: TodoComponent },
   { path: 'callbacks', component: CallbacksComponent },
   { path: 'collision_filter', component: CollisionFilterComponent },
   { path: 'collisions', component: CollisionsComponent },
@@ -68,7 +67,7 @@ const routes: Routes = [
   { path: 'pile', component: PileComponent },
   { path: 'performance', component: PerformanceComponent },
   { path: 'ragdoll', component: RagdollComponent },
-  { path: 'raycast_vehicle', component: TodoComponent },
+  { path: 'raycast_vehicle', component: RaycastVehicleComponent },
   { path: 'rigid_vehicle', component: RigidVehicleComponent },
   { path: 'sleep', component: SleepComponent },
   { path: 'spring', component: SpringComponent },

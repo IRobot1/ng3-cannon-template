@@ -5,7 +5,7 @@ import { Component } from "@angular/core";
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent  {
+export class HomeComponent {
   examples = [
     'fps',
     'conveyor',
@@ -26,7 +26,7 @@ export class HomeComponent  {
     'stacks',
     'threejs',
     'trigger',
-    'tween', 
+    'tween',
     'worker',
   ]
 
@@ -43,13 +43,10 @@ export class HomeComponent  {
   feature = [
     'ragdoll',
     'rigid_vehicle',
+    'raycast_vehicle',
     'cloth',
     'spring',
     'tear',
     'callbacks',
-  ]
-
-  todo = [
-    'raycast_vehicle',
   ]
 }

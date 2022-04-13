@@ -27,7 +27,6 @@ import { XRInspectComponent } from './xr-inspect/xr-inspect.component';
 import { AppRoutingModule } from './app-routing.module';
 import { VRComponent } from './examples/vr/vr.component';
 import { HomeComponent } from './home.component';
-import { TodoComponent } from './todo.component';
 import { ThreeJSComponent } from './examples/threejs/threejs.component';
 import { WorkerComponent } from './examples/worker/worker.component';
 import { BounceComponent } from './examples/bounce/bounce.component';
@@ -67,12 +66,13 @@ import { SpringComponent } from './examples/spring/spring.component';
 import { TearComponent } from './examples/tear/tear.component';
 import { RigidVehicleComponent } from './examples/rigid_vehicle/rigid_vehicle.component';
 import { RigidBodyModelComponent } from './components/rigidbody-model/rigidbody-model.component';
+import { RaycastVehicleComponent } from './examples/raycast_vehicle/raycast_vehicle.component';
+import { RaycastVehicleModelComponent } from './components/raycast-vehicle-model/raycast-vehicle-model.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    TodoComponent,
     ThreeJSComponent,
     WorkerComponent,
     BounceComponent,
@@ -108,6 +108,8 @@ import { RigidBodyModelComponent } from './components/rigidbody-model/rigidbody-
     TearComponent,
     RigidVehicleComponent,
     RigidBodyModelComponent,
+    RaycastVehicleComponent,
+    RaycastVehicleModelComponent,
 
     ClothComponent,
     FPSComponent,

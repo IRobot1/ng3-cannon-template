@@ -22,9 +22,8 @@ export class RigidBodyModelComponent {
 
   @Input() rotation = [0, 0, 0] as NgtEuler;
   @Input() scale = 1;
-  @Input() mass = 0;
+  @Input() mass = 1;
 
-  // https://www.w3schools.com/colors/colors_palettes.asp 2016 palettes
   @Input() bodycolor = 'yellow';
   @Input() wheelcolor = 'gray';
 
@@ -79,17 +78,11 @@ export class RigidBodyModelComponent {
     }
   )
 
-  getLeftFrontWheelProps: GetByIndex<SphereProps> = (index: number) => (
-    {
-      mass: this.mass,
-      args: [this.wheelRadius],
-      position: [this.leftfrontposition.x, this.leftfrontposition.y, this.leftfrontposition.z] as NgtTriplet
-    }
-  )
   getWheelProps: GetByIndex<SphereProps> = (index: number) => (
     {
       mass: this.mass,
       args: [this.wheelRadius],
+      angularDamping: 0.4, // Some damping to not spin wheels too fast
     }
   )
 
