@@ -21,23 +21,31 @@
         <ngt-mesh-standard-material></ngt-mesh-standard-material>
       </ngt-mesh>
 
-      <!--cube that's dragged-->
-      <ngt-mesh #drag="ngtMesh" (ready)="cubeready(drag.mesh)"
-                ngtPhysicBox [getPhysicProps]="getBoxProps"
-                [position]="position"  [castShadow]="true">
-        <ngt-box-geometry></ngt-box-geometry>
-        <ngt-mesh-standard-material [parameters]="{ color: 'white' | color }"></ngt-mesh-standard-material>
-      </ngt-mesh>
+      <ng-container *ngIf="!joined">
+        <ngt-mesh #drag="ngtMesh" (ready)="cubeready(drag.mesh)"
+                  ngtPhysicBox [getPhysicProps]="getBoxProps"
+                  [castShadow]="true">
+          <ngt-box-geometry></ngt-box-geometry>
+          <ngt-mesh-standard-material [parameters]="{ color: 'white' | color }"></ngt-mesh-standard-material>
+        </ngt-mesh>
+      </ng-container>
 
-      <!--marker-->
-      <ngt-mesh [visible]="visible" [position]="position" [scale]="0.2">
-        <ngt-sphere-geometry></ngt-sphere-geometry>
-        <ngt-mesh-standard-material [parameters]="{ color: 'red' | color }"></ngt-mesh-standard-material>
-      </ngt-mesh>
+      <ng-container *ngIf="joined" ngtPhysicPointToPointConstraint [options]="options">
+        <!--cube that's dragged-->
+        <ngt-mesh ngtPhysicBox [getPhysicProps]="getBoxProps" [castShadow]="true">
+          <ngt-box-geometry></ngt-box-geometry>
+          <ngt-mesh-standard-material [parameters]="{ color: 'blue' | color }"></ngt-mesh-standard-material>
+        </ngt-mesh>
+
+        <!--marker-->
+        <ngt-mesh ngtPhysicSphere [position]="position" [scale]="0.2">
+          <ngt-sphere-geometry></ngt-sphere-geometry>
+          <ngt-mesh-standard-material [parameters]="{ color: 'red' | color }"></ngt-mesh-standard-material>
+        </ngt-mesh>
+      </ng-container>
 
     </ngt-physics>
 
-    <!--<ngt-soba-orbit-controls></ngt-soba-orbit-controls>-->
     <ngt-stats></ngt-stats>
   </ngt-canvas>
 </div>

@@ -1,9 +1,10 @@
-import { BoxProps } from "@angular-three/cannon";
-import { NgtCreatedState, NgtTriplet } from "@angular-three/core";
-import { OnDestroy } from "@angular/core";
-import { AfterViewInit, Component } from "@angular/core";
+import { AfterViewInit, Component, OnDestroy } from "@angular/core";
 
 import { Camera, Mesh, Raycaster, Vector2, Vector3 } from "three";
+
+import { NgtCreatedState, NgtTriplet } from "@angular-three/core";
+
+import { BoxProps, GetByIndex } from "@angular-three/cannon";
 
 @Component({
   templateUrl: './mousepick.component.html'
@@ -11,15 +12,25 @@ import { Camera, Mesh, Raycaster, Vector2, Vector3 } from "three";
 export class MousePickComponent implements AfterViewInit, OnDestroy {
 
   position = [0, 3, 0] as NgtTriplet;
-  visible = true;
 
   private cleanup!: () => void;
 
-  getBoxProps(): BoxProps {
-    return {
+  getBoxProps: GetByIndex<BoxProps> = () => (
+    {
       mass: 1,
       args: [1, 1, 1],
-    } as BoxProps;
+      position: this.position,
+      angularFactor: [0, 0, 0] as NgtTriplet,
+    }
+  )
+
+  joined = false;
+
+  get options(): Record<string, any> {
+    return {
+      pivotA: [0, 0, 0],
+      pivotB: [0, 0, 0],
+    }
   }
 
   camera!: Camera;
@@ -45,47 +56,28 @@ export class MousePickComponent implements AfterViewInit, OnDestroy {
       // see if we hit something
       const hitPoint = this.getHitPoint(event.clientX, event.clientY, this.cubeMesh, this.camera)
 
-      // Return if the cube wasn't hit
-      if (!hitPoint) {
-        return
-      }
+      // if the cube was hit
+      if (hitPoint) {
+        // Move marker mesh on contact point
+        this.moveClickMarker(hitPoint)
 
-      // Move marker mesh on contact point
-      this.showClickMarker()
-      this.moveClickMarker(hitPoint)
+        // enable constraint between the marker and cube
+        this.joined = true;
 
-      // Move the movement plane on the z-plane of the hit
-      this.moveMovementPlane(hitPoint, this.camera)
-
-      // Create the constraint between the cube body and the joint body
-      //
-      // ** ng3 - don't have access to underlying body or constraint support
-      //
-      const cubeBody = undefined;
-      this.addJointConstraint(hitPoint, cubeBody)
-
-      // Set the flag to trigger pointermove on next frame so the
-      // movementPlane has had time to move
-      requestAnimationFrame(() => {
         this.isDragging = true
-      })
+      }
     }
     document.body.addEventListener('pointerdown', pointerdown);
 
     const pointermove = (event: PointerEvent) => {
-      if (!this.isDragging) {
-        return
-      }
+      if (this.isDragging) {
+        // Project the mouse onto the movement plane
+        const hitPoint = this.getHitPoint(event.clientX, event.clientY, this.movementPlane, this.camera)
 
-      // Project the mouse onto the movement plane
-      const hitPoint = this.getHitPoint(event.clientX, event.clientY, this.movementPlane, this.camera)
-
-      if (hitPoint) {
-        // Move marker mesh on the contact point
-        this.moveClickMarker(hitPoint)
-
-        // Move the cannon constraint on the contact point
-        this.moveJoint(hitPoint)
+        if (hitPoint) {
+          // Move marker mesh on the contact point
+          this.moveClickMarker(hitPoint)
+        }
       }
     }
     document.body.addEventListener('pointermove', pointermove);
@@ -93,11 +85,8 @@ export class MousePickComponent implements AfterViewInit, OnDestroy {
     const pointerup = (event: PointerEvent) => {
       this.isDragging = false
 
-      // Hide the marker mesh
-      this.hideClickMarker()
-
-      // Remove the mouse constraint from the world
-      this.removeJointConstraint()
+      // disable constraint between marker and box
+      this.joined = false;
     }
     document.body.addEventListener('pointerup', pointerup);
 
@@ -133,58 +122,7 @@ export class MousePickComponent implements AfterViewInit, OnDestroy {
   }
 
 
-  private showClickMarker() {
-    this.visible = true
-  }
-
   private moveClickMarker(position: Vector3) {
     this.position = [position.x, position.y, position.z]
-  }
-
-  private hideClickMarker() {
-    this.visible = false
-  }
-
-  // This function moves the virtual movement plane for the mouseJoint to move in
-  private moveMovementPlane(point: Vector3, camera: Camera) {
-    // Center at mouse position
-    this.movementPlane.position.copy(point)
-
-    // Make it face toward the camera
-    this.movementPlane.quaternion.copy(camera.quaternion)
-  }
-
-  // Add a constraint between the cube and the jointBody
-  // in the initeraction position
-  private addJointConstraint(position: Vector3, constrainedBody: any) {
-    //  // Vector that goes from the body to the clicked point
-    //  const vector = new CANNON.Vec3().copy(position).vsub(constrainedBody.position)
-
-    //  // Apply anti-quaternion to vector to tranform it into the local body coordinate system
-    //  const antiRotation = constrainedBody.quaternion.inverse()
-    //  const pivot = antiRotation.vmult(vector) // pivot is not in local body coordinates
-
-    //  // Move the cannon click marker body to the click position
-    //  jointBody.position.copy(position)
-
-    //  // Create a new constraint
-    //  // The pivot for the jointBody is zero
-    //  jointConstraint = new CANNON.PointToPointConstraint(constrainedBody, pivot, jointBody, new CANNON.Vec3(0, 0, 0))
-
-    //  // Add the constraint to world
-    //  world.addConstraint(jointConstraint)
-  }
-
-  // This functions moves the joint body to a new postion in space
-  // and updates the constraint
-  private moveJoint(position: Vector3) {
-    //  jointBody.position.copy(position)
-    //  jointConstraint.update()
-  }
-
-  // Remove constraint from world
-  private removeJointConstraint() {
-    //  world.removeConstraint(jointConstraint)
-    //  jointConstraint = undefined
   }
 }
