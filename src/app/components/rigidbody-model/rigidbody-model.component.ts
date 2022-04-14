@@ -1,7 +1,13 @@
 import { BoxProps, GetByIndex, SphereProps } from "@angular-three/cannon";
 import { NgtEuler, NgtTriplet } from "@angular-three/core";
-import { Component, Input } from "@angular/core";
+import { AfterViewInit, Component, Input, OnDestroy } from "@angular/core";
 import { Vector3 } from "three";
+
+class RigidVehicle {
+  setWheelForce(value: number, wheelIndex: number) { }
+  setSteeringValue(value: number, wheelIndex: number) { }
+}
+
 
 @Component({
   selector: 'rigidbody-model',
@@ -26,6 +32,23 @@ export class RigidBodyModelComponent {
 
   @Input() bodycolor = 'yellow';
   @Input() wheelcolor = 'gray';
+
+  private _drive = false
+  @Input()
+  get drive(): boolean {
+    return this._drive;
+  }
+  set drive(newvalue: boolean) {
+    if (newvalue != this._drive) {
+      this._drive = newvalue;
+      if (newvalue) {
+        this.enable_input();
+      }
+      else {
+        this.disable_input();
+      }
+    }
+  }
 
   axisWidth = 4
   wheelRadius = 0.75
@@ -90,15 +113,82 @@ export class RigidBodyModelComponent {
 
   constructor() {
     this.updatePositions(new Vector3(this.position[0], this.position[1], this.position[2]));
+  }
 
-    //vehicle.wheelBodies.forEach((wheelBody) => {
-    //  // Some damping to not spin wheels too fast
-    //  wheelBody.angularDamping = 0.4
+  private disable_input!: () => void;
+  enable_input(): void {
+    const vehicle = new RigidVehicle();
 
-    //  // Add visuals
-    //  demo.addVisual(wheelBody)
-    //})
+    // movement
+    const keydown = (event: KeyboardEvent) => {
+      const maxSteerVal = Math.PI / 8
+      const maxSpeed = 10
+      const maxForce = 100
 
-    //vehicle.addToWorld(world)
+      switch (event.key) {
+        case 'w':
+        case 'ArrowUp':
+          vehicle.setWheelForce(maxForce, 2)
+          vehicle.setWheelForce(-maxForce, 3)
+          break
+
+        case 's':
+        case 'ArrowDown':
+          vehicle.setWheelForce(-maxForce / 2, 2)
+          vehicle.setWheelForce(maxForce / 2, 3)
+          break
+
+        case 'a':
+        case 'ArrowLeft':
+          vehicle.setSteeringValue(maxSteerVal, 0)
+          vehicle.setSteeringValue(maxSteerVal, 1)
+          break
+
+        case 'd':
+        case 'ArrowRight':
+          vehicle.setSteeringValue(-maxSteerVal, 0)
+          vehicle.setSteeringValue(-maxSteerVal, 1)
+          break
+      }
+    }
+    document.addEventListener('keydown', keydown);
+
+    const keyup = (event: KeyboardEvent) => {
+      // Reset force on keyup
+      document.addEventListener('keyup', (event) => {
+        switch (event.key) {
+          case 'w':
+          case 'ArrowUp':
+            vehicle.setWheelForce(0, 2)
+            vehicle.setWheelForce(0, 3)
+            break
+
+          case 's':
+          case 'ArrowDown':
+            vehicle.setWheelForce(0, 2)
+            vehicle.setWheelForce(0, 3)
+            break
+
+          case 'a':
+          case 'ArrowLeft':
+            vehicle.setSteeringValue(0, 0)
+            vehicle.setSteeringValue(0, 1)
+            break
+
+          case 'd':
+          case 'ArrowRight':
+            vehicle.setSteeringValue(0, 0)
+            vehicle.setSteeringValue(0, 1)
+            break
+        }
+      })
+    }
+    document.addEventListener('keyup', keyup);
+
+    this.disable_input = () => {
+      document.removeEventListener('keydown', keydown);
+      document.removeEventListener('keyup', keyup);
+    }
+
   }
 }
