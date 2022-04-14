@@ -1,14 +1,15 @@
-import { DefaultContactMaterial } from '@angular-three/cannon/lib/models/default-contact-material';
+import { AfterViewInit, Component, OnDestroy } from '@angular/core';
+
+import { Vector3 } from 'three';
+
 import { NgtCreatedState, NgtTriplet } from '@angular-three/core';
-import { AfterViewInit } from '@angular/core';
-import { Component } from '@angular/core';
+import { DefaultContactMaterial } from '@angular-three/cannon/lib/models/default-contact-material';
 
-import { Vec3 } from 'cannon-es';
+import { VRButton } from 'three-stdlib/webxr/VRButton';
 
-import { VRButton } from 'three/examples/jsm/webxr/VRButton.js';
 
 class Cube {
-  constructor(public name: string, public position: Vec3) { }
+  constructor(public name: string, public position: Vector3) { }
 }
 
 type XRMode = 'bat' | 'inspect';
@@ -17,7 +18,7 @@ type XRMode = 'bat' | 'inspect';
   //selector: 'app-root',
   templateUrl: './vr.component.html'
 })
-export class VRComponent implements AfterViewInit {
+export class VRComponent implements AfterViewInit, OnDestroy {
   cubes: Array<Cube> = [];
   message = 'volume not triggered';
   vr = true;
@@ -48,11 +49,13 @@ export class VRComponent implements AfterViewInit {
     }
   }
 
+  private timer!: any;
+
   ngAfterViewInit(): void {
     let count = 0;
-    setInterval(() => {
+    this.timer = setInterval(() => {
       if (this.cubes.length < 29) {
-        this.cubes.push(new Cube('cube' + count.toString(), new Vec3(0, this.startheight, Math.random())));
+        this.cubes.push(new Cube('cube' + count.toString(), new Vector3(0, this.startheight, Math.random())));
       }
       else if (this.recycle) {
         const position = this.cubes[count].position;
@@ -68,5 +71,9 @@ export class VRComponent implements AfterViewInit {
       }
 
     }, 500);
+  }
+
+  ngOnDestroy(): void {
+    clearInterval(this.timer);
   }
 }

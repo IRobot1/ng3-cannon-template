@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnDestroy } from "@angular/core";
 
 import { NgtTriplet } from "@angular-three/core";
 
@@ -11,18 +11,20 @@ class ContainerSphere {
 @Component({
   templateUrl: './pile.component.html'
 })
-export class PileComponent {
+export class PileComponent implements OnDestroy {
   spheresize = 1;
   spheres: Array<ContainerSphere> = [];
 
   wallsize = 10;
   floorsize = 100;
 
+  private timer!: any;
+
   constructor() {
     let i = 0;
     let max = 100;
 
-    setInterval(() => {
+    this.timer = setInterval(() => {
 
       if (this.spheres.length < max) {
         this.spheres.push(new ContainerSphere(
@@ -31,13 +33,17 @@ export class PileComponent {
         );
         i++;
       } else {
-        if (i == max) 
+        if (i == max)
           i = 0;
         else
           i++;
         this.spheres[i].position = [-this.spheresize * 2 * Math.sin(i), this.spheresize * 2 * 7, this.spheresize * 2 * Math.cos(i)];
       }
     }, 100)
+  }
+
+  ngOnDestroy(): void {
+    clearInterval(this.timer);
   }
 
   getPlaneProps: GetByIndex<PlaneProps> = (index: number) => (

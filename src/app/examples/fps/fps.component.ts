@@ -1,10 +1,10 @@
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component } from "@angular/core";
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, ViewChild } from "@angular/core";
+
+import { Camera, Ray, Vector3 } from "three";
 
 import { NgtCreatedState, NgtTriplet } from "@angular-three/core";
 
 import { BoxProps, GetByIndex, SphereProps } from "@angular-three/cannon";
-import { Camera, Ray, Vector3 } from "three";
-import { ViewChild } from "@angular/core";
 import { NgtPhysicSphere } from "@angular-three/cannon/bodies";
 
 class Projectile {
@@ -18,7 +18,7 @@ class Target {
   templateUrl: './fps.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FPSComponent implements AfterViewInit {
+export class FPSComponent implements AfterViewInit, OnDestroy {
   @ViewChild('player') player!: NgtPhysicSphere;
 
   projectiles: Array<Projectile> = [];
@@ -39,9 +39,10 @@ export class FPSComponent implements AfterViewInit {
     }
   }
 
+  private timer!: any;
   ngAfterViewInit(): void {
     // if setInterval is removed, will need to call detectChanges below
-    setInterval(() => {
+    this.timer = setInterval(() => {
       this.projectiles.forEach((item, index) => {
         item.ttl--;
         if (item.ttl <= 0) {
@@ -50,6 +51,11 @@ export class FPSComponent implements AfterViewInit {
       })
     }, 100);
   }
+
+  ngOnDestroy(): void {
+    clearInterval(this.timer);
+  }
+
 
   created(event: NgtCreatedState) {
     this.camera = event.camera;

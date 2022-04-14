@@ -1,4 +1,4 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy } from '@angular/core';
 import { NgtTriplet } from '@angular-three/core';
 import { BoxProps, GetByIndex } from '@angular-three/cannon';
 
@@ -10,7 +10,7 @@ class Cube {
 @Component({
   templateUrl: './conveyor.component.html'
 })
-export class ConveyorComponent implements AfterViewInit {
+export class ConveyorComponent implements AfterViewInit, OnDestroy {
   cubes: Array<Cube> = [];
 
   platformheight = 0.5;
@@ -30,9 +30,11 @@ export class ConveyorComponent implements AfterViewInit {
     }
   )
 
+  private timer!: any;
+
   ngAfterViewInit(): void {
     let count = 0;
-    setInterval(() => {
+    this.timer = setInterval(() => {
       if (this.cubes.length < 29) {
         const color = '#' + Math.floor(Math.random() * 16777215).toString(16).padEnd(6, '0');
         const cube = new Cube('cube' + count.toString(), [3, 2, Math.random()], [Math.random(), Math.random(), Math.random()], color);
@@ -45,5 +47,9 @@ export class ConveyorComponent implements AfterViewInit {
           count = 0;
       }
     }, 750);
+  }
+
+  ngOnDestroy(): void {
+    clearInterval(this.timer);
   }
 }
