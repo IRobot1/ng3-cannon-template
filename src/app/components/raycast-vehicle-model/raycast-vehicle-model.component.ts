@@ -3,7 +3,7 @@ import { Component, Input } from "@angular/core";
 import { Euler, Quaternion, Vector3 } from "three";
 import { NgtEuler, NgtTriplet } from "@angular-three/core";
 
-import { BoxProps, CylinderArgs, CylinderProps, GetByIndex, SphereProps } from "@angular-three/cannon";
+import { BoxProps, CylinderArgs, CylinderProps, GetByIndex } from "@angular-three/cannon";
 import { WheelInfoOptions } from "@angular-three/cannon/lib/models/wheel-info-opts";
 
 class RaycastVehicle {
@@ -12,6 +12,10 @@ class RaycastVehicle {
   addWheel(options: WheelInfoOptions) {
     this.wheelInfos.push(options);
   }
+
+  applyEngineForce(value: number, wheelIndex: number) { }
+  setSteeringValue(value: number, wheelIndex: number) { }
+  setBrake(brake: number, wheelIndex: number) { }
 }
 
 
@@ -38,6 +42,23 @@ export class RaycastVehicleModelComponent {
 
   @Input() bodycolor = 'yellow';
   @Input() wheelcolor = 'gray';
+
+  private _drive = false
+  @Input()
+  get drive(): boolean {
+    return this._drive;
+  }
+  set drive(newvalue: boolean) {
+    if (newvalue != this._drive) {
+      this._drive = newvalue;
+      if (newvalue) {
+        this.enable_input();
+      }
+      else {
+        this.disable_input();
+      }
+    }
+  }
 
   wheelRadius = 0.5
 
@@ -126,5 +147,95 @@ export class RaycastVehicleModelComponent {
     //  wheelBody.addShape(cylinderShape, new CANNON.Vec3(), quaternion)
     //  wheelBodies.push(wheelBody)
     //})
+  }
+
+  private disable_input!: () => void;
+  enable_input(): void {
+    const vehicle = new RaycastVehicle();
+
+    // movement
+    const keydown = (event: KeyboardEvent) => {
+      const maxSteerVal = 0.5
+      const maxForce = 1000
+      const brakeForce = 1000000
+
+      switch (event.key) {
+        case 'w':
+        case 'ArrowUp':
+          vehicle.applyEngineForce(-maxForce, 2)
+          vehicle.applyEngineForce(-maxForce, 3)
+          break
+
+        case 's':
+        case 'ArrowDown':
+          vehicle.applyEngineForce(maxForce, 2)
+          vehicle.applyEngineForce(maxForce, 3)
+          break
+
+        case 'a':
+        case 'ArrowLeft':
+          vehicle.setSteeringValue(maxSteerVal, 0)
+          vehicle.setSteeringValue(maxSteerVal, 1)
+          break
+
+        case 'd':
+        case 'ArrowRight':
+          vehicle.setSteeringValue(-maxSteerVal, 0)
+          vehicle.setSteeringValue(-maxSteerVal, 1)
+          break
+
+        case 'b':
+          vehicle.setBrake(brakeForce, 0)
+          vehicle.setBrake(brakeForce, 1)
+          vehicle.setBrake(brakeForce, 2)
+          vehicle.setBrake(brakeForce, 3)
+          break
+      }
+    }
+    document.addEventListener('keydown', keydown);
+
+    const keyup = (event: KeyboardEvent) => {
+      // Reset force on keyup
+      document.addEventListener('keyup', (event) => {
+        switch (event.key) {
+          case 'w':
+          case 'ArrowUp':
+            vehicle.applyEngineForce(0, 2)
+            vehicle.applyEngineForce(0, 3)
+            break
+
+          case 's':
+          case 'ArrowDown':
+            vehicle.applyEngineForce(0, 2)
+            vehicle.applyEngineForce(0, 3)
+            break
+
+          case 'a':
+          case 'ArrowLeft':
+            vehicle.setSteeringValue(0, 0)
+            vehicle.setSteeringValue(0, 1)
+            break
+
+          case 'd':
+          case 'ArrowRight':
+            vehicle.setSteeringValue(0, 0)
+            vehicle.setSteeringValue(0, 1)
+            break
+
+          case 'b':
+            vehicle.setBrake(0, 0)
+            vehicle.setBrake(0, 1)
+            vehicle.setBrake(0, 2)
+            vehicle.setBrake(0, 3)
+            break
+        }
+      })
+    }
+    document.addEventListener('keyup', keyup);
+
+    this.disable_input = () => {
+      document.removeEventListener('keydown', keydown);
+      document.removeEventListener('keyup', keyup);
+    }
   }
 }
