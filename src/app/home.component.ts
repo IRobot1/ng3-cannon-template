@@ -21,6 +21,7 @@ export class HomeComponent {
     'hinge',
     'impulses',
     'jenga',
+    'mousepick',
     'performance',
     'pile',
     'stacks',
@@ -33,7 +34,6 @@ export class HomeComponent {
   almost = [
     'constraints',
     'heightfield',
-    'mousepick',
     'body_types',
     'convex',
     'sleep',

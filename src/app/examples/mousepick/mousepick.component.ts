@@ -4,14 +4,16 @@ import { Camera, Mesh, Raycaster, Vector2, Vector3 } from "three";
 
 import { NgtCreatedState, NgtTriplet } from "@angular-three/core";
 
-import { BoxProps, GetByIndex } from "@angular-three/cannon";
+import { BoxProps, GetByIndex, SphereProps } from "@angular-three/cannon";
+import { NgtPhysicBox } from "@angular-three/cannon/bodies";
 
 @Component({
   templateUrl: './mousepick.component.html'
 })
 export class MousePickComponent implements AfterViewInit, OnDestroy {
-
   position = [0, 3, 0] as NgtTriplet;
+  velocity = [0, 0, 0] as NgtTriplet;
+  sphereRadius = 0.2;
 
   private cleanup!: () => void;
 
@@ -20,11 +22,16 @@ export class MousePickComponent implements AfterViewInit, OnDestroy {
       mass: 1,
       args: [1, 1, 1],
       position: this.position,
-      angularFactor: [0, 0, 0] as NgtTriplet,
+      angularFactor: [0, 0, 0] as NgtTriplet, // prevent it spinning while dragging
+      velocity: this.velocity,
     }
   )
-
-  joined = false;
+  getSphereProps: GetByIndex<SphereProps> = () => (
+    {
+      mass: 0,
+      args: [this.sphereRadius]
+    }
+  )
 
   get options(): Record<string, any> {
     return {
@@ -43,14 +50,21 @@ export class MousePickComponent implements AfterViewInit, OnDestroy {
     this.cubeMesh = mesh;
   }
 
+  boxphysics!: NgtPhysicBox;
+  movingready(box: NgtPhysicBox) {
+    this.boxphysics = box;
+  }
+
   movementPlane!: Mesh;
   moveready(mesh: Mesh) {
     this.movementPlane = mesh;
   }
 
-  private isDragging = false;
+  isDragging = false;
+  private velocity_subscription?: () => void;
 
   ngAfterViewInit(): void {
+
     const pointerdown = (event: PointerEvent) => {
       // Cast a ray from where the mouse is pointing and
       // see if we hit something
@@ -62,8 +76,6 @@ export class MousePickComponent implements AfterViewInit, OnDestroy {
         this.moveClickMarker(hitPoint)
 
         // enable constraint between the marker and cube
-        this.joined = true;
-
         this.isDragging = true
       }
     }
@@ -77,16 +89,28 @@ export class MousePickComponent implements AfterViewInit, OnDestroy {
         if (hitPoint) {
           // Move marker mesh on the contact point
           this.moveClickMarker(hitPoint)
+
+          if (!this.velocity_subscription) {
+            // monitor velocity of dragged box until its released
+            this.velocity_subscription = this.boxphysics.api.velocity.subscribe(next => {
+              this.velocity = next;
+            });
+          }
+
         }
       }
     }
     document.body.addEventListener('pointermove', pointermove);
 
+
     const pointerup = (event: PointerEvent) => {
-      this.isDragging = false
+
+      // velocity of other box is now velocity of dragged box
+      this.velocity_subscription?.();
+      this.velocity_subscription = undefined;
 
       // disable constraint between marker and box
-      this.joined = false;
+      this.isDragging = false
     }
     document.body.addEventListener('pointerup', pointerup);
 
@@ -123,6 +147,7 @@ export class MousePickComponent implements AfterViewInit, OnDestroy {
 
 
   private moveClickMarker(position: Vector3) {
+    // update marker position
     this.position = [position.x, position.y, position.z]
   }
 }
