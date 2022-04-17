@@ -1,11 +1,10 @@
 import { Component } from "@angular/core";
 
-import { NgtTriplet } from "@angular-three/core";
-
-import { SphereProps } from "@angular-three/cannon";
+import { NgtPhysicBody } from "@angular-three/cannon/bodies";
 
 @Component({
-  templateUrl: './ragdoll.component.html'
+  templateUrl: './ragdoll.component.html',
+  providers: [NgtPhysicBody],
 })
 export class RagdollComponent {
 

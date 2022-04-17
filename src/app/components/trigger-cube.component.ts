@@ -1,21 +1,22 @@
-import { BoxProps, GetByIndex } from "@angular-three/cannon";
-import { NgtTriplet, NgtVector3 } from "@angular-three/core";
 import { Component, EventEmitter, Input, Output } from "@angular/core";
+
+import { NgtTriple, NgtVector3 } from "@angular-three/core";
+
+import { NgtPhysicBody } from "@angular-three/cannon/bodies";
 
 @Component({
   selector: 'trigger-cube',
   template: `
         <ngt-mesh [name]="name"
-            ngtPhysicBox
-            [getPhysicProps]="getCubeProps"
+            [ref]="cubeProps.ref" 
             [position]="position"
             [scale]="scale">
             <ngt-box-geometry></ngt-box-geometry>
             <ngt-mesh-standard-material
                 [parameters]="{ wireframe: true, color: 'red' }"
             ></ngt-mesh-standard-material>
-        </ngt-mesh>
-    `
+        </ngt-mesh>`,
+  providers: [NgtPhysicBody],
 })
 export class TriggerCubeComponent {
   @Input() position?: NgtVector3;
@@ -24,16 +25,15 @@ export class TriggerCubeComponent {
 
   @Output() trigger = new EventEmitter<string>();
 
-  getCubeProps(): BoxProps {
-    return {
-      isTrigger: true,
-      scale: this.scale,
-      onCollideBegin: (e) => {
-        this.trigger.emit('volume triggered by ' + e.body.name);
-      },
-      args: this.scale as NgtTriplet  // this is required for box geometry
-    } as BoxProps;
-  }
+  cubeProps = this.physicBody.useBox(() => ({
+    isTrigger: true,
+    scale: this.scale,
+    onCollideBegin: (e) => {
+      this.trigger.emit('volume triggered by ' + e.body.name);
+    },
+    args: this.scale as NgtTriple  // this is required for box geometry
+  }));
 
+  constructor(private physicBody: NgtPhysicBody) { }
 
 }

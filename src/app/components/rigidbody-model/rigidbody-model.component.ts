@@ -1,7 +1,10 @@
-import { BoxProps, GetByIndex, SphereProps } from "@angular-three/cannon";
-import { NgtEuler, NgtTriplet } from "@angular-three/core";
-import { AfterViewInit, Component, Input, OnDestroy } from "@angular/core";
+import { Component, Input } from "@angular/core";
+
 import { Vector3 } from "three";
+
+import { NgtEuler, NgtTriple } from "@angular-three/core";
+
+import { NgtPhysicBody } from "@angular-three/cannon/bodies";
 
 class RigidVehicle {
   setWheelForce(value: number, wheelIndex: number) { }
@@ -11,17 +14,18 @@ class RigidVehicle {
 
 @Component({
   selector: 'rigidbody-model',
-  templateUrl: 'rigidbody-model.component.html'
+  templateUrl: 'rigidbody-model.component.html',
+  providers: [NgtPhysicBody],
 })
 export class RigidBodyModelComponent {
   @Input() name = 'rigidbody';
 
-  private _position = [0, 1, 0] as NgtTriplet;
+  private _position = [0, 1, 0] as NgtTriple;
   @Input()
-  get position(): NgtTriplet {
+  get position(): NgtTriple {
     return this._position;
   }
-  set position(newvalue: NgtTriplet) {
+  set position(newvalue: NgtTriple) {
     this._position = newvalue;
     this.updatePositions(new Vector3(this.position[0], this.position[1], this.position[2]));
   }
@@ -53,7 +57,7 @@ export class RigidBodyModelComponent {
   axisWidth = 4
   wheelRadius = 0.75
 
-  bodyArgs = [5, 0.5, 2.5] as NgtTriplet;
+  bodyArgs = [5, 0.5, 2.5] as NgtTriple;
   centerOfMassAdjust = new Vector3(0, -1, 0)
 
   bodyposition!: Vector3
@@ -93,25 +97,20 @@ export class RigidBodyModelComponent {
     this.rightbackposition = new Vector3(2.5, this.wheelRadius, -this.axisWidth / 2).add(position).add(this.centerOfMassAdjust);
   }
 
-  getBodyProps: GetByIndex<BoxProps> = (index: number) => (
-    {
-      mass: this.mass,
-      args: this.bodyArgs,
-      offset: [0, -1, 0] as NgtTriplet,  // center of mass
-    }
-  )
+  bodyProps = this.physicBody.useBox(() => ({
+    mass: this.mass,
+    args: this.bodyArgs,
+    offset: [0, -1, 0] as NgtTriple,  // center of mass
+  }));
 
-  getWheelProps: GetByIndex<SphereProps> = (index: number) => (
-    {
+  wheelProps = this.physicBody.useSphere(() => ({
       mass: this.mass,
       args: [this.wheelRadius],
       angularDamping: 0.4, // Some damping to not spin wheels too fast
-    }
-  )
+  }));
 
 
-
-  constructor() {
+ constructor(private physicBody: NgtPhysicBody) { 
     this.updatePositions(new Vector3(this.position[0], this.position[1], this.position[2]));
   }
 

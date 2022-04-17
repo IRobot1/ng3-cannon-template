@@ -7,12 +7,12 @@
     <ngt-physics [gravity]="[0, 0, 0]">
       <ngt-cannon-debug [disabled]="true" [scale]="1.1" color="red">
 
-        <ngt-mesh ngtPhysicSphere [name]="'sphere'" [getPhysicProps]="getSphereProps" [position]="[0, 0, 3]">
+        <ngt-mesh [name]="'sphere'" [ref]="sphereProps.ref" [position]="[0, 0, 3]">
           <ngt-sphere-geometry [args]="[1, 8, 8]"></ngt-sphere-geometry>
           <ngt-mesh-standard-material [parameters]="{ color: 'gray' | color }"></ngt-mesh-standard-material>
         </ngt-mesh>
 
-        <ngt-mesh ngtPhysicBox [name]="'trigger'" [getPhysicProps]="getCubeProps" [scale]="[5, 2, 2]">
+        <ngt-mesh [name]="'trigger'" [ref]="cubeProps.ref" [scale]="[5, 2, 2]">
           <ngt-box-geometry></ngt-box-geometry>
           <ngt-mesh-standard-material [parameters]="{ color: 'green', wireframe: true }"></ngt-mesh-standard-material>
         </ngt-mesh>

@@ -10,41 +10,35 @@
     <ngt-physics>
       <ngt-cannon-debug [disabled]="true" [scale]="1.1" color="red">
 
-        <ngt-mesh ngtPhysicPlane [name]="'plane'"
-                  [receiveShadow]="true" [rotation]="[-90 | radian, 0, 0]">
-          <ngt-plane-geometry [args]="[100, 100]"></ngt-plane-geometry>
-          <ngt-mesh-standard-material [parameters]="{ color: '#777777' | color }"></ngt-mesh-standard-material>
-        </ngt-mesh>
+        <ngt-box-geometry #box (ready)="ready(box.instance.value)"></ngt-box-geometry>
 
-        <ngt-box-geometry #box="ngtBoxGeometry" (ready)="ready(box)"></ngt-box-geometry>
-
-        <ngt-mesh ngtPhysicConvexPolyhedron [getPhysicProps]="getTetraProps"
+        <ngt-mesh [ref]="tetraProps.ref"
                   [rotation]="[10 | radian, 0, 0]" [position]="[3, 1.5, 3]"
                   [castShadow]="true">
           <ngt-polyhedron-geometry [args]="[tetrageovertices, tetrageofaces]"></ngt-polyhedron-geometry>
           <ngt-mesh-standard-material [parameters]="{ color: 'white' | color }"></ngt-mesh-standard-material>
         </ngt-mesh>
 
-        <ngt-mesh ngtPhysicConvexPolyhedron [getPhysicProps]="getTetraProps"
+        <ngt-mesh [ref]="tetraProps.ref"
                   [rotation]="[10 | radian, 0, 0]" [position]="[3, 3, 3]"
                   [castShadow]="true">
           <ngt-polyhedron-geometry [args]="[tetrageovertices, tetrageofaces]"></ngt-polyhedron-geometry>
           <ngt-mesh-standard-material [parameters]="{ color: 'white' | color }"></ngt-mesh-standard-material>
         </ngt-mesh>
 
-        <ngt-mesh ngtPhysicConvexPolyhedron [getPhysicProps]="getConvexBoxProps"
+        <ngt-mesh [ref]="convexProps.ref"
                   [rotation]="[10 | radian, 0, 0]" [position]="[0, 1.5, 1]"
-                  [castShadow]="true" [geometry]="box.geometry">
+                  [castShadow]="true" [geometry]="box.instance.value">
           <ngt-mesh-standard-material [parameters]="{ color: 'orange' | color }"></ngt-mesh-standard-material>
         </ngt-mesh>
 
-        <!--<ngt-mesh ngtPhysicBox [getPhysicProps]="getBoxProps"
+        <!--<ngt-mesh [ref]="boxProps.ref"
                   [rotation]="[10 | radian, 0, 0]" [position]="[0, 1.5, -1]"
-                  [castShadow]="true" [geometry]="box.geometry">
+                  [castShadow]="true" [geometry]="box.instance.value">
           <ngt-mesh-standard-material [parameters]="{ color: 'red' | color }"></ngt-mesh-standard-material>
         </ngt-mesh>-->
 
-        <ngt-mesh ngtPhysicCylinder [getPhysicProps]="getCylinderProps"
+        <ngt-mesh [ref]="cylinderProps.ref"
                   [rotation]="[90 | radian, 0, 0]" [position]="[0, 5, 0]"
                   [castShadow]="true">
           <ngt-cylinder-geometry [args]="[0.5, 0.5, 2, 20]"></ngt-cylinder-geometry>
@@ -52,24 +46,25 @@
         </ngt-mesh>
 
         <!--convex on convex-->
-        <ngt-mesh ngtPhysicConvexPolyhedron [getPhysicProps]="getConvexBoxProps"
+        <ngt-mesh [ref]="convexProps.ref"
                   [rotation]="[10 | radian, 0, 0]" [position]="[3, 1.5, 0]"
-                  [castShadow]="true" [geometry]="box.geometry">
+                  [castShadow]="true" [geometry]="box.instance.value">
           <ngt-mesh-standard-material [parameters]="{ color: 'orange' | color }"></ngt-mesh-standard-material>
         </ngt-mesh>
-        <ngt-mesh ngtPhysicConvexPolyhedron [getPhysicProps]="getConvexBoxProps"
+        <ngt-mesh [ref]="convexProps.ref"
                   [rotation]="[10 | radian, 0, 0]" [position]="[3, 3, 0]"
-                  [castShadow]="true" [geometry]="box.geometry">
+                  [castShadow]="true" [geometry]="box.instance.value">
           <ngt-mesh-standard-material [parameters]="{ color: 'orange' | color }"></ngt-mesh-standard-material>
         </ngt-mesh>
 
         <!--convex wall-->
-        <ngt-mesh *ngFor="let position of wall" ngtPhysicConvexPolyhedron [getPhysicProps]="getConvexBoxProps"
+        <ngt-mesh *ngFor="let position of wall" [ref]="convexProps.ref"
                   [position]="position"
-                  [castShadow]="true" [geometry]="box.geometry">
+                  [castShadow]="true" [geometry]="box.instance.value">
           <ngt-mesh-standard-material [parameters]="{ color: 'blue' | color }"></ngt-mesh-standard-material>
         </ngt-mesh>
 
+        <floor></floor>
       </ngt-cannon-debug>
     </ngt-physics>
 

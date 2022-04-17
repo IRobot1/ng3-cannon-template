@@ -7,37 +7,37 @@
 
     <ngt-physics [gravity]="[0, 0, 0]">
       <!--Center Impulse-->
-      <ngt-mesh #ci="ngtPhysicSphere" ngtPhysicSphere [getPhysicProps]="getSphereProps" [castShadow]="true" [position]="[-6, 0, 0]">
+      <ngt-mesh [ref]="ci.ref" [castShadow]="true" [position]="[-6, 0, 0]">
         <ngt-sphere-geometry></ngt-sphere-geometry>
         <ngt-mesh-standard-material [parameters]="{ color: 'red' | color }"></ngt-mesh-standard-material>
       </ngt-mesh>
 
       <!--Top Impulse-->
-      <ngt-mesh #ti="ngtPhysicSphere" ngtPhysicSphere [getPhysicProps]="getSphereProps" [castShadow]="true" [position]="[-4, 0, 0]">
+      <ngt-mesh [ref]="ti.ref" [castShadow]="true" [position]="[-4, 0, 0]">
         <ngt-sphere-geometry></ngt-sphere-geometry>
         <ngt-mesh-standard-material [parameters]="parameters"></ngt-mesh-standard-material>
       </ngt-mesh>
 
       <!--Center Force-->
-      <ngt-mesh #cf="ngtPhysicSphere" ngtPhysicSphere [getPhysicProps]="getSphereProps" [castShadow]="true" [position]="[-2, 0, 0]">
+      <ngt-mesh [ref]="cf.ref" [castShadow]="true" [position]="[-2, 0, 0]">
         <ngt-sphere-geometry></ngt-sphere-geometry>
         <ngt-mesh-standard-material [parameters]="{ color: 'blue' | color }"></ngt-mesh-standard-material>
       </ngt-mesh>
 
       <!--Top Force-->
-      <ngt-mesh #tf="ngtPhysicSphere" ngtPhysicSphere [getPhysicProps]="getSphereProps" [castShadow]="true" [position]="[0, 0, 0]">
+      <ngt-mesh [ref]="tf.ref" [castShadow]="true" [position]="[0, 0, 0]">
         <ngt-sphere-geometry></ngt-sphere-geometry>
         <ngt-mesh-standard-material [parameters]="parameters"></ngt-mesh-standard-material>
       </ngt-mesh>
 
       <!--Local Force-->
-      <ngt-mesh #lf="ngtPhysicSphere" ngtPhysicSphere [getPhysicProps]="getSphereLocalProps" [castShadow]="true" [position]="[2, 0, 0]">
+      <ngt-mesh [ref]="sphereLocalProps.ref" [castShadow]="true" [position]="[2, 0, 0]">
         <ngt-sphere-geometry></ngt-sphere-geometry>
         <ngt-mesh-standard-material [parameters]="parameters"></ngt-mesh-standard-material>
       </ngt-mesh>
 
       <!--Torque-->
-      <ngt-mesh #torque="ngtPhysicSphere" ngtPhysicSphere [getPhysicProps]="getSphereProps" [castShadow]="true" [position]="[4, 0, 0]">
+      <ngt-mesh [ref]="torque.ref"  [castShadow]="true" [position]="[4, 0, 0]">
         <ngt-sphere-geometry></ngt-sphere-geometry>
         <ngt-mesh-standard-material [parameters]="parameters"></ngt-mesh-standard-material>
       </ngt-mesh>

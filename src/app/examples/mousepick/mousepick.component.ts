@@ -2,36 +2,33 @@ import { AfterViewInit, Component, OnDestroy } from "@angular/core";
 
 import { Camera, Mesh, Raycaster, Vector2, Vector3 } from "three";
 
-import { NgtCreatedState, NgtTriplet } from "@angular-three/core";
+import { NgtState, NgtTriple } from "@angular-three/core";
 
-import { BoxProps, GetByIndex, SphereProps } from "@angular-three/cannon";
-import { NgtPhysicBox } from "@angular-three/cannon/bodies";
+import { NgtPhysicBody } from "@angular-three/cannon/bodies";
 
 @Component({
-  templateUrl: './mousepick.component.html'
+  templateUrl: './mousepick.component.html',
+  providers: [NgtPhysicBody],
 })
 export class MousePickComponent implements AfterViewInit, OnDestroy {
-  position = [0, 3, 0] as NgtTriplet;
-  velocity = [0, 0, 0] as NgtTriplet;
+  position = [0, 3, 0] as NgtTriple;
+  velocity = [0, 0, 0] as NgtTriple;
   sphereRadius = 0.2;
 
   private cleanup!: () => void;
 
-  getBoxProps: GetByIndex<BoxProps> = () => (
-    {
+  boxProps = this.physicBody.useBox(() => ({
       mass: 1,
       args: [1, 1, 1],
       position: this.position,
-      angularFactor: [0, 0, 0] as NgtTriplet, // prevent it spinning while dragging
+      angularFactor: [0, 0, 0] as NgtTriple, // prevent it spinning while dragging
       velocity: this.velocity,
-    }
-  )
-  getSphereProps: GetByIndex<SphereProps> = () => (
-    {
+  }));
+
+  sphereProps = this.physicBody.useSphere(() => ({
       mass: 0,
       args: [this.sphereRadius]
-    }
-  )
+  }));
 
   get options(): Record<string, any> {
     return {
@@ -40,8 +37,10 @@ export class MousePickComponent implements AfterViewInit, OnDestroy {
     }
   }
 
+  constructor(private physicBody: NgtPhysicBody) { }
+
   camera!: Camera;
-  created(event: NgtCreatedState) {
+  created(event: NgtState) {
     this.camera = event.camera;
   }
 
@@ -50,10 +49,6 @@ export class MousePickComponent implements AfterViewInit, OnDestroy {
     this.cubeMesh = mesh;
   }
 
-  boxphysics!: NgtPhysicBox;
-  movingready(box: NgtPhysicBox) {
-    this.boxphysics = box;
-  }
 
   movementPlane!: Mesh;
   moveready(mesh: Mesh) {
@@ -92,7 +87,7 @@ export class MousePickComponent implements AfterViewInit, OnDestroy {
 
           if (!this.velocity_subscription) {
             // monitor velocity of dragged box until its released
-            this.velocity_subscription = this.boxphysics.api.velocity.subscribe(next => {
+            this.velocity_subscription = this.boxProps.api.velocity.subscribe(next => {
               this.velocity = next;
             });
           }

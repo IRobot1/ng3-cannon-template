@@ -1,40 +1,31 @@
 import { Component } from "@angular/core";
 
-import { NgtTriplet } from "@angular-three/core";
-
-import { PlaneProps, SphereProps } from "@angular-three/cannon";
+import { NgtPhysicBody } from "@angular-three/cannon/bodies";
+import { NgtTriple } from "@angular-three/core";
 
 @Component({
-  templateUrl: './bounce.component.html'
+  templateUrl: './bounce.component.html',
+  providers: [NgtPhysicBody],
 })
 export class BounceComponent {
-  getPlaneProps(): PlaneProps {
-    return {
-      material: { restitution: 1 },
-    } as PlaneProps;
-  }
 
-  getSphere1Props(): SphereProps {
-    return {
-      mass: 1,
-      position: [-3, 5, 3] as NgtTriplet,
-      material: { restitution: 0.4 },
-    } as SphereProps;
-  }
+  sphere1Props = this.physicBody.useSphere(() => ({
+    mass: 1,
+    position: [-3, 5, 3] as NgtTriple,
+    material: { restitution: 0.4 },
+  }));
 
-  getSphere2Props(): SphereProps {
-    return {
-      mass: 1,
-      position: [-3, 5, 0] as NgtTriplet,
-      material: { restitution: 0.6 },
-    } as SphereProps;
-  }
+  sphere2Props = this.physicBody.useSphere(() => ({
+    mass: 1,
+    position: [-3, 5, 0] as NgtTriple,
+    material: { restitution: 0.6 },
+  }));
 
-  getSphere3Props(): SphereProps {
-    return {
-      mass: 1,
-      position: [-3, 5, -3] as NgtTriplet,
-      material: { restitution: 0.8 },
-    } as SphereProps;
-  }
+  sphere3Props = this.physicBody.useSphere(() => ({
+    mass: 1,
+    position: [-3, 5, -3] as NgtTriple,
+    material: { restitution: 0.8 },
+  }));
+
+  constructor(private physicBody: NgtPhysicBody) { }
 }

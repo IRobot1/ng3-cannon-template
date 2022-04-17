@@ -1,10 +1,10 @@
 import { Component, Input } from "@angular/core";
 
 import { Euler, Quaternion, Vector3 } from "three";
-import { NgtEuler, NgtTriplet } from "@angular-three/core";
+import { NgtEuler, NgtTriple } from "@angular-three/core";
 
-import { BoxProps, CylinderArgs, CylinderProps, GetByIndex } from "@angular-three/cannon";
-import { WheelInfoOptions } from "@angular-three/cannon/lib/models/wheel-info-opts";
+import { CylinderArgs, WheelInfoOptions } from "@angular-three/cannon";
+import { NgtPhysicBody } from "@angular-three/cannon/bodies";
 
 class RaycastVehicle {
   wheelInfos: Array<WheelInfoOptions> = [];
@@ -21,17 +21,18 @@ class RaycastVehicle {
 
 @Component({
   selector: 'raycast-vehicle-model',
-  templateUrl: 'raycast-vehicle-model.component.html'
+  templateUrl: 'raycast-vehicle-model.component.html',
+  providers: [NgtPhysicBody],
 })
 export class RaycastVehicleModelComponent {
   @Input() name = 'raycast-vehicle';
 
-  private _position = [0, 0, 0] as NgtTriplet;
+  private _position = [0, 0, 0] as NgtTriple;
   @Input()
-  get position(): NgtTriplet {
+  get position(): NgtTriple {
     return this._position;
   }
-  set position(newvalue: NgtTriplet) {
+  set position(newvalue: NgtTriple) {
     this._position = newvalue;
     this.updatePositions(new Vector3(this.position[0], this.position[1], this.position[2]));
   }
@@ -62,14 +63,14 @@ export class RaycastVehicleModelComponent {
 
   wheelRadius = 0.5
 
-  bodyArgs = [4, 1, 2] as NgtTriplet;
+  bodyArgs = [4, 1, 2] as NgtTriple;
   wheelArgs = [this.wheelRadius, this.wheelRadius, this.wheelRadius / 2, 20] as CylinderArgs;
 
   bodyposition!: Vector3
 
   wheelOptions = {
     radius: this.wheelRadius,
-    directionLocal: [0, -1, 0] as NgtTriplet,
+    directionLocal: [0, -1, 0] as NgtTriple,
     suspensionStiffness: 30,
     suspensionRestLength: 0.3,
     frictionSlip: 1.4,
@@ -77,36 +78,32 @@ export class RaycastVehicleModelComponent {
     dampingCompression: 4.4,
     maxSuspensionForce: 100000,
     rollInfluence: 0.01,
-    axleLocal: [0, 0, 1] as NgtTriplet,
-    chassisConnectionPointLocal: [-1, 0, 1] as NgtTriplet,
+    axleLocal: [0, 0, 1] as NgtTriple,
+    chassisConnectionPointLocal: [-1, 0, 1] as NgtTriple,
     maxSuspensionTravel: 0.3,
     customSlidingRotationalSpeed: -30,
     useCustomSlidingRotationalSpeed: true,
   } as WheelInfoOptions;
 
 
-  getBodyProps: GetByIndex<BoxProps> = (index: number) => (
-    {
-      mass: this.mass,
-      args: this.bodyArgs,
-      angularVelocity: [0, 0.5, 0] as NgtTriplet,
-    }
-  )
+  bodyProps = this.physicBody.useBox(() => ({
+    mass: this.mass,
+    args: this.bodyArgs,
+    angularVelocity: [0, 0.5, 0] as NgtTriple,
+  }));
 
   private wheelrotation = new Euler(-Math.PI / 2, 0, 0);
   private orientation = new Quaternion().setFromEuler(this.wheelrotation);
 
-  getWheelProps: GetByIndex<CylinderProps> = (index: number) => (
-    {
+  wheelProps = this.physicBody.useCylinder(() => ({
       type: 'Kinematic',
       mass: 0,
       args: this.wheelArgs,
       collisionFilterGroup: 0, //turn off collisions
-      offset: [0, 0, 0] as NgtTriplet,
+      offset: [0, 0, 0] as NgtTriple,
       orientation: this.orientation,
       rotation: [this.wheelrotation.x, this.wheelrotation.y, this.wheelrotation.z]
-    }
-  )
+  }));
 
   leftfrontposition!: Vector3
   rightfrontposition!: Vector3
@@ -122,7 +119,7 @@ export class RaycastVehicleModelComponent {
   }
 
 
-  constructor() {
+  constructor(private physicBody: NgtPhysicBody) { 
     this.updatePositions(new Vector3(this.position[0], this.position[1], this.position[2]));
 
     const vehicle = new RaycastVehicle();

@@ -8,17 +8,27 @@
     <ngt-physics>
       <ngt-cannon-debug [disabled]="true" [scale]="1.1" color="black">
 
-        <storybook-cube *ngFor="let cube of cubes" [position]="cube.position" [scale]="cube.scale" [color]="'white'"></storybook-cube>
+        <storybook-cube *ngFor="let cube of cubes"
+                        [position]="cube.position"
+                        [scale]="cube.scale"
+                        [color]="'white'">
+        </storybook-cube>
 
-        <conveyor-volume [hiddeningame]="true" [position]="[0,platformheight,0.5]" [scale]="platformscale" [rotation]="[0,-90 | radian,0]"></conveyor-volume>
+        <conveyor-volume
+                         [hiddeningame]="true"
+                         [position]="[0,platformheight,0.5]"
+                         [scale]="platformscale"
+                         [rotation]="[0,-90 | radian,0]">
+        </conveyor-volume>
 
-        <storybook-cube [color]="'cornflowerblue'" [position]="[0,platformheight,0.5]" [scale]="platformscale" [rotation]="[0,-90 | radian,0]" [mass]="0"></storybook-cube>
+        <storybook-cube [color]="'cornflowerblue'"
+                        [position]="[0,platformheight,0.5]"
+                        [scale]="platformscale"
+                        [rotation]="[0,-90 | radian,0]"
+                        [mass]="0">
+        </storybook-cube>
 
-        <ngt-mesh ngtPhysicPlane
-                  [receiveShadow]="true" [rotation]="[-90 | radian, 0, 0]">
-          <ngt-plane-geometry [args]="[100, 100]"></ngt-plane-geometry>
-          <ngt-mesh-standard-material [parameters]="{ color: '#777777' | color }"></ngt-mesh-standard-material>
-        </ngt-mesh>
+        <floor></floor>
 
       </ngt-cannon-debug>
     </ngt-physics>

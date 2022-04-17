@@ -1,36 +1,22 @@
 import { AfterViewInit, Component, OnDestroy } from '@angular/core';
-import { NgtTriplet } from '@angular-three/core';
-import { BoxProps, GetByIndex } from '@angular-three/cannon';
 
+import { NgtTriple } from '@angular-three/core';
 
 class Cube {
-  constructor(public name: string, public position: NgtTriplet, public scale: NgtTriplet, public color: string) { }
+  constructor(public name: string, public position: NgtTriple, public scale: NgtTriple, public color: string) { }
 }
 
 @Component({
-  templateUrl: './conveyor.component.html'
+  templateUrl: './conveyor.component.html',
 })
 export class ConveyorComponent implements AfterViewInit, OnDestroy {
   cubes: Array<Cube> = [];
 
   platformheight = 0.5;
-  platformscale = [2, 0.2, 10] as NgtTriplet;
-
-  getPlatformProps: GetByIndex<BoxProps> = (index: number) => (
-    {
-      mass: 0,
-      args: this.platformscale,
-    }
-  )
-  getCubeProps: GetByIndex<BoxProps> = (index: number) => (
-    {
-      mass: 1,
-      material: { friction: 0, restitution: 0.3 },
-      args: [1, 1, 1],
-    }
-  )
+  platformscale = [2, 0.2, 10] as NgtTriple;
 
   private timer!: any;
+
 
   ngAfterViewInit(): void {
     let count = 0;

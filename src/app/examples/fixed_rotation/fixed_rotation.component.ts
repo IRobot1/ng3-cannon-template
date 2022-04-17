@@ -1,17 +1,18 @@
 import { Component } from "@angular/core";
 
-import { BoxProps } from "@angular-three/cannon";
+import { NgtPhysicBody } from "@angular-three/cannon/bodies";
 
 
 @Component({
-  templateUrl: './fixed_rotation.component.html'
+  templateUrl: './fixed_rotation.component.html',
+  providers: [NgtPhysicBody],
 })
 export class FixedRotationComponent {
-  getBoxProps(): BoxProps {
-    return {
+  boxProps = this.physicBody.useBox(() => ({
       mass: 1,
       args: [1, 1, 1],
       fixedRotation: true
-    } as BoxProps;
-  }
+  }));
+
+  constructor(private physicBody: NgtPhysicBody) { }
 }

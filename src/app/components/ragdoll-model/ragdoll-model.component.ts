@@ -1,21 +1,25 @@
-import { BoxProps, GetByIndex, SphereProps } from "@angular-three/cannon";
-import { NgtEuler, NgtTriplet, NgtVector3 } from "@angular-three/core";
 import { Component, Input } from "@angular/core";
+
 import { Vector3 } from "three";
+
+import { NgtEuler, NgtTriple } from "@angular-three/core";
+
+import { NgtPhysicBody } from "@angular-three/cannon/bodies";
 
 @Component({
   selector: 'ragdoll-model',
-  templateUrl: 'ragdoll-model.component.html'
+  templateUrl: 'ragdoll-model.component.html',
+  providers: [NgtPhysicBody],
 })
 export class RagdollModelComponent {
   @Input() name = 'ragdoll';
 
-  private _position = [0, 0, 0] as NgtTriplet;
+  private _position = [0, 0, 0] as NgtTriple;
   @Input()
-  get position(): NgtTriplet {
+  get position(): NgtTriple {
     return this._position;
   }
-  set position(newvalue: NgtTriplet) {
+  set position(newvalue: NgtTriple) {
     this._position = newvalue;
     this.updatePositions(new Vector3(this.position[0], this.position[1], this.position[2]));
   }
@@ -47,12 +51,12 @@ export class RagdollModelComponent {
   lowerLegSize = 0.2 * this.scale
   lowerLegLength = 0.5 * this.scale
 
-  upperArmArgs = [this.upperArmLength, this.upperArmSize , this.upperArmSize ] as NgtTriplet;
-  lowerArmArgs = [this.lowerArmLength , this.lowerArmSize , this.lowerArmSize ] as NgtTriplet;
-  upperBodyArgs = [this.shouldersDistance , this.lowerArmSize , this.upperBodyLength ] as NgtTriplet;
-  pelvisArgs = [this.shouldersDistance , this.lowerArmSize , this.pelvisLength ] as NgtTriplet;
-  upperLegArgs = [this.upperLegSize , this.lowerArmSize , this.upperLegLength ] as NgtTriplet;
-  lowerLegArgs = [this.lowerLegSize , this.lowerArmSize , this.lowerLegLength ] as NgtTriplet;
+  upperArmArgs = [this.upperArmLength, this.upperArmSize , this.upperArmSize ] as NgtTriple;
+  lowerArmArgs = [this.lowerArmLength , this.lowerArmSize , this.lowerArmSize ] as NgtTriple;
+  upperBodyArgs = [this.shouldersDistance , this.lowerArmSize , this.upperBodyLength ] as NgtTriple;
+  pelvisArgs = [this.shouldersDistance , this.lowerArmSize , this.pelvisLength ] as NgtTriple;
+  upperLegArgs = [this.upperLegSize , this.lowerArmSize , this.upperLegLength ] as NgtTriple;
+  lowerLegArgs = [this.lowerLegSize , this.lowerArmSize , this.lowerLegLength ] as NgtTriple;
 
   lowerLeftLegPosition!: Vector3;
   lowerRightLegPosition!: Vector3;
@@ -117,96 +121,76 @@ export class RagdollModelComponent {
     twistAngle: this.twistAngle,
   }
 
-  getLowerLeftLegProps: GetByIndex<BoxProps> = (index: number) => (
-    {
+  lowerLeftLegProps = this.physicBody.useBox(() => ({
       mass: this.mass,
-      position: [this.lowerLeftLegPosition.x, this.lowerLeftLegPosition.y, this.lowerLeftLegPosition.z] as NgtTriplet,
+      position: [this.lowerLeftLegPosition.x, this.lowerLeftLegPosition.y, this.lowerLeftLegPosition.z] as NgtTriple,
       args: this.lowerLegArgs
-    }
-  )
+  }));
 
-  getLowerRightLegProps: GetByIndex<BoxProps> = (index: number) => (
-    {
-      mass: this.mass,
-      position: [this.lowerRightLegPosition.x, this.lowerRightLegPosition.y, this.lowerRightLegPosition.z] as NgtTriplet,
-      args: this.lowerLegArgs
-    }
-  )
+  lowerRightLegProps = this.physicBody.useBox(() => ({
+    mass: this.mass,
+    position: [this.lowerRightLegPosition.x, this.lowerRightLegPosition.y, this.lowerRightLegPosition.z] as NgtTriple,
+    args: this.lowerLegArgs
+  }));
+ 
 
-  getUpperLeftLegProps: GetByIndex<BoxProps> = (index: number) => (
-    {
-      mass: this.mass,
-      position: [this.upperLeftLegPosition.x, this.upperLeftLegPosition.y, this.upperLeftLegPosition.z] as NgtTriplet,
-      args: this.upperLegArgs
-    }
-  )
+  upperLeftLegProps = this.physicBody.useBox(() => ({
+    mass: this.mass,
+    position: [this.upperLeftLegPosition.x, this.upperLeftLegPosition.y, this.upperLeftLegPosition.z] as NgtTriple,
+    args: this.upperLegArgs
+  }));
+ 
 
-  getUpperRightLegProps: GetByIndex<BoxProps> = (index: number) => (
-    {
-      mass: this.mass,
-      position: [this.upperRightLegPosition.x, this.upperRightLegPosition.y, this.upperRightLegPosition.z] as NgtTriplet,
-      args: this.upperLegArgs
-    }
-  )
+  upperRightLegProps = this.physicBody.useBox(() => ({
+    mass: this.mass,
+    position: [this.upperRightLegPosition.x, this.upperRightLegPosition.y, this.upperRightLegPosition.z] as NgtTriple,
+    args: this.upperLegArgs
+  }));
 
-  getPelvisProps: GetByIndex<BoxProps> = (index: number) => (
-    {
-      mass: this.mass,
-      position: [this.pelvisPosition.x, this.pelvisPosition.y, this.pelvisPosition.z] as NgtTriplet,
-      args: this.pelvisArgs
-    }
-  )
+  pelvisProps = this.physicBody.useBox(() => ({
+    mass: this.mass,
+    position: [this.pelvisPosition.x, this.pelvisPosition.y, this.pelvisPosition.z] as NgtTriple,
+    args: this.pelvisArgs
+  }));
 
-  getUpperBodyProps: GetByIndex<BoxProps> = (index: number) => (
-    {
-      mass: this.mass,
-      position: [this.upperBodyPosition.x, this.upperBodyPosition.y, this.upperBodyPosition.z] as NgtTriplet,
-      args: this.upperBodyArgs
-    }
-  )
+  upperBodyProps = this.physicBody.useBox(() => ({
+    mass: this.mass,
+    position: [this.upperBodyPosition.x, this.upperBodyPosition.y, this.upperBodyPosition.z] as NgtTriple,
+    args: this.upperBodyArgs
+  }));
 
-  getHeadProps: GetByIndex<SphereProps> = (index: number) => (
-    {
+  headProps = this.physicBody.useSphere(() => ({
       mass: this.mass,
-      position: [this.headPosition.x, this.headPosition.y, this.headPosition.z] as NgtTriplet,
+      position: [this.headPosition.x, this.headPosition.y, this.headPosition.z] as NgtTriple,
       args: [this.headRadius]
-    }
-  )
+  }));
 
-  getUpperLeftArmProps: GetByIndex<BoxProps> = (index: number) => (
-    {
-      mass: this.mass,
-      position: [this.upperLeftArmPosition.x, this.upperLeftArmPosition.y, this.upperLeftArmPosition.z] as NgtTriplet,
-      args: this.upperArmArgs
-    }
-  )
+  upperLeftArmProps = this.physicBody.useBox(() => ({
+    mass: this.mass,
+    position: [this.upperLeftArmPosition.x, this.upperLeftArmPosition.y, this.upperLeftArmPosition.z] as NgtTriple,
+    args: this.upperArmArgs
+  }));
 
-  getUpperRightArmProps: GetByIndex<BoxProps> = (index: number) => (
-    {
-      mass: this.mass,
-      position: [this.upperRightArmPosition.x, this.upperRightArmPosition.y, this.upperRightArmPosition.z] as NgtTriplet,
-      args: this.upperArmArgs
-    }
-  )
+  upperRightArmProps = this.physicBody.useBox(() => ({
+    mass: this.mass,
+    position: [this.upperRightArmPosition.x, this.upperRightArmPosition.y, this.upperRightArmPosition.z] as NgtTriple,
+    args: this.upperArmArgs
+  }));
 
-  getLowerLeftArmProps: GetByIndex<BoxProps> = (index: number) => (
-    {
-      mass: this.mass,
-      position: [this.lowerLeftArmPosition.x, this.lowerLeftArmPosition.y, this.lowerLeftArmPosition.z] as NgtTriplet,
-      args: this.lowerArmArgs
-    }
-  )
+  lowerLeftArmProps = this.physicBody.useBox(() => ({
+    mass: this.mass,
+    position: [this.lowerLeftArmPosition.x, this.lowerLeftArmPosition.y, this.lowerLeftArmPosition.z] as NgtTriple,
+    args: this.lowerArmArgs
+  }));
 
-  getLowerRightArmProps: GetByIndex<BoxProps> = (index: number) => (
-    {
-      mass: this.mass,
-      position: [this.lowerRightArmPosition.x, this.lowerRightArmPosition.y, this.lowerRightArmPosition.z] as NgtTriplet,
-      args: this.lowerArmArgs
-    }
-  )
+  lowerRightArmProps = this.physicBody.useBox(() => ({
+    mass: this.mass,
+    position: [this.lowerRightArmPosition.x, this.lowerRightArmPosition.y, this.lowerRightArmPosition.z] as NgtTriple,
+    args: this.lowerArmArgs
+  }));
 
 
-  constructor() {
+  constructor(private physicBody: NgtPhysicBody) { 
     this.updatePositions(new Vector3(this.position[0], this.position[1], this.position[2]));
   }
 }

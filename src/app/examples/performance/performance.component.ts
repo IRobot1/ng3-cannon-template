@@ -2,20 +2,20 @@ import { Component } from "@angular/core";
 
 import { Color, InstancedMesh } from "three";
 
-import { NgtTriplet } from "@angular-three/core";
+import { NgtTriple } from "@angular-three/core";
 
-import { BoxProps, GetByIndex } from "@angular-three/cannon";
-import { NgtPhysicBox } from "@angular-three/cannon/bodies";
+import { NgtPhysicBody } from "@angular-three/cannon/bodies";
 
 @Component({
-  templateUrl: './performance.component.html'
+  templateUrl: './performance.component.html',
+  providers: [NgtPhysicBody],
 })
 export class PerformanceComponent {
   count = 400;
 
-  private boxes: Array<NgtTriplet> = []
+  private boxes: Array<NgtTriple> = []
 
-  constructor() {
+  constructor(private physicBody: NgtPhysicBody) {
     for (let i = 0; i < this.count; i++) {
       // start with random positions
       this.boxes.push([
@@ -26,13 +26,11 @@ export class PerformanceComponent {
     }
   }
 
-  getCubeProps: GetByIndex<BoxProps> = (index: number) => (
-    {
+  cubeProps = this.physicBody.useBox((index: number) => ({
       mass: 1,
       position: this.boxes[index],
       args: [1, 1, 1],
-    }
-  );
+  }));
 
   ready(inst: InstancedMesh) {
     for (let i = 0; i < this.count; i++) {
@@ -40,8 +38,8 @@ export class PerformanceComponent {
     }
   }
 
-  tick(physics: NgtPhysicBox) {
+  tick() {
     const index = Math.floor(Math.random() * this.count)
-    physics.api.at(index).position.set(0, 5 + Math.random() * 15, 0);
+    this.cubeProps.api.at(index).position.set(0, 5 + Math.random() * 15, 0);
   }
 }

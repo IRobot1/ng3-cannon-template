@@ -1,25 +1,27 @@
-import { GetByIndex, BoxProps } from "@angular-three/cannon";
-import { NgtPhysicBox } from "@angular-three/cannon/bodies";
-import { NgtCanvasStore, NgtTriplet, NgtVector3 } from "@angular-three/core";
-import { ViewChild } from "@angular/core";
 import { Component, OnInit } from "@angular/core";
-import { Euler, Group, Mesh, Object3D, Vector3, XRInputSource } from "three";
-import { XRControllerModelFactory } from "three/examples/jsm/webxr/XRControllerModelFactory";
+
+import { Euler, Group, Object3D, XRInputSource } from "three";
+
+import { NgtStore, NgtTriple, NgtVector3 } from "@angular-three/core";
+
+import { NgtPhysicBody } from "@angular-three/cannon/bodies";
+
+import { XRControllerModelFactory } from "three-stdlib/webxr/XRControllerModelFactory";
+
 import { Inspect } from "../inspect";
 
 @Component({
   selector: 'app-xr-inspect',
   //templateUrl: './xr-inspect.component.html',
   template: `
-      <ngt-mesh ngtPhysicBox [getPhysicProps]="getInspectorProps" [name]="'inspector'" (animateReady)="animate()"
+      <ngt-mesh [name]="'inspector'" [ref]="boxRef.ref" (animateReady)="animate()"
                 [scale]="scale" [rotation]="rotation" [position]="position">
         <ngt-box-geometry></ngt-box-geometry>
         <ngt-mesh-standard-material [parameters]="{ wireframe: true, color: 'darkgray' }"></ngt-mesh-standard-material>
-      </ngt-mesh>
-`
+      </ngt-mesh>`,
+  providers: [NgtPhysicBody],
 })
 export class XRInspectComponent implements OnInit {
-  @ViewChild(NgtPhysicBox) physics!: NgtPhysicBox;
 
   index = 0;
 
@@ -32,11 +34,12 @@ export class XRInspectComponent implements OnInit {
   radius = 0.05;
 
   constructor(
-    private canvasStore: NgtCanvasStore,
+    private physicBody: NgtPhysicBody,
+    private canvasStore: NgtStore,
   ) { }
 
   ngOnInit(): void {
-    const renderer = this.canvasStore.get((s) => s.renderer);
+    const renderer = this.canvasStore.get((s) => s.gl);
     const scene = this.canvasStore.get((s) => s.scene);
 
     this.controller = renderer.xr.getController(this.index);
@@ -70,8 +73,8 @@ export class XRInspectComponent implements OnInit {
 
   private overlapping?: Object3D;
   private inspecting?: Inspect;
-  private velocity!: NgtTriplet;
-  private angularvelocity!: NgtTriplet;
+  private velocity!: NgtTriple;
+  private angularvelocity!: NgtTriple;
   private velocity_subscription?: () => void;
   private angularvelocity_subscription?: () => void;
 
@@ -110,33 +113,31 @@ export class XRInspectComponent implements OnInit {
   }
 
 
+  boxRef = this.physicBody.useBox(() => ({
+    isTrigger: true,
 
-  getInspectorProps(): BoxProps {
-    return {
-      isTrigger: true,
+    onCollideBegin: (e) => {
+      if (e.body != this.overlapping) {
+        this.overlapping = e.body;
+        console.warn('begin overlapping', e.body.name)
+      }
+    },
+    onCollideEnd: (e) => {
+      if (e.body == this.overlapping) {
+        console.warn('end overlapping', e.body.name)
+        this.overlapping = undefined;
+      }
+    },
+    args: this.scale as NgtTriple,
+  }));
 
-      onCollideBegin: (e) => {
-        if (e.body != this.overlapping) {
-          this.overlapping = e.body;
-          console.warn('begin overlapping', e.body.name)
-        }
-      },
-      onCollideEnd: (e) => {
-        if (e.body == this.overlapping) {
-          console.warn('end overlapping', e.body.name)
-          this.overlapping = undefined;
-        }
-      },
-      args: this.scale as NgtTriplet
-    } as BoxProps;
-  }
 
   animate() {
     const p = this.controller.position;
-    this.physics.api.position.set(p.x, p.y, p.z);
+    this.boxRef.api.position.set(p.x, p.y, p.z);
 
     const r = this.controller.rotation;
-    this.physics.api.rotation.set(r.x, r.y, r.z);
+    this.boxRef.api.rotation.set(r.x, r.y, r.z);
 
     if (this.inspecting) {
       this.inspecting.physics.api.position.set(p.x, p.y, p.z);

@@ -9,17 +9,17 @@
 
       <ngt-cannon-debug [disabled]="true" [scale]="1.1" color="red">
 
-        <ngt-mesh ngtPhysicSphere [getPhysicProps]="getSphereProps" [castShadow]="true">
+        <ngt-mesh [ref]="sphereProps.ref" [castShadow]="true">
           <ngt-sphere-geometry [args]="[0.5]"></ngt-sphere-geometry>
           <ngt-mesh-standard-material [parameters]="{ color: 'red' | color }"></ngt-mesh-standard-material>
         </ngt-mesh>
 
-        <ngt-mesh ngtPhysicBox [getPhysicProps]="getBoxProps" [castShadow]="true">
+        <ngt-mesh [ref]="boxProps.ref" [castShadow]="true">
           <ngt-box-geometry></ngt-box-geometry>
           <ngt-mesh-standard-material [parameters]="{ color: 'white' | color }"></ngt-mesh-standard-material>
         </ngt-mesh>
 
-        <ngt-mesh ngtPhysicCylinder [getPhysicProps]="getCylinderProps" [castShadow]="true">
+        <ngt-mesh [ref]="cylinderProps.ref" [castShadow]="true">
           <ngt-cylinder-geometry [args]="[0.5, 0.5, 1, 20]"></ngt-cylinder-geometry>
           <ngt-mesh-standard-material [parameters]="{ color: 'blue' | color }"></ngt-mesh-standard-material>
         </ngt-mesh>

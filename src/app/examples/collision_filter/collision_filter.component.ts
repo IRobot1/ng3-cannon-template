@@ -1,41 +1,42 @@
 import { Component } from "@angular/core";
 
-import { NgtTriplet } from "@angular-three/core";
+import { NgtTriple } from "@angular-three/core";
 
-import { BoxProps, CylinderProps, SphereProps } from "@angular-three/cannon";
+import { NgtPhysicBody } from "@angular-three/cannon/bodies";
 
 @Component({
-  templateUrl: './collision_filter.component.html'
+  templateUrl: './collision_filter.component.html',
+  providers: [NgtPhysicBody],
+
 })
 export class CollisionFilterComponent {
-  getSphereProps(): SphereProps {
-    return {
+
+  sphereProps = this.physicBody.useSphere(() => ({
       mass: 1,
-      position: [0, 0, 3] as NgtTriplet,
-      velocity: [0, 0, -2] as NgtTriplet,
+      position: [0, 0, 3] as NgtTriple,
+      velocity: [0, 0, -2] as NgtTriple,
       collisionFilterGroup: 1,
       collisionFilterMask: 2 | 4, // it can only collide with group 2 and 3
       args: [0.5]
-    } as SphereProps;
-  }
+  }));  
 
-  getBoxProps(): BoxProps {
-    return {
+  boxProps = this.physicBody.useBox(() => ({
       mass: 1,
-      position: [0, 0, 0] as NgtTriplet,
+      position: [0, 0, 0] as NgtTriple,
       collisionFilterGroup: 2,
       collisionFilterMask: 1, // it can only collide with the sphere
       args: [1, 1, 1]
-    } as BoxProps;
-  }
+  }));
 
-  getCylinderProps(): CylinderProps {
-    return {
+  cylinderProps = this.physicBody.useCylinder(() => ({
       mass: 1,
-      position: [0, 0, -3] as NgtTriplet,
+      position: [0, 0, -3] as NgtTriple,
       collisionFilterGroup: 4,
       collisionFilterMask: 1, // it can only collide with the sphere
       args: [0.5, 0.5]
-    } as CylinderProps;
-  }
+  }));
+
+
+  constructor(private physicBody: NgtPhysicBody) { }
+
 }

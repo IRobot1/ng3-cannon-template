@@ -2,10 +2,11 @@ import { AfterViewInit, Component, OnDestroy } from '@angular/core';
 
 import { Vector3 } from 'three';
 
-import { NgtCreatedState, NgtTriplet } from '@angular-three/core';
-import { DefaultContactMaterial } from '@angular-three/cannon/lib/models/default-contact-material';
+import { NgtState, NgtTriple } from '@angular-three/core';
 
 import { VRButton } from 'three-stdlib/webxr/VRButton';
+import { NgtPhysicBody } from '@angular-three/cannon/bodies';
+import { ContactMaterialOptions } from '@pmndrs/cannon-worker-api';
 
 
 class Cube {
@@ -15,8 +16,8 @@ class Cube {
 type XRMode = 'bat' | 'inspect';
 
 @Component({
-  //selector: 'app-root',
-  templateUrl: './vr.component.html'
+  templateUrl: './vr.component.html',
+  providers: [NgtPhysicBody],
 })
 export class VRComponent implements AfterViewInit, OnDestroy {
   cubes: Array<Cube> = [];
@@ -24,24 +25,31 @@ export class VRComponent implements AfterViewInit, OnDestroy {
   vr = true;
   xrmode: XRMode = 'inspect';
 
-  scale = [0.5, 0.5, 0.5] as NgtTriplet;
+  scale = [0.5, 0.5, 0.5] as NgtTriple;
   step = 1 / 60;
   gravity = -9.8;
 
   private startheight = 10;
   private recycle = true;
 
-  concrete: DefaultContactMaterial = {
+  // TODO material
+  concrete: ContactMaterialOptions  = {
     restitution: 0, // bouncyness
     contactEquationRelaxation: 1,
     friction: 30000,
     //frictionEquationStiffness: 1e7,  // use 10 for ice
   }
 
-  created(event: NgtCreatedState) {
+  boxProps = this.physicBody.useBox(() => ({
+    mass: 0
+  }));
+
+  constructor(private physicBody: NgtPhysicBody) { }
+
+  created(event: NgtState) {
     if (this.vr) {
-      document.body.appendChild(VRButton.createButton(event.renderer));
-      this.scale = [0.1, 0.1, 0.1] as NgtTriplet;
+      document.body.appendChild(VRButton.createButton(event.gl));
+      this.scale = [0.1, 0.1, 0.1] as NgtTriple;
       this.step = 1 / 120;
       this.gravity = -2;
       this.startheight = 2;

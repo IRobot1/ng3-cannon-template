@@ -1,17 +1,18 @@
-import { AfterViewInit, Component, ViewChild } from "@angular/core";
+import { AfterViewInit, Component } from "@angular/core";
 
-import { SphereProps } from "@angular-three/cannon";
-import { NgtPhysicSphere } from "@angular-three/cannon/bodies";
 import { Vector3 } from "three";
 
+import { NgtPhysicBody } from "@angular-three/cannon/bodies";
+
 @Component({
-  templateUrl: './callbacks.component.html'
+  templateUrl: './callbacks.component.html',
+  providers: [NgtPhysicBody],
+
 })
 export class CallbacksComponent implements AfterViewInit {
-  @ViewChild('moon') moon!: NgtPhysicSphere;
+  constructor(private physicBody: NgtPhysicBody) { }
 
-  getMoonProps(): SphereProps {
-    return {
+  moonProps = this.physicBody.useSphere(() => ({
       mass: 5,
       args: [0.5],
       linearDamping: 0,
@@ -25,18 +26,15 @@ export class CallbacksComponent implements AfterViewInit {
       //  moon_to_planet.normalize()
       //  moon_to_planet.scale(1500 / Math.pow(distance, 2), moon.force)
       //}
-    } as SphereProps;
-  }
+  }));
 
-  getPlanetProps(): SphereProps {
-    return {
+  planetProps = this.physicBody.useSphere(() => ({
       mass: 0,
       args: [3.5]
-    } as SphereProps;
-  }
+  }));
 
   ngAfterViewInit(): void {
-    this.moon.api.position.subscribe(position => {
+    this.moonProps.api.position.subscribe(position => {
       const moon = new Vector3(position[0], position[1], position[2]);
       const moon_to_planet = moon.negate();
 
@@ -45,7 +43,7 @@ export class CallbacksComponent implements AfterViewInit {
       moon_to_planet.normalize()
       const force = moon_to_planet.multiplyScalar(1500 / Math.pow(distance, 2));
 
-      this.moon.api.applyImpulse([force.x, force.y, force.z], [0, 0, 1]);
+      this.moonProps.api.applyImpulse([force.x, force.y, force.z], [0, 0, 1]);
     })
   }
 

@@ -1,62 +1,55 @@
 import { Component } from "@angular/core";
 
-import { NgtTriplet } from "@angular-three/core";
+import { NgtTriple } from "@angular-three/core";
 
-import { BoxProps, CylinderProps, SphereProps } from "@angular-three/cannon";
+import { NgtPhysicBody } from "@angular-three/cannon/bodies";
+
 
 @Component({
-  templateUrl: './collisions.component.html'
+  templateUrl: './collisions.component.html',
+  providers: [NgtPhysicBody],
 })
 export class CollisionsComponent {
-  getSphere1Props(): SphereProps {
-    return {
+  sphere1Props = this.physicBody.useSphere(() => ({
       mass: 1,
-      position: [0, 0, 5] as NgtTriplet,
-      velocity: [0, 0, -2] as NgtTriplet,
+      position: [0, 0, 5] as NgtTriple,
+      velocity: [0, 0, -2] as NgtTriple,
       args: [0.5]
-    } as SphereProps;
-  }
-  getSphere2Props(): SphereProps {
-    return {
-      mass: 1,
-      position: [0, 0, -3] as NgtTriplet,
-      velocity: [0, 0, 2] as NgtTriplet,
-      args: [0.5]
-    } as SphereProps;
-  }
+  }));
 
-  getBoxProps(): BoxProps {
-    return {
+  sphere2Props = this.physicBody.useSphere(() => ({
+      mass: 1,
+      position: [0, 0, -3] as NgtTriple,
+      velocity: [0, 0, 2] as NgtTriple,
+      args: [0.5]
+  }));
+
+  boxProps = this.physicBody.useBox(() => ({
       mass: 2,
-      position: [-0.9, 0, 3] as NgtTriplet,
-      velocity: [0, 0, -2] as NgtTriplet,
+      position: [-0.9, 0, 3] as NgtTriple,
+      velocity: [0, 0, -2] as NgtTriple,
       args: [1, 1, 1]
-    } as BoxProps;
-  }
-  getSphere3Props(): SphereProps {
-    return {
-      mass: 2,
-      position: [-1, 0, -3] as NgtTriplet,
-      velocity: [0, 0, 2] as NgtTriplet,
-      args: [0.5]
-    } as SphereProps;
-  }
+  }));
+  sphere3Props = this.physicBody.useSphere(() => ({
+    mass: 2,
+    position: [-1, 0, -3] as NgtTriple,
+    velocity: [0, 0, 2] as NgtTriple,
+    args: [0.5]
+  }));
 
-  getCylinderProps(): CylinderProps {
-    return {
+  cylinderProps = this.physicBody.useCylinder(() => ({
       mass: 3,
-      position: [-1.9, 0, 3] as NgtTriplet,
-      velocity: [0, 0, -2] as NgtTriplet,
+      position: [-1.9, 0, 3] as NgtTriple,
+      velocity: [0, 0, -2] as NgtTriple,
       args: [0.5, 0.5]
-    } as CylinderProps;
-  }
-  getSphere4Props(): SphereProps {
-    return {
+  }));
+  sphere4Props = this.physicBody.useSphere(() => ({
       mass: 3,
-      position: [-2, 0, -3] as NgtTriplet,
-      velocity: [0, 0, 2] as NgtTriplet,
+      position: [-2, 0, -3] as NgtTriple,
+      velocity: [0, 0, 2] as NgtTriple,
       args: [0.5]
-    } as SphereProps;
-  }
+  }));
 
+
+  constructor(private physicBody: NgtPhysicBody) { }
 }

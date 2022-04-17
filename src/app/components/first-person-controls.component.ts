@@ -1,13 +1,16 @@
 import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
+
 import { Camera, Vector3 } from 'three';
-import { NgtCanvasStore, NgtRender } from '@angular-three/core';
+
+import { NgtRenderState, NgtStore } from '@angular-three/core';
 
 //
 // adapted from three.js games fps example https://github.com/mrdoob/three.js/blob/master/examples/games_fps.html
 //
 @Component({
   selector: 'first-person-controls',
-  template: '<ngt-group (ready)="ready()" (animateReady)="animate($event.state)"></ngt-group>'
+  template: '<ngt-group (ready)="ready()" (animateReady)="animate($event.state)"></ngt-group>',
+  providers: [NgtStore]
 })
 export class FirstPersonControlsComponent implements OnDestroy {
   @Input() container: HTMLElement = document.body;
@@ -22,7 +25,7 @@ export class FirstPersonControlsComponent implements OnDestroy {
 
   private cleanup!: () => void;
 
-  constructor(private canvasStore: NgtCanvasStore) { }
+  constructor(private canvasStore: NgtStore) { }
 
   ngOnDestroy(): void {
     this.cleanup();
@@ -129,7 +132,7 @@ export class FirstPersonControlsComponent implements OnDestroy {
     }
   }
 
-  animate({ delta }: NgtRender) {
+  animate({ delta }: NgtRenderState) {
     this.updateVelocity(delta * this.movespeed);  // check for input
     this.moveCamera(delta); // move player
   }

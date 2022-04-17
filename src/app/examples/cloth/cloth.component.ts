@@ -1,23 +1,22 @@
-import { Component, ViewChild } from "@angular/core";
+import { Component } from "@angular/core";
 
-import { NgtLoader, NgtRender, NgtTriplet } from "@angular-three/core";
+import { NgtLoader, NgtRenderState, NgtState, NgtTriple } from "@angular-three/core";
 
 import { DoubleSide, MeshStandardMaterialParameters, Texture, TextureLoader, Vector3 } from "three";
 
-import { GetByIndex,  SphereProps } from "@angular-three/cannon";
-import { NgtPhysicSphere } from "@angular-three/cannon/bodies";
+import { NgtPhysicBody } from "@angular-three/cannon/bodies";
 
 import { ParametricGeometries } from 'three-stdlib/geometries/ParametricGeometries';
 
 class ClothParticle {
-  constructor(public mass: number, public position: NgtTriplet, public velocity: NgtTriplet) { }
+  constructor(public mass: number, public position: NgtTriple, public velocity: NgtTriple) { }
 }
 
 @Component({
-  templateUrl: './cloth.component.html'
+  templateUrl: './cloth.component.html',
+  providers: [NgtPhysicBody],
 })
 export class ClothComponent {
-  @ViewChild(NgtPhysicSphere) sphere!: NgtPhysicSphere;
 
   cameraposition = new Vector3(Math.cos(Math.PI / 4) * 3, 0, Math.sin(Math.PI / 4) * 3);
   sphereSize = 0.1
@@ -50,7 +49,10 @@ export class ClothComponent {
     return p;
   }
 
-  constructor(private loader: NgtLoader) {
+  constructor(
+    private loader: NgtLoader,
+    private physicBody: NgtPhysicBody,
+  ) {
     const s = this.loader.use(TextureLoader, 'assets/sunflower.jpg').subscribe(next => {
       this.texture = next;
     },
@@ -70,8 +72,8 @@ export class ClothComponent {
 
         // Fix in place the first row
         const mass = j === this.Ny ? 0 : this.mass;
-        const position = [point.x, point.y - this.Ny * 0.9 * this.restDistance, point.z] as NgtTriplet;
-        const velocity = [0, 0, -0.1 * (this.Ny - j)] as NgtTriplet;
+        const position = [point.x, point.y - this.Ny * 0.9 * this.restDistance, point.z] as NgtTriple;
+        const velocity = [0, 0, -0.1 * (this.Ny - j)] as NgtTriple;
 
         particles.push(new ClothParticle(mass, position, velocity));
       }
@@ -86,8 +88,7 @@ export class ClothComponent {
     }
   }
 
-  getSphereProps: GetByIndex<SphereProps> = (index: number) => (
-    {
+  sphereProps = this.physicBody.useSphere(() => ({
       //type: 'Kinematic',
       mass: 0,
       material: {
@@ -95,8 +96,8 @@ export class ClothComponent {
         restitution: 0,
       },
       args: [this.sphereSize]
-    }
-  )
+  }));
+
 
   //getParticleProps: GetByIndex<ParticleProps> = (index: number) => (
   //  {
@@ -120,7 +121,7 @@ export class ClothComponent {
   }
 
 
-  tick({ clock }: NgtRender) {
+  tick({ clock }: NgtRenderState) {
     const movementRadius = 0.2;
 
     // Make the three.js cloth follow the cannon.js particles
@@ -138,7 +139,7 @@ export class ClothComponent {
     //this.clothGeometry.verticesNeedUpdate = true
 
     // Move the ball in a circular motion
-    this.sphere.api.position.set(movementRadius * Math.sin(clock.elapsedTime), movementRadius * Math.cos(clock.elapsedTime), 0)
+    this.sphereProps.api.position.set(movementRadius * Math.sin(clock.elapsedTime), movementRadius * Math.cos(clock.elapsedTime), 0)
   }
 }
 

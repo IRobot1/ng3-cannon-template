@@ -1,12 +1,14 @@
 import { Component } from "@angular/core";
 
-import { NgtTriplet } from "@angular-three/core";
+import { NgtTriple } from "@angular-three/core";
 
-import { BodyProps, BoxProps, CompoundBodyProps, ConvexPolyhedronProps, GetByIndex, ShapeType, SphereProps } from "@angular-three/cannon";
 import { Vector3 } from "three";
+import { NgtPhysicBody } from "@angular-three/cannon/bodies";
+import { BodyProps, ShapeType } from "@angular-three/cannon";
 
 @Component({
-  templateUrl: './stacks.component.html'
+  templateUrl: './stacks.component.html',
+  providers: [NgtPhysicBody],
 })
 export class StacksComponent {
   tetrascale = 3;
@@ -30,11 +32,11 @@ export class StacksComponent {
 
   cubesize = 2;
 
-  cubes: Array<NgtTriplet> = [];
+  cubes: Array<NgtTriple> = [];
 
   private cubeshapes: Array<BodyProps & { type: ShapeType; }>
 
-  constructor() {
+  constructor(private physicBody: NgtPhysicBody) {
     this.tetravertices.forEach(v => {
       this.tetrageovertices = this.tetrageovertices.concat(v.toArray());
     });
@@ -56,32 +58,26 @@ export class StacksComponent {
     })
 
   }
-  getSphereProps(): SphereProps {
-    return {
+
+  sphereProps = this.physicBody.useSphere(() => ({
       mass: 1,
       args: [1]
-    } as SphereProps;
-  }
+  }));
 
-  getBoxProps: GetByIndex<BoxProps> = (index: number) => (
-    {
+  boxProps = this.physicBody.useBox(() => ({
       mass: 1,
       args: [this.cubesize, this.cubesize, this.cubesize],
-    }
-  )
+  }));
 
-  getBoxCompoundProps: GetByIndex<CompoundBodyProps> = (index: number) => (
-    {
-      mass: 1,
-      shapes: this.cubeshapes,
-    }
-  );
+  boxCompoundProps = this.physicBody.useConvexPolyhedron(() => ({
+    mass: 1,
+    shapes: this.cubeshapes,
+  }));
 
-  getTetraProps: GetByIndex<ConvexPolyhedronProps> = (index: number) => (
-    {
-      mass: 1,
-      args: [this.tetravertices, this.tetrafaces]
-    }
-  )
+  tetraProps = this.physicBody.useConvexPolyhedron(() => ({
+    mass: 1,
+    args: [this.tetravertices, this.tetrafaces]
+  }));
+
 
 }

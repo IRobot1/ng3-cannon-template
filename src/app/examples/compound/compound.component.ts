@@ -1,15 +1,17 @@
 import { Component } from "@angular/core";
 
-import { NgtTriplet } from "@angular-three/core";
+import { NgtTriple } from "@angular-three/core";
 
-import { BodyProps, CompoundBodyProps, GetByIndex, ShapeType } from "@angular-three/cannon";
+import { NgtPhysicBody } from "@angular-three/cannon/bodies";
+import { BodyProps, ShapeType } from "@angular-three/cannon";
 
 class CompoundPart {
-  constructor(public position: NgtTriplet, public color: string) { }
+  constructor(public position: NgtTriple, public color: string) { }
 }
 
 @Component({
-  templateUrl: './compound.component.html'
+  templateUrl: './compound.component.html',
+  providers: [NgtPhysicBody],
 })
 export class CompoundComponent {
 
@@ -22,7 +24,7 @@ export class CompoundComponent {
   private cubeshapes: Array<BodyProps & { type: ShapeType; }>
   private sphereshapes: Array<BodyProps & { type: ShapeType; }>
 
-  constructor() {
+  constructor(private physicBody: NgtPhysicBody  ) {
     this.cubes.push(new CompoundPart([0, -this.cubesize, -this.cubesize], 'blue'));
     this.cubes.push(new CompoundPart([0, this.cubesize, -this.cubesize], 'blue'));
     this.cubes.push(new CompoundPart([0, -this.cubesize, this.cubesize], 'red'));
@@ -54,17 +56,19 @@ export class CompoundComponent {
 
   }
 
-  getBoxCompoundProps: GetByIndex<CompoundBodyProps> = (index: number) => (
-    {
+  planeProps = this.physicBody.usePlane(() => ({
+    mass: 0,
+  }));
+
+
+  boxCompoundProps= this.physicBody.useCompoundBody(() => ({
       mass: 1,
       shapes: this.cubeshapes,
-    }
-  );
+  }));
 
-  getSphereCompoundProps: GetByIndex<CompoundBodyProps> = (index: number) => (
-    {
+  sphereCompoundProps= this.physicBody.useCompoundBody(() => ({
       mass: 1,
       shapes: this.sphereshapes,
-    }
-  );
+  }));
+
 }

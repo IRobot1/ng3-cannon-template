@@ -1,23 +1,24 @@
 import { Component } from "@angular/core";
 
-import { NgtTriplet } from "@angular-three/core";
+import { NgtTriple } from "@angular-three/core";
 
-import { SphereProps } from "@angular-three/cannon";
+import { NgtPhysicBody } from "@angular-three/cannon/bodies";
 
 @Component({
-  templateUrl: './events.component.html'
+  templateUrl: './events.component.html',
+  providers: [NgtPhysicBody],
 })
 export class EventsComponent {
 
-  getSphereProps(): SphereProps {
-    return {
+  sphereProps = this.physicBody.useSphere(() => ({
       mass: 1,
-      position: [0, 5, 0] as NgtTriplet,
+      position: [0, 5, 0] as NgtTriple,
       onCollide: (event) => {
         console.log('The sphere just collided with the ground!')
         console.log('Collided with body:', event.body.name, event.body)
         console.log('Contact between bodies:', event.contact)
       }
-    } as SphereProps;
-  }
+  }));
+
+  constructor(private physicBody: NgtPhysicBody) { }
 }

@@ -11,11 +11,7 @@
         <rigidbody-model [mass]="0" [position]="[0, 1, -3]" [bodycolor]="'red'" [wheelcolor]="'black'" [drive]="true"></rigidbody-model>
         <rigidbody-model [mass]="1" [position]="[0, 1, 3]"></rigidbody-model>
 
-        <ngt-mesh ngtPhysicPlane
-                  [receiveShadow]="true" [rotation]="[-90 | radian, 0, 0]">
-          <ngt-plane-geometry [args]="[100, 100]"></ngt-plane-geometry>
-          <ngt-mesh-standard-material [parameters]="{ color: 'lightgray' | color }"></ngt-mesh-standard-material>
-        </ngt-mesh>
+        <floor></floor>
 
       </ngt-cannon-debug>
     </ngt-physics>

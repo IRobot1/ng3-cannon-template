@@ -1,24 +1,20 @@
-import { SphereProps } from "@angular-three/cannon";
-import { NgtPhysicSphere } from "@angular-three/cannon/bodies";
-import { NgtLoader } from "@angular-three/core";
-import { AfterViewInit } from "@angular/core";
-import { Component, ViewChild } from "@angular/core";
+import { AfterViewInit, Component } from "@angular/core";
+
 import { MeshStandardMaterialParameters, Texture, TextureLoader } from "three";
 
+import { NgtLoader } from "@angular-three/core";
+
+import { NgtPhysicBody } from "@angular-three/cannon/bodies";
+
 @Component({
-  templateUrl: './impulse.component.html'
+  templateUrl: './impulse.component.html',
+  providers: [NgtPhysicBody],
 })
 export class ImpulseComponent implements AfterViewInit {
-  @ViewChild('ci') ci!: NgtPhysicSphere;
-  @ViewChild('ti') ti!: NgtPhysicSphere;
-  @ViewChild('cf') cf!: NgtPhysicSphere;
-  @ViewChild('tf') tf!: NgtPhysicSphere;
-  @ViewChild('lf') lf!: NgtPhysicSphere;
-  @ViewChild('torque') torque!: NgtPhysicSphere;
 
-
-  constructor(private loader: NgtLoader) {
-
+  constructor(
+    private physicBody: NgtPhysicBody,
+    private loader: NgtLoader) {
     const s = this.loader.use(TextureLoader, 'assets/uv_grid_opengl.jpg').subscribe(next => {
       this.texture = next;
     },
@@ -40,24 +36,55 @@ export class ImpulseComponent implements AfterViewInit {
   }
 
 
-  getSphereProps(): SphereProps {
-    return {
-      mass: 1,
-      args: [1],
-      linearDamping: 0.5,
-      angularDamping: 0.5,
-    } as SphereProps;
-  }
+  ci = this.physicBody.useSphere(() => ({
+    mass: 1,
+    args: [1],
+    linearDamping: 0.5,
+    angularDamping: 0.5,
+  }));
 
-  getSphereLocalProps(): SphereProps {
-    return {
-      mass: 1,
-      args: [1],
-      linearDamping: 0.5,
-      angularDamping: 0.5,
-      rotation: [Math.PI, 0, 0]
-    } as SphereProps;
-  }
+  ti = this.physicBody.useSphere(() => ({
+    mass: 1,
+    args: [1],
+    linearDamping: 0.5,
+    angularDamping: 0.5,
+  }));
+
+  cf = this.physicBody.useSphere(() => ({
+    mass: 1,
+    args: [1],
+    linearDamping: 0.5,
+    angularDamping: 0.5,
+  }));
+
+  tf = this.physicBody.useSphere(() => ({
+    mass: 1,
+    args: [1],
+    linearDamping: 0.5,
+    angularDamping: 0.5,
+  }));
+
+  lf = this.physicBody.useSphere(() => ({
+    mass: 1,
+    args: [1],
+    linearDamping: 0.5,
+    angularDamping: 0.5,
+  }));
+
+  torque = this.physicBody.useSphere(() => ({
+    mass: 1,
+    args: [1],
+    linearDamping: 0.5,
+    angularDamping: 0.5,
+  }));
+
+  sphereLocalProps = this.physicBody.useSphere(() => ({
+    mass: 1,
+    args: [1],
+    linearDamping: 0.5,
+    angularDamping: 0.5,
+    rotation: [Math.PI, 0, 0]
+  }));
 
   ngAfterViewInit(): void {
     // center impulse

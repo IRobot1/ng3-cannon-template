@@ -1,33 +1,26 @@
 import { Component } from "@angular/core";
 
-import { BoxProps, PlaneProps } from "@angular-three/cannon";
+import { NgtPhysicBody } from "@angular-three/cannon/bodies";
 
 
 @Component({
-  templateUrl: './friction.component.html'
+  templateUrl: './friction.component.html',
+  providers: [NgtPhysicBody],
 })
 export class FrictionComponent {
 
-  getPlaneProps(): PlaneProps {
-    return {
-      material: { friction: 0.1 },
-    } as PlaneProps;
-  }
+  fixedBoxProps = this.physicBody.useBox(() => ({
+    mass: 1,
+    args: [1, 1, 1],
+    material: { friction: 1 },
+  }));
 
-  getFixedBoxProps(): BoxProps {
-    return {
-      mass: 1,
-      args: [1, 1, 1],
-      material: { friction: 1 },
-    } as BoxProps;
-  }
+  slipperyBoxProps = this.physicBody.useBox(() => ({
+    mass: 1,
+    args: [1, 1, 1],
+    material: { friction: 0.001 },
+    velocity: [0, 0, -1]
+  }));
 
-  getSlipperyBoxProps(): BoxProps {
-    return {
-      mass: 1,
-      args: [1, 1, 1],
-      material: { friction: 0.001 },
-      velocity: [0, 0, -1]
-    } as BoxProps;
-  }
+  constructor(private physicBody: NgtPhysicBody) { }
 }

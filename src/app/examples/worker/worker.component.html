@@ -7,17 +7,13 @@
 
     <ngt-physics>
 
-      <ngt-mesh ngtPhysicPlane [receiveShadow]="true" [rotation]="[-90 | radian, 0, 0]">
-        <ngt-plane-geometry [args]="[100, 100]"></ngt-plane-geometry>
-        <ngt-mesh-standard-material [parameters]="{ color: '#777777' | color }"></ngt-mesh-standard-material>
-      </ngt-mesh>
-
-      <ngt-instanced-mesh #inst="ngtInstancedMesh" (ready)="ready(inst.mesh)"
-                          ngtPhysicBox [getPhysicProps]="getCubeProps" [args]="[count]"
-                          [castShadow]="true">
+      <ngt-instanced-mesh (ready)="ready()"
+                          [ref]="cubeProps.ref" [count]="count">
         <ngt-box-geometry></ngt-box-geometry>
         <ngt-mesh-standard-material [parameters]="{ color: '#888888' | color }"></ngt-mesh-standard-material>
       </ngt-instanced-mesh>
+
+      <floor></floor>
 
     </ngt-physics>
 

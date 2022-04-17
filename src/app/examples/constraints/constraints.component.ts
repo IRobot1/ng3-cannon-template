@@ -1,55 +1,54 @@
 import { Component } from "@angular/core";
 
-import { NgtTriplet } from "@angular-three/core";
+import { NgtTriple } from "@angular-three/core";
 
-import { BoxProps, GetByIndex, SphereProps } from "@angular-three/cannon";
 import { NgtVector3 } from "@angular-three/core";
+import { NgtPhysicBody, NgtPhysicBodyReturn } from "@angular-three/cannon/bodies";
 
 class Link {
-  constructor(public position: NgtTriplet, public props: GetByIndex<BoxProps>) { }
+  constructor(public position: NgtTriple, public props: NgtPhysicBodyReturn) { }
 }
 
 @Component({
-  templateUrl: './constraints.component.html'
+  templateUrl: './constraints.component.html',
+  providers: [NgtPhysicBody],
 })
 export class ConstraintsComponent {
   size = 0.5
   space = this.size * 0.1;
 
   lockcubes: Array<NgtVector3> = [];
-  lockscale = [1, 1, 1] as NgtTriplet;
-  leftstand!: NgtTriplet;
-  rightstand!: NgtTriplet;
+  lockscale = [1, 1, 1] as NgtTriple;
+  leftstand!: NgtTriple;
+  rightstand!: NgtTriple;
 
   linkcubes: Array<Link> = [];
-  linkscale = [0.1, 1, 1] as NgtTriplet;
+  linkscale = [0.1, 1, 1] as NgtTriple;
   linkoptions: Record<string, any> = {
   }
 
-  getLockProps: GetByIndex<BoxProps> = (index: number) => (
-    {
-      mass: 1,
-      args: this.lockscale
-    }
-  )
+  boxProps = this.physicBody.useBox(() => ({
+    mass: 0,
+  }));
+
+  lockProps = this.physicBody.useBox(() => ({
+    mass: 1,
+    args: this.lockscale
+  }));
 
   // First body is now static. The rest should be dynamic.
-  getFirstLinkProps: GetByIndex<BoxProps> = (index: number) => (
-    {
-      args: this.linkscale,
-    }
-  )
+  firstLinkProps = this.physicBody.useBox(() => ({
+    args: this.linkscale,
+  }));
 
-  getLinkProps: GetByIndex<BoxProps> = (index: number) => (
-    {
-      mass: 0,
-      args: this.linkscale,
-      linearDamping: 0.1,
-      angularDamping: 0.1
-    }
-  )
+  linkProps = this.physicBody.useBox(() => ({
+    mass: 0,
+    args: this.linkscale,
+    linearDamping: 0.1,
+    angularDamping: 0.1
+  }));
 
-  constructor() {
+  constructor(private physicBody: NgtPhysicBody) {
     this.initlocks();
     this.initlinks();
   }
@@ -57,19 +56,19 @@ export class ConstraintsComponent {
   private initlocks() {
     const N = 10
     for (let i = 0; i < N; i++) {
-      const position = [0, this.size * 6 + this.space, -(N - i - N / 2) * (this.size * 2 + 2 * this.space)] as NgtTriplet;
+      const position = [0, this.size * 6 + this.space, -(N - i - N / 2) * (this.size * 2 + 2 * this.space)] as NgtTriple;
       this.lockcubes.push(position);
     }
 
-    this.leftstand = [0, 0.5, -(-N / 2 + 1) * (this.size * 2 + 2 * this.space)] as NgtTriplet;
-    this.rightstand = [0, 0.5, -(N / 2) * (this.size * 2 + this.space * 2)] as NgtTriplet;
+    this.leftstand = [0, 0.5, -(-N / 2 + 1) * (this.size * 2 + 2 * this.space)] as NgtTriple;
+    this.rightstand = [0, 0.5, -(N / 2) * (this.size * 2 + this.space * 2)] as NgtTriple;
   }
 
   private initlinks() {
     const N = 5
     for (let i = 0; i < N; i++) {
-      const position = [-3, (N - i) * (this.size * 2 + this.space * 2) + this.size * 2 + this.space, 0] as NgtTriplet;
-      this.linkcubes.push(new Link(position, i == 0 ? this.getFirstLinkProps : this.getLinkProps));
+      const position = [-3, (N - i) * (this.size * 2 + this.space * 2) + this.size * 2 + this.space, 0] as NgtTriple;
+      this.linkcubes.push(new Link(position, i == 0 ? this.firstLinkProps : this.linkProps));
 
       if (i != 0) {
         // Connect the current body to the last one

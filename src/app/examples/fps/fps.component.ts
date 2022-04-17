@@ -2,24 +2,23 @@ import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, O
 
 import { Camera, Ray, Vector3 } from "three";
 
-import { NgtCreatedState, NgtTriplet } from "@angular-three/core";
+import { NgtState, NgtTriple } from "@angular-three/core";
 
-import { BoxProps, GetByIndex, SphereProps } from "@angular-three/cannon";
-import { NgtPhysicSphere } from "@angular-three/cannon/bodies";
+import { NgtPhysicBody } from "@angular-three/cannon/bodies";
 
 class Projectile {
-  constructor(public position: NgtTriplet, public ttl: number = 30) { }
+  constructor(public position: NgtTriple, public ttl: number = 30) { }
 }
 class Target {
-  constructor(public position: NgtTriplet, public color: string) { }
+  constructor(public position: NgtTriple, public color: string) { }
 }
 
 @Component({
   templateUrl: './fps.component.html',
+  providers: [NgtPhysicBody],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FPSComponent implements AfterViewInit, OnDestroy {
-  @ViewChild('player') player!: NgtPhysicSphere;
 
   projectiles: Array<Projectile> = [];
   cubes: Array<Target> = [];
@@ -29,7 +28,10 @@ export class FPSComponent implements AfterViewInit, OnDestroy {
 
   private camera!: Camera;
 
-  constructor(private cd: ChangeDetectorRef) {
+  constructor(
+    private physicBody: NgtPhysicBody,
+    private cd: ChangeDetectorRef,
+  ) {
     for (let i = 0; i < 30; i++) {
       this.cubes.push(new Target([
         -10 + Math.random() * 20,
@@ -46,7 +48,7 @@ export class FPSComponent implements AfterViewInit, OnDestroy {
       this.projectiles.forEach((item, index) => {
         item.ttl--;
         if (item.ttl <= 0) {
-         this.projectiles.splice(index, 1)
+          this.projectiles.splice(index, 1)
         }
       })
     }, 100);
@@ -57,31 +59,25 @@ export class FPSComponent implements AfterViewInit, OnDestroy {
   }
 
 
-  created(event: NgtCreatedState) {
+  created(event: NgtState) {
     this.camera = event.camera;
   }
 
-  getCubeProps: GetByIndex<BoxProps> = (index: number) => (
-    {
-      mass: 1,
-      material: { friction: 0, restitution: 0.3 },
-      args: [1, 1, 1],
-    }
-  )
+  cubeProps = this.physicBody.useBox(() => ({
+    mass: 1,
+    material: { friction: 0, restitution: 0.3 },
+    args: [1, 1, 1],
+  }));
 
-  getBallProps: GetByIndex<SphereProps> = (index: number) => (
-    {
-      mass: 2,
-      args: [this.ballRadius]
-    }
-  )
+  ballProps = this.physicBody.useSphere(() => ({
+    mass: 2,
+    args: [this.ballRadius]
+  }));
 
-  getPlayerProps: GetByIndex<SphereProps> = (index: number) => (
-    {
-      mass: 0,
-      args: [this.playerRadius]
-    }
-  )
+  player = this.physicBody.useSphere(() => ({
+    mass: 0,
+    args: [this.playerRadius]
+  }));
 
   private getShootDirection(): Vector3 {
     const vector = new Vector3(0, 0, 1)
@@ -99,7 +95,7 @@ export class FPSComponent implements AfterViewInit, OnDestroy {
       this.camera.position.x + shootDirection.x * (this.playerRadius * 1.01 + this.ballRadius),
       this.camera.position.y + shootDirection.y * (this.playerRadius * 1.01 + this.ballRadius),
       this.camera.position.z + shootDirection.z * (this.playerRadius * 1.01 + this.ballRadius),
-    ] as NgtTriplet;
+    ] as NgtTriple;
 
     this.projectiles.push(new Projectile(position));
 

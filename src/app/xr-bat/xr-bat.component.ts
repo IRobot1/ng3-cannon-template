@@ -1,16 +1,21 @@
-import { GetByIndex, BoxProps } from "@angular-three/cannon";
-import { NgtPhysicBox } from "@angular-three/cannon/bodies";
-import { NgtCanvasStore, NgtTriplet, NgtVector3 } from "@angular-three/core";
-import { Component, EventEmitter, OnInit, Output, ViewChild } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
+
 import { Euler, Group } from "three";
-import { XRControllerModelFactory } from "three/examples/jsm/webxr/XRControllerModelFactory";
+
+import { NgtTriple, NgtVector3 } from "@angular-three/core";
+import { NgtStore } from "@angular-three/core";
+
+import { NgtPhysicBody } from "@angular-three/cannon/bodies";
+
+import { XRControllerModelFactory } from "three-stdlib/webxr/XRControllerModelFactory";
+
 
 @Component({
   selector: 'app-xr-bat',
   templateUrl: './xr-bat.component.html',
+  providers: [NgtPhysicBody],
 })
 export class XRBatComponent implements OnInit {
-  @ViewChild(NgtPhysicBox) physics!: NgtPhysicBox;
 
   index = 0;
 
@@ -23,11 +28,12 @@ export class XRBatComponent implements OnInit {
   radius = 0.05;
 
   constructor(
-    private canvasStore: NgtCanvasStore,
+    private physicBody: NgtPhysicBody,
+    private canvasStore: NgtStore,
   ) { }
 
   ngOnInit(): void {
-    const renderer = this.canvasStore.get((s) => s.renderer);
+    const renderer = this.canvasStore.get((s) => s.gl);
     const scene = this.canvasStore.get((s) => s.scene);
 
     this.controller = renderer.xr.getController(this.index);
@@ -45,18 +51,16 @@ export class XRBatComponent implements OnInit {
 
   }
 
-  getCubeProps(): BoxProps {
-    return {
-      type: 'Static',
-      args: this.scale as NgtTriplet
-    } as BoxProps;
-  }
+  cubeProps = this.physicBody.useBox(() => ({
+    type: 'Static',
+    args: this.scale as NgtTriple
+  }));
 
   animate() {
     const p = this.controller.position;
-    this.physics.api.position.set(p.x, p.y, p.z);
+    this.cubeProps.api.position.set(p.x, p.y, p.z);
 
     const r = this.controller.rotation;
-    this.physics.api.rotation.set(r.x, r.y, r.z);
+    this.cubeProps.api.rotation.set(r.x, r.y, r.z);
   }
 }

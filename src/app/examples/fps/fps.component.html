@@ -6,13 +6,7 @@
     <ngt-physics>
       <ngt-cannon-debug [disabled]="true" [scale]="1.1" color="red">
 
-        <ngt-mesh ngtPhysicPlane [name]="'plane'"
-                  [receiveShadow]="true" [rotation]="[-90 | radian, 0, 0]">
-          <ngt-plane-geometry [args]="[100, 100]"></ngt-plane-geometry>
-          <ngt-mesh-standard-material [parameters]="{ color: '#777777' | color }"></ngt-mesh-standard-material>
-        </ngt-mesh>
-
-        <ngt-mesh #player="ngtPhysicSphere" ngtPhysicSphere (animateReady)="tick()">
+        <ngt-mesh [ref]="player.ref"  (animateReady)="tick()">
           <ngt-sphere-geometry></ngt-sphere-geometry>
           <ngt-mesh-standard-material></ngt-mesh-standard-material>
 
@@ -21,17 +15,19 @@
           </ngt-point-light>
         </ngt-mesh>
 
-        <ngt-mesh *ngFor="let item of cubes" ngtPhysicBox [getPhysicProps]="getCubeProps"
+        <ngt-mesh *ngFor="let item of cubes" [ref]="cubeProps.ref" 
                   [position]="item.position" [castShadow]="true">
           <ngt-box-geometry></ngt-box-geometry>
           <ngt-mesh-standard-material [parameters]="{ color: item.color | color }"></ngt-mesh-standard-material>
         </ngt-mesh>
 
-        <ngt-mesh *ngFor="let item of projectiles" ngtPhysicSphere [getPhysicProps]="getBallProps"
+        <ngt-mesh *ngFor="let item of projectiles" [ref]="ballProps.ref" 
                   [position]="item.position" [castShadow]="true">
           <ngt-sphere-geometry [args]="[ballRadius]"></ngt-sphere-geometry>
           <ngt-mesh-standard-material [parameters]="{ color: 'yellow' | color }"></ngt-mesh-standard-material>
         </ngt-mesh>
+
+        <floor></floor>
 
       </ngt-cannon-debug>
     </ngt-physics>

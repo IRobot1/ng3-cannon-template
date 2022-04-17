@@ -1,13 +1,14 @@
 import { Component } from "@angular/core";
 
-import { NgtTriplet } from "@angular-three/core";
+import { BoxGeometry, Vector3 } from "three";
 
-import { BoxProps, ConvexPolyhedronProps, CylinderProps, GetByIndex } from "@angular-three/cannon";
-import { Vector3 } from "three";
-import { NgtBoxGeometry } from "@angular-three/core/geometries";
+import { NgtTriple } from "@angular-three/core";
+
+import { NgtPhysicBody } from "@angular-three/cannon/bodies";
 
 @Component({
-  templateUrl: './convex.component.html'
+  templateUrl: './convex.component.html',
+  providers: [NgtPhysicBody],
 })
 export class ConvexComponent {
   tetravertices = [
@@ -27,9 +28,9 @@ export class ConvexComponent {
   tetrageovertices: Array<number> = [];
   tetrageofaces: Array<number> = [];
 
-  wall: Array<NgtTriplet> = [];
+  wall: Array<NgtTriple> = [];
 
-  constructor() {
+  constructor(private physicBody: NgtPhysicBody) {
     this.tetravertices.forEach(v => {
       this.tetrageovertices = this.tetrageovertices.concat(v.toArray());
     });
@@ -46,38 +47,30 @@ export class ConvexComponent {
     }
   }
 
-  getTetraProps: GetByIndex<ConvexPolyhedronProps> = (index: number) => (
-    {
-      mass: 1,
-      args: [this.tetravertices, this.tetrafaces]
-    }
-  )
+  tetraProps = this.physicBody.useConvexPolyhedron(() => ({
+    mass: 1,
+    args: [this.tetravertices, this.tetrafaces]
+  }));
 
   boxvertices: Array<Vector3> = []
   boxfaces: Array<Array<number>> = []
   boxnormals: Array<Vector3> = []
 
 
-  getConvexBoxProps: GetByIndex<ConvexPolyhedronProps> = (index: number) => (
-    {
-      mass: 1,
-      args: [this.boxvertices, this.boxfaces, this.boxnormals],
-    }
-  )
+  convexProps = this.physicBody.useConvexPolyhedron(() => ({
+    mass: 1,
+    args: [this.boxvertices, this.boxfaces, this.boxnormals],
+  }));
 
-  getBoxProps(): BoxProps {
-    return {
-      mass: 1,
-      args: [1, 1, 1]
-    } as BoxProps;
-  }
+  boxProps = this.physicBody.useBox(() => ({
+    mass: 1,
+    args: [1, 1, 1]
+  }));
 
-  getCylinderProps(): CylinderProps {
-    return {
-      mass: 1,
-      args: [0.5, 0.5, 2]
-    } as CylinderProps;
-  }
+  cylinderProps = this.physicBody.useCylinder(() => ({
+    mass: 1,
+    args: [0.5, 0.5, 2]
+  }));
 
   // Access to underlying Cannon object not supported by @angular-three/cannon
   //
@@ -88,16 +81,16 @@ export class ConvexComponent {
   // Instead use data from geometry to build matching physics properties, but normals are not compatible
   //
 
-  ready(box: NgtBoxGeometry) {
-    //console.warn(box.geometry)
+  ready(box: BoxGeometry) {
+    console.warn(box)
 
     // convert box vertices to format needed for physics
-    const vertices = box.geometry.attributes['position']
+    const vertices = box.attributes['position']
     for (let i = 0; i < vertices.count; i++) {
       this.boxvertices.push(new Vector3(vertices.getX(i), vertices.getY(i), vertices.getZ(i)))
     }
 
-    const faces = box.geometry.index;
+    const faces = box.index;
     if (faces) {
       // convert box index into faces needed for physics
       for (let i = 0; i < faces.count / 3; i++) {
@@ -106,7 +99,7 @@ export class ConvexComponent {
     }
 
     // convert box normals to format needed by physics - not working correctly
-    const normals = box.geometry.attributes['normal']
+    const normals = box.attributes['normal']
     for (let i = 0; i < normals.count; i++) {
       this.boxnormals.push(new Vector3(normals.getX(i), normals.getY(i), normals.getZ(i)))
     }

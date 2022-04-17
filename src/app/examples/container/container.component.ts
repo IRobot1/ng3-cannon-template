@@ -1,22 +1,23 @@
 import { Component } from "@angular/core";
 
-import { NgtTriplet } from "@angular-three/core";
+import { NgtTriple } from "@angular-three/core";
 
-import { DefaultContactMaterial } from "@angular-three/cannon/lib/models/default-contact-material";
-import { GetByIndex, PlaneProps, SphereProps } from "@angular-three/cannon";
+import { NgtPhysicBody } from "@angular-three/cannon/bodies";
 
 class ContainerSphere {
-  constructor(public position: NgtTriplet, public color: string) { }
+  constructor(public position: NgtTriple, public color: string) { }
 }
 
 @Component({
-  templateUrl: './container.component.html'
+  templateUrl: './container.component.html',
+  providers: [NgtPhysicBody],
 })
 export class ContainerComponent {
-  stone: DefaultContactMaterial = {
-    friction: 0.3,
-    restitution: 0.2,
-  }
+  // TODO
+  //stone: DefaultContactMaterial = {
+  //  friction: 0.3,
+  //  restitution: 0.2,
+  //}
 
   spheresize = 1;
   spheres: Array<ContainerSphere> = [];
@@ -24,7 +25,7 @@ export class ContainerComponent {
   wallsize = 10;
   floorsize = 100;
 
-  constructor() {
+  constructor(private physicBody: NgtPhysicBody) {
     let nx = 4;
     let ny = 4;
     let nz = 12;
@@ -45,21 +46,11 @@ export class ContainerComponent {
     }
   }
 
-  getPlaneProps: GetByIndex<PlaneProps> = (index: number) => (
-    {
-      material: { restitution: 1 },
-      args: [this.floorsize, this.floorsize]
-    }
-  );
-
-  getWallProps: GetByIndex<PlaneProps> = (index: number) => (
-    {
+  wallProps = this.physicBody.usePlane(() => ({
       args: [this.wallsize, this.wallsize]
-    }
-  );
+  }));
 
-  getSphereProps: GetByIndex<SphereProps> = (index: number) => (
-    {
+  sphereProps = this.physicBody.useSphere(() => ({
       mass: 1,
       args: [this.spheresize],
       material: {
@@ -69,6 +60,5 @@ export class ContainerComponent {
       allowSleep: true,
       sleepTimeLimit: 0.1,
       sleepSpeedLimit: 0.1,
-    }
-  )
+  }));
 }

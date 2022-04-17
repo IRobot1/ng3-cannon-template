@@ -3,14 +3,13 @@ import { AfterViewInit, Component, ViewChild } from "@angular/core";
 import { BufferGeometry, Vector3 } from "three";
 import { NgtVector3 } from "@angular-three/core";
 
-import { GetByIndex, HeightfieldProps, SphereProps } from "@angular-three/cannon";
-import { NgtPhysicHeightfield } from "@angular-three/cannon/bodies";
+import { NgtPhysicBody } from "@angular-three/cannon/bodies";
 
 @Component({
-  templateUrl: './heightfield.component.html'
+  templateUrl: './heightfield.component.html',
+  providers: [NgtPhysicBody],
 })
 export class HeightfieldComponent implements AfterViewInit {
-  @ViewChild(NgtPhysicHeightfield) heightfield!: NgtPhysicHeightfield;
 
   position!: NgtVector3;
   buffergeometry!: BufferGeometry;
@@ -21,7 +20,7 @@ export class HeightfieldComponent implements AfterViewInit {
   private matrix: Array<Array<number>> = [];
 
 
-  constructor() {
+  constructor(private physicBody: NgtPhysicBody) {
     const sizeX = 15
     const sizeZ = 15
     for (let i = 0; i < sizeX; i++) {
@@ -55,19 +54,15 @@ export class HeightfieldComponent implements AfterViewInit {
 
   }
 
-  getHFProps: GetByIndex<HeightfieldProps> = () => (
-    {
-      mass: 0,
-      args: [this.matrix, { elementSize: this.elementSize }],
-    }
-  )
+  hfProps = this.physicBody.useHeightfield(() => ({
+    mass: 0,
+    args: [this.matrix, { elementSize: this.elementSize }],
+  }));
 
-  getSphereProps(): SphereProps {
-    return {
+  sphereProps = this.physicBody.useSphere(() => ({
       mass: 1,
       args: [0.1]
-    } as SphereProps;
-  }
+  }));
 
 
   //heightfieldGeometry(shape): Geometry {

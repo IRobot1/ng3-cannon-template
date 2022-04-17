@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
+import { ElementRef, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { NgtColorPipeModule, NgtCoreModule, NgtRadianPipeModule, NgtVectorPipeModule } from '@angular-three/core';
+import { NgtColorPipeModule, NgtCoreModule, NgtRadianPipeModule, NgtStore, NgtVectorPipeModule } from '@angular-three/core';
 import { NgtStatsModule } from '@angular-three/core/stats';
 import { NgtInstancedMeshModule, NgtMeshModule } from '@angular-three/core/meshes';
 import { NgtGroupModule } from '@angular-three/core/group';
@@ -12,13 +12,11 @@ import { NgtArrowHelperModule, NgtBoxHelperModule } from '@angular-three/core/he
 import { NgtInstancedBufferAttributeModule } from '@angular-three/core/attributes';
 
 import { NgtPhysicsModule } from '@angular-three/cannon';
-import { NgtPhysicBoxModule, NgtPhysicCompoundModule, NgtPhysicConvexPolyhedronModule, NgtPhysicCylinderModule, NgtPhysicHeightfieldModule, NgtPhysicPlaneModule, NgtPhysicSphereModule, NgtPhysicTrimeshModule } from '@angular-three/cannon/bodies';
 
 import { NgtSobaTextModule } from '@angular-three/soba/abstractions';
 import { NgtSobaOrbitControlsModule } from '@angular-three/soba/controls';
 
 import { AppComponent } from './app.component';
-import { PlaneComponent } from './components/storybook-plane.component';
 import { CubeComponent } from './components/storybook-cube.component';
 import { NgtCannonDebugModule } from '@angular-three/cannon/debug';
 import { TriggerCubeComponent } from './components/trigger-cube.component';
@@ -58,7 +56,6 @@ import { MousePickComponent } from './examples/mousepick/mousepick.component';
 import { CallbacksComponent } from './examples/callbacks/callbacks.component';
 import { HeightfieldComponent } from './examples/heightfield/heightfield.component';
 import { HingeComponent } from './examples/hinge/hinge.component';
-import { NgtPhysicConeTwistConstraintModule, NgtPhysicHingeConstraintModule, NgtPhysicLockConstraintModule, NgtPhysicPointToPointConstraintModule } from '@angular-three/cannon/constraints';
 import { ConstraintsComponent } from './examples/constraints/constraints.component';
 import { RagdollComponent } from './examples/ragdoll/ragdoll.component';
 import { RagdollModelComponent } from './components/ragdoll-model/ragdoll-model.component';
@@ -68,11 +65,13 @@ import { RigidVehicleComponent } from './examples/rigid_vehicle/rigid_vehicle.co
 import { RigidBodyModelComponent } from './components/rigidbody-model/rigidbody-model.component';
 import { RaycastVehicleComponent } from './examples/raycast_vehicle/raycast_vehicle.component';
 import { RaycastVehicleModelComponent } from './components/raycast-vehicle-model/raycast-vehicle-model.component';
+import { FloorComponent } from './components/floor.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
+    FloorComponent,
     ThreeJSComponent,
     WorkerComponent,
     BounceComponent,
@@ -116,7 +115,6 @@ import { RaycastVehicleModelComponent } from './components/raycast-vehicle-model
 
     VRComponent,
 
-    PlaneComponent,
     CubeComponent,
     TriggerCubeComponent,
     XRBatComponent,
@@ -146,7 +144,6 @@ import { RaycastVehicleModelComponent } from './components/raycast-vehicle-model
     NgtCylinderGeometryModule,
     NgtTorusGeometryModule,
     NgtPolyhedronGeometryModule,
-    NgtPhysicHeightfieldModule,
     NgtInstancedBufferAttributeModule,
 
     NgtAmbientLightModule,
@@ -158,20 +155,7 @@ import { RaycastVehicleModelComponent } from './components/raycast-vehicle-model
     NgtMeshStandardMaterialModule,
 
     NgtPhysicsModule,
-    NgtPhysicBoxModule,
-    NgtPhysicPlaneModule,
-    NgtPhysicSphereModule,
-    NgtPhysicCylinderModule,
-    NgtPhysicCompoundModule,
-    NgtPhysicTrimeshModule,
-    NgtPhysicConvexPolyhedronModule,
     NgtCannonDebugModule,
-
-    NgtPhysicHingeConstraintModule,
-    NgtPhysicLockConstraintModule,
-    NgtPhysicPointToPointConstraintModule,
-    NgtPhysicConeTwistConstraintModule,
-    
 
     NgtSobaOrbitControlsModule,
     NgtSobaTextModule,

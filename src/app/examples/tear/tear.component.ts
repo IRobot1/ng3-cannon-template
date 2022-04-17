@@ -1,15 +1,16 @@
 import { Component } from "@angular/core";
 
-import { NgtTriplet } from "@angular-three/core";
+import { NgtTriple } from "@angular-three/core";
 
-import { GetByIndex, SphereProps } from "@angular-three/cannon";
+import { NgtPhysicBody, NgtPhysicBodyReturn } from "@angular-three/cannon/bodies";
 
 class Link {
-  constructor(public position: NgtTriplet, public props: GetByIndex<SphereProps>) { }
+  constructor(public position: NgtTriple, public props: NgtPhysicBodyReturn) { }
 }
 
 @Component({
-  templateUrl: './tear.component.html'
+  templateUrl: './tear.component.html',
+  providers: [NgtPhysicBody],
 })
 export class TearComponent {
   size = 0.45;
@@ -21,11 +22,11 @@ export class TearComponent {
   linkspheres: Array<Link> = [];
   constraints = []
 
-  constructor() {
+  constructor(private physicBody: NgtPhysicBody) {
     //let lastBody
     for (let i = 0; i < this.iterations; i++) {
-      const position = [0, (this.iterations - i) * this.distance - 9, 0] as NgtTriplet;
-      this.linkspheres.push(new Link(position, i == 0 ? this.getFirstLinkProps : this.getLinkProps));
+      const position = [0, (this.iterations - i) * this.distance - 9, 0] as NgtTriple;
+      this.linkspheres.push(new Link(position, i == 0 ? this.firstLinkProps : this.linkProps));
 
       // Connect this body to the last one added
       // ** not supported by @angluar-three/cannon yet
@@ -41,23 +42,19 @@ export class TearComponent {
   }
 
   // First body is static (mass = 0) to support the other bodies
-  getFirstLinkProps: GetByIndex<SphereProps> = (index: number) => (
-    {
+  firstLinkProps = this.physicBody.useSphere(() => ({
       mass: 0,
       args: [this.size]
-    }
-  )
-  getLinkProps: GetByIndex<SphereProps> = (index: number) => (
-    {
+  }));
+
+  linkProps = this.physicBody.useSphere(() => ({
       mass: 0,
       args: [this.size]
-    }
-  )
-  getThrowBallProps: GetByIndex<SphereProps> = (index: number) => (
-    {
+  }));
+
+  throwBallProps = this.physicBody.useSphere(() => ({
       mass: 2,
       args: [this.size],
       velocity: [0, 0, -20]
-    }
-  )
+  }));
 }

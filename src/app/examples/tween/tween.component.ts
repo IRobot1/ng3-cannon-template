@@ -1,36 +1,33 @@
-import { Component, ViewChild } from "@angular/core";
+import { Component } from "@angular/core";
 
-import { NgtRender, NgtTriplet } from "@angular-three/core";
+import { NgtRenderState, NgtTriple } from "@angular-three/core";
 
-import { BoxProps, GetByIndex } from "@angular-three/cannon";
-import { NgtPhysicBox } from "@angular-three/cannon/bodies";
+import { NgtPhysicBody } from "@angular-three/cannon/bodies";
 
 @Component({
-  templateUrl: './tween.component.html'
+  templateUrl: './tween.component.html',
+  providers: [NgtPhysicBody],
 })
 export class TweenComponent {
-  @ViewChild(NgtPhysicBox) box!: NgtPhysicBox;
-
   startz = 3;
   endz = -3;
 
   z = this.startz;
   speed = 2;
 
-
-  getBoxProps: GetByIndex<BoxProps> = () => (
-    {
+  boxProps = this.physicBody.useBox(() => ({
       mass: 0,
-      position: [0, 0.5, this.startz] as NgtTriplet,
+      position: [0, 0.5, this.startz] as NgtTriple,
       args: [1, 1, 1], // scale
       // missing postStep event
-    }
-  )
+  }));
 
-  tick({ delta }: NgtRender) {
+  constructor(private physicBody: NgtPhysicBody) { }
+
+  tick({ delta }: NgtRenderState) {
     if (this.z > this.endz) {
       this.z -= (delta * this.speed);
-      this.box.api.position.set(0, 0.5, this.z);
+      this.boxProps.api.position.set(0, 0.5, this.z);
     }
   }
 

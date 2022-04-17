@@ -8,14 +8,8 @@
     <ngt-physics [allowSleep]="true">
       <ngt-cannon-debug [disabled]="true" [scale]="1.1" color="red">
 
-        <ngt-mesh ngtPhysicPlane
-                  [receiveShadow]="true" [rotation]="[-90 | radian, 0, 0]">
-          <ngt-plane-geometry [args]="[100, 100]"></ngt-plane-geometry>
-          <ngt-mesh-standard-material [parameters]="{ color: '#777777' | color }"></ngt-mesh-standard-material>
-        </ngt-mesh>
-
         <ngt-mesh *ngFor="let block of blocks; index as index"
-                  ngtPhysicBox [getPhysicProps]="getBoxProps"
+                  [ref]="boxProps.ref"
                   (ready)="ready(index)"
                   [castShadow]="true"
                   [position]="block.position" [scale]="block.scale">
@@ -23,8 +17,9 @@
           <ngt-mesh-standard-material [parameters]="{ color: block.color | color }"></ngt-mesh-standard-material>
         </ngt-mesh>
 
-      </ngt-cannon-debug>
+        <floor></floor>
 
+      </ngt-cannon-debug>
     </ngt-physics>
 
     <ngt-soba-orbit-controls></ngt-soba-orbit-controls>

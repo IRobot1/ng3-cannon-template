@@ -1,15 +1,16 @@
 import { Component, OnDestroy } from "@angular/core";
 
-import { NgtTriplet } from "@angular-three/core";
+import { NgtTriple } from "@angular-three/core";
 
-import { GetByIndex, PlaneProps, SphereProps } from "@angular-three/cannon";
+import { NgtPhysicBody } from "@angular-three/cannon/bodies";
 
 class ContainerSphere {
-  constructor(public position: NgtTriplet, public color: string) { }
+  constructor(public position: NgtTriple, public color: string) { }
 }
 
 @Component({
-  templateUrl: './pile.component.html'
+  templateUrl: './pile.component.html',
+  providers: [NgtPhysicBody],
 })
 export class PileComponent implements OnDestroy {
   spheresize = 1;
@@ -20,7 +21,7 @@ export class PileComponent implements OnDestroy {
 
   private timer!: any;
 
-  constructor() {
+  constructor(private physicBody: NgtPhysicBody) {
     let i = 0;
     let max = 100;
 
@@ -46,23 +47,12 @@ export class PileComponent implements OnDestroy {
     clearInterval(this.timer);
   }
 
-  getPlaneProps: GetByIndex<PlaneProps> = (index: number) => (
-    {
-      material: { restitution: 1 },
-      args: [this.floorsize, this.floorsize]
-    }
-  );
-
-  getWallProps: GetByIndex<PlaneProps> = (index: number) => (
-    {
+  wallProps = this.physicBody.usePlane(() => ({
       args: [this.wallsize, this.wallsize]
-    }
-  );
+  }));
 
-  getSphereProps: GetByIndex<SphereProps> = (index: number) => (
-    {
+  sphereProps = this.physicBody.useSphere(() => ({
       mass: 1,
       args: [this.spheresize],
-    }
-  )
+  }));
 }

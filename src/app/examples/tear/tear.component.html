@@ -8,13 +8,13 @@
     <ngt-physics [iterations]="iterations">
       <ngt-cannon-debug [disabled]="true" [scale]="1.1" color="black">
 
-        <ngt-mesh *ngFor="let item of linkspheres" ngtPhysicSphere [getPhysicProps]="item.props"
+        <ngt-mesh *ngFor="let item of linkspheres" 
                   [position]="item.position" [castShadow]="true">
           <ngt-sphere-geometry [args]="[size]"></ngt-sphere-geometry>
           <ngt-mesh-standard-material [parameters]="{ color: 'white' | color }"></ngt-mesh-standard-material>
         </ngt-mesh>
 
-        <ngt-mesh ngtPhysicSphere [getPhysicProps]="getThrowBallProps"
+        <ngt-mesh [ref]="throwBallProps.ref"
                   [position]="[0, 3, 20]" [castShadow]="true">
           <ngt-sphere-geometry [args]="[size]"></ngt-sphere-geometry>
           <ngt-mesh-standard-material [parameters]="{ color: 'red' | color }"></ngt-mesh-standard-material>

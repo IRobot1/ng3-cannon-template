@@ -15,7 +15,6 @@ export class ConditionalComponent implements AfterViewInit {
       this.cube.enabled = enabled;
       this.cube.color = enabled ? 'red' : 'white';
       enabled = !enabled;
-      console.log('physics enabled', enabled)
     }, 750)
 
     // stop when the cube is at rest

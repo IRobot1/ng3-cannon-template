@@ -8,44 +8,40 @@
     <ngt-physics [allowSleep]="true">
       <ngt-cannon-debug [disabled]="true" [scale]="1.1" color="red">
 
-        <ngt-mesh ngtPhysicPlane [name]="'plane'"
-                  [receiveShadow]="true" [rotation]="[-90 | radian, 0, 0]">
-          <ngt-plane-geometry [args]="[100, 100]"></ngt-plane-geometry>
-          <ngt-mesh-standard-material [parameters]="{ color: '#777777' | color }"></ngt-mesh-standard-material>
-        </ngt-mesh>
-
         <!--sleep-->
         <ngt-mesh [name]="'sleepy'"
-                  ngtPhysicSphere [getPhysicProps]="getSphere1Props" [castShadow]="true">
+                  [ref]="sphere1Props.ref"  [castShadow]="true">
           <ngt-sphere-geometry></ngt-sphere-geometry>
           <ngt-mesh-standard-material [parameters]="{ color: 'red' | color }"></ngt-mesh-standard-material>
         </ngt-mesh>
 
         <!--wake up when hit-->
         <ngt-mesh [name]="'velocity waker white'"
-                  ngtPhysicSphere [getPhysicProps]="getSphereWakerProps" [castShadow]="true">
+                  [ref]="sphereWakerProps.ref"  [castShadow]="true">
           <ngt-sphere-geometry></ngt-sphere-geometry>
           <ngt-mesh-standard-material [parameters]="{ color: 'white' | color }"></ngt-mesh-standard-material>
         </ngt-mesh>
 
-        <ngt-mesh [name]="'velocity sleeper blue'" #sleeper="ngtPhysicSphere"
-                  ngtPhysicSphere [getPhysicProps]="getSphereSleeper1Props" [castShadow]="true">
+        <ngt-mesh [name]="'velocity sleeper blue'" 
+                  [ref]="sleeper.ref"  [castShadow]="true">
           <ngt-sphere-geometry></ngt-sphere-geometry>
           <ngt-mesh-standard-material [parameters]="{ color: 'blue' | color }"></ngt-mesh-standard-material>
         </ngt-mesh>
 
         <!--wake up with impulse-->
-        <ngt-mesh [name]="'impulse waker gray'" #impulse="ngtPhysicSphere"
-                  ngtPhysicSphere [getPhysicProps]="getSphereImpulseProps" [castShadow]="true">
+        <ngt-mesh [name]="'impulse waker gray'" 
+                  [ref]="impulse.ref" [castShadow]="true">
           <ngt-sphere-geometry></ngt-sphere-geometry>
           <ngt-mesh-standard-material [parameters]="{ color: 'gray' | color }"></ngt-mesh-standard-material>
         </ngt-mesh>
 
         <ngt-mesh [name]="'impulse sleeper orange'"
-                  ngtPhysicSphere [getPhysicProps]="getSphereSleeper2Props" [castShadow]="true">
+                  [ref]="sphereSleeper2Props.ref" [castShadow]="true">
           <ngt-sphere-geometry></ngt-sphere-geometry>
           <ngt-mesh-standard-material [parameters]="{ color: 'orange' | color }"></ngt-mesh-standard-material>
         </ngt-mesh>
+
+        <floor></floor>
 
       </ngt-cannon-debug>
     </ngt-physics>

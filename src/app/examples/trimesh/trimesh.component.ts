@@ -1,45 +1,42 @@
 import { Component } from "@angular/core";
 
-import { NgtTriplet } from "@angular-three/core";
+import { NgtTriple } from "@angular-three/core";
 import { NgtTorusGeometry } from "@angular-three/core/geometries";
 
-import { GetByIndex, PlaneProps, SphereProps, TrimeshProps } from "@angular-three/cannon";
+import { NgtPhysicBody } from "@angular-three/cannon/bodies";
+import { ViewChild } from "@angular/core";
 
 @Component({
-  templateUrl: './trimesh.component.html'
+  templateUrl: './trimesh.component.html',
+  providers: [NgtPhysicBody],
 })
 export class TrimeshComponent {
-  getPlaneProps(): PlaneProps {
-    return {
-      material: { restitution: 1 },
-    } as PlaneProps;
-  }
+  @ViewChild(NgtTorusGeometry) torus!: NgtTorusGeometry;
 
-  getSphereProps(): SphereProps {
-    return {
-      mass: 1,
-      position: [0, 5, 0] as NgtTriplet,
-      material: { restitution: 0.4 },
-      args: [0.5],
-      velocity: [1, 1, 0]
-    } as SphereProps;
-  }
+  sphereProps = this.physicBody.useSphere(() => ({
+    mass: 1,
+    position: [0, 5, 0] as NgtTriple,
+    material: { restitution: 0.4 },
+    args: [0.5],
+    velocity: [1, 1, 0]
+  }));
 
   vertices!: ArrayLike<number>;
   indices!: ArrayLike<number>;
 
-  getTrimeshProps: GetByIndex<TrimeshProps> = () => (
-    {
-      mass: 1,
-      position: [0, 1.5, 0] as NgtTriplet,
-      args: [this.vertices, this.indices]
-    }
-  )
+  trimeshProps = this.physicBody.useTrimesh(() => ({
+    mass: 1,
+    position: [0, 1.5, 0] as NgtTriple,
+    args: [this.vertices, this.indices]
+  }));
 
-  ready(torus: NgtTorusGeometry) {
-    this.vertices = torus.geometry.attributes['position'].array
-    if (torus.geometry.index) {
-      this.indices = torus.geometry.index.array;
-    }
+  constructor(private physicBody: NgtPhysicBody) { }
+
+  ready() {
+    // TODO geometry
+  //  this.vertices = this.torus.geometry.attributes['position'].array
+  //  if (this.torus.geometry.index) {
+  //    this.indices = this.torus.geometry.index.array;
+  //  }
   }
 }

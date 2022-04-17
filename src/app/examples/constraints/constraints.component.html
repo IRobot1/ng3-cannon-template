@@ -9,40 +9,32 @@
       <ngt-cannon-debug [disabled]="false" [scale]="1.1" color="red">
 
         <!--lock-->
-        <ng-container ngtPhysicLockConstraint>
-          <ngt-mesh *ngFor="let position of lockcubes" ngtPhysicBox [getPhysicProps]="getLockProps"
+          <ngt-mesh *ngFor="let position of lockcubes" [ref]="lockProps.ref"
                     [position]="position" [castShadow]="true">
             <ngt-box-geometry></ngt-box-geometry>
             <ngt-mesh-standard-material></ngt-mesh-standard-material>
           </ngt-mesh>
-        </ng-container>
 
         <!--stands, static 0 mass-->
-        <ngt-mesh ngtPhysicBox [position]="leftstand" [castShadow]="true">
+        <ngt-mesh [ref]="boxProps.ref" [position]="leftstand" [castShadow]="true">
           <ngt-box-geometry></ngt-box-geometry>
           <ngt-mesh-standard-material></ngt-mesh-standard-material>
         </ngt-mesh>
-        <ngt-mesh ngtPhysicBox [position]="rightstand" [castShadow]="true">
+        <ngt-mesh [ref]="boxProps.ref" [position]="rightstand" [castShadow]="true">
           <ngt-box-geometry></ngt-box-geometry>
           <ngt-mesh-standard-material></ngt-mesh-standard-material>
         </ngt-mesh>
 
 
         <!--link-->
-        <ng-container ngtPhysicPointToPointConstraint>
-          <ngt-mesh *ngFor="let item of linkcubes" ngtPhysicBox [getPhysicProps]="item.props"
+          <ngt-mesh *ngFor="let item of linkcubes" [ref]="boxProps.ref"
                     [position]="item.position" [scale]="linkscale" [castShadow]="true">
             <ngt-box-geometry></ngt-box-geometry>
             <ngt-mesh-standard-material></ngt-mesh-standard-material>
           </ngt-mesh>
-        </ng-container>
 
 
-        <ngt-mesh ngtPhysicPlane
-                  [receiveShadow]="true" [rotation]="[-90 | radian, 0, 0]">
-          <ngt-plane-geometry [args]="[100, 100]"></ngt-plane-geometry>
-          <ngt-mesh-standard-material [parameters]="{ color: '#777777' | color }"></ngt-mesh-standard-material>
-        </ngt-mesh>
+        <floor></floor>
 
       </ngt-cannon-debug>
     </ngt-physics>

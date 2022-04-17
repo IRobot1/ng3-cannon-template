@@ -1,15 +1,17 @@
-import { BoxProps, GetByIndex } from "@angular-three/cannon";
 import { Component } from "@angular/core";
 
+import { NgtPhysicBody } from "@angular-three/cannon/bodies";
+
 @Component({
-  templateUrl: './threejs.component.html'
+  templateUrl: './threejs.component.html',
+  providers: [NgtPhysicBody],
 })
 export class ThreeJSComponent {
-  getCubeProps(): BoxProps {
-    return {
-      mass: 1,
-      angularVelocity: [0, 10, 0],
-      angularDamping: 0.5,
-    } as BoxProps;
-  }
+  cubeProps = this.physicBody.useBox(() => ({
+    mass: 1,
+    angularVelocity: [0, 10, 0],
+    angularDamping: 0.5,
+  }));
+
+  constructor(private physicBody: NgtPhysicBody) { }
 }

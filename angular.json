@@ -29,8 +29,7 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": [],
-            "webWorkerTsConfig": "tsconfig.worker.json"
+            "scripts": []
           },
           "configurations": {
             "production": {

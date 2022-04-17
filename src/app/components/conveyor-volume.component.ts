@@ -1,22 +1,23 @@
-import { BoxProps, GetByIndex } from "@angular-three/cannon";
-import { NgtPhysicBox } from "@angular-three/cannon/bodies";
-import { CollideBeginEvent, CollideEndEvent } from "@angular-three/cannon/lib/models/events";
-import { NgtEuler, NgtTriplet, NgtVector3 } from "@angular-three/core";
 import { Component, EventEmitter, Input, Output } from "@angular/core";
+
 import { MeshStandardMaterialParameters, Object3D, } from "three";
+
+import { NgtEuler, NgtTriple, NgtVector3 } from "@angular-three/core";
+
+import { CollideBeginEvent, CollideEndEvent } from "@angular-three/cannon";
+import { NgtPhysicBody, NgtPhysicBodyReturn } from "@angular-three/cannon/bodies";
 
 class Overlapping {
   subscription?: () => void;
-  position!: NgtTriplet;
-  constructor(public object: Object3D, public physics: NgtPhysicBox) { }
+  position!: NgtTriple;
+  constructor(public object: Object3D, public physics: NgtPhysicBodyReturn) { }
 }
 
 @Component({
   selector: 'conveyor-volume',
   template: `
         <ngt-mesh [name]="name"
-            ngtPhysicBox
-            [getPhysicProps]="getCubeProps"
+            [ref]="cubeProps.ref"
             [position]="position"
             [rotation]="rotation"
             [scale]="scale"
@@ -29,7 +30,8 @@ class Overlapping {
                 [parameters]="parameters"
             ></ngt-mesh-standard-material>
         </ngt-mesh>
-    `
+    `,
+  providers: [NgtPhysicBody],
 })
 export class ConveyorVolumeComponent {
   @Input() name = 'triggercube';
@@ -62,15 +64,14 @@ export class ConveyorVolumeComponent {
   private overlappingactors = new Map<string, Overlapping>([]);
   private speed = 0.05;
 
-
-  getCubeProps: GetByIndex<BoxProps> = () => ({
+  cubeProps = this.physicBody.useBox(() => ({
     isTrigger: true,
-    position: this.position as NgtTriplet,
-    rotation: this.rotation as NgtTriplet,
+    position: this.position as NgtTriple,
+    rotation: this.rotation as NgtTriple,
     scale: this.scale,
     onCollideBegin: (e) => {
       if (!this.overlappingactors.has(e.body.uuid)) {
-        const physics = <NgtPhysicBox>e.body.userData['physics'];
+        const physics = <NgtPhysicBodyReturn>e.body.userData['physics'];
         if (physics) {
           const overlapping = new Overlapping(e.body, physics);
           overlapping.subscription = physics.api.position.subscribe(next => {
@@ -89,8 +90,10 @@ export class ConveyorVolumeComponent {
         this.endOverlap.emit(e);
       }
     },
-    args: this.scale as NgtTriplet  // this is required for box geometry
-  });
+    args: this.scale as NgtTriple  // this is required for box geometry
+  }));
+
+  constructor(private physicBody: NgtPhysicBody) { }
 
   tick() {
     this.overlappingactors.forEach(item => {
