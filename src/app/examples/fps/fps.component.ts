@@ -41,7 +41,7 @@ export class FPSExample implements AfterViewInit, OnDestroy {
       ] as NgtTriple;
       const body = this.physicBody.useBox(() => ({
         mass: 1,
-        material: { friction: 0, restitution: 0.3 },
+        material: { friction: 1, restitution: 0.3 },
         args: [1, 1, 1],
         position: position,
       }));
@@ -90,16 +90,18 @@ export class FPSExample implements AfterViewInit, OnDestroy {
       this.camera.position.z + shootDirection.z * (this.playerRadius * 1.01 + this.ballRadius),
     ] as NgtTriple;
 
+    const velocity = shootDirection.multiplyScalar(10).toArray();
     const ball = this.physicBody.useSphere(() => ({
       mass: 2,
       args: [this.ballRadius],
       position: position,
+      velocity: velocity
     }));
 
     this.projectiles.push(new Projectile(ball));
 
     // if setInterval is removed above, need to uncomment for ball to appear
-    //this.cd.detectChanges();
+    // this.cd.detectChanges();
   }
 
   tick() {
