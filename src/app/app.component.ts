@@ -28,6 +28,7 @@ export class AppComponent  {
     'stacks',
     'threejs',
     'trigger',
+    'trimesh',
     'tween',
     'worker',
   ]
@@ -38,7 +39,6 @@ export class AppComponent  {
     'body_types',
     'convex',
     'sleep',
-    'trimesh',
   ]
 
   feature = [

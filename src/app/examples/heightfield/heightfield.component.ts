@@ -1,21 +1,30 @@
 import { AfterViewInit, Component, ViewChild } from "@angular/core";
 
 import { BufferGeometry, Vector3 } from "three";
-import { NgtVector3 } from "@angular-three/core";
+import { NgtTriple, NgtVector3 } from "@angular-three/core";
 
-import { NgtPhysicBody } from "@angular-three/cannon/bodies";
+import { NgtPhysicBody, NgtPhysicBodyReturn } from "@angular-three/cannon/bodies";
 
 @Component({
-  templateUrl: './heightfield.component.html',
+  selector: 'heightfield-example',
+  template: `
+        <ngt-mesh [ref]="hfProps.ref" receiveShadow>
+          <ngt-mesh-standard-material></ngt-mesh-standard-material>
+        </ngt-mesh>
+
+        <ngt-mesh *ngFor="let body of spheres" [ref]="body.ref" castShadow>
+          <ngt-sphere-geometry [args]="[0.1]"></ngt-sphere-geometry>
+          <ngt-mesh-standard-material color='white'></ngt-mesh-standard-material>
+        </ngt-mesh>`,
   providers: [NgtPhysicBody],
 })
-export class HeightfieldComponent implements AfterViewInit {
+export class HeightfieldExample implements AfterViewInit {
 
-  position!: NgtVector3;
+  position!: Vector3;
   buffergeometry!: BufferGeometry;
   elementSize = 1;
 
-  spheres: Array<NgtVector3> = []; // positions
+  spheres: Array<NgtPhysicBodyReturn> = []; 
 
   private matrix: Array<Array<number>> = [];
 
@@ -45,8 +54,14 @@ export class HeightfieldComponent implements AfterViewInit {
           continue
         }
 
-        let position = new Vector3(1 + i + 0.25, 5, -j + 0.25 - 1.5);
-        this.spheres.push(position.add(this.position));
+        let position = new Vector3(i + 0.25, 3, -j + 0.25 - 1).add(this.position);
+        const body = this.physicBody.useSphere(() => ({
+          mass: 1,
+          args: [0.1],
+          position: [position.x, position.y, position.z]
+        }));
+
+        this.spheres.push(body);
       }
     }
   }
@@ -57,12 +72,10 @@ export class HeightfieldComponent implements AfterViewInit {
   hfProps = this.physicBody.useHeightfield(() => ({
     mass: 0,
     args: [this.matrix, { elementSize: this.elementSize }],
+    rotation: [-1.57, 0, 0],
+    position: [this.position.x, this.position.y, this.position.z],
   }));
 
-  sphereProps = this.physicBody.useSphere(() => ({
-      mass: 1,
-      args: [0.1]
-  }));
 
 
   //heightfieldGeometry(shape): Geometry {
@@ -102,4 +115,10 @@ export class HeightfieldComponent implements AfterViewInit {
 
   //  return geometry
   //}
+}
+
+@Component({
+  templateUrl: './heightfield.component.html',
+})
+export class HeightfieldComponent {
 }

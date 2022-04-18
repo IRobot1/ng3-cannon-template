@@ -8,8 +8,7 @@ import { NgtPhysicBody } from "@angular-three/cannon/bodies";
   selector: 'trigger-cube',
   template: `
         <ngt-mesh [name]="name"
-            [ref]="cubeProps.ref" 
-            [position]="position"
+            [ref]="cubeProps.ref"             
             [scale]="scale">
             <ngt-box-geometry></ngt-box-geometry>
             <ngt-mesh-standard-material
@@ -27,6 +26,7 @@ export class TriggerCubeComponent {
 
   cubeProps = this.physicBody.useBox(() => ({
     isTrigger: true,
+    position: this.position as NgtTriple,
     scale: this.scale,
     onCollideBegin: (e) => {
       this.trigger.emit('volume triggered by ' + e.body.name);

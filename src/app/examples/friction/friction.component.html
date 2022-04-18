@@ -10,17 +10,8 @@
 
       <ngt-cannon-debug [disabled]="true" [scale]="1.1" color="red">
 
-        <ngt-mesh [ref]="fixedBoxProps.ref" [position]="[0, 2, 1]" [castShadow]="true">
-          <ngt-box-geometry></ngt-box-geometry>
-          <ngt-mesh-standard-material [parameters]="{ color: 'red' | color }"></ngt-mesh-standard-material>
-        </ngt-mesh>
-
-        <ngt-mesh [ref]="slipperyBoxProps.ref" [position]="[0, 2, -1]" [castShadow]="true">
-          <ngt-box-geometry></ngt-box-geometry>
-          <ngt-mesh-standard-material [parameters]="{ color: 'blue' | color }"></ngt-mesh-standard-material>
-        </ngt-mesh>
-
-        <floor></floor>
+        <friction-example></friction-example>
+        <floor [friction]="0.1"></floor>
 
       </ngt-cannon-debug>
     </ngt-physics>

@@ -7,10 +7,11 @@ import { NgtPhysicBody } from "@angular-three/cannon/bodies";
 import { BodyProps, ShapeType } from "@angular-three/cannon";
 
 @Component({
-  templateUrl: './stacks.component.html',
+  selector: 'stacks-example',
+  templateUrl: './stacks-example.component.html',
   providers: [NgtPhysicBody],
 })
-export class StacksComponent {
+export class StacksExample {
   tetrascale = 3;
 
   tetravertices = [
@@ -59,25 +60,47 @@ export class StacksComponent {
 
   }
 
-  sphereProps = this.physicBody.useSphere(() => ({
-      mass: 1,
-      args: [1]
+  sphere1Props = this.physicBody.useSphere(() => ({
+    mass: 1,
+    args: [1],
+    position: [0, 10, 4],
+  }));
+
+  sphere2Props = this.physicBody.useSphere(() => ({
+    mass: 1,
+    args: [1],
+    position: [0, 10, 0],
   }));
 
   boxProps = this.physicBody.useBox(() => ({
-      mass: 1,
-      args: [this.cubesize, this.cubesize, this.cubesize],
+    mass: 1,
+    args: [this.cubesize, this.cubesize, this.cubesize],
+    position: [0, 10, -6],
   }));
 
-  boxCompoundProps = this.physicBody.useConvexPolyhedron(() => ({
+  boxCompound1Props = this.physicBody.useConvexPolyhedron(() => ({
     mass: 1,
     shapes: this.cubeshapes,
+    position: [0, 3, -5],
+  }));
+
+  boxCompound2Props = this.physicBody.useConvexPolyhedron(() => ({
+    mass: 1,
+    shapes: this.cubeshapes,
+    position: [0, 3, 6],
   }));
 
   tetraProps = this.physicBody.useConvexPolyhedron(() => ({
     mass: 1,
-    args: [this.tetravertices, this.tetrafaces]
+    args: [this.tetravertices, this.tetrafaces],
+    position: [0, 1.5, 0],
   }));
 
 
+}
+
+@Component({
+  templateUrl: './stacks.component.html',
+})
+export class StacksComponent {
 }

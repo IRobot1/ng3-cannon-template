@@ -8,20 +8,7 @@
     <ngt-physics>
       <ngt-cannon-debug [disabled]="true" [scale]="1.1" color="red">
 
-          <!--static-->
-          <ngt-mesh [ref]="staticProps.ref"
-                    [position]="[0, size, 0]" [scale]="scale" [castShadow]="true">
-            <ngt-box-geometry></ngt-box-geometry>
-            <ngt-mesh-standard-material></ngt-mesh-standard-material>
-          </ngt-mesh>
-
-          <!--hinge-->
-          <ngt-mesh [ref]="hingeProps.ref"
-                    [position]="[0, size/2-1, 0]" [scale]="scale" [castShadow]="true" [rotation]="[0, 0, 20 | radian]">
-            <ngt-box-geometry></ngt-box-geometry>
-            <ngt-mesh-standard-material></ngt-mesh-standard-material>
-          </ngt-mesh>
-
+        <hinge-example></hinge-example>
         <floor></floor>
 
       </ngt-cannon-debug>

@@ -9,8 +9,7 @@ import { NgtRenderState, NgtStore } from '@angular-three/core';
 //
 @Component({
   selector: 'first-person-controls',
-  template: '<ngt-group (ready)="ready()" (animateReady)="animate($event.state)"></ngt-group>',
-  providers: [NgtStore]
+  template: '<ngt-group (ready)="ready()" (beforeRender)="animate($event.state)"></ngt-group>',
 })
 export class FirstPersonControlsComponent implements OnDestroy {
   @Input() container: HTMLElement = document.body;

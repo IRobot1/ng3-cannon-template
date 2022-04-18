@@ -7,12 +7,7 @@
 
     <ngt-physics>
 
-      <ngt-instanced-mesh (ready)="ready()"
-                          [ref]="cubeProps.ref" [count]="count">
-        <ngt-box-geometry></ngt-box-geometry>
-        <ngt-mesh-standard-material [parameters]="{ color: '#888888' | color }"></ngt-mesh-standard-material>
-      </ngt-instanced-mesh>
-
+      <worker-example></worker-example>
       <floor></floor>
 
     </ngt-physics>

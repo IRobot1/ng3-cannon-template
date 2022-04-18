@@ -6,11 +6,8 @@
     <ngt-physics>
       <ngt-cannon-debug [disabled]="true" [scale]="1.1" color="red">
 
-        <ngt-mesh [ref]="boxProps.ref"
-                  (animateReady)="tick($event.state)">
-          <ngt-box-geometry></ngt-box-geometry>
-          <ngt-mesh-standard-material></ngt-mesh-standard-material>
-        </ngt-mesh>
+        <tween-example></tween-example>
+        <floor></floor>
 
       </ngt-cannon-debug>
     </ngt-physics>

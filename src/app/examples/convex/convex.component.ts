@@ -2,15 +2,20 @@ import { Component } from "@angular/core";
 
 import { BoxGeometry, Vector3 } from "three";
 
-import { NgtTriple } from "@angular-three/core";
+import { NgtRadianPipe, NgtTriple } from "@angular-three/core";
 
-import { NgtPhysicBody } from "@angular-three/cannon/bodies";
+import { NgtPhysicBody, NgtPhysicBodyReturn } from "@angular-three/cannon/bodies";
+
+class Cube {
+  constructor(public body: NgtPhysicBodyReturn) { }
+}
 
 @Component({
-  templateUrl: './convex.component.html',
+  selector: 'convex-example',
+  templateUrl: './convex-example.component.html',
   providers: [NgtPhysicBody],
 })
-export class ConvexComponent {
+export class ConvexExample {
   tetravertices = [
     new Vector3(0, 0, 0),
     new Vector3(1, 0, 0),
@@ -28,7 +33,7 @@ export class ConvexComponent {
   tetrageovertices: Array<number> = [];
   tetrageofaces: Array<number> = [];
 
-  wall: Array<NgtTriple> = [];
+  cubes: Array<Cube> = [];
 
   constructor(private physicBody: NgtPhysicBody) {
     this.tetravertices.forEach(v => {
@@ -42,14 +47,30 @@ export class ConvexComponent {
     // calculate positions for wall
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 3; j++) {
-        this.wall.push([3, size * j + size * 1.2, -(size * i + 0.01) - 3])
+        const position = [3, size * j + size * 1.2, -(size * i + 0.01) - 3] as NgtTriple;
+        const body = this.physicBody.useBox(() => ({
+          mass: 1,
+          args: [1, 1, 1],
+          position: position,
+        }));
+        this.cubes.push(new Cube(body));
       }
     }
   }
 
-  tetraProps = this.physicBody.useConvexPolyhedron(() => ({
+  private rad10 = new NgtRadianPipe().transform(10);
+
+  tetra1Props = this.physicBody.useConvexPolyhedron(() => ({
     mass: 1,
-    args: [this.tetravertices, this.tetrafaces]
+    args: [this.tetravertices, this.tetrafaces],
+    rotation: [this.rad10, 0, 0],
+    position: [3, 1.5, 3]
+  }));
+  tetra2Props = this.physicBody.useConvexPolyhedron(() => ({
+    mass: 1,
+    args: [this.tetravertices, this.tetrafaces],
+    rotation: [this.rad10, 0, 0],
+    position: [3, 3, 3]
   }));
 
   boxvertices: Array<Vector3> = []
@@ -57,19 +78,30 @@ export class ConvexComponent {
   boxnormals: Array<Vector3> = []
 
 
-  convexProps = this.physicBody.useConvexPolyhedron(() => ({
+  convex1Props = this.physicBody.useConvexPolyhedron(() => ({
     mass: 1,
     args: [this.boxvertices, this.boxfaces, this.boxnormals],
+    rotation: [this.rad10, 0, 0],
+    position: [0, 1.5, 1]
   }));
-
-  boxProps = this.physicBody.useBox(() => ({
+  convex2Props = this.physicBody.useConvexPolyhedron(() => ({
     mass: 1,
-    args: [1, 1, 1]
+    args: [this.boxvertices, this.boxfaces, this.boxnormals],
+    rotation: [this.rad10, 0, 0],
+    position: [3, 1.5, 0]
+  }));
+  convex3Props = this.physicBody.useConvexPolyhedron(() => ({
+    mass: 1,
+    args: [this.boxvertices, this.boxfaces, this.boxnormals],
+    rotation: [this.rad10, 0, 0],
+    position: [3, 3, 0]
   }));
 
   cylinderProps = this.physicBody.useCylinder(() => ({
     mass: 1,
-    args: [0.5, 0.5, 2]
+    args: [0.5, 0.5, 2],
+    rotation: [1.57, 0, 0],
+    position: [0, 5, 0]
   }));
 
   // Access to underlying Cannon object not supported by @angular-three/cannon
@@ -82,7 +114,6 @@ export class ConvexComponent {
   //
 
   ready(box: BoxGeometry) {
-    console.warn(box)
 
     // convert box vertices to format needed for physics
     const vertices = box.attributes['position']
@@ -105,4 +136,10 @@ export class ConvexComponent {
     }
   }
 
+}
+
+@Component({
+  templateUrl: './convex.component.html',
+})
+export class ConvexComponent {
 }

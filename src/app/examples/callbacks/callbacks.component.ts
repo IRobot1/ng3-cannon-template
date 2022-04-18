@@ -5,11 +5,24 @@ import { Vector3 } from "three";
 import { NgtPhysicBody } from "@angular-three/cannon/bodies";
 
 @Component({
-  templateUrl: './callbacks.component.html',
+  selector: 'callbacks-example',
+  template: `
+        <ngt-mesh [ref]="moonProps.ref"
+                  [position]="[0, 0, 10]"
+                  [receiveShadow]="true" [castShadow]="true">
+          <ngt-sphere-geometry [args]="[0.5]"></ngt-sphere-geometry>
+          <ngt-mesh-standard-material [parameters]="{ color: 'gray' | color }"></ngt-mesh-standard-material>
+        </ngt-mesh>
+
+        <ngt-mesh [ref]="planetProps.ref"
+                  [receiveShadow]="true" [castShadow]="true">
+          <ngt-sphere-geometry [args]="[3.5]"></ngt-sphere-geometry>
+          <ngt-mesh-standard-material [parameters]="{ color: 'blue' | color }"></ngt-mesh-standard-material>
+        </ngt-mesh>`,
   providers: [NgtPhysicBody],
 
 })
-export class CallbacksComponent implements AfterViewInit {
+export class CallbacksExample implements AfterViewInit {
   constructor(private physicBody: NgtPhysicBody) { }
 
   moonProps = this.physicBody.useSphere(() => ({
@@ -47,4 +60,10 @@ export class CallbacksComponent implements AfterViewInit {
     })
   }
 
+}
+
+@Component({
+  templateUrl: './callbacks.component.html',
+})
+export class CallbacksComponent {
 }

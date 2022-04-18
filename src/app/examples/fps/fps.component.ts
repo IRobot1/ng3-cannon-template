@@ -1,24 +1,26 @@
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, ViewChild } from "@angular/core";
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, ViewChild } from "@angular/core";
 
-import { Camera, Ray, Vector3 } from "three";
+import { Color, Ray, Vector3 } from "three";
 
-import { NgtState, NgtTriple } from "@angular-three/core";
+import { NgtCamera, NgtState, NgtTriple } from "@angular-three/core";
 
-import { NgtPhysicBody } from "@angular-three/cannon/bodies";
+import { NgtPhysicBody, NgtPhysicBodyReturn } from "@angular-three/cannon/bodies";
 
 class Projectile {
-  constructor(public position: NgtTriple, public ttl: number = 30) { }
+  constructor(public body: NgtPhysicBodyReturn, public ttl: number = 30) { }
 }
 class Target {
-  constructor(public position: NgtTriple, public color: string) { }
+  constructor(public body: NgtPhysicBodyReturn, public color: Color) { }
 }
 
 @Component({
-  templateUrl: './fps.component.html',
+  selector: 'fps-example',
+  templateUrl: './fps-example.component.html',
   providers: [NgtPhysicBody],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FPSComponent implements AfterViewInit, OnDestroy {
+export class FPSExample implements AfterViewInit, OnDestroy {
+  @Input() camera!: NgtCamera;
 
   projectiles: Array<Projectile> = [];
   cubes: Array<Target> = [];
@@ -26,18 +28,24 @@ export class FPSComponent implements AfterViewInit, OnDestroy {
   playerRadius = 0.5;
   ballRadius = 0.1;
 
-  private camera!: Camera;
 
   constructor(
     private physicBody: NgtPhysicBody,
     private cd: ChangeDetectorRef,
   ) {
     for (let i = 0; i < 30; i++) {
-      this.cubes.push(new Target([
+      const position = [
         -10 + Math.random() * 20,
         Math.random() + 1,
         -10 + Math.random() * 20
-      ], '#' + Math.floor(Math.random() * 16777215).toString(16).padEnd(6, '0')));
+      ] as NgtTriple;
+      const body = this.physicBody.useBox(() => ({
+        mass: 1,
+        material: { friction: 0, restitution: 0.3 },
+        args: [1, 1, 1],
+        position: position,
+      }));
+      this.cubes.push(new Target(body, new Color().setHex(Math.random() * 0xffffff)));
     }
   }
 
@@ -58,21 +66,6 @@ export class FPSComponent implements AfterViewInit, OnDestroy {
     clearInterval(this.timer);
   }
 
-
-  created(event: NgtState) {
-    this.camera = event.camera;
-  }
-
-  cubeProps = this.physicBody.useBox(() => ({
-    mass: 1,
-    material: { friction: 0, restitution: 0.3 },
-    args: [1, 1, 1],
-  }));
-
-  ballProps = this.physicBody.useSphere(() => ({
-    mass: 2,
-    args: [this.ballRadius]
-  }));
 
   player = this.physicBody.useSphere(() => ({
     mass: 0,
@@ -97,7 +90,13 @@ export class FPSComponent implements AfterViewInit, OnDestroy {
       this.camera.position.z + shootDirection.z * (this.playerRadius * 1.01 + this.ballRadius),
     ] as NgtTriple;
 
-    this.projectiles.push(new Projectile(position));
+    const ball = this.physicBody.useSphere(() => ({
+      mass: 2,
+      args: [this.ballRadius],
+      position: position,
+    }));
+
+    this.projectiles.push(new Projectile(ball));
 
     // if setInterval is removed above, need to uncomment for ball to appear
     //this.cd.detectChanges();
@@ -105,5 +104,16 @@ export class FPSComponent implements AfterViewInit, OnDestroy {
 
   tick() {
     this.player.api.position.copy(this.camera.position);
+  }
+}
+
+
+@Component({
+  templateUrl: './fps.component.html',
+})
+export class FPSComponent {
+  camera!: NgtCamera;
+  created(event: NgtState) {
+    this.camera = event.camera;
   }
 }

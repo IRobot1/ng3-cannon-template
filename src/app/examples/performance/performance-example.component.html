@@ -1,0 +1,6 @@
+<ngt-instanced-mesh #inst (ready)="ready(inst.instance.value)" [count]="count"
+                    (beforeRender)="tick()"
+                    [ref]="cubeProps.ref" castShadow>
+  <ngt-box-geometry></ngt-box-geometry>
+  <ngt-mesh-standard-material></ngt-mesh-standard-material>
+</ngt-instanced-mesh>

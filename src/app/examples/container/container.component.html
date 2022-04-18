@@ -7,44 +7,12 @@
       <ngt-arrow-helper [scale]="2"></ngt-arrow-helper>
     </ngt-spot-light>
 
-    <ngt-plane-geometry #plane [args]="[wallsize, wallsize]"></ngt-plane-geometry>
-    <ngt-mesh-standard-material #standard
-                                [parameters]="{ transparent: true, opacity: 0 }"></ngt-mesh-standard-material>
 
-    <!--TODO [defaultContactMaterial]="stone"-->
-    <ngt-physics [allowSleep]="true" [quatNormalizeFast]="true" [quatNormalizeSkip]="3">
+    <ngt-physics [allowSleep]="true" [defaultContactMaterial]="stone" [quatNormalizeFast]="true" [quatNormalizeSkip]="3">
 
       <ngt-cannon-debug [disabled]="true" [scale]="1.1" color="red">
 
-        <ngt-mesh *ngFor="let cube of spheres"
-                  [ref]="sphereProps.ref"
-                  [position]="cube.position" [scale]="spheresize" [castShadow]="true">
-          <ngt-sphere-geometry></ngt-sphere-geometry>
-          <ngt-mesh-standard-material [parameters]="{ color: cube.color | color }"></ngt-mesh-standard-material>
-        </ngt-mesh>
-
-        <!--walls-->
-        <ngt-mesh [ref]="wallProps.ref" [position]="[0, 5, -5]"
-                  [rotation]="[0, 0, 0]"
-                  [geometry]="plane.instance.value" [material]="standard.instance.value">
-        </ngt-mesh>
-
-        <ngt-mesh [ref]="wallProps.ref" [position]="[0, 5, 5]"
-                  [rotation]="[180 | radian, 0, 0]"
-                  [geometry]="plane.instance.value" [material]="standard.instance.value">
-        </ngt-mesh>
-
-        <ngt-mesh [ref]="wallProps.ref" [position]="[-5, 5, 0]"
-                  [rotation]="[0, 90 | radian, 0]"
-                  [geometry]="plane.instance.value" [material]="standard.instance.value">
-        </ngt-mesh>
-
-        <ngt-mesh [ref]="wallProps.ref" [position]="[5, 5, 0]"
-                  [rotation]="[0, -90 | radian, 0]"
-                  [geometry]="plane.instance.value" [material]="standard.instance.value">
-        </ngt-mesh>
-
-        <!--floor-->
+        <container-example></container-example>
         <floor></floor>
 
       </ngt-cannon-debug>

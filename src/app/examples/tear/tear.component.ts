@@ -9,10 +9,11 @@ class Link {
 }
 
 @Component({
-  templateUrl: './tear.component.html',
+  selector: 'tear-example',
+  templateUrl: './tear-example.component.html',
   providers: [NgtPhysicBody],
 })
-export class TearComponent {
+export class TearExample {
   size = 0.45;
   mass = 1;
 
@@ -26,7 +27,15 @@ export class TearComponent {
     //let lastBody
     for (let i = 0; i < this.iterations; i++) {
       const position = [0, (this.iterations - i) * this.distance - 9, 0] as NgtTriple;
-      this.linkspheres.push(new Link(position, i == 0 ? this.firstLinkProps : this.linkProps));
+
+  // First body is static (mass = 0) to support the other bodies
+      const body = this.physicBody.useSphere(() => ({
+        mass: 0,//i == 0 ? 0 : 1,
+        args: [this.size],
+        position: position,
+      }));
+
+      this.linkspheres.push(new Link(position, body));
 
       // Connect this body to the last one added
       // ** not supported by @angluar-three/cannon yet
@@ -41,20 +50,17 @@ export class TearComponent {
     }
   }
 
-  // First body is static (mass = 0) to support the other bodies
-  firstLinkProps = this.physicBody.useSphere(() => ({
-      mass: 0,
-      args: [this.size]
-  }));
-
-  linkProps = this.physicBody.useSphere(() => ({
-      mass: 0,
-      args: [this.size]
-  }));
-
   throwBallProps = this.physicBody.useSphere(() => ({
-      mass: 2,
-      args: [this.size],
-      velocity: [0, 0, -20]
+    mass: 2,
+    args: [this.size],
+    position: [0, 3, 20],
+    velocity: [0, 0, -20],
   }));
+}
+
+@Component({
+  templateUrl: './tear.component.html',
+})
+export class TearComponent {
+  iterations = 15;
 }

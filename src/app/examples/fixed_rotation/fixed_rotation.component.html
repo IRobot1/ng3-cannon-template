@@ -5,21 +5,10 @@
                            [position]="[20, 20, 20]" [castShadow]="true">
     </ngt-directional-light>
 
-
     <ngt-physics>
-
       <ngt-cannon-debug [disabled]="true" [scale]="1.1" color="red">
 
-        <ngt-mesh [ref]="boxProps.ref" [position]="[0, 1, 0]" [castShadow]="true">
-          <ngt-box-geometry></ngt-box-geometry>
-          <ngt-mesh-standard-material [parameters]="{ color: 'red' | color }"></ngt-mesh-standard-material>
-        </ngt-mesh>
-
-        <ngt-mesh [ref]="boxProps.ref" [position]="[0, 4, 0.5]" [castShadow]="true">
-          <ngt-box-geometry></ngt-box-geometry>
-          <ngt-mesh-standard-material [parameters]="{ color: 'blue' | color }"></ngt-mesh-standard-material>
-        </ngt-mesh>
-
+        <fixedrotation-example></fixedrotation-example>
         <floor></floor>
 
       </ngt-cannon-debug>

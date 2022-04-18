@@ -1,0 +1,34 @@
+<ngt-box-geometry #box (ready)="ready(box.instance.value)"></ngt-box-geometry>
+
+<ngt-mesh [ref]="tetra1Props.ref" castShadow>
+  <ngt-polyhedron-geometry [args]="[tetrageovertices, tetrageofaces]"></ngt-polyhedron-geometry>
+  <ngt-mesh-standard-material color="white"></ngt-mesh-standard-material>
+</ngt-mesh>
+
+<ngt-mesh [ref]="tetra2Props.ref" castShadow>
+  <ngt-polyhedron-geometry [args]="[tetrageovertices, tetrageofaces]"></ngt-polyhedron-geometry>
+  <ngt-mesh-standard-material color="white"></ngt-mesh-standard-material>
+</ngt-mesh>
+
+<ngt-mesh [ref]="convex1Props.ref" castShadow [geometry]="box.instance.value">
+  <ngt-mesh-standard-material color="orange"></ngt-mesh-standard-material>
+</ngt-mesh>
+
+<ngt-mesh [ref]="cylinderProps.ref" castShadow>
+  <ngt-cylinder-geometry [args]="[0.5, 0.5, 2, 20]"></ngt-cylinder-geometry>
+  <ngt-mesh-standard-material color="red"></ngt-mesh-standard-material>
+</ngt-mesh>
+
+<!--convex on convex-->
+<ngt-mesh [ref]="convex2Props.ref" castShadow [geometry]="box.instance.value">
+  <ngt-mesh-standard-material color="orange"></ngt-mesh-standard-material>
+</ngt-mesh>
+<ngt-mesh [ref]="convex3Props.ref" castShadow [geometry]="box.instance.value">
+  <ngt-mesh-standard-material color="orange"></ngt-mesh-standard-material>
+</ngt-mesh>
+
+<!--convex box-->
+<ngt-mesh *ngFor="let cube of cubes" [ref]="cube.body.ref"
+          castShadow [geometry]="box.instance.value">
+  <ngt-mesh-standard-material color="blue"></ngt-mesh-standard-material>
+</ngt-mesh>

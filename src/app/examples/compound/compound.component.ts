@@ -10,10 +10,24 @@ class CompoundPart {
 }
 
 @Component({
-  templateUrl: './compound.component.html',
+  selector: 'compound-example',
+  template: `
+        <ngt-group [ref]="boxCompoundProps.ref">
+          <ngt-mesh *ngFor="let cube of cubes" [position]="cube.position" [scale]="cubesize" [castShadow]="true">
+            <ngt-box-geometry></ngt-box-geometry>
+            <ngt-mesh-standard-material [parameters]="{ color: cube.color | color }"></ngt-mesh-standard-material>
+          </ngt-mesh>
+        </ngt-group>
+
+        <ngt-group [ref]="sphereCompoundProps.ref">
+          <ngt-mesh *ngFor="let cube of spheres" [position]="cube.position" [scale]="spheresize" [castShadow]="true">
+            <ngt-sphere-geometry></ngt-sphere-geometry>
+            <ngt-mesh-standard-material [parameters]="{ color: cube.color | color }"></ngt-mesh-standard-material>
+          </ngt-mesh>
+        </ngt-group>`,
   providers: [NgtPhysicBody],
 })
-export class CompoundComponent {
+export class CompoundExample {
 
   cubesize = 1.5;
   spheresize = 1.5;
@@ -24,7 +38,7 @@ export class CompoundComponent {
   private cubeshapes: Array<BodyProps & { type: ShapeType; }>
   private sphereshapes: Array<BodyProps & { type: ShapeType; }>
 
-  constructor(private physicBody: NgtPhysicBody  ) {
+  constructor(private physicBody: NgtPhysicBody) {
     this.cubes.push(new CompoundPart([0, -this.cubesize, -this.cubesize], 'blue'));
     this.cubes.push(new CompoundPart([0, this.cubesize, -this.cubesize], 'blue'));
     this.cubes.push(new CompoundPart([0, -this.cubesize, this.cubesize], 'red'));
@@ -60,15 +74,22 @@ export class CompoundComponent {
     mass: 0,
   }));
 
-
-  boxCompoundProps= this.physicBody.useCompoundBody(() => ({
-      mass: 1,
-      shapes: this.cubeshapes,
+  boxCompoundProps = this.physicBody.useCompoundBody(() => ({
+    mass: 1,
+    shapes: this.cubeshapes,
+    position: [0, 5, -1]
   }));
 
-  sphereCompoundProps= this.physicBody.useCompoundBody(() => ({
-      mass: 1,
-      shapes: this.sphereshapes,
+  sphereCompoundProps = this.physicBody.useCompoundBody(() => ({
+    mass: 1,
+    shapes: this.sphereshapes,
+    position: [0, 10, 1]
   }));
 
+}
+
+@Component({
+  templateUrl: './compound.component.html',
+})
+export class CompoundComponent {
 }

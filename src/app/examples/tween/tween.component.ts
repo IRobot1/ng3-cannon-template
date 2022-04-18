@@ -5,10 +5,11 @@ import { NgtRenderState, NgtTriple } from "@angular-three/core";
 import { NgtPhysicBody } from "@angular-three/cannon/bodies";
 
 @Component({
-  templateUrl: './tween.component.html',
+  selector:'tween-example',
+  templateUrl: './tween-example.component.html',
   providers: [NgtPhysicBody],
 })
-export class TweenComponent {
+export class TweenExample {
   startz = 3;
   endz = -3;
 
@@ -31,4 +32,10 @@ export class TweenComponent {
     }
   }
 
+}
+
+@Component({
+  templateUrl: './tween.component.html',
+})
+export class TweenComponent {
 }

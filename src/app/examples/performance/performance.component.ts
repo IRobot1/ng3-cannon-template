@@ -5,12 +5,14 @@ import { Color, InstancedMesh } from "three";
 import { NgtTriple } from "@angular-three/core";
 
 import { NgtPhysicBody } from "@angular-three/cannon/bodies";
+import { Matrix4 } from "three";
 
 @Component({
-  templateUrl: './performance.component.html',
+  selector: 'performance-example',
+  templateUrl: './performance-example.component.html',
   providers: [NgtPhysicBody],
 })
-export class PerformanceComponent {
+export class PerformanceExample {
   count = 400;
 
   private boxes: Array<NgtTriple> = []
@@ -27,19 +29,33 @@ export class PerformanceComponent {
   }
 
   cubeProps = this.physicBody.useBox((index: number) => ({
-      mass: 1,
-      position: this.boxes[index],
-      args: [1, 1, 1],
+    mass: 1,
+    position: this.boxes[index],
+    args: [1, 1, 1],
   }));
 
   ready(inst: InstancedMesh) {
+    const matrix = new Matrix4()
+
     for (let i = 0; i < this.count; i++) {
       inst.setColorAt(i, new Color().setHex(Math.random() * 0xffffff));
+      const position = this.boxes[i];
+      matrix.setPosition(position[0], position[1], position[2]);
+      inst.setMatrixAt(i, matrix);
     }
   }
 
   tick() {
     const index = Math.floor(Math.random() * this.count)
-    this.cubeProps.api.at(index).position.set(0, 5 + Math.random() * 15, 0);
+    const props = this.cubeProps.api.at(index);
+    if (props) {
+      props.position.set(0, 5 + Math.random() * 15, 0);
+    }
   }
+}
+
+@Component({
+  templateUrl: './performance.component.html',
+})
+export class PerformanceComponent {
 }

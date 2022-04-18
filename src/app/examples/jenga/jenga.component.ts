@@ -2,17 +2,18 @@ import { Component } from "@angular/core";
 
 import { NgtTriple } from "@angular-three/core";
 
-import { NgtPhysicBody } from "@angular-three/cannon/bodies";
+import { NgtPhysicBody, NgtPhysicBodyReturn } from "@angular-three/cannon/bodies";
 
 class JengaBlock {
-  constructor(public position: NgtTriple, public scale: NgtTriple, public color: string) { }
+  constructor(public body: NgtPhysicBodyReturn, public scale: NgtTriple, public color: string) { }
 }
 
 @Component({
-  templateUrl: './jenga.component.html',
+  selector: 'jenga-example',
+  templateUrl: './jenga-example.component.html',
   providers: [NgtPhysicBody],
 })
-export class JengaComponent {
+export class JengaExample {
   blocks: Array<JengaBlock> = [];
 
   constructor(private physicBody: NgtPhysicBody) {
@@ -25,7 +26,7 @@ export class JengaComponent {
     for (let i = 0; i < 10; i++) {
       for (let j = 0; j < 3; j++) {
 
-        let halfExtents
+        let halfExtents: NgtTriple
         let dx
         let dz
         if (i % 2 === 0) {
@@ -38,25 +39,28 @@ export class JengaComponent {
           dz = 1
         }
 
-        this.blocks.push(new JengaBlock([
+        const position = [
           (size + gap) * (j - 1) * dx,
           (size + gap) * (i + 1),
           (size + gap) * (j - 1) * dz
-        ], halfExtents, colors[j]));
+        ] as NgtTriple
+
+        const body = this.physicBody.useBox(() => ({
+          mass: 1,
+          args: halfExtents,
+          position: position,
+          sleepTimeLimit: 0.1,
+          sleepSpeedLimit: 0.1,
+        }));
+
+        this.blocks.push(new JengaBlock(body, halfExtents, colors[j]));
       }
     }
   }
+}
 
-  index = 0;
-
-  ready(index: number) {
-    this.index = index;
-  }
-
-  boxProps = this.physicBody.useBox(() => ({
-    mass: 1,
-    args: this.blocks[this.index].scale,
-    sleepTimeLimit: 0.1,
-    sleepSpeedLimit: 0.1,
-  }));
+@Component({
+  templateUrl: './jenga.component.html',
+})
+export class JengaComponent {
 }

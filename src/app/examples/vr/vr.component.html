@@ -1,5 +1,5 @@
 <div style="height:100vh">
-  <ngt-canvas (created)="created($event)" 
+  <ngt-canvas (created)="created($event)"
               [shadows]="true"
               [gl]="{ alpha: false }"
               [camera]="{ position: [-1, 5, 5], fov: 45 }"
@@ -15,20 +15,10 @@
     // [allowSleep]="false"  [quatNormalizeSkip]="5" [quatNormalizeFast]="true"
     -->
 
-    <ngt-physics [allowSleep]="false" [gravity]="[0, gravity, 0]" [defaultContactMaterial]="concrete"  [stepSize]="step">
+    <ngt-physics [allowSleep]="false" [gravity]="[0, gravity, 0]" [defaultContactMaterial]="concrete" [stepSize]="step">
       <ngt-cannon-debug [disabled]="true" [scale]="1.1" color="black">
 
-        <trigger-cube [position]="[-3,2.5,0]" (trigger)="message=$event"></trigger-cube>
-        <storybook-cube *ngFor="let cube of cubes" [name]="cube.name" [position]="[0,cube.position.y,cube.position.z]" [scale]="scale"></storybook-cube>
-
-        <app-xr-bat *ngIf="vr && xrmode=='bat'"></app-xr-bat>
-        <app-xr-inspect *ngIf="vr && xrmode=='inspect'"></app-xr-inspect>
-
-        <ngt-mesh *ngIf="vr" [name]="'table'" [ref]="boxProps.ref" [receiveShadow]="true" [position]="[0,0.5,0.5]">
-          <ngt-box-geometry></ngt-box-geometry>
-          <ngt-mesh-standard-material [parameters]="{ color: 'gray' }"></ngt-mesh-standard-material>
-        </ngt-mesh>
-
+        <vr-example [vr]="vr" [scale]="scale" [startheight]="startheight" [recycle]="recycle"></vr-example>
         <floor></floor>
 
       </ngt-cannon-debug>
@@ -46,20 +36,6 @@
                    [position]="[0,0,-4]">
 
     </ngt-soba-text>
-
-    <ngt-group [rotation]="[0, 90 | radian, 0]" [position]="[-3,0,0]">
-
-      <ngt-soba-text [text]="message"
-                     [castShadow]="true"
-                     [color]="'red'"
-                     [maxWidth]="8"
-                     [fontSize]="0.5"
-                     font="https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff"
-                     anchorX="center"
-                     anchorY="bottom"
-                     [rotation]="[-30 | radian, 0, 0]">
-      </ngt-soba-text>
-    </ngt-group>
 
     <ngt-stats *ngIf="vr"></ngt-stats>
   </ngt-canvas>

@@ -5,10 +5,11 @@ import { NgtTriple } from "@angular-three/core";
 import { NgtPhysicBody } from "@angular-three/cannon/bodies";
 
 @Component({
-  templateUrl: './spring.component.html',
+  selector:'spring-example',
+  templateUrl: './spring-example.component.html',
   providers: [NgtPhysicBody],
 })
-export class SpringComponent {
+export class SpringExample {
   size = 1;
 
   options: Record<string, any> = {
@@ -34,4 +35,10 @@ export class SpringComponent {
   ready() {
     //spring.api.applyForce();
   }
+}
+
+@Component({
+  templateUrl: './spring.component.html',
+})
+export class SpringComponent {
 }

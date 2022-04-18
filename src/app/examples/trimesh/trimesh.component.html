@@ -8,20 +8,7 @@
     <ngt-physics>
       <ngt-cannon-debug [disabled]="true" [scale]="1.1" color="red">
 
-        <ngt-mesh [ref]="sphereProps.ref" [castShadow]="true">
-          <ngt-sphere-geometry [args]="[0.5]"></ngt-sphere-geometry>
-          <ngt-mesh-standard-material [parameters]="{ color: 'red' | color }"></ngt-mesh-standard-material>
-        </ngt-mesh>
-
-        <ngt-torus-geometry (ready)="ready()" [args]="[1, 0.9, 16, 16]"></ngt-torus-geometry>
-
-        <!--TODO [geometry]="torus.geometry"-->
-        <ngt-mesh [ref]="trimeshProps.ref"
-                  [castShadow]="true"
-                  [position]="[0, 1.5, 0]" [rotation]="[-1.57, 0, 0]">
-          <ngt-mesh-standard-material [parameters]="{ color: 'white' | color }"></ngt-mesh-standard-material>
-        </ngt-mesh>
-
+        <trimesh-example></trimesh-example>
         <floor></floor>
 
       </ngt-cannon-debug>

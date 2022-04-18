@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 
-import { NgtLoader, NgtRenderState, NgtState, NgtTriple } from "@angular-three/core";
+import { NgtLoader, NgtRenderState, NgtTriple } from "@angular-three/core";
 
 import { DoubleSide, MeshStandardMaterialParameters, Texture, TextureLoader, Vector3 } from "three";
 
@@ -13,10 +13,22 @@ class ClothParticle {
 }
 
 @Component({
-  templateUrl: './cloth.component.html',
+  selector:'cloth-example',
+  template: `<ngt-group (beforeRender)="tick($event.state)">
+          <ngt-mesh>
+            <ngt-plane-geometry [args]="[1, 1]"></ngt-plane-geometry>
+            <!--<ngt-parametric-geometry  [args]="[Nx, Ny]"></ngt-parametric-geometry>-->
+            <ngt-mesh-standard-material [parameters]="parameters"></ngt-mesh-standard-material>
+          </ngt-mesh>
+
+          <ngt-mesh [ref]="sphereProps.ref" [scale]="[sphereSize, sphereSize, sphereSize]">
+            <ngt-sphere-geometry></ngt-sphere-geometry>
+            <ngt-mesh-standard-material [parameters]="{ color: 'white' | color }"></ngt-mesh-standard-material>
+          </ngt-mesh>
+        </ngt-group>`,
   providers: [NgtPhysicBody],
 })
-export class ClothComponent {
+export class ClothExample {
 
   cameraposition = new Vector3(Math.cos(Math.PI / 4) * 3, 0, Math.sin(Math.PI / 4) * 3);
   sphereSize = 0.1
@@ -33,7 +45,7 @@ export class ClothComponent {
   // ERROR: THREE.ParametricGeometry has been moved to /examples/jsm/geometries/ParametricGeometry.js
   // ** ParametricGeometry missing from three-stdlib
   //
-  clothGeometry = new ParametricGeometries.PlaneGeometry(this.Nx, this.Ny, this.Nx, this.Ny)
+  //clothGeometry = new ParametricGeometries.PlaneGeometry(this.Nx, this.Ny, this.Nx, this.Ny)
 
   private particles: Array<Array<ClothParticle>> = []
 
@@ -144,4 +156,8 @@ export class ClothComponent {
 }
 
 
-
+@Component({
+  templateUrl: './cloth.component.html',
+})
+export class ClothComponent {
+}

@@ -21,7 +21,7 @@ class Overlapping {
             [position]="position"
             [rotation]="rotation"
             [scale]="scale"
-            (animateReady)="tick()">
+            (beforeRender)="tick()">
 <ngt-group *ngIf="!hiddeningame" [scale]="inversescale">
          <ngt-arrow-helper></ngt-arrow-helper>
 </ngt-group>

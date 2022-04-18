@@ -1,13 +1,13 @@
-import { AfterViewInit, Component, OnDestroy } from '@angular/core';
+import { AfterViewInit, Component, Input, OnDestroy } from '@angular/core';
 
 import { Vector3 } from 'three';
 
 import { NgtState, NgtTriple } from '@angular-three/core';
 
-import { VRButton } from 'three-stdlib/webxr/VRButton';
 import { NgtPhysicBody } from '@angular-three/cannon/bodies';
 import { ContactMaterialOptions } from '@pmndrs/cannon-worker-api';
 
+import { VRButton } from 'three-stdlib/webxr/VRButton';
 
 class Cube {
   constructor(public name: string, public position: Vector3) { }
@@ -16,46 +16,26 @@ class Cube {
 type XRMode = 'bat' | 'inspect';
 
 @Component({
-  templateUrl: './vr.component.html',
+  selector:'vr-example',
+  templateUrl: './vr-example.component.html',
   providers: [NgtPhysicBody],
 })
-export class VRComponent implements AfterViewInit, OnDestroy {
+export class VRExample implements AfterViewInit, OnDestroy {
+  @Input() vr = false;
+  @Input() scale = [0.5, 0.5, 0.5] as NgtTriple;
+  @Input() startheight = 10;
+  @Input() recycle = true;
+
   cubes: Array<Cube> = [];
-  message = 'volume not triggered';
-  vr = true;
   xrmode: XRMode = 'inspect';
 
-  scale = [0.5, 0.5, 0.5] as NgtTriple;
-  step = 1 / 60;
-  gravity = -9.8;
-
-  private startheight = 10;
-  private recycle = true;
-
-  // TODO material
-  concrete: ContactMaterialOptions  = {
-    restitution: 0, // bouncyness
-    contactEquationRelaxation: 1,
-    friction: 30000,
-    //frictionEquationStiffness: 1e7,  // use 10 for ice
-  }
+  message = 'volume not triggered';
 
   boxProps = this.physicBody.useBox(() => ({
     mass: 0
   }));
 
   constructor(private physicBody: NgtPhysicBody) { }
-
-  created(event: NgtState) {
-    if (this.vr) {
-      document.body.appendChild(VRButton.createButton(event.gl));
-      this.scale = [0.1, 0.1, 0.1] as NgtTriple;
-      this.step = 1 / 120;
-      this.gravity = -2;
-      this.startheight = 2;
-      this.recycle = false;
-    }
-  }
 
   private timer!: any;
 
@@ -83,5 +63,36 @@ export class VRComponent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     clearInterval(this.timer);
+  }
+}
+
+@Component({
+  templateUrl: './vr.component.html',
+})
+export class VRComponent  {
+  vr = true;
+  step = 1 / 60;
+  gravity = -9.8;
+
+  scale = [0.5, 0.5, 0.5] as NgtTriple;
+  startheight = 10;
+  recycle = true;
+
+  concrete: ContactMaterialOptions = {
+    restitution: 0, // bouncyness
+    contactEquationRelaxation: 1,
+    friction: 30000,
+    //frictionEquationStiffness: 1e7,  // use 10 for ice
+  }
+
+  created(event: NgtState) {
+    if (this.vr) {
+      document.body.appendChild(VRButton.createButton(event.gl));
+      this.step = 1 / 120;
+      this.gravity = -2;
+      this.scale = [0.1, 0.1, 0.1] as NgtTriple;
+      this.startheight = 2;
+      this.recycle = false;
+    }
   }
 }

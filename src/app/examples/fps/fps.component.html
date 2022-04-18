@@ -6,33 +6,12 @@
     <ngt-physics>
       <ngt-cannon-debug [disabled]="true" [scale]="1.1" color="red">
 
-        <ngt-mesh [ref]="player.ref"  (animateReady)="tick()">
-          <ngt-sphere-geometry></ngt-sphere-geometry>
-          <ngt-mesh-standard-material></ngt-mesh-standard-material>
-
-          <!--have the light above the players head and follow the player-->
-          <ngt-point-light [args]="['white', 2, 10]" [position]="[0, 2, 0]" [castShadow]="true">
-          </ngt-point-light>
-        </ngt-mesh>
-
-        <ngt-mesh *ngFor="let item of cubes" [ref]="cubeProps.ref" 
-                  [position]="item.position" [castShadow]="true">
-          <ngt-box-geometry></ngt-box-geometry>
-          <ngt-mesh-standard-material [parameters]="{ color: item.color | color }"></ngt-mesh-standard-material>
-        </ngt-mesh>
-
-        <ngt-mesh *ngFor="let item of projectiles" [ref]="ballProps.ref" 
-                  [position]="item.position" [castShadow]="true">
-          <ngt-sphere-geometry [args]="[ballRadius]"></ngt-sphere-geometry>
-          <ngt-mesh-standard-material [parameters]="{ color: 'yellow' | color }"></ngt-mesh-standard-material>
-        </ngt-mesh>
-
+        <fps-example [camera]="camera"></fps-example>
         <floor></floor>
 
       </ngt-cannon-debug>
     </ngt-physics>
 
-    <first-person-controls [movespeed]="2" [viewerheight]="1" (shoot)="shoot()"></first-person-controls>
     <ngt-stats></ngt-stats>
   </ngt-canvas>
 </div>

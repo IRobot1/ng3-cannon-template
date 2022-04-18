@@ -3,16 +3,18 @@ import { AfterViewInit, Component } from "@angular/core";
 import { NgtPhysicBody } from "@angular-three/cannon/bodies";
 
 @Component({
-  templateUrl: './trigger.component.html',
+  selector: 'trigger-example',
+  templateUrl: './trigger-example.component.html',
   providers: [NgtPhysicBody],
 })
-export class TriggerComponent implements AfterViewInit {
+export class TriggerExample implements AfterViewInit {
 
   sphereProps = this.physicBody.useSphere(() => ({
-      mass: 1,
-      args: [1],
-      linearDamping: 0.5,
-      angularDamping: 0.5,
+    mass: 1,
+    args: [1],
+    linearDamping: 0.5,
+    angularDamping: 0.5,
+    position: [0, 0, 3],
   }));
 
 
@@ -36,4 +38,11 @@ export class TriggerComponent implements AfterViewInit {
     // give it a push from the top
     this.sphereProps.api.applyImpulse([0, 0, -5], [0, 1, 0]);
   }
+}
+
+
+@Component({
+  templateUrl: './trigger.component.html',
+})
+export class TriggerComponent {
 }

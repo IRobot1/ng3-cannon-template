@@ -14,7 +14,7 @@ import { Inspect } from "../inspect";
   selector: 'app-xr-inspect',
   //templateUrl: './xr-inspect.component.html',
   template: `
-      <ngt-mesh [name]="'inspector'" [ref]="boxRef.ref" (animateReady)="animate()"
+      <ngt-mesh [name]="'inspector'" [ref]="boxRef.ref" (beforeRender)="animate()"
                 [scale]="scale" [rotation]="rotation" [position]="position">
         <ngt-box-geometry></ngt-box-geometry>
         <ngt-mesh-standard-material [parameters]="{ wireframe: true, color: 'darkgray' }"></ngt-mesh-standard-material>

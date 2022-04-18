@@ -5,11 +5,26 @@ import { NgtTriple } from "@angular-three/core";
 import { NgtPhysicBody } from "@angular-three/cannon/bodies";
 
 @Component({
-  templateUrl: './collision_filter.component.html',
+  selector:'collisionfilter-example',
+  template: `
+        <ngt-mesh [ref]="sphereProps.ref" [castShadow]="true">
+          <ngt-sphere-geometry [args]="[0.5]"></ngt-sphere-geometry>
+          <ngt-mesh-standard-material [parameters]="{ color: 'red' | color }"></ngt-mesh-standard-material>
+        </ngt-mesh>
+
+        <ngt-mesh [ref]="boxProps.ref" [castShadow]="true">
+          <ngt-box-geometry></ngt-box-geometry>
+          <ngt-mesh-standard-material [parameters]="{ color: 'white' | color }"></ngt-mesh-standard-material>
+        </ngt-mesh>
+
+        <ngt-mesh [ref]="cylinderProps.ref" [castShadow]="true">
+          <ngt-cylinder-geometry [args]="[0.5, 0.5, 1, 20]"></ngt-cylinder-geometry>
+          <ngt-mesh-standard-material [parameters]="{ color: 'blue' | color }"></ngt-mesh-standard-material>
+        </ngt-mesh>`,
   providers: [NgtPhysicBody],
 
 })
-export class CollisionFilterComponent {
+export class CollisionFilterExample {
 
   sphereProps = this.physicBody.useSphere(() => ({
       mass: 1,
@@ -39,4 +54,10 @@ export class CollisionFilterComponent {
 
   constructor(private physicBody: NgtPhysicBody) { }
 
+}
+
+@Component({
+  templateUrl: './collision_filter.component.html',
+})
+export class CollisionFilterComponent {
 }

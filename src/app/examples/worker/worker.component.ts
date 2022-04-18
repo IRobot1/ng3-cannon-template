@@ -1,19 +1,17 @@
-import { Component, ViewChild } from "@angular/core";
+import { Component } from "@angular/core";
 
 import { Color, InstancedMesh } from "three";
 
 import { NgtTriple } from "@angular-three/core";
 
 import { NgtPhysicBody } from "@angular-three/cannon/bodies";
-import { NgtInstancedMesh } from "@angular-three/core/meshes";
 
 @Component({
-  templateUrl: './worker.component.html',
+  selector:'worker-example',
+  templateUrl: './worker-example.component.html',
   providers: [NgtPhysicBody],
 })
-export class WorkerComponent {
-  @ViewChild(NgtInstancedMesh) inst!: NgtInstancedMesh;
-
+export class WorkerExample {
   count = 100;
   data = new Array(this.count).fill(0).map((d, index) => ({
     position: [Math.random() - 0.5, index * 2.5 + 0.5, Math.random() - 0.5] as NgtTriple,
@@ -27,9 +25,15 @@ export class WorkerComponent {
 
   constructor(private physicBody: NgtPhysicBody) { }
 
-  ready() {
+  ready(inst: InstancedMesh) {
     this.data.forEach((item, index) => {
-      this.inst.instance.value.setColorAt(index, item.color);
+      inst.setColorAt(index, item.color);
     })
   }
+}
+
+@Component({
+  templateUrl: './worker.component.html',
+})
+export class WorkerComponent {
 }

@@ -8,32 +8,7 @@
     <ngt-physics>
       <ngt-cannon-debug [disabled]="false" [scale]="1.1" color="red">
 
-        <!--lock-->
-          <ngt-mesh *ngFor="let position of lockcubes" [ref]="lockProps.ref"
-                    [position]="position" [castShadow]="true">
-            <ngt-box-geometry></ngt-box-geometry>
-            <ngt-mesh-standard-material></ngt-mesh-standard-material>
-          </ngt-mesh>
-
-        <!--stands, static 0 mass-->
-        <ngt-mesh [ref]="boxProps.ref" [position]="leftstand" [castShadow]="true">
-          <ngt-box-geometry></ngt-box-geometry>
-          <ngt-mesh-standard-material></ngt-mesh-standard-material>
-        </ngt-mesh>
-        <ngt-mesh [ref]="boxProps.ref" [position]="rightstand" [castShadow]="true">
-          <ngt-box-geometry></ngt-box-geometry>
-          <ngt-mesh-standard-material></ngt-mesh-standard-material>
-        </ngt-mesh>
-
-
-        <!--link-->
-          <ngt-mesh *ngFor="let item of linkcubes" [ref]="boxProps.ref"
-                    [position]="item.position" [scale]="linkscale" [castShadow]="true">
-            <ngt-box-geometry></ngt-box-geometry>
-            <ngt-mesh-standard-material></ngt-mesh-standard-material>
-          </ngt-mesh>
-
-
+        <constraints-example></constraints-example>
         <floor></floor>
 
       </ngt-cannon-debug>

@@ -5,10 +5,11 @@ import { NgtTriple } from "@angular-three/core";
 import { NgtPhysicBody } from "@angular-three/cannon/bodies";
 
 @Component({
-  templateUrl: './sleep.component.html',
+  selector:'sleep-example',
+  templateUrl: './sleep-example.component.html',
   providers: [NgtPhysicBody],
 })
-export class SleepComponent implements AfterViewInit {
+export class SleepExample implements AfterViewInit {
 
   sphere1Props = this.physicBody.useSphere(() => ({
     mass: 1,
@@ -60,4 +61,10 @@ export class SleepComponent implements AfterViewInit {
     this.sleeper.api.sleep();
     this.impulse.api.applyImpulse([0, 0, 2], [0, 0, 0]);
   }
+}
+
+@Component({
+  templateUrl: './sleep.component.html',
+})
+export class SleepComponent  {
 }

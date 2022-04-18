@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy } from "@angular/core";
+import { AfterViewInit, Component, Input, OnDestroy } from "@angular/core";
 
 import { Camera, Mesh, Raycaster, Vector2, Vector3 } from "three";
 
@@ -7,10 +7,13 @@ import { NgtState, NgtTriple } from "@angular-three/core";
 import { NgtPhysicBody } from "@angular-three/cannon/bodies";
 
 @Component({
-  templateUrl: './mousepick.component.html',
+  selector: 'mousepick-example',
+  templateUrl: './mousepick-example.component.html',
   providers: [NgtPhysicBody],
 })
-export class MousePickComponent implements AfterViewInit, OnDestroy {
+export class MousePickExample implements AfterViewInit, OnDestroy {
+  @Input() camera!: Camera;
+
   position = [0, 3, 0] as NgtTriple;
   velocity = [0, 0, 0] as NgtTriple;
   sphereRadius = 0.2;
@@ -18,16 +21,17 @@ export class MousePickComponent implements AfterViewInit, OnDestroy {
   private cleanup!: () => void;
 
   boxProps = this.physicBody.useBox(() => ({
-      mass: 1,
-      args: [1, 1, 1],
-      position: this.position,
-      angularFactor: [0, 0, 0] as NgtTriple, // prevent it spinning while dragging
-      velocity: this.velocity,
+    mass: 1,
+    args: [1, 1, 1],
+    position: this.position,
+    angularFactor: [0, 0, 0] as NgtTriple, // prevent it spinning while dragging
+    velocity: this.velocity,
   }));
 
   sphereProps = this.physicBody.useSphere(() => ({
-      mass: 0,
-      args: [this.sphereRadius]
+    mass: 0,
+    args: [this.sphereRadius],
+    position: this.position,
   }));
 
   get options(): Record<string, any> {
@@ -39,10 +43,6 @@ export class MousePickComponent implements AfterViewInit, OnDestroy {
 
   constructor(private physicBody: NgtPhysicBody) { }
 
-  camera!: Camera;
-  created(event: NgtState) {
-    this.camera = event.camera;
-  }
 
   cubeMesh!: Mesh;
   cubeready(mesh: Mesh) {
@@ -144,5 +144,15 @@ export class MousePickComponent implements AfterViewInit, OnDestroy {
   private moveClickMarker(position: Vector3) {
     // update marker position
     this.position = [position.x, position.y, position.z]
+  }
+}
+
+@Component({
+  templateUrl: './mousepick.component.html',
+})
+export class MousePickComponent {
+  camera!: Camera;
+  created(event: NgtState) {
+    this.camera = event.camera;
   }
 }

@@ -1,0 +1,13 @@
+<ngt-torus-geometry #torus (ready)="ready(torus.instance.value)" [args]="[1, 0.9, 16, 16]"></ngt-torus-geometry>
+
+<ngt-mesh [ref]="sphereProps.ref" castShadow>
+  <ngt-sphere-geometry [args]="[0.5]"></ngt-sphere-geometry>
+  <ngt-mesh-standard-material color='red'></ngt-mesh-standard-material>
+</ngt-mesh>
+
+
+<ngt-mesh [ref]="trimeshProps.ref"
+          [geometry]="torus.instance.value" [rotation]="rotation" [position]="position"
+          castShadow>
+  <ngt-mesh-standard-material color='white'></ngt-mesh-standard-material>
+</ngt-mesh>

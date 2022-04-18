@@ -10,10 +10,11 @@ class Link {
 }
 
 @Component({
-  templateUrl: './constraints.component.html',
+  selector:'constraints-example',
+  templateUrl: './constraints-example.component.html',
   providers: [NgtPhysicBody],
 })
-export class ConstraintsComponent {
+export class ConstraintsExample {
   size = 0.5
   space = this.size * 0.1;
 
@@ -89,4 +90,10 @@ export class ConstraintsComponent {
       }
     }
   }
+}
+
+@Component({
+  templateUrl: './constraints.component.html',
+})
+export class ConstraintsComponent {
 }

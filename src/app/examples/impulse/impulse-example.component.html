@@ -1,0 +1,35 @@
+<!--Center Impulse-->
+<ngt-mesh [ref]="ci.ref" castShadow>
+  <ngt-sphere-geometry></ngt-sphere-geometry>
+  <ngt-mesh-standard-material color='red'></ngt-mesh-standard-material>
+</ngt-mesh>
+
+<!--Top Impulse-->
+<ngt-mesh [ref]="ti.ref" castShadow>
+  <ngt-sphere-geometry></ngt-sphere-geometry>
+  <ngt-mesh-standard-material [map]="texture"></ngt-mesh-standard-material>
+</ngt-mesh>
+
+<!--Center Force-->
+<ngt-mesh [ref]="cf.ref" castShadow>
+  <ngt-sphere-geometry></ngt-sphere-geometry>
+  <ngt-mesh-standard-material color='blue'></ngt-mesh-standard-material>
+</ngt-mesh>
+
+<!--Top Force-->
+<ngt-mesh [ref]="tf.ref" castShadow>
+  <ngt-sphere-geometry></ngt-sphere-geometry>
+  <ngt-mesh-standard-material [map]="texture"></ngt-mesh-standard-material>
+</ngt-mesh>
+
+<!--Local Force-->
+<ngt-mesh [ref]="lf.ref" castShadow>
+  <ngt-sphere-geometry></ngt-sphere-geometry>
+  <ngt-mesh-standard-material [map]="texture"></ngt-mesh-standard-material>
+</ngt-mesh>
+
+<!--Torque-->
+<ngt-mesh [ref]="torque.ref" castShadow>
+  <ngt-sphere-geometry></ngt-sphere-geometry>
+  <ngt-mesh-standard-material [map]="texture"></ngt-mesh-standard-material>
+</ngt-mesh>
