@@ -1,12 +1,12 @@
 <div style="height:100vh">
-  <ngt-canvas [camera]="{ position: [10, 2, 0], fov: 45, near:1, far:100 }"
+  <ngt-canvas [camera]="{ position: [30, 10, 0], fov: 45, near:1, far:100 }"
               [scene]="{ background: 'gray' | color }">
     <ngt-directional-light [args]="['white' | color, 1.75]"
                            [position]="[20, 20, 20]" [castShadow]="true">
     </ngt-directional-light>
 
-    <ngt-physics>
-      <ngt-cannon-debug scale="1.1" color="red">
+    <ngt-physics [iterations]="20">
+      <ngt-cannon-debug disabled scale="1.1" color="red">
 
         <constraints-example></constraints-example>
         <floor></floor>

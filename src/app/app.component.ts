@@ -14,6 +14,7 @@ export class AppComponent  {
     'collision_filter',
     'collisions',
     'compound',
+    'constraints',
     'container',
     'events',
     'fps',
@@ -34,7 +35,6 @@ export class AppComponent  {
   ]
 
   almost = [
-    'constraints',
     'heightfield',
     'body_types',
     'convex',

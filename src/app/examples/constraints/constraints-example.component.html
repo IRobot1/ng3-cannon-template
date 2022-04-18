@@ -1,24 +1,40 @@
-        <!--lock-->
-<ngt-mesh *ngFor="let position of lockcubes" [ref]="lockProps.ref"
-          [position]="position" [castShadow]="true">
+<!--lock-->
+<ngt-mesh *ngFor="let body of lockcubes" [ref]="body.ref" castShadow>
   <ngt-box-geometry></ngt-box-geometry>
-  <ngt-mesh-standard-material></ngt-mesh-standard-material>
+  <ngt-mesh-standard-material color="red"></ngt-mesh-standard-material>
 </ngt-mesh>
 
 <!--stands, static 0 mass-->
-<ngt-mesh [ref]="boxProps.ref" [position]="leftstand" [castShadow]="true">
+<ngt-mesh [ref]="leftbox.ref" [position]="leftstand" castShadow>
   <ngt-box-geometry></ngt-box-geometry>
   <ngt-mesh-standard-material></ngt-mesh-standard-material>
 </ngt-mesh>
-<ngt-mesh [ref]="boxProps.ref" [position]="rightstand" [castShadow]="true">
+<ngt-mesh [ref]="rightbox.ref" [position]="rightstand" castShadow>
   <ngt-box-geometry></ngt-box-geometry>
   <ngt-mesh-standard-material></ngt-mesh-standard-material>
 </ngt-mesh>
 
 
 <!--link-->
-<ngt-mesh *ngFor="let item of linkcubes" [ref]="boxProps.ref"
-          [position]="item.position" [scale]="linkscale" [castShadow]="true">
+<ngt-mesh *ngFor="let body of linkcubes; index as i" [ref]="body.ref" [scale]="linkscale" castShadow>
   <ngt-box-geometry></ngt-box-geometry>
-  <ngt-mesh-standard-material></ngt-mesh-standard-material>
+  <ngt-mesh-standard-material [color]="i==0 ? 'white' : 'red'"></ngt-mesh-standard-material>
+</ngt-mesh>
+
+
+<!--sphere pendulum-->
+<ngt-mesh [ref]="pendulumtop.ref" [position]="pentopposition" castShadow>
+  <ngt-sphere-geometry [args]="[pendulumsize]"></ngt-sphere-geometry>
+  <ngt-mesh-standard-material color="white"></ngt-mesh-standard-material>
+</ngt-mesh>
+<ngt-mesh [ref]="pendulumbottom.ref" [position]="penbottomposition" castShadow>
+  <ngt-sphere-geometry [args]="[pendulumsize]"></ngt-sphere-geometry>
+  <ngt-mesh-standard-material color="red"></ngt-mesh-standard-material>
+</ngt-mesh>
+
+
+<!--sphere chain-->
+<ngt-mesh *ngFor="let body of chainspheres; index as i" [ref]="body.ref" castShadow>
+  <ngt-sphere-geometry [args]="[chainlinksize]"></ngt-sphere-geometry>
+  <ngt-mesh-standard-material [color]="i==0 ? 'white' : 'red'"></ngt-mesh-standard-material>
 </ngt-mesh>
