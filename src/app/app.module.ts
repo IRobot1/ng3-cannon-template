@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { NgtColorPipeModule, NgtCoreModule, NgtRadianPipeModule, NgtStore, NgtVectorPipeModule } from '@angular-three/core';
+import { NgtCanvasModule, NgtColorPipeModule, NgtRadianPipeModule, NgtVectorPipeModule } from '@angular-three/core';
 import { NgtStatsModule } from '@angular-three/core/stats';
 import { NgtInstancedMeshModule, NgtMeshModule } from '@angular-three/core/meshes';
 import { NgtGroupModule } from '@angular-three/core/group';
@@ -161,7 +161,7 @@ import { FloorComponent } from './components/floor.component';
     NgtBoxHelperModule,
     NgtArrowHelperModule,
 
-    NgtCoreModule,
+    NgtCanvasModule,
     NgtMeshModule,
     NgtInstancedMeshModule,
     NgtGroupModule,
