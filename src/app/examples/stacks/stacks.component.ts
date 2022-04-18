@@ -78,13 +78,13 @@ export class StacksExample {
     position: [0, 10, -6],
   }));
 
-  boxCompound1Props = this.physicBody.useConvexPolyhedron(() => ({
+  boxCompound1Props = this.physicBody.useCompoundBody(() => ({
     mass: 1,
     shapes: this.cubeshapes,
     position: [0, 3, -5],
   }));
 
-  boxCompound2Props = this.physicBody.useConvexPolyhedron(() => ({
+  boxCompound2Props = this.physicBody.useCompoundBody(() => ({
     mass: 1,
     shapes: this.cubeshapes,
     position: [0, 3, 6],

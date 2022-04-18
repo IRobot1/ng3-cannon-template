@@ -11,20 +11,7 @@ class CompoundPart {
 
 @Component({
   selector: 'compound-example',
-  template: `
-        <ngt-group [ref]="boxCompoundProps.ref">
-          <ngt-mesh *ngFor="let cube of cubes" [position]="cube.position" [scale]="cubesize" [castShadow]="true">
-            <ngt-box-geometry></ngt-box-geometry>
-            <ngt-mesh-standard-material [parameters]="{ color: cube.color | color }"></ngt-mesh-standard-material>
-          </ngt-mesh>
-        </ngt-group>
-
-        <ngt-group [ref]="sphereCompoundProps.ref">
-          <ngt-mesh *ngFor="let cube of spheres" [position]="cube.position" [scale]="spheresize" [castShadow]="true">
-            <ngt-sphere-geometry></ngt-sphere-geometry>
-            <ngt-mesh-standard-material [parameters]="{ color: cube.color | color }"></ngt-mesh-standard-material>
-          </ngt-mesh>
-        </ngt-group>`,
+  templateUrl: 'compound-example.component.html',
   providers: [NgtPhysicBody],
 })
 export class CompoundExample {
