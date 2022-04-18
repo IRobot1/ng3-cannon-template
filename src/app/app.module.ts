@@ -187,6 +187,7 @@ import { FloorComponent } from './components/floor.component';
     NgtMeshStandardMaterialModule,
 
     NgtPhysicsModule,
+    
     NgtCannonDebugModule,
 
     NgtSobaOrbitControlsModule, 

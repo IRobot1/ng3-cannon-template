@@ -5,16 +5,16 @@ import { Camera, Mesh, Raycaster, Vector2, Vector3 } from "three";
 import { NgtState, NgtTriple } from "@angular-three/core";
 
 import { NgtPhysicBody } from "@angular-three/cannon/bodies";
+import { NgtConstraintReturn, NgtPhysicConstraint } from "@angular-three/cannon/constraints";
 
 @Component({
   selector: 'mousepick-example',
   templateUrl: './mousepick-example.component.html',
-  providers: [NgtPhysicBody],
+  providers: [NgtPhysicBody, NgtPhysicConstraint],
 })
 export class MousePickExample implements AfterViewInit, OnDestroy {
   @Input() camera!: Camera;
 
-  position = [0, 3, 0] as NgtTriple;
   velocity = [0, 0, 0] as NgtTriple;
   sphereRadius = 0.2;
 
@@ -23,15 +23,14 @@ export class MousePickExample implements AfterViewInit, OnDestroy {
   boxProps = this.physicBody.useBox(() => ({
     mass: 1,
     args: [1, 1, 1],
-    position: this.position,
+    position: [0, 3, 0],
     angularFactor: [0, 0, 0] as NgtTriple, // prevent it spinning while dragging
-    velocity: this.velocity,
   }));
 
   sphereProps = this.physicBody.useSphere(() => ({
     mass: 0,
     args: [this.sphereRadius],
-    position: this.position,
+    collisionFilterGroup: 0
   }));
 
   get options(): Record<string, any> {
@@ -41,7 +40,10 @@ export class MousePickExample implements AfterViewInit, OnDestroy {
     }
   }
 
-  constructor(private physicBody: NgtPhysicBody) { }
+  constructor(
+    private physicBody: NgtPhysicBody,
+    private physicConstraint: NgtPhysicConstraint,
+  ) { }
 
 
   cubeMesh!: Mesh;
@@ -56,9 +58,19 @@ export class MousePickExample implements AfterViewInit, OnDestroy {
   }
 
   isDragging = false;
+  constraint!: NgtConstraintReturn<'PointToPoint'>;
+
   private velocity_subscription?: () => void;
 
   ngAfterViewInit(): void {
+    this.constraint = this.physicConstraint.usePointToPointConstraint(
+      this.boxProps.ref,
+      this.sphereProps.ref,
+      {
+        pivotA: [0, 0, 0],
+        pivotB: [0, 0, 0],
+      });
+    this.constraint.api.disable();
 
     const pointerdown = (event: PointerEvent) => {
       // Cast a ray from where the mouse is pointing and
@@ -69,6 +81,8 @@ export class MousePickExample implements AfterViewInit, OnDestroy {
       if (hitPoint) {
         // Move marker mesh on contact point
         this.moveClickMarker(hitPoint)
+
+        this.constraint.api.enable();
 
         // enable constraint between the marker and cube
         this.isDragging = true
@@ -103,6 +117,8 @@ export class MousePickExample implements AfterViewInit, OnDestroy {
       // velocity of other box is now velocity of dragged box
       this.velocity_subscription?.();
       this.velocity_subscription = undefined;
+
+      this.constraint.api.disable();
 
       // disable constraint between marker and box
       this.isDragging = false
@@ -141,9 +157,9 @@ export class MousePickExample implements AfterViewInit, OnDestroy {
   }
 
 
+  // update marker position
   private moveClickMarker(position: Vector3) {
-    // update marker position
-    this.position = [position.x, position.y, position.z]
+    this.sphereProps.api.position.copy(position);
   }
 }
 
