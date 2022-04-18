@@ -7,19 +7,9 @@
     </ngt-directional-light>
 
     <ngt-physics>
-      <ngt-cannon-debug [disabled]="true" [scale]="1.1" color="red">
+      <ngt-cannon-debug disabled scale="1.1" color="red">
 
-        <ngt-mesh [ref]="sphereRef.ref"
-                  [castShadow]="true" [position]="[0, 1, 0]">
-          <ngt-sphere-geometry></ngt-sphere-geometry>
-          <ngt-mesh-standard-material [parameters]="{ color: 'white' | color }"></ngt-mesh-standard-material>
-        </ngt-mesh>
-
-        <ngt-mesh [ref]="boxRef.ref" [castShadow]="true">
-          <ngt-box-geometry></ngt-box-geometry>
-          <ngt-mesh-standard-material [parameters]="{ color: 'white' | color }"></ngt-mesh-standard-material>
-        </ngt-mesh>
-
+        <bodytypes-example></bodytypes-example>
         <floor></floor>
 
       </ngt-cannon-debug>

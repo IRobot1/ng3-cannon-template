@@ -2,20 +2,21 @@ import { AfterViewInit, Component, OnDestroy } from "@angular/core";
 
 import { NgtPhysicBody } from "@angular-three/cannon/bodies";
 
-
 @Component({
-  templateUrl: './body_types.component.html',
+  selector: 'bodytypes-example',
+  templateUrl: './body_types-example.component.html',
   providers: [NgtPhysicBody],
 })
-export class BodyTypesComponent implements AfterViewInit, OnDestroy {
+export class BodyTypesExample implements AfterViewInit, OnDestroy {
 
   sphereRef = this.physicBody.useSphere(() => ({
-      mass: 1,
-      args: [1]
+    mass: 1,
+    args: [1],
+    position: [0, 1, 0]
   }));
   boxRef = this.physicBody.useBox(() => ({
-      mass: 0,
-      args: [1, 1, 1],
+    mass: 0,
+    args: [1, 1, 1],
   }));
 
   private timer!: any;
@@ -40,4 +41,10 @@ export class BodyTypesComponent implements AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     clearInterval(this.timer);
   }
+}
+
+@Component({
+  templateUrl: './body_types.component.html',
+})
+export class BodyTypesComponent {
 }

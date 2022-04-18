@@ -8,15 +8,15 @@ import { Component } from "@angular/core";
 })
 export class AppComponent  {
   examples = [
-    'fps',
+    'bounce',
     'conveyor',
     'conditional',
-    'bounce',
     'collision_filter',
     'collisions',
     'compound',
     'container',
     'events',
+    'fps',
     'fixed_rotation',
     'friction',
     'hinge',

@@ -42,7 +42,7 @@ import { TrimeshComponent, TrimeshExample } from './examples/trimesh/trimesh.com
 import { SleepComponent, SleepExample } from './examples/sleep/sleep.component';
 import { TweenComponent, TweenExample } from './examples/tween/tween.component';
 import { ConvexComponent, ConvexExample } from './examples/convex/convex.component';
-import { BodyTypesComponent } from './examples/body_types/body_types.component';
+import { BodyTypesComponent, BodyTypesExample } from './examples/body_types/body_types.component';
 import { PerformanceComponent, PerformanceExample } from './examples/performance/performance.component';
 import { PileComponent, PileExample } from './examples/pile/pile.component';
 import { StacksComponent, StacksExample } from './examples/stacks/stacks.component';
@@ -107,6 +107,7 @@ import { FloorComponent } from './components/floor.component';
     ConvexComponent,
     ConvexExample,
     BodyTypesComponent,
+    BodyTypesExample,
     PerformanceComponent,
     PerformanceExample,
     PileComponent,
