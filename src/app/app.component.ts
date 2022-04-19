@@ -28,6 +28,7 @@ export class AppComponent  {
     'mousepick',
     'performance',
     'pile',
+    'spring',
     'stacks',
     'trigger',
     'trimesh',
@@ -47,7 +48,6 @@ export class AppComponent  {
     'rigid_vehicle',
     'raycast_vehicle',
     'cloth',
-    'spring',
     'callbacks',
   ]
 }
