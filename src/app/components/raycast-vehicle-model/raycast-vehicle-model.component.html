@@ -1,26 +1,25 @@
-<!--RaycastVehicle-->
-<ngt-mesh [ref]="bodyProps.ref" [position]="bodyposition">
+<ngt-mesh [ref]="chassis.ref">
   <ngt-box-geometry [args]="bodyArgs"></ngt-box-geometry>
-  <ngt-mesh-standard-material [parameters]="{ color: bodycolor}"></ngt-mesh-standard-material>
+  <ngt-mesh-standard-material [color]="bodycolor"></ngt-mesh-standard-material>
 </ngt-mesh>
 
-<ngt-mesh [ref]="wheelProps.ref" [position]="leftfrontposition">
+<ngt-mesh [ref]="leftFrontWheel.ref">
   <ngt-cylinder-geometry [args]="wheelArgs"></ngt-cylinder-geometry>
-  <ngt-mesh-standard-material [parameters]="{ color: wheelcolor}"></ngt-mesh-standard-material>
+  <ngt-mesh-standard-material [color]="wheelcolor"></ngt-mesh-standard-material>
 </ngt-mesh>
 
-<ngt-mesh [ref]="wheelProps.ref" [position]="rightfrontposition">
+<ngt-mesh [ref]="rightFrontWheel.ref">
   <ngt-cylinder-geometry [args]="wheelArgs"></ngt-cylinder-geometry>
-  <ngt-mesh-standard-material [parameters]="{ color: wheelcolor}"></ngt-mesh-standard-material>
+  <ngt-mesh-standard-material [color]="wheelcolor"></ngt-mesh-standard-material>
 </ngt-mesh>
 
-<ngt-mesh [ref]="wheelProps.ref" [position]="leftbackposition">
+<ngt-mesh [ref]="leftRearWheel.ref">
   <ngt-cylinder-geometry [args]="wheelArgs"></ngt-cylinder-geometry>
-  <ngt-mesh-standard-material [parameters]="{ color: wheelcolor}"></ngt-mesh-standard-material>
+  <ngt-mesh-standard-material [color]="wheelcolor"></ngt-mesh-standard-material>
 </ngt-mesh>
 
-<ngt-mesh [ref]="wheelProps.ref" [position]="rightbackposition">
+<ngt-mesh [ref]="rightRearWheel.ref">
   <ngt-cylinder-geometry [args]="wheelArgs"></ngt-cylinder-geometry>
-  <ngt-mesh-standard-material [parameters]="{ color: wheelcolor}"></ngt-mesh-standard-material>
+  <ngt-mesh-standard-material [color]="wheelcolor"></ngt-mesh-standard-material>
 </ngt-mesh>
 
