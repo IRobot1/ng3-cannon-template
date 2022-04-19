@@ -36,18 +36,18 @@ export class AppComponent  {
   ]
 
   almost = [
+    'tear',
+    'ragdoll',
     'heightfield',
     'convex',
     'sleep',
   ]
 
   feature = [
-    'ragdoll',
     'rigid_vehicle',
     'raycast_vehicle',
     'cloth',
     'spring',
-    'tear',
     'callbacks',
   ]
 }
