@@ -33,11 +33,8 @@ export class BodyTypesExample implements AfterViewInit, OnDestroy {
       this.boxRef.api.velocity.set(0, speed, 0);
       speed = -speed;
     }, 500)
-
-    this.boxRef.api.position.subscribe(next => {
-      // position not changing
-    })
   }
+
   ngOnDestroy(): void {
     clearInterval(this.timer);
   }
