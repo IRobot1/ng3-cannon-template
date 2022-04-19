@@ -8,7 +8,9 @@ import { Component } from "@angular/core";
 })
 export class AppComponent  {
   examples = [
+    'threejs',
     'bounce',
+    'body_types',
     'conveyor',
     'conditional',
     'collision_filter',
@@ -27,7 +29,6 @@ export class AppComponent  {
     'performance',
     'pile',
     'stacks',
-    'threejs',
     'trigger',
     'trimesh',
     'tween',
@@ -36,7 +37,6 @@ export class AppComponent  {
 
   almost = [
     'heightfield',
-    'body_types',
     'convex',
     'sleep',
   ]

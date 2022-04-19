@@ -1,11 +1,32 @@
-<!--static-->
+<!--hinge-->
 <ngt-mesh [ref]="staticProps.ref" [scale]="scale" castShadow>
   <ngt-box-geometry></ngt-box-geometry>
   <ngt-mesh-standard-material></ngt-mesh-standard-material>
 </ngt-mesh>
 
-<!--hinge-->
 <ngt-mesh [ref]="hingeProps.ref" [scale]="scale" castShadow>
   <ngt-box-geometry></ngt-box-geometry>
-  <ngt-mesh-standard-material></ngt-mesh-standard-material>
+  <ngt-mesh-standard-material color="red"></ngt-mesh-standard-material>
+</ngt-mesh>
+
+<!--car-->
+<ngt-mesh [ref]="chassis.ref" [scale]="chassisscale" castShadow>
+  <ngt-box-geometry></ngt-box-geometry>
+  <ngt-mesh-standard-material color="red"></ngt-mesh-standard-material>
+</ngt-mesh>
+<ngt-mesh [ref]="leftFrontWheel.ref" castShadow>
+  <ngt-sphere-geometry [args]="[1, 8, 8]"></ngt-sphere-geometry>
+  <ngt-mesh-standard-material color="black"></ngt-mesh-standard-material>
+</ngt-mesh>
+<ngt-mesh [ref]="rightFrontWheel.ref" castShadow>
+  <ngt-sphere-geometry [args]="[1, 8, 8]"></ngt-sphere-geometry>
+  <ngt-mesh-standard-material color="black"></ngt-mesh-standard-material>
+</ngt-mesh>
+<ngt-mesh [ref]="leftRearWheel.ref" castShadow>
+  <ngt-sphere-geometry [args]="[1, 8, 8]"></ngt-sphere-geometry>
+  <ngt-mesh-standard-material color="black"></ngt-mesh-standard-material>
+</ngt-mesh>
+<ngt-mesh [ref]="rightRearWheel.ref" castShadow>
+  <ngt-sphere-geometry [args]="[1, 8, 8]"></ngt-sphere-geometry>
+  <ngt-mesh-standard-material color="black"></ngt-mesh-standard-material>
 </ngt-mesh>
