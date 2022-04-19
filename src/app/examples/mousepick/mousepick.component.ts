@@ -1,8 +1,13 @@
 import { NgtPhysicBody, NgtPhysicConstraint } from '@angular-three/cannon';
 
-import { NgtStore, NgtTriple } from '@angular-three/core';
+import {
+  NgtComponentStore,
+  NgtStore,
+  NgtTriple,
+  tapEffect,
+} from '@angular-three/core';
 import { DOCUMENT } from '@angular/common';
-import { AfterViewInit, Component, Inject, OnDestroy } from '@angular/core';
+import { AfterViewInit, Component, Inject, NgZone } from '@angular/core';
 
 import { Camera, Mesh, Raycaster, Vector2, Vector3 } from 'three';
 
@@ -11,11 +16,12 @@ import { Camera, Mesh, Raycaster, Vector2, Vector3 } from 'three';
   templateUrl: './mousepick-example.component.html',
   providers: [NgtPhysicBody, NgtPhysicConstraint],
 })
-export class MousePickExample implements AfterViewInit, OnDestroy {
+export class MousePickExample
+  extends NgtComponentStore<{ pointerState: 'idle' | 'up' | 'move' }>
+  implements AfterViewInit
+{
   velocity = [0, 0, 0] as NgtTriple;
   sphereRadius = 0.2;
-
-  private cleanup!: () => void;
 
   boxProps = this.physicBody.useBox(() => ({
     mass: 1,
@@ -34,100 +40,129 @@ export class MousePickExample implements AfterViewInit, OnDestroy {
     private physicBody: NgtPhysicBody,
     private physicConstraint: NgtPhysicConstraint,
     private store: NgtStore,
+    private zone: NgZone,
     @Inject(DOCUMENT) private document: Document
-  ) {}
+  ) {
+    super();
+    // initialize pointerState as 'idle'
+    this.set({ pointerState: 'idle' });
+  }
 
   movementPlane!: Mesh;
 
   isDragging = false;
 
-  private velocity_subscription?: () => void;
-
   ngAfterViewInit(): void {
-    const camera = this.store.get((s) => s.camera);
+    // anything physics related, we might want to run outside of Angular zone to prevent Change Detection ticks
+    this.zone.runOutsideAngular(() => {
+      // call the effect
+      this.setupConstraint();
+      // call updateVelocity effect with pointerState as the trigger
+      this.updateVelocity(this.select((s) => s.pointerState));
+    });
+  }
 
-    const constraint = this.physicConstraint.usePointToPointConstraint(
-      this.boxProps.ref,
-      this.sphereProps.ref,
-      {
-        pivotA: [0, 0, 0],
-        pivotB: [0, 0, 0],
-      }
-    );
-    constraint.api.disable();
+  // we create an Effect to setup our constraint.
+  // using tapEffect allows us to clean up this effect on Destroy automatically without having to have cleanup()
+  readonly setupConstraint = this.effect<void>(
+    tapEffect(() => {
+      const camera = this.store.get((s) => s.camera);
 
-    const pointerdown = (event: PointerEvent) => {
-      // Cast a ray from where the mouse is pointing and
-      // see if we hit something
-      const hitPoint = this.getHitPoint(
-        event.clientX,
-        event.clientY,
-        this.boxProps.ref.value as Mesh,
-        camera
+      const constraint = this.physicConstraint.usePointToPointConstraint(
+        this.boxProps.ref,
+        this.sphereProps.ref,
+        {
+          pivotA: [0, 0, 0],
+          pivotB: [0, 0, 0],
+        }
       );
+      constraint.api.disable();
 
-      // if the cube was hit
-      if (hitPoint) {
-        // Move marker mesh on contact point
-        this.moveClickMarker(hitPoint);
-
-        constraint.api.enable();
-
-        // enable constraint between the marker and cube
-        this.isDragging = true;
-      }
-    };
-    this.document.body.addEventListener('pointerdown', pointerdown);
-
-    const pointermove = (event: PointerEvent) => {
-      if (this.isDragging) {
-        // Project the mouse onto the movement plane
+      const pointerdown = (event: PointerEvent) => {
+        // Cast a ray from where the mouse is pointing and
+        // see if we hit something
         const hitPoint = this.getHitPoint(
           event.clientX,
           event.clientY,
-          this.movementPlane,
+          this.boxProps.ref.value as Mesh,
           camera
         );
 
+        // if the cube was hit
         if (hitPoint) {
-          // Move marker mesh on the contact point
+          // Move marker mesh on contact point
           this.moveClickMarker(hitPoint);
 
-          if (!this.velocity_subscription) {
-            // monitor velocity of dragged box until its released
-            this.velocity_subscription = this.boxProps.api.velocity.subscribe(
-              (next) => {
-                this.velocity = next;
-              }
-            );
+          constraint.api.enable();
+
+          // enable constraint between the marker and cube
+          // go back into the zone so this update will trigger render
+          this.zone.run(() => {
+            this.isDragging = true;
+          });
+        }
+      };
+      this.document.body.addEventListener('pointerdown', pointerdown);
+
+      const pointermove = (event: PointerEvent) => {
+        // update pointerState
+        this.set({ pointerState: 'move' });
+
+        if (this.isDragging) {
+          // Project the mouse onto the movement plane
+          const hitPoint = this.getHitPoint(
+            event.clientX,
+            event.clientY,
+            this.movementPlane,
+            camera
+          );
+
+          if (hitPoint) {
+            // Move marker mesh on the contact point
+            this.moveClickMarker(hitPoint);
           }
         }
+      };
+      this.document.body.addEventListener('pointermove', pointermove);
+
+      const pointerup = (event: PointerEvent) => {
+        // update pointerState
+        this.set({ pointerState: 'up' });
+
+        constraint.api.disable();
+
+        // disable constraint between marker and box
+        this.zone.run(() => {
+          this.isDragging = false;
+        });
+      };
+      this.document.body.addEventListener('pointerup', pointerup);
+
+      return () => {
+        this.document.body.removeEventListener('pointerdown', pointerdown);
+        this.document.body.removeEventListener('pointermove', pointermove);
+        this.document.body.removeEventListener('pointerup', pointerup);
+        // reset pointerState on destroy
+        this.set({ pointerState: 'idle' });
+      };
+    })
+  );
+
+  // we setup another effect to update our velocity based on the state of our pointer
+  readonly updateVelocity = this.effect<'idle' | 'move' | 'up'>(
+    tapEffect((pointerState) => {
+      if (pointerState !== 'idle') {
+        const unsubscribe = this.boxProps.api.velocity.subscribe((velocity) => {
+          this.velocity = velocity;
+        });
+
+        return () => {
+          unsubscribe();
+        };
       }
-    };
-    this.document.body.addEventListener('pointermove', pointermove);
-
-    const pointerup = (event: PointerEvent) => {
-      // velocity of other box is now velocity of dragged box
-      this.velocity_subscription?.();
-      this.velocity_subscription = undefined;
-
-      constraint.api.disable();
-
-      // disable constraint between marker and box
-      this.isDragging = false;
-    };
-    this.document.body.addEventListener('pointerup', pointerup);
-
-    this.cleanup = () => {
-      this.document.body.removeEventListener('pointerdown', pointerdown);
-      this.document.body.removeEventListener('pointermove', pointermove);
-      this.document.body.removeEventListener('pointerup', pointerup);
-    };
-  }
-
-  ngOnDestroy(): void {
-    this.cleanup();
-  }
+      return;
+    })
+  );
 
   //
   // Returns an hit point if there's a hit with the mesh, otherwise returns undefined
