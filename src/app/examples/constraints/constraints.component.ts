@@ -2,8 +2,8 @@ import { Component } from "@angular/core";
 
 import { NgtTriple } from "@angular-three/core";
 
-import { NgtPhysicBody, NgtPhysicBodyReturn } from "@angular-three/cannon/bodies";
-import { NgtPhysicConstraint } from "@angular-three/cannon/constraints";
+import { NgtPhysicBody, NgtPhysicBodyReturn } from "@angular-three/cannon";
+import { NgtPhysicConstraint } from "@angular-three/cannon";
 
 
 @Component({

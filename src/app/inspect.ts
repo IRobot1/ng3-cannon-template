@@ -1,4 +1,4 @@
-import { NgtPhysicBodyReturn } from "@angular-three/cannon/bodies";
+import { NgtPhysicBodyReturn } from "@angular-three/cannon";
 
 export interface Inspect {
   Pickup(): void;

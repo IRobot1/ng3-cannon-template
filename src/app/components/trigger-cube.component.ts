@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
 
 import { NgtTriple, NgtVector3 } from "@angular-three/core";
 
-import { NgtPhysicBody } from "@angular-three/cannon/bodies";
+import { NgtPhysicBody } from "@angular-three/cannon";
 
 @Component({
   selector: 'trigger-cube',

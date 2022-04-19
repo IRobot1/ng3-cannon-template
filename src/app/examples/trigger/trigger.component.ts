@@ -1,6 +1,6 @@
 import { AfterViewInit, Component } from "@angular/core";
 
-import { NgtPhysicBody } from "@angular-three/cannon/bodies";
+import { NgtPhysicBody } from "@angular-three/cannon";
 
 @Component({
   selector: 'trigger-example',

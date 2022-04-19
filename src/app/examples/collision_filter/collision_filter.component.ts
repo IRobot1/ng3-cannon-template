@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 
 import { NgtTriple } from "@angular-three/core";
 
-import { NgtPhysicBody } from "@angular-three/cannon/bodies";
+import { NgtPhysicBody } from "@angular-three/cannon";
 
 @Component({
   selector:'collisionfilter-example',

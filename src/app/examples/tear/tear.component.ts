@@ -2,8 +2,8 @@ import { Component } from "@angular/core";
 
 import { NgtTriple } from "@angular-three/core";
 
-import { NgtPhysicBody, NgtPhysicBodyReturn } from "@angular-three/cannon/bodies";
-import { NgtConstraintReturn, NgtPhysicConstraint } from "@angular-three/cannon/constraints";
+import { NgtPhysicBody, NgtPhysicBodyReturn, NgtPhysicConstraintReturn } from "@angular-three/cannon";
+import { NgtPhysicConstraint } from "@angular-three/cannon";
 
 class Link {
   constructor(public position: NgtTriple, public props: NgtPhysicBodyReturn) { }
@@ -22,7 +22,7 @@ export class TearExample {
   distance = this.size * 2 + 0.12;
 
   linkspheres: Array<Link> = [];
-  constraints: Array<NgtConstraintReturn<'Distance'>> = []
+  constraints: Array<NgtPhysicConstraintReturn<'Distance'>> = []
 
   private timer!: any;
 

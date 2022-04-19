@@ -3,7 +3,7 @@ import { AfterViewInit, Component, ViewChild } from "@angular/core";
 import { BufferGeometry, Vector3 } from "three";
 import { NgtTriple, NgtVector3 } from "@angular-three/core";
 
-import { NgtPhysicBody, NgtPhysicBodyReturn } from "@angular-three/cannon/bodies";
+import { NgtPhysicBody, NgtPhysicBodyReturn } from "@angular-three/cannon";
 
 @Component({
   selector: 'heightfield-example',

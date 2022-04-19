@@ -4,7 +4,7 @@ import { Euler, Group, Object3D, XRInputSource } from "three";
 
 import { NgtStore, NgtTriple, NgtVector3 } from "@angular-three/core";
 
-import { NgtPhysicBody } from "@angular-three/cannon/bodies";
+import { NgtPhysicBody } from "@angular-three/cannon";
 
 import { XRControllerModelFactory } from "three-stdlib/webxr/XRControllerModelFactory";
 

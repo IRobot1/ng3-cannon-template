@@ -3,7 +3,7 @@ import { AfterViewInit, Component, Input, ViewChild } from "@angular/core";
 import { NgtEuler, NgtTriple } from "@angular-three/core";
 import { NgtMesh } from "@angular-three/core/meshes";
 
-import { NgtPhysicBody, NgtPhysicBodyReturn } from "@angular-three/cannon/bodies";
+import { NgtPhysicBody, NgtPhysicBodyReturn } from "@angular-three/cannon";
 
 import { Inspect } from "../inspect";
 

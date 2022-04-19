@@ -4,8 +4,8 @@ import { Camera, Mesh, Raycaster, Vector2, Vector3 } from "three";
 
 import { NgtState, NgtTriple } from "@angular-three/core";
 
-import { NgtPhysicBody } from "@angular-three/cannon/bodies";
-import { NgtConstraintReturn, NgtPhysicConstraint } from "@angular-three/cannon/constraints";
+import { NgtPhysicBody, NgtPhysicConstraintReturn } from "@angular-three/cannon";
+import { NgtPhysicConstraint } from "@angular-three/cannon";
 
 @Component({
   selector: 'mousepick-example',
@@ -58,7 +58,7 @@ export class MousePickExample implements AfterViewInit, OnDestroy {
   }
 
   isDragging = false;
-  constraint!: NgtConstraintReturn<'PointToPoint'>;
+  constraint!: NgtPhysicConstraintReturn<'PointToPoint'>;
 
   private velocity_subscription?: () => void;
 

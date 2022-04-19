@@ -2,7 +2,7 @@ import { AfterViewInit, Component } from "@angular/core";
 
 import { Vector3 } from "three";
 
-import { NgtPhysicBody } from "@angular-three/cannon/bodies";
+import { NgtPhysicBody } from "@angular-three/cannon";
 
 @Component({
   selector: 'callbacks-example',

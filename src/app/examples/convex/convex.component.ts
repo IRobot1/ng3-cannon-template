@@ -4,7 +4,7 @@ import { BoxGeometry, Vector3 } from "three";
 
 import { NgtRadianPipe, NgtTriple } from "@angular-three/core";
 
-import { NgtPhysicBody, NgtPhysicBodyReturn } from "@angular-three/cannon/bodies";
+import { NgtPhysicBody, NgtPhysicBodyReturn } from "@angular-three/cannon";
 
 class Cube {
   constructor(public body: NgtPhysicBodyReturn) { }

@@ -4,7 +4,7 @@ import { Color, Ray, Vector3 } from "three";
 
 import { NgtCamera, NgtState, NgtTriple } from "@angular-three/core";
 
-import { NgtPhysicBody, NgtPhysicBodyReturn } from "@angular-three/cannon/bodies";
+import { NgtPhysicBody, NgtPhysicBodyReturn } from "@angular-three/cannon";
 
 class Projectile {
   constructor(public body: NgtPhysicBodyReturn, public ttl: number = 30) { }

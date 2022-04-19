@@ -18,7 +18,7 @@ import { NgtSobaOrbitControlsModule } from '@angular-three/soba/controls';
 
 import { AppComponent } from './app.component';
 import { CubeComponent } from './components/storybook-cube.component';
-import { NgtCannonDebugModule } from '@angular-three/cannon/debug';
+import { NgtCannonDebugModule } from '@angular-three/cannon';
 import { TriggerCubeComponent } from './components/trigger-cube.component';
 import { XRBatComponent } from './xr-bat/xr-bat.component';
 import { XRInspectComponent } from './xr-inspect/xr-inspect.component';

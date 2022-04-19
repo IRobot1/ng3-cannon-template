@@ -4,7 +4,7 @@ import { Color } from "three";
 
 import { NgtTriple } from "@angular-three/core";
 
-import { NgtPhysicBody, NgtPhysicBodyReturn } from "@angular-three/cannon/bodies";
+import { NgtPhysicBody, NgtPhysicBodyReturn } from "@angular-three/cannon";
 
 class ContainerSphere {
   constructor(public body: NgtPhysicBodyReturn, public color: Color) { }

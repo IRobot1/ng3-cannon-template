@@ -4,10 +4,9 @@ import { NgtLoader, NgtRenderState, NgtTriple } from "@angular-three/core";
 
 import { BufferGeometry, DoubleSide, Float32BufferAttribute, MeshStandardMaterialParameters, Texture, TextureLoader, Vector3 } from "three";
 
-import { NgtPhysicBody, NgtPhysicBodyReturn } from "@angular-three/cannon/bodies";
+import { NgtPhysicBody, NgtPhysicBodyReturn } from "@angular-three/cannon";
 
-import { ParametricGeometries } from 'three-stdlib/geometries/ParametricGeometries';
-import { NgtPhysicConstraint } from "@angular-three/cannon/constraints";
+import { NgtPhysicConstraint } from "@angular-three/cannon";
 
 class ClothParticle {
   constructor(public mass: number, public position: NgtTriple, public velocity: NgtTriple) { }

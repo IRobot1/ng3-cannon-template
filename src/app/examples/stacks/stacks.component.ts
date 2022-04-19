@@ -3,7 +3,7 @@ import { Component } from "@angular/core";
 import { NgtTriple } from "@angular-three/core";
 
 import { Vector3 } from "three";
-import { NgtPhysicBody } from "@angular-three/cannon/bodies";
+import { NgtPhysicBody } from "@angular-three/cannon";
 import { BodyProps, ShapeType } from "@angular-three/cannon";
 
 @Component({

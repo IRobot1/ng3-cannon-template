@@ -4,7 +4,7 @@ import { Vector3 } from 'three';
 
 import { NgtState, NgtTriple } from '@angular-three/core';
 
-import { NgtPhysicBody } from '@angular-three/cannon/bodies';
+import { NgtPhysicBody } from '@angular-three/cannon';
 import { ContactMaterialOptions } from '@pmndrs/cannon-worker-api';
 
 import { VRButton } from 'three-stdlib/webxr/VRButton';

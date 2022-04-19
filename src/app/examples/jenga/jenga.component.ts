@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 
 import { NgtTriple } from "@angular-three/core";
 
-import { NgtPhysicBody, NgtPhysicBodyReturn } from "@angular-three/cannon/bodies";
+import { NgtPhysicBody, NgtPhysicBodyReturn } from "@angular-three/cannon";
 
 class JengaBlock {
   constructor(public body: NgtPhysicBodyReturn, public scale: NgtTriple, public color: string) { }

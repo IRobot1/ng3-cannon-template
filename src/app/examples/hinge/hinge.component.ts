@@ -2,8 +2,8 @@ import { AfterViewInit, Component } from "@angular/core";
 
 import { NgtRadianPipe, NgtTriple } from "@angular-three/core";
 
-import { NgtPhysicBody } from "@angular-three/cannon/bodies";
-import { NgtPhysicConstraint } from "@angular-three/cannon/constraints";
+import { NgtPhysicBody } from "@angular-three/cannon";
+import { NgtPhysicConstraint } from "@angular-three/cannon";
 import { Vector3 } from "three";
 
 

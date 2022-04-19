@@ -5,7 +5,7 @@ import { MeshStandardMaterialParameters, Object3D, } from "three";
 import { NgtEuler, NgtTriple, NgtVector3 } from "@angular-three/core";
 
 import { CollideBeginEvent, CollideEndEvent } from "@angular-three/cannon";
-import { NgtPhysicBody, NgtPhysicBodyReturn } from "@angular-three/cannon/bodies";
+import { NgtPhysicBody, NgtPhysicBodyReturn } from "@angular-three/cannon";
 
 class Overlapping {
   subscription?: () => void;

@@ -3,7 +3,7 @@ import { Component } from "@angular/core";
 import { Color } from "three";
 import { NgtTriple } from "@angular-three/core";
 
-import { NgtPhysicBody, NgtPhysicBodyReturn } from "@angular-three/cannon/bodies";
+import { NgtPhysicBody, NgtPhysicBodyReturn } from "@angular-three/cannon";
 import { ContactMaterialOptions } from "@pmndrs/cannon-worker-api";
 
 class ContainerSphere {

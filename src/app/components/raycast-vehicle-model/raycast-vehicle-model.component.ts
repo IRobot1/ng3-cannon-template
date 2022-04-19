@@ -4,7 +4,7 @@ import { Euler, Quaternion, Vector3 } from "three";
 import { NgtEuler, NgtTriple } from "@angular-three/core";
 
 import { CylinderArgs, WheelInfoOptions } from "@angular-three/cannon";
-import { NgtPhysicBody } from "@angular-three/cannon/bodies";
+import { NgtPhysicBody } from "@angular-three/cannon";
 
 class RaycastVehicle {
   wheelInfos: Array<WheelInfoOptions> = [];
