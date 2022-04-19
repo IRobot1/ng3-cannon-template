@@ -57,7 +57,7 @@ import { CallbacksComponent, CallbacksExample } from './examples/callbacks/callb
 import { HeightfieldComponent, HeightfieldExample } from './examples/heightfield/heightfield.component';
 import { HingeComponent, HingeExample } from './examples/hinge/hinge.component';
 import { ConstraintsComponent, ConstraintsExample } from './examples/constraints/constraints.component';
-import { RagdollComponent } from './examples/ragdoll/ragdoll.component';
+import { RagdollComponent, RagdollExample } from './examples/ragdoll/ragdoll.component';
 import { RagdollModelComponent } from './components/ragdoll-model/ragdoll-model.component';
 import { SpringComponent, SpringExample } from './examples/spring/spring.component';
 import { TearComponent, TearExample } from './examples/tear/tear.component';
@@ -129,6 +129,7 @@ import { FloorComponent } from './components/floor.component';
     ConstraintsExample,
     RagdollComponent,
     RagdollModelComponent,
+    RagdollExample,
     SpringComponent,
     SpringExample,
     TearComponent,

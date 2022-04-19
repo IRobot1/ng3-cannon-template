@@ -1,0 +1,25 @@
+<!--<ragdoll-model [mass]="0"></ragdoll-model>-->
+
+<!--normal joints-->
+<ragdoll-model [bodycolor]="'darkred'" [scale]="3" [angle]="3.14/4" [angleShoulders]="3.14/3" [twistAngle]="3.14/8" [position]="[0, 6, 3]"></ragdoll-model>
+
+<ngt-mesh [ref]="leftSphere.ref" castShadow>
+  <ngt-sphere-geometry></ngt-sphere-geometry>
+  <ngt-mesh-standard-material></ngt-mesh-standard-material>
+</ngt-mesh>
+
+<!--thin joins-->
+<ragdoll-model [scale]="3" [angle]="0" [angleShoulders]="0" [twistAngle]="0" [position]="[0, 6, -2]"></ragdoll-model>
+
+<ngt-mesh [ref]="middleSphere.ref" castShadow>
+  <ngt-sphere-geometry></ngt-sphere-geometry>
+  <ngt-mesh-standard-material></ngt-mesh-standard-material>
+</ngt-mesh>
+
+<!--no joins-->
+<ragdoll-model [bodycolor]="'darkgreen'" [scale]="3" [angle]="3.14" [angleShoulders]="3.14" [twistAngle]="3.14" [position]="[0, 6, -7]"></ragdoll-model>
+
+<ngt-mesh [ref]="rightSphere.ref" castShadow>
+  <ngt-sphere-geometry></ngt-sphere-geometry>
+  <ngt-mesh-standard-material></ngt-mesh-standard-material>
+</ngt-mesh>

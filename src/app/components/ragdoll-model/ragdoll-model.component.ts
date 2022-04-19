@@ -1,30 +1,20 @@
-import { Component, Input } from "@angular/core";
+import { AfterContentInit, Component, Input } from "@angular/core";
 
 import { Vector3 } from "three";
 
-import { NgtEuler, NgtTriple } from "@angular-three/core";
+import { NgtTriple } from "@angular-three/core";
 
-import { NgtPhysicBody } from "@angular-three/cannon";
+import { NgtPhysicBody, NgtPhysicBodyReturn, NgtPhysicConstraint, NgtPhysicConstraintReturn } from "@angular-three/cannon";
 
 @Component({
   selector: 'ragdoll-model',
   templateUrl: 'ragdoll-model.component.html',
-  providers: [NgtPhysicBody],
+  providers: [NgtPhysicBody, NgtPhysicConstraint],
 })
-export class RagdollModelComponent {
+export class RagdollModelComponent implements AfterContentInit {
   @Input() name = 'ragdoll';
 
-  private _position = [0, 0, 0] as NgtTriple;
-  @Input()
-  get position(): NgtTriple {
-    return this._position;
-  }
-  set position(newvalue: NgtTriple) {
-    this._position = newvalue;
-    this.updatePositions(new Vector3(this.position[0], this.position[1], this.position[2]));
-  }
-
-  @Input() rotation = [0, 0, 0] as NgtEuler;
+  @Input() position = [0, 0, 0] as NgtTriple;
   @Input() scale = 1;
   @Input() angle = 0;
   @Input() angleShoulders = 0;
@@ -36,6 +26,8 @@ export class RagdollModelComponent {
   @Input() bodycolor = '#034f84';
   @Input() armcolor = '#92a8d1';
   @Input() legcolor = '#f7786b';
+
+  ready = false;
 
   headRadius = 0.25 * this.scale;
   shouldersDistance = 0.5 * this.scale
@@ -51,146 +43,256 @@ export class RagdollModelComponent {
   lowerLegSize = 0.2 * this.scale
   lowerLegLength = 0.5 * this.scale
 
-  upperArmArgs = [this.upperArmLength, this.upperArmSize , this.upperArmSize ] as NgtTriple;
-  lowerArmArgs = [this.lowerArmLength , this.lowerArmSize , this.lowerArmSize ] as NgtTriple;
-  upperBodyArgs = [this.shouldersDistance , this.lowerArmSize , this.upperBodyLength ] as NgtTriple;
-  pelvisArgs = [this.shouldersDistance , this.lowerArmSize , this.pelvisLength ] as NgtTriple;
-  upperLegArgs = [this.upperLegSize , this.lowerArmSize , this.upperLegLength ] as NgtTriple;
-  lowerLegArgs = [this.lowerLegSize , this.lowerArmSize , this.lowerLegLength ] as NgtTriple;
+  upperArmArgs = [this.upperArmLength, this.upperArmSize, this.upperArmSize] as NgtTriple;
+  lowerArmArgs = [this.lowerArmLength, this.lowerArmSize, this.lowerArmSize] as NgtTriple;
+  upperBodyArgs = [this.shouldersDistance, this.lowerArmSize, this.upperBodyLength] as NgtTriple;
+  pelvisArgs = [this.shouldersDistance, this.lowerArmSize, this.pelvisLength] as NgtTriple;
+  upperLegArgs = [this.upperLegSize, this.lowerArmSize, this.upperLegLength] as NgtTriple;
+  lowerLegArgs = [this.lowerLegSize, this.lowerArmSize, this.lowerLegLength] as NgtTriple;
 
-  lowerLeftLegPosition!: Vector3;
-  lowerRightLegPosition!: Vector3;
+  lowerLeftLegPosition!: NgtTriple;
+  lowerRightLegPosition!: NgtTriple;
 
-  upperLeftLegPosition!: Vector3;
-  upperRightLegPosition!: Vector3;
+  upperLeftLegPosition!: NgtTriple;
+  upperRightLegPosition!: NgtTriple;
 
-  pelvisPosition!: Vector3;
-  upperBodyPosition!: Vector3;
+  pelvisPosition!: NgtTriple;
+  upperBodyPosition!: NgtTriple;
 
-  headPosition!: Vector3;
+  headPosition!: NgtTriple;
 
-  upperLeftArmPosition!: Vector3;
-  upperRightArmPosition!: Vector3;
+  upperLeftArmPosition!: NgtTriple;
+  upperRightArmPosition!: NgtTriple;
 
-  lowerLeftArmPosition!: Vector3;
-  lowerRightArmPosition!: Vector3;
+  lowerLeftArmPosition!: NgtTriple;
+  lowerRightArmPosition!: NgtTriple;
 
-  private updatePositions(position: Vector3) {
-    this.lowerLeftLegPosition = new Vector3(this.shouldersDistance / 2, 0, this.lowerLegLength / 2).add(position);
-    this.lowerRightLegPosition = new Vector3(-this.shouldersDistance / 2, 0, this.lowerLegLength / 2).add(position);
+  private updatePositions() {
+    this.lowerLeftLegPosition = [this.shouldersDistance / 2, 0, this.lowerLegLength / 2];
+    this.lowerRightLegPosition = [-this.shouldersDistance / 2, 0, this.lowerLegLength / 2];
 
-    this.upperLeftLegPosition = new Vector3(this.shouldersDistance / 2, 0, this.lowerLeftLegPosition.z + this.lowerLegLength / 2 + this.upperLegLength / 2).add(position);
-    this.upperRightLegPosition = new Vector3(-this.shouldersDistance / 2, 0, this.lowerRightLegPosition.z + this.lowerLegLength / 2 + this.upperLegLength / 2).add(position);
+    this.upperLeftLegPosition = [this.shouldersDistance / 2, 0, this.lowerLeftLegPosition[2] + this.lowerLegLength / 2 + this.upperLegLength / 2];
+    this.upperRightLegPosition = [-this.shouldersDistance / 2, 0, this.lowerRightLegPosition[2] + this.lowerLegLength / 2 + this.upperLegLength / 2];
 
-    this.pelvisPosition = new Vector3(0, 0, this.upperLeftLegPosition.z + this.upperLegLength / 2 + this.pelvisLength / 2).add(position);
-    this.upperBodyPosition = new Vector3(0, 0, this.pelvisPosition.z + this.pelvisLength / 2 + this.upperBodyLength / 2).add(position);
+    this.pelvisPosition = [0, 0, this.upperLeftLegPosition[2] + this.upperLegLength / 2 + this.pelvisLength / 2];
+    this.upperBodyPosition = [0, 0, this.pelvisPosition[2] + this.pelvisLength / 2 + this.upperBodyLength / 2];
 
-    this.headPosition = new Vector3(0, 0, this.upperBodyPosition.z + this.upperBodyLength / 2 + this.headRadius + this.neckLength).add(position);
+    this.headPosition = [0, 0, this.upperBodyPosition[2] + this.upperBodyLength / 2 + this.headRadius + this.neckLength];
 
-    this.upperLeftArmPosition = new Vector3(this.shouldersDistance / 2 + this.upperArmLength / 2, 0, this.upperBodyPosition.z + this.upperBodyLength / 2).add(position);
-    this.upperRightArmPosition = new Vector3(-this.shouldersDistance / 2 - this.upperArmLength / 2, 0, this.upperBodyPosition.z + this.upperBodyLength / 2).add(position);
+    this.upperLeftArmPosition = [this.shouldersDistance / 2 + this.upperArmLength / 2, 0, this.upperBodyPosition[2] + this.upperBodyLength / 2];
+    this.upperRightArmPosition = [-this.shouldersDistance / 2 - this.upperArmLength / 2, 0, this.upperBodyPosition[2] + this.upperBodyLength / 2];
 
-    this.lowerLeftArmPosition = new Vector3(this.upperLeftArmPosition.x + this.lowerArmLength / 2 + this.upperArmLength / 2, 0, this.upperLeftArmPosition.z).add(position);
-    this.lowerRightArmPosition = new Vector3(this.upperRightArmPosition.x - this.lowerArmLength / 2 - this.upperArmLength / 2, 0, this.upperRightArmPosition.z).add(position);
+    this.lowerLeftArmPosition = [this.upperLeftArmPosition[0] + this.lowerArmLength / 2 + this.upperArmLength / 2, 0, this.upperLeftArmPosition[2]];
+    this.lowerRightArmPosition = [this.upperRightArmPosition[0] - this.lowerArmLength / 2 - this.upperArmLength / 2, 0, this.upperRightArmPosition[2]];
   }
 
-  neckjoint: Record<string, any> = {
-    pivotA: [0, 0, -this.headRadius - this.neckLength / 2],
-    pivotB: [0, 0, this.upperBodyLength / 2],
-    axisA: [0, 0, 1], // CANNON.Vec3.UNIT_Z,
-    axisB: [0, 0, 1], // CANNON.Vec3.UNIT_Z,
-    angle: this.angle,
-    twistAngle: this.twistAngle,
+
+  lowerLeftLeg!: NgtPhysicBodyReturn;
+  lowerRightLeg!: NgtPhysicBodyReturn;
+  upperLeftLeg !: NgtPhysicBodyReturn;
+  upperRightLeg !: NgtPhysicBodyReturn;
+  pelvis!: NgtPhysicBodyReturn;
+  upperBody!: NgtPhysicBodyReturn;
+  head!: NgtPhysicBodyReturn;
+  upperLeftArm!: NgtPhysicBodyReturn;
+  upperRightArm!: NgtPhysicBodyReturn;
+  lowerLeftArm !: NgtPhysicBodyReturn;
+  lowerRightArm !: NgtPhysicBodyReturn;
+
+  neckjoint!: NgtPhysicConstraintReturn<'ConeTwist'>;
+  leftKneeJoint!: NgtPhysicConstraintReturn<'ConeTwist'>;
+  rightKneeJoint!: NgtPhysicConstraintReturn<'ConeTwist'>;
+  leftHipJoint!: NgtPhysicConstraintReturn<'ConeTwist'>;
+  rightHipJoint!: NgtPhysicConstraintReturn<'ConeTwist'>;
+  spineJoint!: NgtPhysicConstraintReturn<'ConeTwist'>;
+  leftShoulder!: NgtPhysicConstraintReturn<'ConeTwist'>;
+  rightShoulder!: NgtPhysicConstraintReturn<'ConeTwist'>;
+  leftElbowJoint !: NgtPhysicConstraintReturn<'ConeTwist'>;
+  rightElbowJoint !: NgtPhysicConstraintReturn<'ConeTwist'>;
+
+
+  constructor(
+    private physicBody: NgtPhysicBody,
+    private physicConstraint: NgtPhysicConstraint,
+  ) {
   }
 
-  kneeJoint: Record<string, any> = {
-    pivotA: [0, 0, this.lowerLegLength / 2],
-    pivotB: [0, 0, -this.upperLegLength / 2],
-    axisA: [0, 0, 1], // CANNON.Vec3.UNIT_Z,
-    axisB: [0, 0, 1], // CANNON.Vec3.UNIT_Z,
-    angle: this.angle,
-    twistAngle: this.twistAngle,
+  sum(a: NgtTriple, b: NgtTriple): NgtTriple {
+    return [a[0] + b[0], a[1] + b[1], a[2] + b[2]];
   }
 
-  elbowJoint: Record<string, any> = {
-    pivotA: [-this.lowerArmLength / 2, 0, 0],
-    pivotB: [this.upperArmLength / 2, 0, 0],
-    axisA: [1, 0, 0], // CANNON.Vec3.UNIT_X,
-    axisB: [1, 0, 0], // CANNON.Vec3.UNIT_X,
-    angle: this.angle,
-    twistAngle: this.twistAngle,
-  }
+  ngAfterContentInit(): void {
+    this.updatePositions();
 
-  lowerLeftLegProps = this.physicBody.useBox(() => ({
+    this.lowerLeftLeg = this.physicBody.useBox(() => ({
       mass: this.mass,
-      position: [this.lowerLeftLegPosition.x, this.lowerLeftLegPosition.y, this.lowerLeftLegPosition.z] as NgtTriple,
+      position: this.sum(this.position, this.lowerLeftLegPosition),
       args: this.lowerLegArgs
-  }));
+    }));
 
-  lowerRightLegProps = this.physicBody.useBox(() => ({
-    mass: this.mass,
-    position: [this.lowerRightLegPosition.x, this.lowerRightLegPosition.y, this.lowerRightLegPosition.z] as NgtTriple,
-    args: this.lowerLegArgs
-  }));
- 
-
-  upperLeftLegProps = this.physicBody.useBox(() => ({
-    mass: this.mass,
-    position: [this.upperLeftLegPosition.x, this.upperLeftLegPosition.y, this.upperLeftLegPosition.z] as NgtTriple,
-    args: this.upperLegArgs
-  }));
- 
-
-  upperRightLegProps = this.physicBody.useBox(() => ({
-    mass: this.mass,
-    position: [this.upperRightLegPosition.x, this.upperRightLegPosition.y, this.upperRightLegPosition.z] as NgtTriple,
-    args: this.upperLegArgs
-  }));
-
-  pelvisProps = this.physicBody.useBox(() => ({
-    mass: this.mass,
-    position: [this.pelvisPosition.x, this.pelvisPosition.y, this.pelvisPosition.z] as NgtTriple,
-    args: this.pelvisArgs
-  }));
-
-  upperBodyProps = this.physicBody.useBox(() => ({
-    mass: this.mass,
-    position: [this.upperBodyPosition.x, this.upperBodyPosition.y, this.upperBodyPosition.z] as NgtTriple,
-    args: this.upperBodyArgs
-  }));
-
-  headProps = this.physicBody.useSphere(() => ({
+    this.lowerRightLeg = this.physicBody.useBox(() => ({
       mass: this.mass,
-      position: [this.headPosition.x, this.headPosition.y, this.headPosition.z] as NgtTriple,
+      position: this.sum(this.position, this.lowerRightLegPosition),
+      args: this.lowerLegArgs
+    }));
+
+
+    this.upperLeftLeg = this.physicBody.useBox(() => ({
+      mass: this.mass,
+      position: this.sum(this.position, this.upperLeftLegPosition),
+      args: this.upperLegArgs
+    }));
+
+
+    this.upperRightLeg = this.physicBody.useBox(() => ({
+      mass: this.mass,
+      position: this.sum(this.position, this.upperRightLegPosition),
+      args: this.upperLegArgs
+    }));
+
+    this.pelvis = this.physicBody.useBox(() => ({
+      mass: this.mass,
+      position: this.sum(this.position, this.pelvisPosition),
+      args: this.pelvisArgs
+    }));
+
+    this.upperBody = this.physicBody.useBox(() => ({
+      mass: this.mass,
+      position: this.sum(this.position, this.upperBodyPosition),
+      args: this.upperBodyArgs
+    }));
+
+    this.head = this.physicBody.useSphere(() => ({
+      mass: this.mass,
+      position: this.sum(this.position, this.headPosition),
       args: [this.headRadius]
-  }));
+    }));
 
-  upperLeftArmProps = this.physicBody.useBox(() => ({
-    mass: this.mass,
-    position: [this.upperLeftArmPosition.x, this.upperLeftArmPosition.y, this.upperLeftArmPosition.z] as NgtTriple,
-    args: this.upperArmArgs
-  }));
+    this.upperLeftArm = this.physicBody.useBox(() => ({
+      mass: this.mass,
+      position: this.sum(this.position, this.upperLeftArmPosition),
+      args: this.upperArmArgs
+    }));
 
-  upperRightArmProps = this.physicBody.useBox(() => ({
-    mass: this.mass,
-    position: [this.upperRightArmPosition.x, this.upperRightArmPosition.y, this.upperRightArmPosition.z] as NgtTriple,
-    args: this.upperArmArgs
-  }));
+    this.upperRightArm = this.physicBody.useBox(() => ({
+      mass: this.mass,
+      position: this.sum(this.position, this.upperRightArmPosition),
+      args: this.upperArmArgs
+    }));
 
-  lowerLeftArmProps = this.physicBody.useBox(() => ({
-    mass: this.mass,
-    position: [this.lowerLeftArmPosition.x, this.lowerLeftArmPosition.y, this.lowerLeftArmPosition.z] as NgtTriple,
-    args: this.lowerArmArgs
-  }));
+    this.lowerLeftArm = this.physicBody.useBox(() => ({
+      mass: this.mass,
+      position: this.sum(this.position, this.lowerLeftArmPosition),
+      args: this.lowerArmArgs
+    }));
 
-  lowerRightArmProps = this.physicBody.useBox(() => ({
-    mass: this.mass,
-    position: [this.lowerRightArmPosition.x, this.lowerRightArmPosition.y, this.lowerRightArmPosition.z] as NgtTriple,
-    args: this.lowerArmArgs
-  }));
+    this.lowerRightArm = this.physicBody.useBox(() => ({
+      mass: this.mass,
+      position: this.sum(this.position, this.lowerRightArmPosition),
+      args: this.lowerArmArgs
+    }));
+
+    this.neckjoint = this.physicConstraint.useConeTwistConstraint(
+      this.head.ref, this.upperBody.ref, {
+      pivotA: [0, 0, -this.headRadius - this.neckLength / 2],
+      pivotB: [0, 0, this.upperBodyLength / 2],
+      axisA: [0, 0, 1], // CANNON.Vec3.UNIT_Z,
+      axisB: [0, 0, 1], // CANNON.Vec3.UNIT_Z,
+      angle: this.angle,
+      twistAngle: this.twistAngle,
+    });
+
+    this.leftKneeJoint = this.physicConstraint.useConeTwistConstraint(
+      this.lowerLeftLeg.ref, this.upperLeftLeg.ref,
+      {
+        pivotA: [0, 0, this.lowerLegLength / 2],
+        pivotB: [0, 0, -this.upperLegLength / 2],
+        axisA: [0, 0, 1], // CANNON.Vec3.UNIT_Z,
+        axisB: [0, 0, 1], // CANNON.Vec3.UNIT_Z,
+        angle: this.angle,
+        twistAngle: this.twistAngle,
+      });
+
+    this.rightKneeJoint = this.physicConstraint.useConeTwistConstraint(
+      this.lowerRightLeg.ref, this.upperRightLeg.ref,
+      {
+        pivotA: [0, 0, this.lowerLegLength / 2],
+        pivotB: [0, 0, -this.upperLegLength / 2],
+        axisA: [0, 0, 1], // CANNON.Vec3.UNIT_Z,
+        axisB: [0, 0, 1], // CANNON.Vec3.UNIT_Z,
+        angle: this.angle,
+        twistAngle: this.twistAngle,
+      });
+
+    this.leftHipJoint = this.physicConstraint.useConeTwistConstraint(
+      this.upperLeftLeg.ref, this.pelvis.ref, {
+      pivotA: [0, 0, this.upperLegLength / 2],
+      pivotB: [this.shouldersDistance / 2, 0, -this.pelvisLength / 2],
+      axisA: [0, 0, 1], //CANNON.Vec3.UNIT_Z,
+      axisB: [0, 0, 1], //CANNON.Vec3.UNIT_Z,
+      angle: this.angle,
+      twistAngle: this.twistAngle,
+    });
+
+    this.rightHipJoint = this.physicConstraint.useConeTwistConstraint(
+      this.upperRightLeg.ref, this.pelvis.ref, {
+      pivotA: [0, 0, this.upperLegLength / 2],
+      pivotB: [-this.shouldersDistance / 2, 0, -this.pelvisLength / 2],
+      axisA: [0, 0, 1], //CANNON.Vec3.UNIT_Z,
+      axisB: [0, 0, 1], //CANNON.Vec3.UNIT_Z,
+      angle: this.angle,
+      twistAngle: this.twistAngle,
+    });
 
 
-  constructor(private physicBody: NgtPhysicBody) { 
-    this.updatePositions(new Vector3(this.position[0], this.position[1], this.position[2]));
+
+    this.spineJoint = this.physicConstraint.useConeTwistConstraint(
+      this.pelvis.ref, this.upperBody.ref, {
+      pivotA: [0, 0, this.pelvisLength / 2],
+      pivotB: [0, 0, -this.upperBodyLength / 2],
+      axisA: [0, 0, 1], //CANNON.Vec3.UNIT_Z,
+      axisB: [0, 0, 1], //CANNON.Vec3.UNIT_Z,
+      angle: this.angle,
+      twistAngle: this.twistAngle,
+    });
+
+    this.leftShoulder = this.physicConstraint.useConeTwistConstraint(
+      this.upperBody.ref, this.upperLeftArm.ref, {
+      pivotA: [this.shouldersDistance / 2, 0, this.upperBodyLength / 2],
+      pivotB: [-this.upperArmLength / 2, 0, 0],
+      axisA: [1, 0, 0], // CANNON.Vec3.UNIT_X,
+      axisB: [1, 0, 0], // CANNON.Vec3.UNIT_X,
+      angle: this.angleShoulders,
+    });
+
+    this.rightShoulder = this.physicConstraint.useConeTwistConstraint(
+      this.upperBody.ref, this.upperRightArm.ref, {
+      pivotA: [-this.shouldersDistance / 2, 0, this.upperBodyLength / 2],
+      pivotB: [this.upperArmLength / 2, 0, 0],
+      axisA: [1, 0, 0], // CANNON.Vec3.UNIT_X,
+      axisB: [1, 0, 0], // CANNON.Vec3.UNIT_X,
+      angle: this.angleShoulders,
+      twistAngle: this.twistAngle,
+    });
+
+    this.leftElbowJoint = this.physicConstraint.useConeTwistConstraint(
+      this.lowerLeftArm.ref, this.upperLeftArm.ref, {
+      pivotA: [-this.lowerArmLength / 2, 0, 0],
+      pivotB: [this.upperArmLength / 2, 0, 0],
+      axisA: [1, 0, 0], // CANNON.Vec3.UNIT_X,
+      axisB: [1, 0, 0], // CANNON.Vec3.UNIT_X,
+      angle: this.angle,
+      twistAngle: this.twistAngle,
+    });
+    this.rightElbowJoint = this.physicConstraint.useConeTwistConstraint(
+      this.lowerRightArm.ref, this.upperRightArm.ref, {
+      pivotA: [this.lowerArmLength / 2, 0, 0],
+      pivotB: [-this.upperArmLength / 2, 0, 0],
+      axisA: [1, 0, 0], // CANNON.Vec3.UNIT_X,
+      axisB: [1, 0, 0], // CANNON.Vec3.UNIT_X,
+      angle: this.angle,
+      twistAngle: this.twistAngle,
+    });
+    this.ready = true;
   }
 }

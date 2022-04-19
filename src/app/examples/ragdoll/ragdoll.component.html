@@ -1,5 +1,5 @@
 <div style="height:100vh">
-  <ngt-canvas [camera]="{ position: [10, 2, 0], fov: 45, near:1, far:100 }"
+  <ngt-canvas [camera]="{ position: [6, 6, 0], fov: 45, near:1, far:100 }"
               [shadows]="true"
               [scene]="{ background: 'gray' | color }">
     <ngt-directional-light [args]="['white' | color, 1.75]"
@@ -9,14 +9,7 @@
     <ngt-physics>
       <ngt-cannon-debug disabled scale="1.1" color="red">
 
-        <ragdoll-model [mass]="0"></ragdoll-model>
-        <ragdoll-model [mass]="1" [position]="[2, 0.1, 0]"></ragdoll-model>
-
-        <!--<ngt-mesh [ref]="sphereProps.ref" [castShadow]="true">
-          <ngt-sphere-geometry></ngt-sphere-geometry>
-          <ngt-mesh-standard-material></ngt-mesh-standard-material>
-        </ngt-mesh>-->
-
+        <ragdoll-example></ragdoll-example>
         <floor></floor>
 
       </ngt-cannon-debug>

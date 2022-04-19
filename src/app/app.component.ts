@@ -28,6 +28,7 @@ export class AppComponent  {
     'mousepick',
     'performance',
     'pile',
+    'ragdoll',
     'spring',
     'stacks',
     'tear',
@@ -38,15 +39,14 @@ export class AppComponent  {
   ]
 
   almost = [
-    'ragdoll',
     'heightfield',
     'convex',
     'sleep',
+    'raycast_vehicle',
   ]
 
   feature = [
     'rigid_vehicle',
-    'raycast_vehicle',
     'cloth',
     'callbacks',
   ]

@@ -1,53 +1,55 @@
-<ngt-mesh [ref]="headProps.ref">
-  <ngt-sphere-geometry [args]="[headRadius]"></ngt-sphere-geometry>
-  <ngt-mesh-standard-material [parameters]="{ color: headcolor}"></ngt-mesh-standard-material>
-</ngt-mesh>
+<ng-container *ngIf="ready">
+  <ngt-mesh [ref]="head.ref">
+    <ngt-sphere-geometry [args]="[headRadius]"></ngt-sphere-geometry>
+    <ngt-mesh-standard-material [color]="headcolor"></ngt-mesh-standard-material>
+  </ngt-mesh>
 
-<ngt-mesh [ref]="upperBodyProps.ref">
-  <ngt-box-geometry [args]="upperBodyArgs"></ngt-box-geometry>
-  <ngt-mesh-standard-material [parameters]="{ color: bodycolor}"></ngt-mesh-standard-material>
-</ngt-mesh>
+  <ngt-mesh [ref]="upperBody.ref">
+    <ngt-box-geometry [args]="upperBodyArgs"></ngt-box-geometry>
+    <ngt-mesh-standard-material [color]="bodycolor"></ngt-mesh-standard-material>
+  </ngt-mesh>
 
 
-<ngt-mesh [ref]="upperLeftArmProps.ref">
-  <ngt-box-geometry [args]="upperArmArgs"></ngt-box-geometry>
-  <ngt-mesh-standard-material [parameters]="{ color: armcolor}"></ngt-mesh-standard-material>
-</ngt-mesh>
+  <ngt-mesh [ref]="upperLeftArm.ref">
+    <ngt-box-geometry [args]="upperArmArgs"></ngt-box-geometry>
+    <ngt-mesh-standard-material [color]="armcolor"></ngt-mesh-standard-material>
+  </ngt-mesh>
 
-<ngt-mesh [ref]="lowerLeftArmProps.ref">
-  <ngt-box-geometry [args]="lowerArmArgs"></ngt-box-geometry>
-  <ngt-mesh-standard-material [parameters]="{ color: armcolor}"></ngt-mesh-standard-material>
-</ngt-mesh>
+  <ngt-mesh [ref]="lowerLeftArm.ref">
+    <ngt-box-geometry [args]="lowerArmArgs"></ngt-box-geometry>
+    <ngt-mesh-standard-material [color]="armcolor"></ngt-mesh-standard-material>
+  </ngt-mesh>
 
-<ngt-mesh [ref]="upperRightArmProps.ref">
-  <ngt-box-geometry [args]="upperArmArgs"></ngt-box-geometry>
-  <ngt-mesh-standard-material [parameters]="{ color: armcolor}"></ngt-mesh-standard-material>
-</ngt-mesh>
+  <ngt-mesh [ref]="upperRightArm.ref">
+    <ngt-box-geometry [args]="upperArmArgs"></ngt-box-geometry>
+    <ngt-mesh-standard-material [color]="armcolor"></ngt-mesh-standard-material>
+  </ngt-mesh>
 
-<ngt-mesh [ref]="lowerRightArmProps.ref">
-  <ngt-box-geometry [args]="lowerArmArgs"></ngt-box-geometry>
-  <ngt-mesh-standard-material [parameters]="{ color: armcolor}"></ngt-mesh-standard-material>
-</ngt-mesh>
-<ngt-mesh [ref]="pelvisProps.ref">
-  <ngt-box-geometry [args]="pelvisArgs"></ngt-box-geometry>
-  <ngt-mesh-standard-material [parameters]="{ color: bodycolor}"></ngt-mesh-standard-material>
-</ngt-mesh>
+  <ngt-mesh [ref]="lowerRightArm.ref">
+    <ngt-box-geometry [args]="lowerArmArgs"></ngt-box-geometry>
+    <ngt-mesh-standard-material [color]="armcolor"></ngt-mesh-standard-material>
+  </ngt-mesh>
+  <ngt-mesh [ref]="pelvis.ref">
+    <ngt-box-geometry [args]="pelvisArgs"></ngt-box-geometry>
+    <ngt-mesh-standard-material [color]="bodycolor"></ngt-mesh-standard-material>
+  </ngt-mesh>
 
-<ngt-mesh [ref]="upperLeftLegProps.ref">
-  <ngt-box-geometry [args]="upperLegArgs"></ngt-box-geometry>
-  <ngt-mesh-standard-material [parameters]="{ color: legcolor}"></ngt-mesh-standard-material>
-</ngt-mesh>
+  <ngt-mesh [ref]="upperLeftLeg.ref">
+    <ngt-box-geometry [args]="upperLegArgs"></ngt-box-geometry>
+    <ngt-mesh-standard-material [color]="legcolor"></ngt-mesh-standard-material>
+  </ngt-mesh>
 
-<ngt-mesh [ref]="lowerLeftLegProps.ref">
-  <ngt-box-geometry [args]="lowerLegArgs"></ngt-box-geometry>
-  <ngt-mesh-standard-material [parameters]="{ color: legcolor}"></ngt-mesh-standard-material>
-</ngt-mesh>
-<ngt-mesh [ref]="upperRightLegProps.ref">
-  <ngt-box-geometry [args]="upperLegArgs"></ngt-box-geometry>
-  <ngt-mesh-standard-material [parameters]="{ color: legcolor}"></ngt-mesh-standard-material>
-</ngt-mesh>
+  <ngt-mesh [ref]="lowerLeftLeg.ref">
+    <ngt-box-geometry [args]="lowerLegArgs"></ngt-box-geometry>
+    <ngt-mesh-standard-material [color]="legcolor"></ngt-mesh-standard-material>
+  </ngt-mesh>
+  <ngt-mesh [ref]="upperRightLeg.ref">
+    <ngt-box-geometry [args]="upperLegArgs"></ngt-box-geometry>
+    <ngt-mesh-standard-material [color]="legcolor"></ngt-mesh-standard-material>
+  </ngt-mesh>
 
-<ngt-mesh [ref]="lowerRightLegProps.ref">
-  <ngt-box-geometry [args]="lowerLegArgs"></ngt-box-geometry>
-  <ngt-mesh-standard-material [parameters]="{ color: legcolor}"></ngt-mesh-standard-material>
-</ngt-mesh>
+  <ngt-mesh [ref]="lowerRightLeg.ref">
+    <ngt-box-geometry [args]="lowerLegArgs"></ngt-box-geometry>
+    <ngt-mesh-standard-material [color]="legcolor"></ngt-mesh-standard-material>
+  </ngt-mesh>
+</ng-container>
