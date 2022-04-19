@@ -38,7 +38,6 @@ export class SpringExample {
     private physicBody: NgtPhysicBody,
     private physicSpring: NgtPhysicSpring,
   ) {
-    //this.spring.api.applyForce();
   }
 
 }

@@ -45,28 +45,23 @@ export class TearExample {
       this.linkspheres.push(new Link(position, body));
 
       if (lastBody) {
-        const constraint = this.physicConstraint.useDistanceConstraint(body.ref, lastBody.ref, { distance: this.distance })
+        const constraint = this.physicConstraint.useDistanceConstraint(body.ref, lastBody.ref, {
+          distance: this.distance,
+          maxMultiplier: 1000, // higher multiplier makes links stronger
+        })
         this.constraints.push(constraint);
       }
 
       lastBody = body
     }
 
-    //this.timer = setInterval(() => {
-    //  this.constraints.forEach(c => {
-    //    const multiplier = Math.abs( equations[0].multiplier)
-    //    if (multiplier > 1000) {
-    //      world.removeConstraint(constraints[i])
-    //    }
-    //  })
-    //}, 100)
   }
 
   throwBallProps = this.physicBody.useSphere(() => ({
     mass: 2,
     args: [this.size],
     position: [0, 3, 20],
-    velocity: [0, 0, -20],
+    velocity: [0, 0, -25],  // higher velocity to break links
   }));
 }
 

@@ -30,6 +30,7 @@ export class AppComponent  {
     'pile',
     'spring',
     'stacks',
+    'tear',
     'trigger',
     'trimesh',
     'tween',
@@ -37,7 +38,6 @@ export class AppComponent  {
   ]
 
   almost = [
-    'tear',
     'ragdoll',
     'heightfield',
     'convex',
