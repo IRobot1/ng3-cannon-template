@@ -11,15 +11,16 @@ import { AfterViewInit, Component, Inject, NgZone } from '@angular/core';
 
 import { Camera, Mesh, Raycaster, Vector2, Vector3 } from 'three';
 
+type PointerState = 'idle' | 'move';
+
 @Component({
   selector: 'mousepick-example',
   templateUrl: './mousepick-example.component.html',
   providers: [NgtPhysicBody, NgtPhysicConstraint],
 })
 export class MousePickExample
-  extends NgtComponentStore<{ pointerState: 'idle' | 'up' | 'move' }>
-  implements AfterViewInit
-{
+  extends NgtComponentStore<{ pointerState: PointerState }>
+  implements AfterViewInit {
   velocity = [0, 0, 0] as NgtTriple;
   sphereRadius = 0.2;
 
@@ -62,8 +63,9 @@ export class MousePickExample
     });
   }
 
-  // we create an Effect to setup our constraint.
+  // we create an Effect to setup our constraint.  Another name for effect would be monitor
   // using tapEffect allows us to clean up this effect on Destroy automatically without having to have cleanup()
+  // Another name for tapEffect would be task or process
   readonly setupConstraint = this.effect<void>(
     tapEffect(() => {
       const camera = this.store.get((s) => s.camera);
@@ -105,10 +107,11 @@ export class MousePickExample
       this.document.body.addEventListener('pointerdown', pointerdown);
 
       const pointermove = (event: PointerEvent) => {
-        // update pointerState
-        this.set({ pointerState: 'move' });
 
         if (this.isDragging) {
+          // update pointerState
+          this.set({ pointerState: 'move' });
+
           // Project the mouse onto the movement plane
           const hitPoint = this.getHitPoint(
             event.clientX,
@@ -127,7 +130,7 @@ export class MousePickExample
 
       const pointerup = (event: PointerEvent) => {
         // update pointerState
-        this.set({ pointerState: 'up' });
+        this.set({ pointerState: 'idle' });
 
         constraint.api.disable();
 
@@ -142,14 +145,12 @@ export class MousePickExample
         this.document.body.removeEventListener('pointerdown', pointerdown);
         this.document.body.removeEventListener('pointermove', pointermove);
         this.document.body.removeEventListener('pointerup', pointerup);
-        // reset pointerState on destroy
-        this.set({ pointerState: 'idle' });
       };
     })
   );
 
   // we setup another effect to update our velocity based on the state of our pointer
-  readonly updateVelocity = this.effect<'idle' | 'move' | 'up'>(
+  readonly updateVelocity = this.effect<PointerState>(
     tapEffect((pointerState) => {
       if (pointerState !== 'idle') {
         const unsubscribe = this.boxProps.api.velocity.subscribe((velocity) => {
@@ -198,4 +199,4 @@ export class MousePickExample
 @Component({
   templateUrl: './mousepick.component.html',
 })
-export class MousePickComponent {}
+export class MousePickComponent { }
