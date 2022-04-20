@@ -1,17 +1,22 @@
-<div style="height:100vh">
-  <ngt-canvas (created)="created($event)" [shadows]="true"
-              [camera]="{ position: [16, 4, 0], fov: 65, near:1, far:100 }"
-              [scene]="{ background: 'gray' | color }">
-    <ngt-directional-light [args]="['white' | color, 1.75]"
-                           [position]="[20, 20, 20]" [castShadow]="true">
+<div style="height: 100vh">
+  <ngt-canvas
+    shadows
+    [camera]="{ position: [16, 4, 0], fov: 65, near: 1, far: 100 }"
+  >
+    <ngt-color attach="background" color="gray"></ngt-color>
+
+    <ngt-directional-light
+      color="white"
+      intensity="1.75"
+      castShadow
+      [position]="[20, 20, 20]"
+    >
     </ngt-directional-light>
 
     <ngt-physics>
       <ngt-cannon-debug disabled scale="1.1" color="red">
-
-        <mousepick-example [camera]="camera"></mousepick-example>
+        <mousepick-example></mousepick-example>
         <floor></floor>
-
       </ngt-cannon-debug>
     </ngt-physics>
 

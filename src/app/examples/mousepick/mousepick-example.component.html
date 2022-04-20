@@ -1,17 +1,21 @@
 <!--movement plane-->
-<ngt-mesh #move (ready)="moveready(move.instance.value)" [visible]="false" [rotation]="[0, 90 | radian, 0]">
+<ngt-mesh
+  (ready)="movementPlane = $event"
+  [visible]="false"
+  [rotation]="[0, 90 | radian, 0]"
+>
   <ngt-plane-geometry [args]="[100, 100]"></ngt-plane-geometry>
   <ngt-mesh-standard-material></ngt-mesh-standard-material>
 </ngt-mesh>
 
-  <!--cube that's dragged-->
-  <ngt-mesh #drag (ready)="cubeready(drag.instance.value)" [ref]="boxProps.ref" castShadow>
-    <ngt-box-geometry></ngt-box-geometry>
-    <ngt-mesh-standard-material color='blue'></ngt-mesh-standard-material>
-  </ngt-mesh>
+<!--cube that's dragged-->
+<ngt-mesh [ref]="boxProps.ref" castShadow>
+  <ngt-box-geometry></ngt-box-geometry>
+  <ngt-mesh-standard-material color="blue"></ngt-mesh-standard-material>
+</ngt-mesh>
 
-  <!--marker-->
-  <ngt-mesh [ref]="sphereProps.ref" [visible]="isDragging">
-    <ngt-sphere-geometry [args]="[sphereRadius]"></ngt-sphere-geometry>
-    <ngt-mesh-standard-material color='red'></ngt-mesh-standard-material>
-  </ngt-mesh>
+<!--marker-->
+<ngt-mesh [ref]="sphereProps.ref" [visible]="isDragging">
+  <ngt-sphere-geometry [args]="[sphereRadius]"></ngt-sphere-geometry>
+  <ngt-mesh-standard-material color="red"></ngt-mesh-standard-material>
+</ngt-mesh>
