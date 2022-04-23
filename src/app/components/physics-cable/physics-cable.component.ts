@@ -10,18 +10,40 @@ class CableSegment {
   constructor(public body: NgtPhysicBodyReturn, public position: NgtTriple) { }
 }
 
-export type CurveType = 'centripetal' | 'chordal' | 'catmullrom';
+export class CableState {
+  startPosition!: NgtTriple;
+  endPosition!: NgtTriple;
+}
 
 @Component({
   selector: 'physics-cable',
   templateUrl: 'physics-cable.component.html',
   providers: [NgtPhysicBody, NgtPhysicConstraint],
 })
-export class PhysicsCableComponent extends NgtComponentStore implements AfterViewInit {
+export class PhysicsCableComponent
+  extends NgtComponentStore<CableState>
+  implements AfterViewInit {
   @Input() attachStart = true;
-  @Input() startPosition = [0, 2, 2] as NgtTriple;
+
+  @Input() set startPosition(position: NgtTriple) {
+    this.set({ startPosition: position });
+    if (this.particles.length == 0) {
+      const endPosition = this.get(s => s.endPosition);
+      if (endPosition)
+        this.setupConstraint();
+    }
+  }
+
   @Input() attachEnd = true;
-  @Input() endPosition = [0, 2, -2] as NgtTriple;
+  @Input() set endPosition(position: NgtTriple) {
+    this.set({ endPosition: position });
+    if (this.particles.length == 0) {
+      const startPosition = this.get(s => s.startPosition);
+      if (startPosition)
+        this.setupConstraint();
+    }
+  }
+
   @Input() segments = 10;
   @Input() showmarker = false;
   @Input() color = 'white'
@@ -33,7 +55,6 @@ export class PhysicsCableComponent extends NgtComponentStore implements AfterVie
 
 
   private points: Array<Vector3> = [];
-  private curveType: CurveType = 'catmullrom'
   private spline!: CatmullRomCurve3;
 
   // this gets called as a result of change detection, there's no other way to refresh extrude-geometry
@@ -64,13 +85,14 @@ export class PhysicsCableComponent extends NgtComponentStore implements AfterVie
       angle += factor;
     }
     this.shape = new Shape(circle);
-
-    this.setupConstraint();
   }
 
   private setupConstraint() {
-    const start = new Vector3(this.startPosition[0], this.startPosition[1], this.startPosition[2]);
-    const end = new Vector3(this.endPosition[0], this.endPosition[1], this.endPosition[2]);
+    const startPosition = this.get(s => s.startPosition);
+    const endPosition = this.get(s => s.endPosition);
+
+    const start = new Vector3(startPosition[0], startPosition[1], startPosition[2]);
+    const end = new Vector3(endPosition[0], endPosition[1], endPosition[2]);
 
     // calculate from start position to end position, number of segments
     const step = end.sub(start).divideScalar(this.segments);
@@ -84,7 +106,7 @@ export class PhysicsCableComponent extends NgtComponentStore implements AfterVie
     for (let i = 0; i < this.segments + 1; i++) {
       const position = start.toArray() as NgtTriple;
 
-      let mass = 1;
+      let mass = 0.1;
       // first and last positions are fixed
       if ((i == 0 && this.attachStart) || (i == this.segments && this.attachEnd)) {
         mass = 0;
@@ -94,10 +116,6 @@ export class PhysicsCableComponent extends NgtComponentStore implements AfterVie
         mass: mass,
         position: position,
         args: [this.particlesize, 2, 2],
-        linearDamping: 0.5,
-        allowSleep: true,
-        sleepSpeedLimit: 0.1,
-        sleepTimeLimit: 0.1,
       }));
 
       this.particles.push(new CableSegment(body, position));
@@ -107,7 +125,7 @@ export class PhysicsCableComponent extends NgtComponentStore implements AfterVie
         this.physicConstraint.useDistanceConstraint(body.ref, lastBody.ref, {
           distance: distance,
           maxMultiplier: this.strength, // higher multiplier makes links stronger
-        })
+        });
       }
 
       lastBody = body
@@ -121,8 +139,27 @@ export class PhysicsCableComponent extends NgtComponentStore implements AfterVie
       this.monitorPositions();
     });
 
+    this.startChanges(this.select((s) => s.startPosition));
+    this.endChanges(this.select((s) => s.endPosition));
+
     this.refresh();
   }
+
+  readonly startChanges = this.effect<NgtTriple>(
+    tapEffect(next => {
+      if (this.particles.length > 0) {
+        this.particles[0].body.api.position.set(next[0], next[1], next[2]);
+      }
+    })
+  );
+
+  readonly endChanges = this.effect<NgtTriple>(
+    tapEffect(next => {
+      if (this.particles.length > 0) {
+        this.particles[this.particles.length - 1].body.api.position.set(next[0], next[1], next[2])
+      }
+    })
+  );
 
   readonly monitorPositions = this.effect<void>(
     tapEffect(() => {
@@ -145,7 +182,9 @@ export class PhysicsCableComponent extends NgtComponentStore implements AfterVie
     tapEffect(() => {
       // this causes update via change detection
       const cleanup = setInterval(() => {
-        this.spline = new CatmullRomCurve3(this.points);
+        if (this.points.length > 0) {
+          this.spline = new CatmullRomCurve3(this.points);
+        }
       }, 1000 / 60)
 
       return () => {
