@@ -13,6 +13,7 @@ import {
 import {
   NgtBoxGeometryModule,
   NgtCylinderGeometryModule,
+  NgtExtrudeGeometryModule,
   NgtPlaneGeometryModule,
   NgtPolyhedronGeometryModule,
   NgtSphereGeometryModule,
@@ -160,11 +161,20 @@ import { HomeComponent } from './home.component';
 import { XRBatComponent } from './xr-bat/xr-bat.component';
 import { XRInspectComponent } from './xr-inspect/xr-inspect.component';
 
+import {
+  PhysicsCableComponent
+} from './components/physics-cable/physics-cable.component';
+import {
+  CableComponent,
+} from './examples/cable/cable.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
 
+    PhysicsCableComponent,
+    CableComponent,
     ThreeJSComponent,
     ThreeJSExample,
     WorkerComponent,
@@ -270,6 +280,7 @@ import { XRInspectComponent } from './xr-inspect/xr-inspect.component';
     NgtCylinderGeometryModule,
     NgtTorusGeometryModule,
     NgtPolyhedronGeometryModule,
+    NgtExtrudeGeometryModule,
     NgtInstancedBufferAttributeModule,
 
     NgtAmbientLightModule,

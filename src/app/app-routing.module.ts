@@ -23,7 +23,7 @@ import { TriggerComponent } from './examples/trigger/trigger.component';
 import { TrimeshComponent } from './examples/trimesh/trimesh.component';
 import { TweenComponent } from './examples/tween/tween.component';
 import { VRComponent } from './examples/vr/vr.component';
-import { WorkerComponent } from './examples/worker/worker.component'; 
+import { WorkerComponent } from './examples/worker/worker.component';
 import { HomeComponent } from './home.component';
 import { ConveyorComponent } from './examples/conveyor/conveyor.component';
 import { ConditionalComponent } from './examples/conditional/conditional.component';
@@ -37,10 +37,12 @@ import { SpringComponent } from './examples/spring/spring.component';
 import { TearComponent } from './examples/tear/tear.component';
 import { RigidVehicleComponent } from './examples/rigid_vehicle/rigid_vehicle.component';
 import { RaycastVehicleComponent } from './examples/raycast_vehicle/raycast_vehicle.component';
+import { CableComponent } from './examples/cable/cable.component';
 
 
 const routes: Routes = [
   { path: '', component: HomeComponent, },
+  { path: 'cable', component: CableComponent },
   { path: 'conditional', component: ConditionalComponent },
   { path: 'conveyor', component: ConveyorComponent },
   { path: 'cloth', component: ClothComponent },
