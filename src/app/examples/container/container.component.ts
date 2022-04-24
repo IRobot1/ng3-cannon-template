@@ -12,35 +12,7 @@ class ContainerSphere {
 
 @Component({
   selector: 'container-example',
-  template: `
-        <ngt-plane-geometry #plane ></ngt-plane-geometry>
-        <ngt-mesh-standard-material #standard [transparent]="true" [opacity]="0"></ngt-mesh-standard-material>
-
-        <ngt-mesh *ngFor="let cube of spheres" [ref]="cube.body.ref" castShadow>
-          <ngt-sphere-geometry></ngt-sphere-geometry>
-          <ngt-mesh-standard-material [color]="cube.color"></ngt-mesh-standard-material>
-        </ngt-mesh>
-
-        <!--walls-->
-        <ngt-mesh [ref]="wall1Props.ref" 
-                  [geometry]="plane.instance.value"
-                  [material]="standard.instance.value">
-        </ngt-mesh>
-
-        <ngt-mesh [ref]="wall2Props.ref" 
-                  [geometry]="plane.instance.value"
-                  [material]="standard.instance.value">
-        </ngt-mesh>
-
-        <ngt-mesh [ref]="wall3Props.ref" 
-                  [geometry]="plane.instance.value"
-                  [material]="standard.instance.value">
-        </ngt-mesh>
-
-        <ngt-mesh [ref]="wall4Props.ref" 
-                  [geometry]="plane.instance.value"
-                  [material]="standard.instance.value">
-        </ngt-mesh>`,
+  templateUrl:'container-example.component.html',
   providers: [NgtPhysicBody],
 })
 export class ContainerExample {
