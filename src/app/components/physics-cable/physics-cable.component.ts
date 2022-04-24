@@ -1,7 +1,7 @@
 import { Component, Input } from "@angular/core";
 import { AfterViewInit, NgZone } from "@angular/core";
 
-import { CatmullRomCurve3, ExtrudeGeometryOptions, Shape, Vector2, Vector3 } from "three";
+import { CatmullRomCurve3, ExtrudeGeometry, Shape, Vector2, Vector3 } from "three";
 import { NgtComponentStore, NgtTriple, tapEffect } from "@angular-three/core";
 
 import { NgtPhysicBody, NgtPhysicBodyReturn, NgtPhysicConstraint } from "@angular-three/cannon";
@@ -13,6 +13,7 @@ class CableSegment {
 export class CableState {
   startPosition!: NgtTriple;
   endPosition!: NgtTriple;
+  showmarker!: boolean;
 }
 
 @Component({
@@ -43,32 +44,46 @@ export class PhysicsCableComponent
         this.setupConstraint();
     }
   }
+  @Input() set showmarker(showmarker: boolean) {
+    this.set({ showmarker });
+  }
 
-  @Input() segments = 10;
-  @Input() showmarker = false;
+  @Input() steps = 10;
   @Input() color = 'white'
 
-  @Input() width = 0.1;
-  @Input() sides = 16;
-  @Input() strength = 1000;
-  @Input() stretch = 1.1;
-
-
-  private points: Array<Vector3> = [];
-  private spline!: CatmullRomCurve3;
-
-  // this gets called as a result of change detection, there's no other way to refresh extrude-geometry
-  get extrudesettings(): ExtrudeGeometryOptions {
-    return {
-      steps: 20,
-      extrudePath: this.spline,
+  private _width = 0.1;
+  @Input()
+  get width(): number {
+    return this._width;
+  }
+  set width(width: number) {
+    this._width = width;
+    this.initShape();
+  }
+  private _sides = 16;
+  @Input()
+  get sides(): number {
+    return this._sides;
+  }
+  set sides(sides: number) {
+    if (sides > 2) {
+      this._width = sides;
+      this.initShape();
     }
   }
 
-  particles: Array<CableSegment> = [];
+  // must set these values before startPosition and endPosition, changing after is not supported
+  @Input() segments = 10;
+  @Input() strength = 1000;
+  @Input() stretch = 1.1;
 
+  particles: Array<CableSegment> = [];
   readonly particlesize = 0.2;
-  readonly shape!: Shape;
+  geo!: ExtrudeGeometry;
+
+  private points: Array<Vector3> = [];
+  private shape!: Shape;
+
 
   constructor(
     private physicBody: NgtPhysicBody,
@@ -76,7 +91,10 @@ export class PhysicsCableComponent
     private zone: NgZone,
   ) {
     super();
+    this.initShape();
+  }
 
+  private initShape() {
     const circle: Array<Vector2> = [];
     const factor = Math.PI * 2 / (this.sides);
     let angle = factor;
@@ -116,13 +134,18 @@ export class PhysicsCableComponent
         mass: mass,
         position: position,
         args: [this.particlesize, 2, 2],
+        linearDamping: 0.5,
+        angularDamping: 0.5,
+        allowSleep: true,
+        sleepSpeedLimit: 0.1,
+        sleepTimeLimit: 0.1
       }));
 
       this.particles.push(new CableSegment(body, position));
       this.points.push(new Vector3(position[0], position[1], position[2]));
 
       if (lastBody) {
-        this.physicConstraint.useDistanceConstraint(body.ref, lastBody.ref, {
+        const x = this.physicConstraint.useDistanceConstraint(body.ref, lastBody.ref, {
           distance: distance,
           maxMultiplier: this.strength, // higher multiplier makes links stronger
         });
@@ -141,6 +164,7 @@ export class PhysicsCableComponent
 
     this.startChanges(this.select((s) => s.startPosition));
     this.endChanges(this.select((s) => s.endPosition));
+    this.showMarkerChanges(this.select((s) => s.showmarker));
 
     this.refresh();
   }
@@ -150,6 +174,14 @@ export class PhysicsCableComponent
       if (this.particles.length > 0) {
         this.particles[0].body.api.position.set(next[0], next[1], next[2]);
       }
+    })
+  );
+
+  readonly showMarkerChanges = this.effect<boolean>(
+    tapEffect(next => {
+      this.particles.forEach(p => {
+        p.body.ref.value.visible = next;
+      });
     })
   );
 
@@ -183,7 +215,12 @@ export class PhysicsCableComponent
       // this causes update via change detection
       const cleanup = setInterval(() => {
         if (this.points.length > 0) {
-          this.spline = new CatmullRomCurve3(this.points);
+          if (this.geo)
+            this.geo.dispose();
+          this.geo = new ExtrudeGeometry(this.shape, {
+            steps: this.steps,
+            extrudePath: new CatmullRomCurve3(this.points),
+          })
         }
       }, 1000 / 60)
 
