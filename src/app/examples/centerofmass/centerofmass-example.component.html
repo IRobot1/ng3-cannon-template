@@ -1,3 +1,7 @@
-<ngt-mesh [ref]="cylinder.ref">
-  <ngt-cylinder-geometry [args]="[0, 1, 1, 20]"></ngt-cylinder-geometry>
+<ngt-mesh [ref]="cone.ref">
+  <ngt-cylinder-geometry [args]="[1, 0, 1, 20]"></ngt-cylinder-geometry>
+</ngt-mesh>
+
+<ngt-mesh [ref]="particle.ref" [visible]="true">
+  <ngt-sphere-geometry [args]="[particlesize, 6, 6]"></ngt-sphere-geometry>
 </ngt-mesh>
