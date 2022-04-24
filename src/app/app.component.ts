@@ -40,6 +40,7 @@ export class AppComponent  {
   ]
 
   almost = [
+    'centerofmass',
     'raycast_vehicle',
     'heightfield',
     'convex',

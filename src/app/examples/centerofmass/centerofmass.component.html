@@ -1,0 +1,20 @@
+<div style="height:100vh">
+  <ngt-canvas [camera]="{ position: [10, 2, 0], fov: 45, near:1, far:100 }"
+              [scene]="{ background: 'gray' | color }">
+    <ngt-directional-light [args]="['white' | color, 1.75]"
+                           [position]="[20, 20, 20]" [castShadow]="true">
+    </ngt-directional-light>
+
+    <ngt-physics>
+      <ngt-cannon-debug  scale="1.1" color="red">
+
+        <centerofmass-example></centerofmass-example>
+        <floor></floor>
+
+      </ngt-cannon-debug>
+    </ngt-physics>
+
+    <ngt-soba-orbit-controls></ngt-soba-orbit-controls>
+    <ngt-stats></ngt-stats>
+  </ngt-canvas>
+</div>

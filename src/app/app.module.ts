@@ -168,6 +168,7 @@ import {
 import {
   CableComponent,
 } from './examples/cable/cable.component';
+import { CenterOfMassComponent, CenterOfMassExample } from './examples/centerofmass/centerofmass.component';
 
 @NgModule({
   declarations: [
@@ -176,6 +177,8 @@ import {
 
     PhysicsCableComponent,
     CableComponent,
+    CenterOfMassComponent,
+    CenterOfMassExample,
     ThreeJSComponent,
     ThreeJSExample,
     WorkerComponent,
@@ -304,4 +307,4 @@ import {
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
