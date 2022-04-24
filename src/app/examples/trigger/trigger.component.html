@@ -1,14 +1,14 @@
 <div style="height:100vh">
   <ngt-canvas [camera]="{ position: [10, 10, 0], fov: 35, near:1, far:100 }"
+              shadows
               [scene]="{ background: 'black' | color }">
-    <ngt-ambient-light></ngt-ambient-light>
-    <ngt-directional-light [args]="['white' | color]"></ngt-directional-light>
+    <ngt-ambient-light intensity="0.1"></ngt-ambient-light>
 
     <ngt-physics [gravity]="[0, 0, 0]">
       <ngt-cannon-debug disabled scale="1.1" color="red">
 
         <trigger-example></trigger-example>
-
+        <floor></floor>
       </ngt-cannon-debug>
     </ngt-physics>
 
