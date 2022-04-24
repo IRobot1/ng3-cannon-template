@@ -8,5 +8,4 @@
   <ngt-mesh-standard-material wireframe color='black'></ngt-mesh-standard-material>
 </ngt-mesh>
 
-<!--ngtSpotLightHelper-->
-<ngt-spot-light #spot (ready)="off(spot)" name="spot" castShadow [position]="[1, 10, -2]" angle="0.3" penumbra="1" [target]="sphere.instance.value"></ngt-spot-light>
+<ngt-spot-light #spot (ready)="off(spot, helper)" #helper="ngtSpotLightHelper" ngtSpotLightHelper name="spot" castShadow [position]="[1, 10, -2]" angle="0.3" penumbra="1" [target]="sphere.instance.value"></ngt-spot-light>
