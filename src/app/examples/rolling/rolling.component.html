@@ -1,0 +1,20 @@
+<div style="height:100vh">
+  <ngt-canvas [camera]="{ position: [10, 10, 0], fov: 45, near:1, far:100 }"
+              [scene]="{ background: 'gray' | color }">
+    <ngt-directional-light [args]="['white' | color, 1.75]"
+                           [position]="[20, 20, 20]" [castShadow]="true">
+    </ngt-directional-light>
+
+    <ngt-physics>
+      <ngt-cannon-debug disabled scale="1.1" color="red">
+
+        <rolling-example></rolling-example>
+        <rolling-controls [ballsize]="ballsize" [cameraoffset]="[5, 5, 0]" [texture]="texture"></rolling-controls>
+        <floor></floor>
+
+      </ngt-cannon-debug>
+    </ngt-physics>
+
+    <ngt-stats></ngt-stats>
+  </ngt-canvas>
+</div>

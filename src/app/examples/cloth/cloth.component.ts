@@ -62,12 +62,9 @@ export class ClothExample {
     private physicBody: NgtPhysicBody,
     private physicConstraint: NgtPhysicConstraint,
   ) {
-    const s = this.loader.use(TextureLoader, 'assets/sunflower.jpg').subscribe(next => {
+    this.loader.use(TextureLoader, 'assets/sunflower.jpg').subscribe(next => {
       this.texture = next;
-    },
-      () => { },
-      () => { s.unsubscribe(); }
-    );
+    });
 
 
     // Create cannon particles

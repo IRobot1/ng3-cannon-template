@@ -1,0 +1,4 @@
+<ngt-mesh #mesh (ready)="ready(mesh.instance.value)" (beforeRender)="animate($event.state)" [ref]="ball.ref">
+  <ngt-sphere-geometry [args]="[ballsize]"></ngt-sphere-geometry>
+  <ngt-mesh-standard-material [map]="texture"></ngt-mesh-standard-material>
+</ngt-mesh>

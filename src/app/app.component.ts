@@ -30,6 +30,7 @@ export class AppComponent  {
     'performance',
     'pile',
     'ragdoll',
+    'rolling',
     'spring',
     'stacks',
     'tear',

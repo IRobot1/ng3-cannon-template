@@ -109,7 +109,7 @@ export class FirstPersonControlsComponent implements OnDestroy {
       this.playerVelocity.add(this.getForwardVector().multiplyScalar(-speedDelta));
     }
 
-    if (this.keyStates.get('KeyA' || this.keyStates.get('ArrowLeft'))) {
+    if (this.keyStates.get('KeyA') || this.keyStates.get('ArrowLeft')) {
       this.playerVelocity.add(this.getSideVector().multiplyScalar(-speedDelta));
     }
 

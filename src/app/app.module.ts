@@ -169,12 +169,21 @@ import {
   CableComponent,
 } from './examples/cable/cable.component';
 import { CenterOfMassComponent, CenterOfMassExample } from './examples/centerofmass/centerofmass.component';
+import {
+  RollingComponent, RollingExampleComponent
+} from './examples/rolling/rolling.component';
+import {
+  RollingControlsComponent
+} from './components/rolling-controls/rolling-controls.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
 
+    RollingComponent,
+    RollingExampleComponent, 
+    RollingControlsComponent,
     PhysicsCableComponent,
     CableComponent,
     CenterOfMassComponent,
@@ -187,6 +196,7 @@ import { CenterOfMassComponent, CenterOfMassExample } from './examples/centerofm
     BounceExample,
     CollisionFilterComponent,
     CollisionFilterExample,
+    CollisionsComponent,
     CollisionsComponent,
     CollisionsExample,
     CompoundComponent,

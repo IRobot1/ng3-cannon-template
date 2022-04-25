@@ -1,6 +1,6 @@
 import { AfterViewInit, Component } from "@angular/core";
 
-import { MeshStandardMaterialParameters, Texture, TextureLoader } from "three";
+import { Texture, TextureLoader } from "three";
 
 import { NgtLoader } from "@angular-three/core";
 
@@ -15,13 +15,11 @@ export class ImpulseExample implements AfterViewInit {
 
   constructor(
     private physicBody: NgtPhysicBody,
-    private loader: NgtLoader) {
-    const s = this.loader.use(TextureLoader, 'assets/uv_grid_opengl.jpg').subscribe(next => {
+    private loader: NgtLoader,
+  ) {
+    this.loader.use(TextureLoader, 'assets/uv_grid_opengl.jpg').subscribe(next => {
       this.texture = next;
-    },
-      () => { },
-      () => { s.unsubscribe(); }
-    );
+    });
   }
 
   texture!: Texture;

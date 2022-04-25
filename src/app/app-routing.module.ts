@@ -39,10 +39,12 @@ import { RigidVehicleComponent } from './examples/rigid_vehicle/rigid_vehicle.co
 import { RaycastVehicleComponent } from './examples/raycast_vehicle/raycast_vehicle.component';
 import { CableComponent } from './examples/cable/cable.component';
 import { CenterOfMassComponent } from './examples/centerofmass/centerofmass.component';
+import { RollingComponent } from './examples/rolling/rolling.component';
 
 
 const routes: Routes = [
   { path: '', component: HomeComponent, },
+  { path: 'rolling', component: RollingComponent },
   { path: 'centerofmass', component: CenterOfMassComponent },
   { path: 'cable', component: CableComponent },
   { path: 'conditional', component: ConditionalComponent },
