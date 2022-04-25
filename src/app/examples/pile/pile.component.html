@@ -2,9 +2,10 @@
   <ngt-canvas [camera]="{ position: [30, 40, 0], fov: 45, near:1, far:250 }"
               [shadows]="true"
               [scene]="{ background: 'gray' | color }">
-    <ngt-spot-light [args]="['white' | color]" [castShadow]="true"
-                    [position]="[50, 50, 0]" [rotation]="[90 | radian, -45 | radian, 0]">
-      <ngt-arrow-helper [scale]="2"></ngt-arrow-helper>
+
+    <ngt-spot-light [args]="['white' | color]" castShadow 
+                    [position]="[50, 50, 0]" [rotation]="[90 | radian, -45 | radian, 0]"
+                    ngtSpotLightHelper [helperVisible]="showhelper">
     </ngt-spot-light>
 
     <ngt-physics [quatNormalizeFast]="true" [quatNormalizeSkip]="3">

@@ -6,7 +6,6 @@ import { NgtColorPipe, NgtTriple } from "@angular-three/core";
 import { NgtSpotLight } from "@angular-three/core/lights";
 
 import { CollideBeginEvent, CollideEndEvent, CollideEvent, NgtPhysicBody } from "@angular-three/cannon";
-import { NgtSpotLightHelper } from "@angular-three/core/helpers";
 
 @Component({
   selector: 'trigger-example',
@@ -14,6 +13,8 @@ import { NgtSpotLightHelper } from "@angular-three/core/helpers";
   providers: [NgtPhysicBody],
 })
 export class TriggerExample implements AfterViewInit {
+  showhelper = false;
+
   sphereProps = this.physicBody.useSphere(() => ({
     mass: 1,
     args: [1],
@@ -57,10 +58,9 @@ export class TriggerExample implements AfterViewInit {
   }
 
   spot!: SpotLight;
-  off(spot: NgtSpotLight, helper: NgtSpotLightHelper) {
+  off(spot: NgtSpotLight) {
     this.spot = spot.instance.value;
     this.spot.intensity = 0;
-    helper.instance.value.visible = false;
   }
 }
 
