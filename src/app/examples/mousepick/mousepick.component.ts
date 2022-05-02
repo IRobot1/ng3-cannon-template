@@ -190,8 +190,9 @@ export class MousePickExample
     return hits.length > 0 ? hits[0].point : undefined;
   }
 
-  // update marker position
+  // move mesh and body to new position
   private moveClickMarker(position: Vector3) {
+    this.sphereProps.ref.value.position.copy(position);
     this.sphereProps.api.position.copy(position);
   }
 }
