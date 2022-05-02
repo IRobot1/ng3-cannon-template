@@ -1,17 +1,17 @@
 <div style="height:100vh">
-  <ngt-canvas [camera]="{ position: [20, 0, 0], fov: 45, near:1, far:100 }"
+  <ngt-canvas [camera]="{ position: [0, 20, 0], fov: 45, near:1, far:100 }"
               [shadows]="true"
               [scene]="{ background: 'black' | color }">
     <ngt-directional-light [args]="['white' | color, 1.75]"
-                           [position]="[20, 20, 20]" [castShadow]="true">
+                           [position]="[0, 20, 0]" castShadow=true>
     </ngt-directional-light>
 
-    <ngt-physics>
+    <ngt-physics [gravity]="[0, 0, 0]">
       <ngt-cannon-debug disabled scale="1.1" color="red">
 
         <callbacks-example></callbacks-example>
 
-        </ngt-cannon-debug>
+      </ngt-cannon-debug>
     </ngt-physics>
 
     <ngt-soba-orbit-controls></ngt-soba-orbit-controls>

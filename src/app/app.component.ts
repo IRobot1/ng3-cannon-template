@@ -12,6 +12,7 @@ export class AppComponent  {
     'threejs',
     'bounce',
     'body_types',
+    'callbacks',
     'conveyor',
     'conditional',
     'collision_filter',
@@ -51,6 +52,5 @@ export class AppComponent  {
   feature = [
     'rigid_vehicle',
     'cloth',
-    'callbacks',
   ]
 }

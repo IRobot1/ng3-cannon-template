@@ -1,6 +1,7 @@
-import { AfterViewInit, Component } from "@angular/core";
+import { AfterViewInit, Component, NgZone } from "@angular/core";
 
 import { Vector3 } from "three";
+import { NgtComponentStore, tapEffect } from "@angular-three/core";
 
 import { NgtPhysicBody } from "@angular-three/cannon";
 
@@ -8,7 +9,6 @@ import { NgtPhysicBody } from "@angular-three/cannon";
   selector: 'callbacks-example',
   template: `
         <ngt-mesh [ref]="moonProps.ref"
-                  [position]="[0, 0, 10]"
                   [receiveShadow]="true" [castShadow]="true">
           <ngt-sphere-geometry [args]="[0.5]"></ngt-sphere-geometry>
           <ngt-mesh-standard-material [parameters]="{ color: 'gray' | color }"></ngt-mesh-standard-material>
@@ -22,44 +22,59 @@ import { NgtPhysicBody } from "@angular-three/cannon";
   providers: [NgtPhysicBody],
 
 })
-export class CallbacksExample implements AfterViewInit {
-  constructor(private physicBody: NgtPhysicBody) { }
+export class CallbacksExample
+  extends NgtComponentStore
+  implements AfterViewInit {
+
+  constructor(
+    private zone: NgZone,
+    private physicBody: NgtPhysicBody
+  ) {
+    super();
+  }
+
+  distance = 5;
 
   moonProps = this.physicBody.useSphere(() => ({
-      mass: 5,
-      args: [0.5],
-      linearDamping: 0,
-      // ** missing preStep event https://github.com/nartc/angular-three/issues/73
-      //onPreStep: (e: any) => {
-      //  const moon_to_planet = new CANNON.Vec3()
-      //  moon.position.negate(moon_to_planet)
-
-      //  const distance = moon_to_planet.length()
-
-      //  moon_to_planet.normalize()
-      //  moon_to_planet.scale(1500 / Math.pow(distance, 2), moon.force)
-      //}
+    mass: 1,
+    args: [0.5],
+    linearDamping: 0,
+    position: [0, 0, this.distance],
   }));
 
   planetProps = this.physicBody.useSphere(() => ({
-      mass: 0,
-      args: [3.5]
+    mass: 0,
+    args: [3.5]
   }));
 
   ngAfterViewInit(): void {
-    this.moonProps.api.position.subscribe(position => {
-      const moon = new Vector3(position[0], position[1], position[2]);
-      const moon_to_planet = moon.negate();
-
-      const distance = moon_to_planet.length()
-
-      moon_to_planet.normalize()
-      const force = moon_to_planet.multiplyScalar(1500 / Math.pow(distance, 2));
-
-      this.moonProps.api.applyImpulse([force.x, force.y, force.z], [0, 0, 1]);
-    })
+    this.zone.runOutsideAngular(() => {
+      this.orbit();
+    });
   }
 
+  readonly orbit = this.effect<void>(
+    tapEffect(() => {
+      this.moonProps.api.velocity.set(this.distance, 0, 0); // give it a push
+
+      const moon = new Vector3();
+
+      // recalculate force on each change in position
+      // position is updated every stepSize
+
+      const unsubscribe = this.moonProps.api.position.subscribe(position => {
+        moon.set(position[0], position[1], position[2]);
+
+        const force = moon.negate().normalize().multiplyScalar(this.distance)
+
+        this.moonProps.api.applyForce([force.x, force.y, force.z], [0, 0, 0]);
+      })
+
+      return () => {
+        unsubscribe();
+      };
+    })
+  );
 }
 
 @Component({
