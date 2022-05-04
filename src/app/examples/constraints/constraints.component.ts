@@ -2,8 +2,7 @@ import { Component } from "@angular/core";
 
 import { NgtTriple } from "@angular-three/core";
 
-import { NgtPhysicBody, NgtPhysicBodyReturn } from "@angular-three/cannon";
-import { NgtPhysicConstraint } from "@angular-three/cannon";
+import { NgtPhysicBody, NgtPhysicConstraint, NgtPhysicBodyReturn } from "@angular-three/cannon";
 
 
 @Component({
@@ -108,7 +107,6 @@ export class ConstraintsExample {
     }, 1000 / 60)
   }
 
-
   pendulumsize = 0.8;
 
   pentopposition!: NgtTriple;
@@ -171,6 +169,48 @@ export class ConstraintsExample {
     }
   }
 
+
+  cloth: Array<NgtPhysicBodyReturn> = [];
+
+  initcloth() {
+    const distance = 0.4
+    const mass = 0.5
+    const rows = 15
+    const cols = 15
+
+    const bodies: any = {}; // bodies['i j'] => particle
+    for (let i = 0; i < cols; i++) {
+      for (let j = 0; j < rows; j++) {
+        const position = [5, distance * j + 3, -distance * i - 10] as NgtTriple;
+
+        // Create a new body
+        const body = this.physicBody.useParticle(() => ({
+          mass: j == rows - 1 ? 0 : mass,
+          args: [0.15],
+          position: position,
+          velocity: [(Math.sin(i * 0.1) + Math.sin(j * 0.1)) * 3, 0, 0]
+        }));
+        bodies[`${i} ${j}`] = body;
+      }
+    }
+
+    for (let i = 0; i < cols; i++) {
+      for (let j = 0; j < rows; j++) {
+        if (i < cols - 1) {
+          this.physicConstraint.useDistanceConstraint(bodies[`${i} ${j}`].ref, bodies[`${i + 1} ${j}`].ref, { distance })
+        }
+        if (j < rows - 1) {
+          this.physicConstraint.useDistanceConstraint(bodies[`${i} ${j}`].ref, bodies[`${i} ${j + 1}`].ref, { distance })
+        }
+      }
+    }
+
+    // convert to array for final rendering
+    for (const key in bodies) {
+      this.cloth.push(bodies[key]);
+    }
+  }
+
   constructor(
     private physicBody: NgtPhysicBody,
     private physicConstraint: NgtPhysicConstraint,
@@ -179,6 +219,7 @@ export class ConstraintsExample {
     this.initlinks();
     this.initpendulum();
     this.initchain();
+    this.initcloth();
   }
 }
 

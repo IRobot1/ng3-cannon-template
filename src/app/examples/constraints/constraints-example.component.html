@@ -38,3 +38,10 @@
   <ngt-sphere-geometry [args]="[chainlinksize]"></ngt-sphere-geometry>
   <ngt-mesh-standard-material [color]="i==0 ? 'white' : 'red'"></ngt-mesh-standard-material>
 </ngt-mesh>
+
+
+<!--cloth-->
+<ngt-mesh *ngFor="let body of cloth" [ref]="body.ref" castShadow>
+  <ngt-sphere-geometry [args]="[0.15]"></ngt-sphere-geometry>
+  <ngt-mesh-standard-material color="red"></ngt-mesh-standard-material>
+</ngt-mesh>

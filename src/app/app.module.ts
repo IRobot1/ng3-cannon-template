@@ -23,6 +23,7 @@ import { NgtGroupModule } from '@angular-three/core/group';
 import {
   NgtArrowHelperModule,
   NgtBoxHelperModule,
+  NgtDirectionalLightHelperModule,
   NgtSpotLightHelperModule,
 } from '@angular-three/core/helpers';
 import {
@@ -282,6 +283,7 @@ import { NgtSidePipeModule } from '@angular-three/core';
     NgtBoxHelperModule,
     NgtArrowHelperModule,
     NgtSpotLightHelperModule,
+    NgtDirectionalLightHelperModule,
 
     NgtCanvasModule,
     NgtMeshModule,
