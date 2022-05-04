@@ -24,6 +24,7 @@ export class AppComponent  {
     'fps',
     'fixed_rotation',
     'friction',
+    'heightfield',
     'hinge',
     'impulses',
     'jenga',
@@ -44,7 +45,6 @@ export class AppComponent  {
   almost = [
     'centerofmass',
     'raycast_vehicle',
-    'heightfield',
     'convex',
     'sleep',
   ]

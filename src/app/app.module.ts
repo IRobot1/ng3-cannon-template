@@ -175,6 +175,8 @@ import {
 import {
   RollingControlsComponent
 } from './components/rolling-controls/rolling-controls.component';
+import { HeightFieldGeometryComponent } from './examples/heightfield/heightfield-geometry.component';
+import { NgtSidePipeModule } from '@angular-three/core';
 
 @NgModule({
   declarations: [
@@ -240,6 +242,7 @@ import {
     CallbacksExample,
     HeightfieldComponent,
     HeightfieldExample,
+    HeightFieldGeometryComponent,
     HingeComponent,
     HingeExample,
     ConstraintsComponent,
@@ -288,6 +291,7 @@ import {
     NgtColorPipeModule,
     NgtRadianPipeModule,
     NgtVectorPipeModule,
+    NgtSidePipeModule,
 
     NgtBoxGeometryModule,
     NgtPlaneGeometryModule,
