@@ -1,5 +1,5 @@
 <div style="height:100vh">
-  <ngt-canvas [camera]="{ position: [5, 2, 0], fov: 45, near:1, far:100 }"
+  <ngt-canvas [camera]="{ position: [5, 0, 0], fov: 45, near:1, far:100 }"
               [scene]="{ background: 'gray' | color }">
     <ngt-directional-light [args]="['white' | color, 1.75]"
                            [position]="[20, 20, 20]" [castShadow]="true">
@@ -8,10 +8,10 @@
     <ngt-physics [allowSleep]="true">
       <ngt-cannon-debug disabled scale="1.1" color="red">
 
-        <physics-cable [startPosition]="startPosition" [endPosition]="endPosition"></physics-cable>
+        <physics-cable [startPosition]="startPosition" [endPosition]="endPosition" [color]="'cornflowerblue'"></physics-cable>
         <!--<physics-cable [startPosition]="startPosition" [endPosition]="[0, 2, 0]" [color]="'red'"></physics-cable>
         <physics-cable [startPosition]="[0, 2, 0]" [endPosition]="endPosition" [color]="'blue'"></physics-cable>-->
-        <floor></floor>
+        <floor [position]="[0, -1, 0]"></floor>
 
       </ngt-cannon-debug>
     </ngt-physics>

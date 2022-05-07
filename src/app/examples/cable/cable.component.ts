@@ -8,8 +8,8 @@ import { Component } from "@angular/core";
 export class CableComponent implements AfterViewInit {
   startz = 2;
   endz = -2;
-  startPosition = [0, 2, this.startz] as NgtTriple
-  endPosition = [0, 2, this.endz] as NgtTriple;
+  startPosition = [0, 1, this.startz] as NgtTriple
+  endPosition = [0, 1, this.endz] as NgtTriple;
 
   ngAfterViewInit(): void {
   //  let startchange = 0.1;
