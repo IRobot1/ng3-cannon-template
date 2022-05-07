@@ -12,6 +12,7 @@ import {
 } from '@angular-three/core/attributes';
 import {
   NgtBoxGeometryModule,
+  NgtBufferGeometryModule,
   NgtCylinderGeometryModule,
   NgtExtrudeGeometryModule,
   NgtPlaneGeometryModule,
@@ -295,6 +296,7 @@ import { NgtSidePipeModule } from '@angular-three/core';
     NgtVectorPipeModule,
     NgtSidePipeModule,
 
+    NgtBufferGeometryModule,
     NgtBoxGeometryModule,
     NgtPlaneGeometryModule,
     NgtSphereGeometryModule,

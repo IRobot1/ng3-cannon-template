@@ -8,8 +8,8 @@ import { Component } from "@angular/core";
 })
 export class AppComponent  {
   examples = [
+    'cloth',
     'cable',
-    'threejs',
     'bounce',
     'body_types',
     'callbacks',
@@ -36,6 +36,7 @@ export class AppComponent  {
     'spring',
     'stacks',
     'tear',
+    'threejs',
     'trigger',
     'trimesh',
     'tween',
@@ -51,6 +52,5 @@ export class AppComponent  {
 
   feature = [
     'rigid_vehicle',
-    'cloth',
   ]
 }

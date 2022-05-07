@@ -1,0 +1,16 @@
+<ngt-group (beforeRender)="tick($event.state)">
+  <ngt-mesh #cloth (ready)="ready(cloth.instance.value)">
+    <ngt-buffer-geometry></ngt-buffer-geometry>
+    <ngt-mesh-standard-material [side]="'double' | side" [map]="texture"></ngt-mesh-standard-material>
+  </ngt-mesh>
+
+  <ngt-mesh *ngFor="let item of clothnodes" [ref]="item.body.ref" [position]="item.position" visible=false>
+    <ngt-sphere-geometry [args]="[nodesize]"></ngt-sphere-geometry>
+    <ngt-mesh-standard-material></ngt-mesh-standard-material>
+  </ngt-mesh>
+
+  <ngt-mesh [ref]="sphereProps.ref" [scale]="[sphereSize, sphereSize, sphereSize]">
+    <ngt-sphere-geometry></ngt-sphere-geometry>
+    <ngt-mesh-standard-material color="#6b4423"></ngt-mesh-standard-material>
+  </ngt-mesh>
+</ngt-group>
