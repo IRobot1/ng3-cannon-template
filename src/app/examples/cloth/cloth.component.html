@@ -3,7 +3,8 @@
               shadows
               [scene]="{ background: 'black' | color }">
 
-    <ngt-directional-light [position]="[10,10,10]"></ngt-directional-light>
+    <ngt-spot-light [position]="[10,10,10]"></ngt-spot-light>
+    <ngt-spot-light [position]="[-10,10,-10]"></ngt-spot-light>
 
     <ngt-physics>
       <ngt-cannon-debug disabled scale="1.1" color="red">
