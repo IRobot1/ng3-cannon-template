@@ -1,5 +1,7 @@
 import { Component } from "@angular/core";
 
+import { Object3D } from "three";
+
 import { NgtTriple } from "@angular-three/core";
 
 import { NgtPhysicBody, NgtPhysicConstraint, NgtPhysicBodyReturn } from "@angular-three/cannon";
@@ -14,7 +16,7 @@ export class ConstraintsExample {
   size = 0.5
   space = this.size * 0.1;
 
-  lockcubes: Array<NgtPhysicBodyReturn> = [];
+  lockcubes: Array<NgtPhysicBodyReturn<Object3D>> = [];
   lockscale = [1, 1, 1] as NgtTriple;
   leftstand!: NgtTriple;
   rightstand!: NgtTriple;
@@ -31,7 +33,7 @@ export class ConstraintsExample {
 
   private initlocks() {
     const N = 10
-    let prevBody!: NgtPhysicBodyReturn;
+    let prevBody!: NgtPhysicBodyReturn<Object3D>;
 
     for (let i = 0; i < N; i++) {
       const position = [0, this.size * 6 + this.space, -(N - i - N / 2) * (this.size * 2 + 2 * this.space)] as NgtTriple;
@@ -55,12 +57,12 @@ export class ConstraintsExample {
     this.rightstand = [0, 0.5, -(N / 2) * (this.size * 2 + this.space * 2)] as NgtTriple;
   }
 
-  linkcubes: Array<NgtPhysicBodyReturn> = [];
+  linkcubes: Array<NgtPhysicBodyReturn<Object3D>> = [];
   linkscale = [0.1, 1, 1] as NgtTriple;
 
   private initlinks() {
     const N = 10
-    let prevBody!: NgtPhysicBodyReturn;
+    let prevBody!: NgtPhysicBodyReturn<Object3D>;
 
     for (let i = 0; i < N; i++) {
       const position = [-3, 1 + (N - i) * (this.size * 2 + this.space * 2) + this.size * 2 + this.space, 0] as NgtTriple;
@@ -140,13 +142,13 @@ export class ConstraintsExample {
 
 
   chainlinksize = 0.5;
-  chainspheres: Array<NgtPhysicBodyReturn> = [];
+  chainspheres: Array<NgtPhysicBodyReturn<Object3D>> = [];
 
   private initchain() {
     const distance = this.chainlinksize * 2 + 0.12
     const N = 10
 
-    let prevBody!: NgtPhysicBodyReturn;
+    let prevBody!: NgtPhysicBodyReturn<Object3D>;
 
     for (let i = 0; i < N; i++) {
       const position = [5, distance * (N - i), -5] as NgtTriple;
@@ -170,7 +172,7 @@ export class ConstraintsExample {
   }
 
 
-  cloth: Array<NgtPhysicBodyReturn> = [];
+  cloth: Array<NgtPhysicBodyReturn<Object3D>> = [];
 
   initcloth() {
     const distance = 0.4

@@ -1,16 +1,16 @@
 import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, ViewChild } from "@angular/core";
 
-import { Color, Ray, Vector3 } from "three";
+import { Color, Object3D, Ray, Vector3 } from "three";
 
 import { NgtCamera, NgtState, NgtTriple } from "@angular-three/core";
 
 import { NgtPhysicBody, NgtPhysicBodyReturn } from "@angular-three/cannon";
 
 class Projectile {
-  constructor(public body: NgtPhysicBodyReturn, public ttl: number = 30) { }
+  constructor(public body: NgtPhysicBodyReturn<Object3D>, public ttl: number = 30) { }
 }
 class Target {
-  constructor(public body: NgtPhysicBodyReturn, public color: Color) { }
+  constructor(public body: NgtPhysicBodyReturn<Object3D>, public color: Color) { }
 }
 
 @Component({

@@ -1,6 +1,6 @@
 import { AfterContentInit, Component, Input } from "@angular/core";
 
-import { Vector3 } from "three";
+import { Object3D } from "three";
 
 import { NgtTriple } from "@angular-three/core";
 
@@ -87,17 +87,17 @@ export class RagdollModelComponent implements AfterContentInit {
   }
 
 
-  lowerLeftLeg!: NgtPhysicBodyReturn;
-  lowerRightLeg!: NgtPhysicBodyReturn;
-  upperLeftLeg !: NgtPhysicBodyReturn;
-  upperRightLeg !: NgtPhysicBodyReturn;
-  pelvis!: NgtPhysicBodyReturn;
-  upperBody!: NgtPhysicBodyReturn;
-  head!: NgtPhysicBodyReturn;
-  upperLeftArm!: NgtPhysicBodyReturn;
-  upperRightArm!: NgtPhysicBodyReturn;
-  lowerLeftArm !: NgtPhysicBodyReturn;
-  lowerRightArm !: NgtPhysicBodyReturn;
+  lowerLeftLeg!: NgtPhysicBodyReturn<Object3D>;
+  lowerRightLeg!: NgtPhysicBodyReturn<Object3D>;
+  upperLeftLeg !: NgtPhysicBodyReturn<Object3D>;
+  upperRightLeg !: NgtPhysicBodyReturn<Object3D>;
+  pelvis!: NgtPhysicBodyReturn<Object3D>;
+  upperBody!: NgtPhysicBodyReturn<Object3D>;
+  head!: NgtPhysicBodyReturn<Object3D>;
+  upperLeftArm!: NgtPhysicBodyReturn<Object3D>;
+  upperRightArm!: NgtPhysicBodyReturn<Object3D>;
+  lowerLeftArm !: NgtPhysicBodyReturn<Object3D>;
+  lowerRightArm !: NgtPhysicBodyReturn<Object3D>;
 
   neckjoint!: NgtPhysicConstraintReturn<'ConeTwist'>;
   leftKneeJoint!: NgtPhysicConstraintReturn<'ConeTwist'>;

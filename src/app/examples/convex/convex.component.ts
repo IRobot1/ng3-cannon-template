@@ -1,13 +1,13 @@
 import { Component } from "@angular/core";
 
-import { BoxGeometry, Vector3 } from "three";
+import { BoxGeometry, Object3D, Vector3 } from "three";
 
 import { NgtRadianPipe, NgtTriple } from "@angular-three/core";
 
 import { NgtPhysicBody, NgtPhysicBodyReturn } from "@angular-three/cannon";
 
 class Cube {
-  constructor(public body: NgtPhysicBodyReturn) { }
+  constructor(public body: NgtPhysicBodyReturn<Object3D>) { }
 }
 
 @Component({

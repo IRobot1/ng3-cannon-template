@@ -1,13 +1,13 @@
 import { Component, OnDestroy } from "@angular/core";
 
-import { Color } from "three";
+import { Color, Object3D } from "three";
 
 import { NgtTriple } from "@angular-three/core";
 
 import { NgtPhysicBody, NgtPhysicBodyReturn } from "@angular-three/cannon";
 
 class ContainerSphere {
-  constructor(public body: NgtPhysicBodyReturn, public color: Color) { }
+  constructor(public body: NgtPhysicBodyReturn<Object3D>, public color: Color) { }
 }
 
 @Component({

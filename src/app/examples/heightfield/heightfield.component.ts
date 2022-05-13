@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 
-import { Vector3 } from "three";
+import { Object3D, Vector3 } from "three";
 
 import { NgtPhysicBody, NgtPhysicBodyReturn } from "@angular-three/cannon";
 
@@ -12,7 +12,7 @@ import { NgtPhysicBody, NgtPhysicBodyReturn } from "@angular-three/cannon";
 export class HeightfieldExample {
 
   spheresize = 0.2;
-  spheres: Array<NgtPhysicBodyReturn> = [];
+  spheres: Array<NgtPhysicBodyReturn<Object3D>> = [];
 
   heights: Array<Array<number>> = [];
   elementSize = 1;

@@ -2,13 +2,13 @@ import { AfterViewInit, Component } from "@angular/core";
 
 import { NgtLoader, NgtRenderState, NgtTriple } from "@angular-three/core";
 
-import { Float32BufferAttribute, Mesh, Texture, TextureLoader } from "three";
+import { Float32BufferAttribute, Mesh, Object3D, Texture, TextureLoader } from "three";
 
 import { NgtPhysicBody, NgtPhysicConstraint, NgtPhysicBodyReturn } from "@angular-three/cannon";
 
 
 class ClothNode {
-  constructor(public body: NgtPhysicBodyReturn, public position: NgtTriple) { }
+  constructor(public body: NgtPhysicBodyReturn<Object3D>, public position: NgtTriple) { }
 }
 
 @Component({

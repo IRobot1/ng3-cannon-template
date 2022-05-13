@@ -1,12 +1,13 @@
 import { Component } from "@angular/core";
 
+import { Object3D } from "three";
+
 import { NgtTriple } from "@angular-three/core";
 
-import { NgtPhysicBody, NgtPhysicBodyReturn, NgtPhysicConstraintReturn } from "@angular-three/cannon";
-import { NgtPhysicConstraint } from "@angular-three/cannon";
+import { NgtPhysicBody, NgtPhysicBodyReturn, NgtPhysicConstraintReturn, NgtPhysicConstraint } from "@angular-three/cannon";
 
 class Link {
-  constructor(public position: NgtTriple, public props: NgtPhysicBodyReturn) { }
+  constructor(public position: NgtTriple, public props: NgtPhysicBodyReturn<Object3D>) { }
 }
 
 @Component({
@@ -30,7 +31,7 @@ export class TearExample {
     private physicBody: NgtPhysicBody,
     private physicConstraint: NgtPhysicConstraint,
   ) {
-    let lastBody!: NgtPhysicBodyReturn;
+    let lastBody!: NgtPhysicBodyReturn<Object3D>;
 
     for (let i = 0; i < this.iterations; i++) {
       const position = [0, (this.iterations - i) * this.distance - 9, 0] as NgtTriple;

@@ -1,13 +1,12 @@
-import { Component, Input } from "@angular/core";
-import { AfterViewInit, NgZone } from "@angular/core";
+import { AfterViewInit, NgZone, Component, Input } from "@angular/core";
 
-import { CatmullRomCurve3, ExtrudeGeometry, Shape, Vector2, Vector3 } from "three";
+import { CatmullRomCurve3, ExtrudeGeometry, Object3D, Shape, Vector2, Vector3 } from "three";
 import { NgtComponentStore, NgtTriple, tapEffect } from "@angular-three/core";
 
 import { NgtPhysicBody, NgtPhysicBodyReturn, NgtPhysicConstraint } from "@angular-three/cannon";
 
 class CableSegment {
-  constructor(public body: NgtPhysicBodyReturn, public position: NgtTriple) { }
+  constructor(public body: NgtPhysicBodyReturn<Object3D>, public position: NgtTriple) { }
 }
 
 export class CableState {
@@ -119,7 +118,7 @@ export class PhysicsCableComponent
     this.particles = [];
     this.points = [];
 
-    let lastBody!: NgtPhysicBodyReturn;
+    let lastBody!: NgtPhysicBodyReturn<Object3D>;
 
     for (let i = 0; i < this.segments + 1; i++) {
       const position = start.toArray() as NgtTriple;

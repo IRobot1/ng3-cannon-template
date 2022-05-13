@@ -1,13 +1,13 @@
 import { Component } from "@angular/core";
 
-import { Color, Texture, TextureLoader } from "three";
+import { Color, Object3D, Texture, TextureLoader } from "three";
 
 import { NgtLoader, NgtTriple } from "@angular-three/core";
 
 import { NgtPhysicBody, NgtPhysicBodyReturn } from "@angular-three/cannon";
 
 class Obstacle {
-  constructor(public body: NgtPhysicBodyReturn, public color: Color) { }
+  constructor(public body: NgtPhysicBodyReturn<Object3D>, public color: Color) { }
 }
 
 @Component({

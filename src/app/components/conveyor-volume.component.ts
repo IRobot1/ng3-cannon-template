@@ -4,13 +4,12 @@ import { MeshStandardMaterialParameters, Object3D, } from "three";
 
 import { NgtEuler, NgtTriple, NgtVector3 } from "@angular-three/core";
 
-import { CollideBeginEvent, CollideEndEvent } from "@angular-three/cannon";
-import { NgtPhysicBody, NgtPhysicBodyReturn } from "@angular-three/cannon";
+import { NgtPhysicBody, NgtPhysicBodyReturn, CollideBeginEvent, CollideEndEvent } from "@angular-three/cannon";
 
 class Overlapping {
   subscription?: () => void;
   position!: NgtTriple;
-  constructor(public object: Object3D, public physics: NgtPhysicBodyReturn) { }
+  constructor(public object: Object3D, public physics: NgtPhysicBodyReturn<Object3D>) { }
 }
 
 @Component({
@@ -71,7 +70,7 @@ export class ConveyorVolumeComponent {
     scale: this.scale,
     onCollideBegin: (e) => {
       if (!this.overlappingactors.has(e.body.uuid)) {
-        const physics = <NgtPhysicBodyReturn>e.body.userData['physics'];
+        const physics = <NgtPhysicBodyReturn<Object3D>>e.body.userData['physics'];
         if (physics) {
           const overlapping = new Overlapping(e.body, physics);
           overlapping.subscription = physics.api.position.subscribe(next => {
