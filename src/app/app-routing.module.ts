@@ -36,7 +36,7 @@ import { RagdollComponent } from './examples/ragdoll/ragdoll.component';
 import { SpringComponent } from './examples/spring/spring.component';
 import { TearComponent } from './examples/tear/tear.component';
 import { RigidVehicleComponent } from './examples/rigid_vehicle/rigid_vehicle.component';
-import { RaycastVehicleComponent } from './examples/raycast_vehicle/raycast_vehicle.component';
+import { RaycastVehicleExampleComponent } from './examples/raycast_vehicle/raycast_vehicle.component';
 import { CableComponent } from './examples/cable/cable.component';
 import { CenterOfMassComponent } from './examples/centerofmass/centerofmass.component';
 import { RollingComponent } from './examples/rolling/rolling.component';
@@ -73,7 +73,7 @@ const routes: Routes = [
   { path: 'pile', component: PileComponent },
   { path: 'performance', component: PerformanceComponent },
   { path: 'ragdoll', component: RagdollComponent },
-  { path: 'raycast_vehicle', component: RaycastVehicleComponent },
+  { path: 'raycast_vehicle', component: RaycastVehicleExampleComponent },
   { path: 'rigid_vehicle', component: RigidVehicleComponent },
   { path: 'sleep', component: SleepComponent },
   { path: 'spring', component: SpringComponent },

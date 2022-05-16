@@ -1,5 +1,5 @@
 <div style="height:100vh">
-  <ngt-canvas [camera]="{ position: [20, 10, 0], fov: 45, near:1, far:100 }"
+  <ngt-canvas [camera]="{ position: [10, 5, 0], fov: 50, near:1, far:500 }"
               [scene]="{ background: 'gray' | color }">
     <ngt-directional-light [args]="['white' | color, 1.75]"
                            [position]="[20, 20, 20]" [castShadow]="true">
@@ -8,8 +8,8 @@
     <ngt-physics>
       <ngt-cannon-debug disabled scale="1.1" color="red">
 
-        <!--<raycast-vehicle-model [mass]="0" [position]="[0, 0.5, -3]" [bodycolor]="'red'" [wheelcolor]="'black'" [drive]="false"></raycast-vehicle-model>-->
-        <raycast-vehicle-model [mass]="1" [position]="[0, 0.5, 3]" [drive]="true"></raycast-vehicle-model>
+        <raycast-vehicle [position]="[0, 2, 0]"
+                         [rotation]="[0, -90 | radian, 0]"></raycast-vehicle>
 
         <floor></floor>
 
@@ -19,4 +19,7 @@
     <ngt-soba-orbit-controls></ngt-soba-orbit-controls>
     <ngt-stats></ngt-stats>
   </ngt-canvas>
+</div>
+<div style="color: white; font-size: 1.2em; left: calc(100vw / 2 - 100px); position: absolute; top: 20px;">
+  <pre>* ↑←↓→ to drive, space to brake</pre>
 </div>

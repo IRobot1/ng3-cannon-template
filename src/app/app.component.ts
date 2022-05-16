@@ -32,6 +32,7 @@ export class AppComponent  {
     'performance',
     'pile',
     'ragdoll',
+    'raycast_vehicle',
     'rolling',
     'spring',
     'stacks',
@@ -45,7 +46,6 @@ export class AppComponent  {
 
   almost = [
     'centerofmass',
-    'raycast_vehicle',
     'convex',
     'sleep',
   ]

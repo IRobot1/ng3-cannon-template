@@ -54,7 +54,6 @@ import { ConveyorVolumeComponent } from './components/conveyor-volume.component'
 import { FirstPersonControlsComponent } from './components/first-person-controls.component';
 import { FloorComponent } from './components/floor.component';
 import { RagdollModelComponent } from './components/ragdoll-model/ragdoll-model.component';
-import { RaycastVehicleModelComponent } from './components/raycast-vehicle-model/raycast-vehicle-model.component';
 import { RigidBodyModelComponent } from './components/rigidbody-model/rigidbody-model.component';
 import { CubeComponent } from './components/storybook-cube.component';
 import { TriggerCubeComponent } from './components/trigger-cube.component';
@@ -130,7 +129,7 @@ import {
 } from './examples/performance/performance.component';
 import { PileComponent, PileExample } from './examples/pile/pile.component';
 import { RagdollComponent, RagdollExample } from './examples/ragdoll/ragdoll.component';
-import { RaycastVehicleComponent } from './examples/raycast_vehicle/raycast_vehicle.component';
+import { RaycastVehicleExampleComponent } from './examples/raycast_vehicle/raycast_vehicle.component';
 import { RigidVehicleComponent } from './examples/rigid_vehicle/rigid_vehicle.component';
 import { SleepComponent, SleepExample } from './examples/sleep/sleep.component';
 import {
@@ -179,6 +178,7 @@ import {
 } from './components/rolling-controls/rolling-controls.component';
 import { HeightFieldGeometryComponent } from './examples/heightfield/heightfield-geometry.component';
 import { NgtSidePipeModule } from '@angular-three/core';
+import { Chassis, RaycastVehicleComponent, Wheel } from './components/raycast-vehicle/raycast-vehicle.component';
 
 @NgModule({
   declarations: [
@@ -258,8 +258,10 @@ import { NgtSidePipeModule } from '@angular-three/core';
     TearExample,
     RigidVehicleComponent,
     RigidBodyModelComponent,
+    RaycastVehicleExampleComponent,
+
     RaycastVehicleComponent,
-    RaycastVehicleModelComponent,
+    Chassis, Wheel,
 
     ClothComponent,
     ClothExample,
