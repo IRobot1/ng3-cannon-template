@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { Ref } from "@angular-three/core";
 
 import { BoxProps, CompoundBodyProps, ConvexPolyhedronProps, CylinderProps, GetByIndex, HeightfieldProps, NgtPhysicBody, NgtPhysicBodyReturn, ParticleProps, PlaneProps, SphereProps, TrimeshProps } from "@angular-three/cannon";
+import { Object3D } from "three";
 
 //
 // This is a drop in wrapper for NgtPhysicBody.
@@ -21,9 +22,9 @@ import { BoxProps, CompoundBodyProps, ConvexPolyhedronProps, CylinderProps, GetB
 
 @Injectable()
 export class PhysicsBodyRegistry {
-  private uuidbodymap = new Map<string, NgtPhysicBodyReturn>([]);
+  private uuidbodymap = new Map<string, NgtPhysicBodyReturn<Object3D>>([]);
 
-  getBody(uuid: string): NgtPhysicBodyReturn | undefined {
+  getBody(uuid: string): NgtPhysicBodyReturn<Object3D> | undefined {
     return this.uuidbodymap.get(uuid);
   }
 
@@ -35,7 +36,7 @@ export class PhysicsBodyRegistry {
     private physicBody: NgtPhysicBody,
   ) { }
 
-  private register(body: NgtPhysicBodyReturn): NgtPhysicBodyReturn {
+  private register(body: NgtPhysicBodyReturn<Object3D>): NgtPhysicBodyReturn<Object3D> {
     const s = body.ref.subscribe(next => {
       if (next != null) {
         this.uuidbodymap.set(next.uuid, body);
@@ -45,49 +46,49 @@ export class PhysicsBodyRegistry {
     return body;
   }
 
-  public useBox(fn: GetByIndex<BoxProps>, useOnTemplate?: boolean, ref?: Ref<THREE.Object3D>): NgtPhysicBodyReturn {
+  public useBox(fn: GetByIndex<BoxProps>, useOnTemplate?: boolean, ref?: Ref<THREE.Object3D>): NgtPhysicBodyReturn<Object3D> {
     return this.register(
       this.physicBody.useBox(fn, useOnTemplate, ref)
     );
   }
 
-  public useCompoundBody(fn: GetByIndex<CompoundBodyProps>, useOnTemplate?: boolean, ref?: Ref<THREE.Object3D>): NgtPhysicBodyReturn {
+  public useCompoundBody(fn: GetByIndex<CompoundBodyProps>, useOnTemplate?: boolean, ref?: Ref<THREE.Object3D>): NgtPhysicBodyReturn<Object3D> {
     return this.register(
       this.physicBody.useCompoundBody(fn, useOnTemplate, ref)
     );
   }
 
-  useConvexPolyhedron(fn: GetByIndex<ConvexPolyhedronProps>, useOnTemplate?: boolean, ref?: Ref<THREE.Object3D>): NgtPhysicBodyReturn {
+  useConvexPolyhedron(fn: GetByIndex<ConvexPolyhedronProps>, useOnTemplate?: boolean, ref?: Ref<THREE.Object3D>): NgtPhysicBodyReturn<Object3D> {
     return this.register(
       this.physicBody.useConvexPolyhedron(fn, useOnTemplate, ref)
     );
   }
-  useCylinder(fn: GetByIndex<CylinderProps>, useOnTemplate?: boolean, ref?: Ref<THREE.Object3D>): NgtPhysicBodyReturn {
+  useCylinder(fn: GetByIndex<CylinderProps>, useOnTemplate?: boolean, ref?: Ref<THREE.Object3D>): NgtPhysicBodyReturn<Object3D> {
     return this.register(
       this.physicBody.useCylinder(fn, useOnTemplate, ref)
     );
   }
-  useHeightfield(fn: GetByIndex<HeightfieldProps>, useOnTemplate?: boolean, ref?: Ref<THREE.Object3D>): NgtPhysicBodyReturn {
+  useHeightfield(fn: GetByIndex<HeightfieldProps>, useOnTemplate?: boolean, ref?: Ref<THREE.Object3D>): NgtPhysicBodyReturn<Object3D> {
     return this.register(
       this.physicBody.useHeightfield(fn, useOnTemplate, ref)
     );
   }
-  useParticle(fn: GetByIndex<ParticleProps>, useOnTemplate?: boolean, ref?: Ref<THREE.Object3D>): NgtPhysicBodyReturn {
+  useParticle(fn: GetByIndex<ParticleProps>, useOnTemplate?: boolean, ref?: Ref<THREE.Object3D>): NgtPhysicBodyReturn<Object3D> {
     return this.register(
       this.physicBody.useParticle(fn, useOnTemplate, ref)
     );
   }
-  usePlane(fn: GetByIndex<PlaneProps>, useOnTemplate?: boolean, ref?: Ref<THREE.Object3D>): NgtPhysicBodyReturn {
+  usePlane(fn: GetByIndex<PlaneProps>, useOnTemplate?: boolean, ref?: Ref<THREE.Object3D>): NgtPhysicBodyReturn<Object3D> {
     return this.register(
       this.physicBody.usePlane(fn, useOnTemplate, ref)
     );
   }
-  useSphere(fn: GetByIndex<SphereProps>, useOnTemplate?: boolean, ref?: Ref<THREE.Object3D>): NgtPhysicBodyReturn {
+  useSphere(fn: GetByIndex<SphereProps>, useOnTemplate?: boolean, ref?: Ref<THREE.Object3D>): NgtPhysicBodyReturn<Object3D> {
     return this.register(
       this.physicBody.useSphere(fn, useOnTemplate, ref)
     );
   }
-  useTrimesh(fn: GetByIndex<TrimeshProps>, useOnTemplate?: boolean, ref?: Ref<THREE.Object3D>): NgtPhysicBodyReturn {
+  useTrimesh(fn: GetByIndex<TrimeshProps>, useOnTemplate?: boolean, ref?: Ref<THREE.Object3D>): NgtPhysicBodyReturn<Object3D> {
     return this.register(
       this.physicBody.useTrimesh(fn, useOnTemplate, ref)
     );
