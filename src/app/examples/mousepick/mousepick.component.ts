@@ -21,7 +21,6 @@ type PointerState = 'idle' | 'move';
 export class MousePickExample
   extends NgtComponentStore<{ pointerState: PointerState }>
   implements AfterViewInit {
-  velocity = [0, 0, 0] as NgtTriple;
   sphereRadius = 0.2;
 
   boxProps = this.physicBody.useBox(() => ({
@@ -58,8 +57,6 @@ export class MousePickExample
     this.zone.runOutsideAngular(() => {
       // call the effect
       this.setupConstraint();
-      // call updateVelocity effect with pointerState as the trigger
-      this.updateVelocity(this.select((s) => s.pointerState));
     });
   }
 
@@ -149,22 +146,6 @@ export class MousePickExample
     })
   );
 
-  // we setup another effect to update our velocity based on the state of our pointer
-  readonly updateVelocity = this.effect<PointerState>(
-    tapEffect((pointerState) => {
-      if (pointerState !== 'idle') {
-        const unsubscribe = this.boxProps.api.velocity.subscribe((velocity) => {
-          this.velocity = velocity;
-        });
-
-        return () => {
-          unsubscribe();
-        };
-      }
-      return;
-    })
-  );
-
   //
   // Returns an hit point if there's a hit with the mesh, otherwise returns undefined
   //
@@ -192,7 +173,6 @@ export class MousePickExample
 
   // move mesh and body to new position
   private moveClickMarker(position: Vector3) {
-    this.sphereProps.ref.value.position.copy(position);
     this.sphereProps.api.position.copy(position);
   }
 }
