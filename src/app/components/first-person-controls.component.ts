@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Inject, Input, OnDestroy, Output } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 
 import { Camera, Vector3 } from 'three';
 
@@ -12,7 +13,7 @@ import { NgtRenderState, NgtStore } from '@angular-three/core';
   template: '<ngt-group (ready)="ready()" (beforeRender)="animate($event.state)"></ngt-group>',
 })
 export class FirstPersonControlsComponent implements OnDestroy {
-  @Input() container: HTMLElement = document.body;
+  @Input() container: HTMLElement = this.document.body;
   @Input() viewerheight = 1.5;
   @Input() movespeed = 1;
   @Input() rotatefactor = 2000;
@@ -22,58 +23,50 @@ export class FirstPersonControlsComponent implements OnDestroy {
   private keyStates = new Map<string, boolean>([]);
   private camera!: Camera;
 
-  private cleanup!: () => void;
 
-  constructor(private canvasStore: NgtStore) { }
+  constructor(
+    private canvasStore: NgtStore,
+    @Inject(DOCUMENT) private document: Document
+  ) { }
 
   ngOnDestroy(): void {
-    this.cleanup();
+    this.document.exitPointerLock();
   }
 
   ready() {
     const camera = this.canvasStore.get((s) => s.camera);
     camera.rotation.order = 'YXZ';
     this.camera = camera;
+  }
 
-    // movement
-    const keydown = (event: KeyboardEvent) => {
-      this.keyStates.set(event.code, true);
-    }
-    document.addEventListener('keydown', keydown);
+  @HostListener('document:keydown', ['$event'])
+  private onKeyDown(event: KeyboardEvent) {
+    this.keyStates.set(event.code, true);
+  }
 
-    const keyup = (event: KeyboardEvent) => {
-      this.keyStates.set(event.code, false);
-    }
-    document.addEventListener('keyup', keyup);
+  @HostListener('document:keyup', ['$event'])
+  private onKeyUp(event: KeyboardEvent) {
+    this.keyStates.set(event.code, false);
+  }
 
-    const mousedown = () => {
-      document.body.requestPointerLock();
-    }
-    this.container.addEventListener('mousedown', mousedown);
+  @HostListener('document:mousedown', ['$event'])
+  private onMouseDown(event: MouseEvent) {
+    this.document.body.requestPointerLock();
+  }
 
-    const mouseup = () => {
-      this.shoot.emit();
-    }
-    document.body.addEventListener('mouseup', mouseup);
+  @HostListener('document:mouseup', ['$event'])
+  private onMouseUp(event: MouseEvent) {
+    this.shoot.emit();
+  }
 
-    // rotation
-    const mousemove = (event: MouseEvent) => {
-      if (document.pointerLockElement === document.body) {
-        camera.rotation.y -= event.movementX / this.rotatefactor;
-        camera.rotation.x -= event.movementY / this.rotatefactor;
-      }
-    }
-    document.body.addEventListener('mousemove', mousemove);
-
-    this.cleanup = () => {
-      document.exitPointerLock();
-      document.removeEventListener('keydown', keydown);
-      document.removeEventListener('keyup', keyup);
-      this.container.removeEventListener('mousedown', mousedown);
-      document.body.removeEventListener('mouseup', mouseup);
-      document.body.removeEventListener('mousemove', mousemove);
+  @HostListener('document:mousemove', ['$event'])
+  private onMouseMove(event: MouseEvent) {
+    if (this.document.pointerLockElement === this.document.body) {
+      this.camera.rotation.y -= event.movementX / this.rotatefactor;
+      this.camera.rotation.x -= event.movementY / this.rotatefactor;
     }
   }
+
 
   private getForwardVector(): Vector3 {
     const playerDirection = new Vector3()
