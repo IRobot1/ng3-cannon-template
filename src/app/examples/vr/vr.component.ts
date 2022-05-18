@@ -31,7 +31,7 @@ export class VRExample implements AfterViewInit, OnDestroy {
 
   message = 'volume not triggered';
 
-  boxProps = this.physicBody.useBox(() => ({
+  table = this.physicBody.useBox(() => ({
     mass: 0
   }));
 
@@ -43,7 +43,7 @@ export class VRExample implements AfterViewInit, OnDestroy {
     let count = 0;
     this.timer = setInterval(() => {
       if (this.cubes.length < 29) {
-        this.cubes.push(new Cube('cube' + count.toString(), new Vector3(0, this.startheight, Math.random())));
+        this.cubes.push(new Cube('cube' + this.cubes.length.toString(), new Vector3(0, this.startheight, Math.random())));
       }
       else if (this.recycle) {
         const position = this.cubes[count].position;

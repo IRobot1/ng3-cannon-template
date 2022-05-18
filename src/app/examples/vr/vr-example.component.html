@@ -4,7 +4,7 @@
 <app-xr-bat *ngIf="vr && xrmode=='bat'"></app-xr-bat>
 <app-xr-inspect *ngIf="vr && xrmode=='inspect'"></app-xr-inspect>
 
-<ngt-mesh *ngIf="vr" [name]="'table'" [ref]="boxProps.ref" [receiveShadow]="true" [position]="[0,0.5,0.5]">
+<ngt-mesh *ngIf="vr" [name]="'table'" [ref]="table.ref" [receiveShadow]="true" [position]="[0,0.5,0.5]">
   <ngt-box-geometry></ngt-box-geometry>
   <ngt-mesh-standard-material [parameters]="{ color: 'gray' }"></ngt-mesh-standard-material>
 </ngt-mesh>

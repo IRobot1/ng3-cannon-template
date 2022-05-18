@@ -59,17 +59,13 @@ export class CubeComponent implements AfterViewInit, Inspect {
   constructor(private physicBody: NgtPhysicBody) { }
 
   ngAfterViewInit(): void {
-    this.mesh.instance.value.userData['physics'] = this.physics;
-    this.mesh.instance.value.userData['inspect'] = <Inspect>this;
+    this.mesh.instance.value.userData['physics'] = this.physics; // used by conveyor
+    this.mesh.instance.value.userData['inspect'] = <Inspect>this; // used by xr-inspector
   }
   Pickup(): void {
-    console.warn('cube pickup');
-    this.physics.api.mass.set(0);
 
   }
 
   Drop(): void {
-    console.warn('cube drop');
-    this.physics.api.mass.set(1);
   }
 }
