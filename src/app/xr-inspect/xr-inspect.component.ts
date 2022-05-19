@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 
 import { Euler, Group, Object3D, XRInputSource } from "three";
 
-import { NgtStore, NgtTriple, NgtVector3 } from "@angular-three/core";
+import { NgtStore, NgtVector3 } from "@angular-three/core";
 
 import { NgtPhysicBody, NgtPhysicConstraint, NgtPhysicConstraintReturn } from "@angular-three/cannon";
 
@@ -90,6 +90,7 @@ export class XRInspectComponent implements OnInit {
   private drop() {
     if (this.inspecting) {
       this.inspecting.Drop();
+      this.inspecting.physics.api.angularFactor.set(1, 1, 1);  // allow normal rotation again
 
       this.constraint.api.remove();
       this.inspecting = undefined;
@@ -111,12 +112,10 @@ export class XRInspectComponent implements OnInit {
     onCollideBegin: (e) => {
       if (e.body != this.overlapping) {
         this.overlapping = e.body;
-        //console.warn('begin overlapping', e.body.name)
       }
     },
     onCollideEnd: (e) => {
       if (e.body == this.overlapping) {
-        //console.warn('end overlapping', e.body.name)
         this.overlapping = undefined;
       }
     },
@@ -134,6 +133,7 @@ export class XRInspectComponent implements OnInit {
 
     // rotate the thing being inspected to match the controller rotation
     if (this.inspecting) {
+      this.inspecting.physics.api.angularFactor.set(0, 0, 0); // stop it shaking
       this.inspecting.physics.api.rotation.copy(this.controller.rotation);
     }
   }

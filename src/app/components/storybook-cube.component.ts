@@ -3,7 +3,7 @@ import { AfterViewInit, Component, Input, ViewChild } from "@angular/core";
 import { NgtEuler, NgtTriple } from "@angular-three/core";
 import { NgtMesh } from "@angular-three/core/meshes";
 
-import { NgtPhysicBody, NgtPhysicBodyReturn } from "@angular-three/cannon";
+import { NgtPhysicBody } from "@angular-three/cannon";
 
 import { Inspect } from "../inspect";
 
@@ -63,9 +63,10 @@ export class CubeComponent implements AfterViewInit, Inspect {
     this.mesh.instance.value.userData['inspect'] = <Inspect>this; // used by xr-inspector
   }
   Pickup(): void {
-
+    this.physics.api.collisionResponse.set(false); // disable collision
   }
 
   Drop(): void {
+    this.physics.api.collisionResponse.set(true);// enable collision
   }
 }
