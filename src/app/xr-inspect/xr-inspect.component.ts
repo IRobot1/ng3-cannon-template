@@ -1,14 +1,15 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 
-import { Euler, Group, Object3D, XRInputSource } from "three";
+import { Euler, Group, Mesh, Object3D, XRInputSource } from "three";
 
-import { NgtStore, NgtVector3 } from "@angular-three/core";
+import { NgtStore } from "@angular-three/core";
 
 import { NgtPhysicBody, NgtPhysicConstraint, NgtPhysicConstraintReturn } from "@angular-three/cannon";
 
 import { XRControllerModelFactory } from "three-stdlib/webxr/XRControllerModelFactory";
 
 import { Inspect } from "../inspect";
+import { Vector3 } from "three";
 
 @Component({
   selector: 'app-xr-inspect',
@@ -16,15 +17,12 @@ import { Inspect } from "../inspect";
   providers: [NgtPhysicBody, NgtPhysicConstraint],
 })
 export class XRInspectComponent implements OnInit {
+  @Input() index = 0;
+  @Input() showcontrollermodel = false;
 
-  index = 0;
+  helper = false;  // show attach point and collision volume
 
   private controller!: Group;
-
-  position = [0, 0, 0] as NgtVector3;
-  rotation?: Euler;
-
-  radius = 0.05;
 
   constructor(
     private physicBody: NgtPhysicBody,
@@ -34,20 +32,22 @@ export class XRInspectComponent implements OnInit {
 
   ngOnInit(): void {
     const renderer = this.store.get((s) => s.gl);
-    const scene = this.store.get((s) => s.scene);
 
     this.controller = renderer.xr.getController(this.index);
-    scene.add(this.controller);
 
     // The XRControllerModelFactory will automatically fetch controller models
     // that match what the user is holding as closely as possible. The models
     // should be attached to the object returned from getControllerGrip in
     // order to match the orientation of the held device.
-    const controllerModelFactory = new XRControllerModelFactory();
+    if (this.showcontrollermodel) {
+      const controllerModelFactory = new XRControllerModelFactory();
 
-    const controllerGrip = renderer.xr.getControllerGrip(this.index);
-    controllerGrip.add(controllerModelFactory.createControllerModel(controllerGrip));
-    scene.add(controllerGrip);
+      const controllerGrip = renderer.xr.getControllerGrip(this.index);
+      controllerGrip.add(controllerModelFactory.createControllerModel(controllerGrip));
+
+      const scene = this.store.get((s) => s.scene);
+      scene.add(controllerGrip);
+    }
 
     this.controller.addEventListener('connected', (event) => {
       const controller = <Group>event.target;
@@ -101,7 +101,7 @@ export class XRInspectComponent implements OnInit {
   marker = this.physicBody.useSphere(() => ({
     mass: 0,
     args: [this.markerRadius],
-    collisionFilterGroup: 0,
+    collisionResponse: false,
   }));
 
   collisionRadius = 0.05;
@@ -121,20 +121,32 @@ export class XRInspectComponent implements OnInit {
     },
   }));
 
+  actor = this.physicBody.useParticle(() => ({
+    collisionResponse: false,
+  }));
 
-  tick() {
+  tick(socket: Mesh) {
+    const position = new Vector3(); //this.controller.position;
+    socket.localToWorld(position);
+    const rotation = this.controller.rotation;
+
+
     // move the collision sphere with controller
-    this.collision.api.position.copy(this.controller.position);
-    this.collision.api.rotation.copy(this.controller.rotation);
+    this.collision.api.position.copy(position);
+    this.collision.api.rotation.copy(rotation);
 
     // move marker for attaching grabbed things
-    this.marker.api.position.copy(this.controller.position);
-    this.marker.api.rotation.copy(this.controller.rotation);
+    this.marker.api.position.copy(position);
+    this.marker.api.rotation.copy(rotation);
+
+    // move actor visual
+    this.actor.api.position.copy(this.controller.position);
+    this.actor.api.rotation.copy(this.controller.rotation);
 
     // rotate the thing being inspected to match the controller rotation
     if (this.inspecting) {
       this.inspecting.physics.api.angularFactor.set(0, 0, 0); // stop it shaking
-      this.inspecting.physics.api.rotation.copy(this.controller.rotation);
+      this.inspecting.physics.api.rotation.copy(rotation);
     }
   }
 }

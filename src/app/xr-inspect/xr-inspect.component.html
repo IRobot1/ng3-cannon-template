@@ -1,10 +1,19 @@
-<ngt-mesh [name]="'inspector'" [ref]="collision.ref" (beforeRender)="tick()"
-          [rotation]="rotation" [position]="position" visible="false">
+<ngt-mesh [ref]="collision.ref" (beforeRender)="tick(socket.instance.value)" [visible]="helper">
   <ngt-sphere-geometry [args]="[collisionRadius]"></ngt-sphere-geometry>
   <ngt-mesh-standard-material wireframe color="darkgray"></ngt-mesh-standard-material>
 </ngt-mesh>
 
-<ngt-mesh [name]="'marker'" [ref]="marker.ref" visible="false">
+<ngt-mesh [ref]="marker.ref" [visible]="helper">
   <ngt-sphere-geometry [args]="[markerRadius]"></ngt-sphere-geometry>
   <ngt-mesh-standard-material wireframe color="red"></ngt-mesh-standard-material>
 </ngt-mesh>
+
+<ngt-group [ref]="actor.ref">
+  <ngt-mesh [rotation]="[ -60 | radian,0, 0]">
+    <ngt-cylinder-geometry [args]="[0.01, 0.01, 0.2]"></ngt-cylinder-geometry>
+    <ngt-mesh #socket [position]="[0, 0.1, 0]">
+      <ngt-sphere-geometry [args]="[0.02]"></ngt-sphere-geometry>
+      <ngt-mesh-standard-material color="gold"></ngt-mesh-standard-material>
+    </ngt-mesh>
+  </ngt-mesh>
+</ngt-group>

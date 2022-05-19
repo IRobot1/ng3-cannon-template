@@ -31,8 +31,12 @@ export class VRExample implements AfterViewInit, OnDestroy {
 
   message = 'volume not triggered';
 
+  tableArgs = [3, 0.1, 1] as NgtTriple;
+
   table = this.physicBody.useBox(() => ({
-    mass: 0
+    mass: 0,
+    args: this.tableArgs,
+    position: [0, 1, 0]
   }));
 
   constructor(private physicBody: NgtPhysicBody) { }
