@@ -3,6 +3,7 @@ import { NgtCannonDebugModule, NgtPhysicsModule } from '@angular-three/cannon';
 import {
   NgtCanvasModule,
   NgtColorPipeModule,
+  NgtObjectPassThroughModule,
   NgtRadianPipeModule,
   NgtVectorPipeModule,
 } from '@angular-three/core';
@@ -161,7 +162,9 @@ import {
 } from './examples/worker/worker.component';
 import { HomeComponent } from './home.component';
 import { XRBatComponent } from './xr-bat/xr-bat.component';
-import { XRInspectComponent } from './xr-inspect/xr-inspect.component';
+import {
+  XRInspectComponent,
+} from './xr-inspect/xr-inspect.component';
 
 import {
   PhysicsCableComponent
@@ -292,6 +295,7 @@ import { Chassis, RaycastVehicleComponent, Wheel } from './components/raycast-ve
     NgtMeshModule,
     NgtInstancedMeshModule,
     NgtGroupModule,
+    NgtObjectPassThroughModule,
 
     NgtColorPipeModule,
     NgtRadianPipeModule,

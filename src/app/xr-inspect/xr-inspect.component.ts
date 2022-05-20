@@ -1,36 +1,51 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, ContentChild, Directive, Inject, Input, NgZone, OnInit, Optional, SkipSelf, TemplateRef } from "@angular/core";
 
-import { Euler, Group, Mesh, Object3D, XRInputSource } from "three";
+import { Group, Mesh, Object3D, XRInputSource } from "three";
 
-import { NgtStore } from "@angular-three/core";
+import { AnyFunction, NgtObjectInputs, NgtStore, NGT_INSTANCE_HOST_REF, NGT_INSTANCE_REF, provideObjectHostRef, Ref } from "@angular-three/core";
 
 import { NgtPhysicBody, NgtPhysicConstraint, NgtPhysicConstraintReturn } from "@angular-three/cannon";
 
 import { XRControllerModelFactory } from "three-stdlib/webxr/XRControllerModelFactory";
 
 import { Inspect } from "../inspect";
-import { Vector3 } from "three";
 
 @Component({
   selector: 'app-xr-inspect',
   templateUrl: './xr-inspect.component.html',
-  providers: [NgtPhysicBody, NgtPhysicConstraint],
+  providers: [provideObjectHostRef(XRInspectComponent), NgtPhysicBody, NgtPhysicConstraint],
 })
-export class XRInspectComponent implements OnInit {
+export class XRInspectComponent extends NgtObjectInputs<Group> implements OnInit {
   @Input() index = 0;
   @Input() showcontrollermodel = false;
+  @Input() socket!: Mesh;
+
+  @ContentChild(TemplateRef) content?: TemplateRef<any>;
 
   helper = false;  // show attach point and collision volume
 
   private controller!: Group;
 
   constructor(
+    zone: NgZone,
+    store: NgtStore,
+    @Optional()
+    @SkipSelf()
+    @Inject(NGT_INSTANCE_REF)
+    parentRef: AnyFunction<Ref>,
+    @Optional()
+    @SkipSelf()
+    @Inject(NGT_INSTANCE_HOST_REF)
+    parentHostRef: AnyFunction<Ref>,
     private physicBody: NgtPhysicBody,
     private physicConstraint: NgtPhysicConstraint,
-    private store: NgtStore,
-  ) { }
+  ) {
+    super(zone, store, parentRef, parentHostRef);
+  }
 
-  ngOnInit(): void {
+  override ngOnInit(): void {
+    super.ngOnInit();
+
     const renderer = this.store.get((s) => s.gl);
 
     this.controller = renderer.xr.getController(this.index);
@@ -121,13 +136,11 @@ export class XRInspectComponent implements OnInit {
     },
   }));
 
-  actor = this.physicBody.useParticle(() => ({
-    collisionResponse: false,
-  }));
-
-  tick(socket: Mesh) {
-    const position = new Vector3(); //this.controller.position;
-    socket.localToWorld(position);
+  tick(actor: Group) {
+    let position = this.controller.position;
+    if (this.socket) {
+      this.socket.localToWorld(position);
+    }
     const rotation = this.controller.rotation;
 
 
@@ -139,9 +152,9 @@ export class XRInspectComponent implements OnInit {
     this.marker.api.position.copy(position);
     this.marker.api.rotation.copy(rotation);
 
-    // move actor visual
-    this.actor.api.position.copy(this.controller.position);
-    this.actor.api.rotation.copy(this.controller.rotation);
+    // move asset visual
+    actor.position.copy(this.controller.position);
+    actor.rotation.copy(this.controller.rotation);
 
     // rotate the thing being inspected to match the controller rotation
     if (this.inspecting) {

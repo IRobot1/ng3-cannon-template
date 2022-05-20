@@ -2,7 +2,17 @@
 <storybook-cube *ngFor="let cube of cubes" [name]="cube.name" [position]="[0,cube.position.y,cube.position.z]" [scale]="scale"></storybook-cube>
 
 <app-xr-bat *ngIf="vr && xrmode=='bat'"></app-xr-bat>
-<app-xr-inspect *ngIf="vr && xrmode=='inspect'"></app-xr-inspect>
+<app-xr-inspect *ngIf="vr && xrmode=='inspect'">
+  <ngt-mesh #socket>
+    <ngt-sphere-geometry [args]="[0.02]"></ngt-sphere-geometry>
+    <ngt-mesh-standard-material color="red"></ngt-mesh-standard-material>
+  </ngt-mesh>
+  <ngt-group [rotation]="[ -60 | radian,0, 0]">
+    <ngt-mesh [position]="[0,-0.1,0]">
+      <ngt-cylinder-geometry [args]="[0.01, 0.01, 0.2]"></ngt-cylinder-geometry>
+    </ngt-mesh>
+  </ngt-group>
+</app-xr-inspect>
 
 <ngt-mesh *ngIf="vr" [name]="'table'" [ref]="table.ref" receiveShadow castShadow>
   <ngt-box-geometry [args]="tableArgs"></ngt-box-geometry>
