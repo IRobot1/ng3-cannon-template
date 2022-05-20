@@ -1,8 +1,8 @@
-import { Component, ContentChild, Directive, Inject, Input, NgZone, OnInit, Optional, SkipSelf, TemplateRef } from "@angular/core";
+import { Component, ContentChild, Inject, Input, NgZone, OnInit, Optional, SkipSelf, TemplateRef } from "@angular/core";
 
-import { Group, Mesh, Object3D, XRInputSource } from "three";
+import { Group, Mesh, Object3D, Vector3, XRInputSource } from "three";
 
-import { AnyFunction, NgtObjectInputs, NgtStore, NGT_INSTANCE_HOST_REF, NGT_INSTANCE_REF, provideObjectHostRef, Ref } from "@angular-three/core";
+import { AnyFunction, NgtObjectInputs, NgtStore, NgtTriple, NGT_INSTANCE_HOST_REF, NGT_INSTANCE_REF, provideObjectHostRef, Ref } from "@angular-three/core";
 
 import { NgtPhysicBody, NgtPhysicConstraint, NgtPhysicConstraintReturn } from "@angular-three/cannon";
 
@@ -18,7 +18,7 @@ import { Inspect } from "../inspect";
 export class XRInspectComponent extends NgtObjectInputs<Group> implements OnInit {
   @Input() index = 0;
   @Input() showcontrollermodel = false;
-  @Input() socket!: Mesh;
+  @Input() socket!: Ref<Mesh>;
 
   @ContentChild(TemplateRef) content?: TemplateRef<any>;
 
@@ -136,13 +136,17 @@ export class XRInspectComponent extends NgtObjectInputs<Group> implements OnInit
     },
   }));
 
+
   tick(actor: Group) {
-    let position = this.controller.position;
+    let position: Vector3;
     if (this.socket) {
-      this.socket.localToWorld(position);
+      position = new Vector3();
+      this.socket.value.localToWorld(position);
+    }
+    else {
+      position = this.controller.position;
     }
     const rotation = this.controller.rotation;
-
 
     // move the collision sphere with controller
     this.collision.api.position.copy(position);
