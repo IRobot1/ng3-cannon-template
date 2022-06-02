@@ -22,7 +22,6 @@ import { ThreeJSComponent } from './examples/threejs/threejs.component';
 import { TriggerComponent } from './examples/trigger/trigger.component';
 import { TrimeshComponent } from './examples/trimesh/trimesh.component';
 import { TweenComponent } from './examples/tween/tween.component';
-import { VRComponent } from './examples/vr/vr.component';
 import { WorkerComponent } from './examples/worker/worker.component';
 import { HomeComponent } from './home.component';
 import { ConveyorComponent } from './examples/conveyor/conveyor.component';
@@ -82,7 +81,6 @@ const routes: Routes = [
   { path: 'trigger', component: TriggerComponent },
   { path: 'trimesh', component: TrimeshComponent },
   { path: 'tween', component: TweenComponent },
-  { path: 'vr', component: VRComponent },
   { path: '**', redirectTo: '/' },
 
 ];

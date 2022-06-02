@@ -5,8 +5,6 @@ import { NgtMesh } from "@angular-three/core/meshes";
 
 import { NgtPhysicBody } from "@angular-three/cannon";
 
-import { Inspect } from "../inspect";
-
 @Component({
   selector: 'storybook-cube',
   template: `
@@ -22,7 +20,7 @@ import { Inspect } from "../inspect";
         </ngt-mesh>`,
   providers: [NgtPhysicBody],
 })
-export class CubeComponent implements AfterViewInit, Inspect {
+export class CubeComponent implements AfterViewInit {
   private _position = [0, 0, 0] as NgtTriple;
   @Input()
   get position(): NgtTriple {
@@ -60,13 +58,5 @@ export class CubeComponent implements AfterViewInit, Inspect {
 
   ngAfterViewInit(): void {
     this.mesh.instance.value.userData['physics'] = this.physics; // used by conveyor
-    this.mesh.instance.value.userData['inspect'] = <Inspect>this; // used by xr-inspector
-  }
-  Pickup(): void {
-    this.physics.api.collisionResponse.set(false); // disable collision
-  }
-
-  Drop(): void {
-    this.physics.api.collisionResponse.set(true);// enable collision
   }
 }

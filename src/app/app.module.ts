@@ -155,16 +155,11 @@ import {
   TrimeshExample,
 } from './examples/trimesh/trimesh.component';
 import { TweenComponent, TweenExample } from './examples/tween/tween.component';
-import { VRComponent, VRExample } from './examples/vr/vr.component';
 import {
   WorkerComponent,
   WorkerExample,
 } from './examples/worker/worker.component';
 import { HomeComponent } from './home.component';
-import { XRBatComponent } from './xr-bat/xr-bat.component';
-import {
-  XRInspectComponent,
-} from './xr-inspect/xr-inspect.component';
 
 import {
   PhysicsCableComponent
@@ -271,14 +266,9 @@ import { Chassis, RaycastVehicleComponent, Wheel } from './components/raycast-ve
     FPSComponent,
     FPSExample,
 
-    VRComponent,
-    VRExample,
-
     FloorComponent,
     CubeComponent,
     TriggerCubeComponent,
-    XRBatComponent,
-    XRInspectComponent,
     FirstPersonControlsComponent,
   ],
   imports: [
