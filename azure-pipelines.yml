@@ -18,8 +18,8 @@ steps:
 - script: |
     npm install -g @angular/cli
     npm install --legacy-peer-deps
-    ng build --configuration=production
-  displayName: 'npm install and build'
+    npm run build
+    displayName: 'npm install and build'
 
 - task: PublishBuildArtifacts@1
   inputs:
