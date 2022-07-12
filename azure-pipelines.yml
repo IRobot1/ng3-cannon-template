@@ -1,5 +1,5 @@
-# Node.js with Angular
-# Build a Node.js project that uses Angular.
+# Node.js
+# Build a general Node.js project with npm.
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 
@@ -18,8 +18,7 @@ steps:
 - script: |
     npm install --legacy-peer-deps
     npm run build
-    displayName: 'npm install and build'
-
+  displayName: 'npm install and build'
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: 'dist/ng3-cannon-template'
