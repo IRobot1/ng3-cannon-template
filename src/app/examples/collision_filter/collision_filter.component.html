@@ -1,7 +1,9 @@
 <div style="height:100vh">
-  <ngt-canvas [camera]="{ position: [10, 2, 0], fov: 45, near:1, far:100 }"
-              [scene]="{ background: 'black' | color }">
-    <ngt-directional-light [args]="['white' | color, 1.75]"
+  <ngt-canvas [camera]="{ position: [10, 2, 0], fov: 45, near:1, far:100 }">
+
+    <ngt-color attach="background" color="black"></ngt-color>
+
+    <ngt-directional-light [args]="['white' , 1.75]"
                            [position]="[20, 20, 20]" [castShadow]="true">
     </ngt-directional-light>
 

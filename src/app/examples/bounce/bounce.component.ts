@@ -8,17 +8,17 @@ import { NgtTriple } from "@angular-three/core";
   template: `
         <ngt-mesh [ref]="sphere1Props.ref" [castShadow]="true">
           <ngt-sphere-geometry></ngt-sphere-geometry>
-          <ngt-mesh-standard-material [parameters]="{ color: 'red' | color }"></ngt-mesh-standard-material>
+          <ngt-mesh-standard-material color="red"></ngt-mesh-standard-material>
         </ngt-mesh>
 
         <ngt-mesh [ref]="sphere2Props.ref" [castShadow]="true">
           <ngt-sphere-geometry></ngt-sphere-geometry>
-          <ngt-mesh-standard-material [parameters]="{ color: 'white' | color }"></ngt-mesh-standard-material>
+          <ngt-mesh-standard-material color="white"></ngt-mesh-standard-material>
         </ngt-mesh>
 
         <ngt-mesh [ref]="sphere3Props.ref" [castShadow]="true">
           <ngt-sphere-geometry></ngt-sphere-geometry>
-          <ngt-mesh-standard-material [parameters]="{ color: 'blue' | color }"></ngt-mesh-standard-material>
+          <ngt-mesh-standard-material color="blue"></ngt-mesh-standard-material>
         </ngt-mesh>`,
   providers: [NgtPhysicBody],
 })

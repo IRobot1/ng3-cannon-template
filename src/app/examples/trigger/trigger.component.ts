@@ -1,8 +1,8 @@
 import { AfterViewInit, Component } from "@angular/core";
 
-import { SpotLight } from "three";
+import { Color, SpotLight } from "three";
 
-import { NgtColorPipe, NgtTriple } from "@angular-three/core";
+import { NgtTriple } from "@angular-three/core";
 import { NgtSpotLight } from "@angular-three/core/lights";
 
 import { CollideBeginEvent, CollideEndEvent, CollideEvent, NgtPhysicBody } from "@angular-three/cannon";
@@ -36,7 +36,7 @@ export class TriggerExample implements AfterViewInit {
     },
     onCollideBegin: (event: CollideBeginEvent) => {
       console.log('The sphere entered the trigger!', event.body)
-      this.spot.color = new NgtColorPipe().transform('red');
+      this.spot.color = new Color(1, 0, 0);
       this.spot.intensity = 1;
     },
     onCollideEnd: (event: CollideEndEvent) => {

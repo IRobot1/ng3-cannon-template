@@ -26,7 +26,7 @@ class Overlapping {
 </ngt-group>
             <ngt-box-geometry></ngt-box-geometry>
             <ngt-mesh-standard-material
-                [parameters]="parameters"
+                [wireframe]="!hiddeningame" [opacity]="hiddeningame ? 0 : 1" [transparent]="hiddeningame" [color]="color"
             ></ngt-mesh-standard-material>
         </ngt-mesh>
     `,
@@ -42,15 +42,6 @@ export class ConveyorVolumeComponent {
 
   @Output() beginOverlap = new EventEmitter<CollideBeginEvent>();
   @Output() endOverlap = new EventEmitter<CollideEndEvent>();
-
-  get parameters(): MeshStandardMaterialParameters {
-    return {
-      wireframe: !this.hiddeningame,
-      opacity: this.hiddeningame ? 0 : 1,
-      transparent: this.hiddeningame ? true : false,
-      color: this.color
-    }
-  }
 
   get inversescale(): NgtVector3 {
     return [

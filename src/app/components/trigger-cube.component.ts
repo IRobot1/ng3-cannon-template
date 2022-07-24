@@ -12,8 +12,8 @@ import { NgtPhysicBody } from "@angular-three/cannon";
             [scale]="scale">
             <ngt-box-geometry></ngt-box-geometry>
             <ngt-mesh-standard-material
-                [parameters]="{ wireframe: true, color: 'red' }"
-            ></ngt-mesh-standard-material>
+                wireframe color="red">
+            </ngt-mesh-standard-material>
         </ngt-mesh>`,
   providers: [NgtPhysicBody],
 })

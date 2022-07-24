@@ -1,13 +1,13 @@
 <div style="height:100vh">
-  <ngt-canvas (created)="created($event)" [camera]="{ position: [0, 0, 0], fov: 45 }"
-              [shadows]="true"
-              [scene]="{ background: 'gray' | color }">
+  <ngt-canvas (created)="created($event)" [camera]="{ position: [0, 0, 0], fov: 45 }" shadows>
+
+    <ngt-color attach="background" color="gray"></ngt-color>
 
     <ngt-physics>
       <ngt-cannon-debug disabled scale="1.1" color="red">
 
         <fps-example [camera]="camera"></fps-example>
-        <floor ></floor>
+        <floor></floor>
 
       </ngt-cannon-debug>
     </ngt-physics>

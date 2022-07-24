@@ -11,13 +11,13 @@ import { NgtPhysicBody } from "@angular-three/cannon";
         <ngt-mesh [ref]="moonProps.ref"
                   [receiveShadow]="true" [castShadow]="true">
           <ngt-sphere-geometry [args]="[0.5]"></ngt-sphere-geometry>
-          <ngt-mesh-standard-material [parameters]="{ color: 'gray' | color }"></ngt-mesh-standard-material>
+          <ngt-mesh-standard-material color="gray"></ngt-mesh-standard-material>
         </ngt-mesh>
 
         <ngt-mesh [ref]="planetProps.ref"
                   [receiveShadow]="true" [castShadow]="true">
           <ngt-sphere-geometry [args]="[3.5]"></ngt-sphere-geometry>
-          <ngt-mesh-standard-material [parameters]="{ color: 'blue' | color }"></ngt-mesh-standard-material>
+          <ngt-mesh-standard-material color="blue"></ngt-mesh-standard-material>
         </ngt-mesh>`,
   providers: [NgtPhysicBody],
 

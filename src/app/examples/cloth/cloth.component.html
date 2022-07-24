@@ -1,7 +1,7 @@
 <div style="height:100vh">
-  <ngt-canvas [camera]="{ position: [4, 0, 4], fov: 55, near:1, far:1000 }"
-              shadows
-              [scene]="{ background: 'black' | color }">
+  <ngt-canvas [camera]="{ position: [4, 0, 4], fov: 55, near:1, far:1000 }" shadows>
+
+    <ngt-color attach="background" color="black"></ngt-color>
 
     <ngt-spot-light [position]="[10,10,10]"></ngt-spot-light>
     <ngt-spot-light [position]="[-10,10,-10]"></ngt-spot-light>

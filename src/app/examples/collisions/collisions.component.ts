@@ -11,34 +11,34 @@ import { NgtPhysicBody } from "@angular-three/cannon";
         <!-- sphere and sphere -->
         <ngt-mesh [ref]="sphere1Props.ref" [castShadow]="true">
           <ngt-sphere-geometry [args]="[0.5]"></ngt-sphere-geometry>
-          <ngt-mesh-standard-material [parameters]="{ color: 'red' | color }"></ngt-mesh-standard-material>
+          <ngt-mesh-standard-material color="red"></ngt-mesh-standard-material>
         </ngt-mesh>
 
         <ngt-mesh [ref]="sphere2Props.ref" [castShadow]="true">
           <ngt-sphere-geometry [args]="[0.5]"></ngt-sphere-geometry>
-          <ngt-mesh-standard-material [parameters]="{ color: 'red' | color }"></ngt-mesh-standard-material>
+          <ngt-mesh-standard-material color="red"></ngt-mesh-standard-material>
         </ngt-mesh>
 
         <!-- sphere and box-->
         <ngt-mesh [ref]="boxProps.ref" [castShadow]="true">
           <ngt-box-geometry></ngt-box-geometry>
-          <ngt-mesh-standard-material [parameters]="{ color: 'white' | color }"></ngt-mesh-standard-material>
+          <ngt-mesh-standard-material color="white"></ngt-mesh-standard-material>
         </ngt-mesh>
 
         <ngt-mesh [ref]="sphere3Props.ref" [castShadow]="true">
           <ngt-sphere-geometry [args]="[0.5]"></ngt-sphere-geometry>
-          <ngt-mesh-standard-material [parameters]="{ color: 'red' | color }"></ngt-mesh-standard-material>
+          <ngt-mesh-standard-material color="red"></ngt-mesh-standard-material>
         </ngt-mesh>
 
         <!-- sphere and cylinder -->
         <ngt-mesh [ref]="cylinderProps.ref" [castShadow]="true">
           <ngt-cylinder-geometry [args]="[0.5, 0.5, 1, 20]"></ngt-cylinder-geometry>
-          <ngt-mesh-standard-material [parameters]="{ color: 'blue' | color }"></ngt-mesh-standard-material>
+          <ngt-mesh-standard-material color="blue"></ngt-mesh-standard-material>
         </ngt-mesh>
 
         <ngt-mesh [ref]="sphere4Props.ref" [castShadow]="true">
           <ngt-sphere-geometry [args]="[0.5]"></ngt-sphere-geometry>
-          <ngt-mesh-standard-material [parameters]="{ color: 'red' | color }"></ngt-mesh-standard-material>
+          <ngt-mesh-standard-material color="red"></ngt-mesh-standard-material>
         </ngt-mesh>`,
   providers: [NgtPhysicBody],
 })

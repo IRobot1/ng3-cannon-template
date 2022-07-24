@@ -2,11 +2,11 @@ import { NgtCannonDebugModule, NgtPhysicsModule } from '@angular-three/cannon';
 
 import {
   NgtCanvasModule,
-  NgtColorPipeModule,
   NgtObjectPassThroughModule,
   NgtRadianPipeModule,
-  NgtVectorPipeModule,
 } from '@angular-three/core';
+
+
 import {
   NgtColorAttributeModule,
   NgtInstancedBufferAttributeModule,
@@ -287,9 +287,7 @@ import { Chassis, RaycastVehicleComponent, Wheel } from './components/raycast-ve
     NgtGroupModule,
     NgtObjectPassThroughModule,
 
-    NgtColorPipeModule,
     NgtRadianPipeModule,
-    NgtVectorPipeModule,
     NgtSidePipeModule,
 
     NgtBufferGeometryModule,

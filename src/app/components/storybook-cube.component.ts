@@ -16,7 +16,7 @@ import { NgtPhysicBody } from "@angular-three/cannon";
             [rotation]="rotation"
             [scale]="scale">
             <ngt-box-geometry></ngt-box-geometry>
-            <ngt-mesh-lambert-material [parameters]="{ color: color }"></ngt-mesh-lambert-material>
+            <ngt-mesh-lambert-material [color]="color"></ngt-mesh-lambert-material>
         </ngt-mesh>`,
   providers: [NgtPhysicBody],
 })

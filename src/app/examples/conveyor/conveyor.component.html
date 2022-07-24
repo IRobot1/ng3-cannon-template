@@ -1,7 +1,8 @@
 <div style="height:100vh">
-  <ngt-canvas [shadows]="true"
-              [camera]="{ position: [0, 10, 10], fov: 45 }"
-              [scene]="{ background: 'black' | color }">
+  <ngt-canvas [camera]="{ position: [0, 10, 10], fov: 45 }" shadows>
+
+    <ngt-color attach="background" color="black"></ngt-color>
+
     <ngt-ambient-light></ngt-ambient-light>
     <ngt-directional-light [position]="[10, 10, 10]" [castShadow]="true"></ngt-directional-light>
 
@@ -14,8 +15,7 @@
                         [color]="'white'">
         </storybook-cube>
 
-        <conveyor-volume
-                         [hiddeningame]="true"
+        <conveyor-volume [hiddeningame]="true"
                          [position]="[0,platformheight,0.5]"
                          [scale]="platformscale"
                          [rotation]="[0,-90 | radian,0]">

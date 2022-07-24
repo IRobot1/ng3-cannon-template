@@ -1,8 +1,9 @@
 <div style="height:100vh">
-  <ngt-canvas [camera]="{ position: [45, 20, 0], fov: 45, near:1, far:250 }"
-              [shadows]="true"
-              [scene]="{ background: 'gray' | color }">
-    <ngt-spot-light [args]="['white' | color]" [castShadow]="true"
+  <ngt-canvas [camera]="{ position: [45, 20, 0], fov: 45, near:1, far:250 }" shadows>
+
+    <ngt-color attach="background" color="gray"></ngt-color>
+
+    <ngt-spot-light [args]="['white' ]" [castShadow]="true"
                     [position]="[50, 50, 0]" [rotation]="[90 | radian, -45 | radian, 0]">
       <ngt-arrow-helper [scale]="2"></ngt-arrow-helper>
     </ngt-spot-light>

@@ -1,6 +1,8 @@
 <div style="height:100vh">
-  <ngt-canvas [camera]="{ position: [0, 0, 3], fov: 45, near:1, far:100 }"
-              [scene]="{ background: 'gray' | color }">
+  <ngt-canvas [camera]="{ position: [0, 0, 3], fov: 45, near:1, far:100 }">
+
+    <ngt-color attach="background" color="gray"></ngt-color>
+
     <ngt-ambient-light></ngt-ambient-light>
 
     <ngt-physics [gravity]="[0, 0, 0]">
