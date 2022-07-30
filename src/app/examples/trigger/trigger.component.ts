@@ -1,4 +1,4 @@
-import { AfterViewInit, Component } from "@angular/core";
+import { AfterViewInit, Component, ViewChild } from "@angular/core";
 
 import { Color, SpotLight } from "three";
 
@@ -6,6 +6,7 @@ import { NgtTriple } from "@angular-three/core";
 import { NgtSpotLight } from "@angular-three/core/lights";
 
 import { CollideBeginEvent, CollideEndEvent, CollideEvent, NgtPhysicBody } from "@angular-three/cannon";
+import { PhysicsSphereDirective } from "../../directives/physics-sphere.directive";
 
 @Component({
   selector: 'trigger-example',
@@ -13,16 +14,9 @@ import { CollideBeginEvent, CollideEndEvent, CollideEvent, NgtPhysicBody } from 
   providers: [NgtPhysicBody],
 })
 export class TriggerExample implements AfterViewInit {
-  showhelper = false;
+  @ViewChild('ball') ball!: PhysicsSphereDirective;
 
-  sphereProps = this.physicBody.useSphere(() => ({
-    mass: 1,
-    args: [1],
-    linearDamping: 0.5,
-    angularDamping: 0.5,
-    position: [0, 1, 7],
-    collisionFilterGroup: 2,
-  }));
+  showhelper = false;
 
   cubescale = [5, 2, 0.5] as NgtTriple;
 
@@ -40,7 +34,7 @@ export class TriggerExample implements AfterViewInit {
       this.spot.intensity = 1;
     },
     onCollideEnd: (event: CollideEndEvent) => {
-      const cleanup = this.sphereProps.api.position.subscribe(next => {
+      const cleanup = this.ball.body.api.position.subscribe(next => {
         console.log('The sphere exited the trigger at', next)
         cleanup();
       });
@@ -54,7 +48,7 @@ export class TriggerExample implements AfterViewInit {
 
   ngAfterViewInit(): void {
     // give it a push at the top so it will roll
-    this.sphereProps.api.applyImpulse([0, 0, -8], [0, 1, 0]);
+    this.ball.body.api.applyImpulse([0, 0, -8], [0, 1, 0]);
   }
 
   spot!: SpotLight;

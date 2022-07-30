@@ -1,10 +1,11 @@
-import { Component } from "@angular/core";
+import { AfterViewInit, Component, ViewChild } from "@angular/core";
 
 import { Object3D } from "three";
 
 import { NgtTriple } from "@angular-three/core";
 
 import { NgtPhysicBody, NgtPhysicConstraint, NgtPhysicBodyReturn } from "@angular-three/cannon";
+import { PhysicsSphereDirective } from "../../directives/physics-sphere.directive";
 
 
 @Component({
@@ -12,7 +13,10 @@ import { NgtPhysicBody, NgtPhysicConstraint, NgtPhysicBodyReturn } from "@angula
   templateUrl: './constraints-example.component.html',
   providers: [NgtPhysicBody, NgtPhysicConstraint],
 })
-export class ConstraintsExample {
+export class ConstraintsExample implements AfterViewInit {
+  @ViewChild('pendulumtop') pendulumtop!: PhysicsSphereDirective;
+  @ViewChild('pendulumbottom') pendulumbottom!: PhysicsSphereDirective;
+
   size = 0.5
   space = this.size * 0.1;
 
@@ -111,29 +115,13 @@ export class ConstraintsExample {
 
   pendulumsize = 0.8;
 
-  pentopposition!: NgtTriple;
-  penbottomposition!: NgtTriple;
+  pentopposition: NgtTriple = [5, this.pendulumsize * 10, 5];
+  penbottomposition: NgtTriple = [5, this.pendulumsize * 2, 5];
 
-  pendulumtop = this.physicBody.useSphere(() => ({
-    mass: 0,
-    position: this.pentopposition,
-    args: [this.pendulumsize],
-  }));
-
-  pendulumbottom = this.physicBody.useSphere(() => ({
-    mass: 1,
-    position: this.penbottomposition,
-    velocity: [0, 0, -5],
-    linearDamping: 0,
-    angularDamping: 0,
-    args: [this.pendulumsize],
-  }));
 
   private initpendulum() {
-    this.pentopposition = [5, this.pendulumsize * 10, 5]
-    this.penbottomposition = [5, this.pendulumsize * 2, 5]
 
-    this.physicConstraint.usePointToPointConstraint(this.pendulumtop.ref, this.pendulumbottom.ref, {
+    this.physicConstraint.usePointToPointConstraint(this.pendulumtop.body.ref, this.pendulumbottom.body.ref, {
       pivotA: [0, 0, 0],
       pivotB: [0, this.pendulumsize * 6, 0],
     })
@@ -219,9 +207,12 @@ export class ConstraintsExample {
   ) {
     this.initlocks();
     this.initlinks();
-    this.initpendulum();
     this.initchain();
     this.initcloth();
+  }
+
+  ngAfterViewInit(): void {
+    this.initpendulum();
   }
 }
 

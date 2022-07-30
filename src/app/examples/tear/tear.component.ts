@@ -58,12 +58,6 @@ export class TearExample {
 
   }
 
-  throwBallProps = this.physicBody.useSphere(() => ({
-    mass: 2,
-    args: [this.size],
-    position: [0, 3, 20],
-    velocity: [0, 0, -25],  // higher velocity to break links
-  }));
 }
 
 @Component({

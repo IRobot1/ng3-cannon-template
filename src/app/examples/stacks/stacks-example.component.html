@@ -1,5 +1,6 @@
 <!--sphere / compound-->
-<ngt-mesh [ref]="sphere1Props.ref" castShadow>
+<ngt-mesh physicsSphere sphereMass="1"
+          [position]="[0, 10, 4]" castShadow>
   <ngt-sphere-geometry></ngt-sphere-geometry>
   <ngt-mesh-standard-material color='white'></ngt-mesh-standard-material>
 </ngt-mesh>
@@ -12,7 +13,8 @@
 </ngt-group>
 
 <!--sphere / convex-->
-<ngt-mesh [ref]="sphere2Props.ref" castShadow>
+<ngt-mesh physicsSphere sphereMass="1"
+          [position]="[0, 10, 0]" castShadow>
   <ngt-sphere-geometry></ngt-sphere-geometry>
   <ngt-mesh-standard-material color='red'></ngt-mesh-standard-material>
 </ngt-mesh>

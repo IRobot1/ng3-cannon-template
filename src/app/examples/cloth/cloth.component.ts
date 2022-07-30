@@ -5,6 +5,7 @@ import { NgtLoader, NgtRenderState, NgtTriple } from "@angular-three/core";
 import { Float32BufferAttribute, Mesh, Object3D, Texture, TextureLoader } from "three";
 
 import { NgtPhysicBody, NgtPhysicConstraint, NgtPhysicBodyReturn } from "@angular-three/cannon";
+import { PhysicsSphereDirective } from "../../directives/physics-sphere.directive";
 
 
 class ClothNode {
@@ -113,12 +114,11 @@ export class ClothExample implements AfterViewInit {
     })
   }
 
-  sphereProps = this.physicBody.useSphere(() => ({
-    mass: 0,
-    args: [this.sphereSize]
-  }));
+  ball!: NgtPhysicBodyReturn<any>;
 
-
+  sphereReady(ball: PhysicsSphereDirective) {
+    this.ball = ball.body;
+  }
 
   recalcVertices() {
     const vertices: Array<number> = [];
@@ -136,7 +136,7 @@ export class ClothExample implements AfterViewInit {
 
     const movementRadius = 1;
     // Move the ball in a circular motion
-    this.sphereProps.api.position.set(0.1, movementRadius * Math.cos(clock.elapsedTime), movementRadius * Math.sin(clock.elapsedTime))
+    this.ball.api.position.set(0.1, movementRadius * Math.cos(clock.elapsedTime), movementRadius * Math.sin(clock.elapsedTime))
   }
 }
 

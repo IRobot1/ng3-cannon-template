@@ -6,34 +6,12 @@ import { NgtPhysicBody } from "@angular-three/cannon";
 
 @Component({
   selector:'collisionfilter-example',
-  template: `
-        <ngt-mesh [ref]="sphereProps.ref" [castShadow]="true">
-          <ngt-sphere-geometry [args]="[0.5]"></ngt-sphere-geometry>
-          <ngt-mesh-standard-material color="red"></ngt-mesh-standard-material>
-        </ngt-mesh>
-
-        <ngt-mesh [ref]="boxProps.ref" [castShadow]="true">
-          <ngt-box-geometry></ngt-box-geometry>
-          <ngt-mesh-standard-material color="white"></ngt-mesh-standard-material>
-        </ngt-mesh>
-
-        <ngt-mesh [ref]="cylinderProps.ref" [castShadow]="true">
-          <ngt-cylinder-geometry [args]="[0.5, 0.5, 1, 20]"></ngt-cylinder-geometry>
-          <ngt-mesh-standard-material color="blue"></ngt-mesh-standard-material>
-        </ngt-mesh>`,
+  templateUrl: 'collision_filter-example.component.html',
   providers: [NgtPhysicBody],
 
 })
 export class CollisionFilterExample {
-
-  sphereProps = this.physicBody.useSphere(() => ({
-      mass: 1,
-      position: [0, 0, 3] as NgtTriple,
-      velocity: [0, 0, -2] as NgtTriple,
-      collisionFilterGroup: 1,
-      collisionFilterMask: 2 | 4, // it can only collide with group 2 and 3
-      args: [0.5]
-  }));  
+  filterMask = 2 | 4;
 
   boxProps = this.physicBody.useBox(() => ({
       mass: 1,

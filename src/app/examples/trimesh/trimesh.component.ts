@@ -13,13 +13,6 @@ import { NgtPhysicBody } from "@angular-three/cannon";
 })
 export class TrimeshExample {
 
-  sphereProps = this.physicBody.useSphere(() => ({
-    mass: 1,
-    position: [0, 5, 0.1] as NgtTriple,
-    material: { restitution: 0.4 },
-    args: [0.5],
-    velocity: [1, 1, 0]
-  }));
 
   vertices!: ArrayLike<number>;
   indices!: ArrayLike<number>;

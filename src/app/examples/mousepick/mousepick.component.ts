@@ -7,9 +7,11 @@ import {
   tapEffect,
 } from '@angular-three/core';
 import { DOCUMENT } from '@angular/common';
-import { AfterViewInit, Component, Inject, NgZone } from '@angular/core';
+import { AfterViewInit, Component, Inject, NgZone, ViewChild } from '@angular/core';
 
 import { Camera, Mesh, Raycaster, Vector2, Vector3 } from 'three';
+
+import { PhysicsSphereDirective } from '../../directives/physics-sphere.directive';
 
 type PointerState = 'idle' | 'move';
 
@@ -21,6 +23,9 @@ type PointerState = 'idle' | 'move';
 export class MousePickExample
   extends NgtComponentStore<{ pointerState: PointerState }>
   implements AfterViewInit {
+
+  @ViewChild('marker') sphereProps!: PhysicsSphereDirective;
+
   sphereRadius = 0.2;
 
   boxProps = this.physicBody.useBox(() => ({
@@ -30,11 +35,6 @@ export class MousePickExample
     angularFactor: [0, 0, 0] as NgtTriple, // prevent it spinning while dragging
   }));
 
-  sphereProps = this.physicBody.useSphere(() => ({
-    mass: 0,
-    args: [this.sphereRadius],
-    collisionFilterGroup: 0,
-  }));
 
   constructor(
     private physicBody: NgtPhysicBody,
@@ -69,7 +69,7 @@ export class MousePickExample
 
       const constraint = this.physicConstraint.usePointToPointConstraint(
         this.boxProps.ref,
-        this.sphereProps.ref,
+        this.sphereProps.body.ref,
         {
           pivotA: [0, 0, 0],
           pivotB: [0, 0, 0],
@@ -173,7 +173,7 @@ export class MousePickExample
 
   // move mesh and body to new position
   private moveClickMarker(position: Vector3) {
-    this.sphereProps.api.position.copy(position);
+    this.sphereProps.body.api.position.copy(position);
   }
 }
 

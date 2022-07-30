@@ -1,6 +1,8 @@
 <ngt-torus-geometry #torus (ready)="ready(torus.instance.value)" [args]="[1, 0.9, 16, 16]"></ngt-torus-geometry>
 
-<ngt-mesh [ref]="sphereProps.ref" castShadow>
+<ngt-mesh [position]="[0, 5, 0.1]" castShadow
+          physicsSphere sphereMass="1" sphereMaterial="{ restitution: 0.4 }"
+          [sphereVelocity]="[1, 1, 0]">
   <ngt-sphere-geometry [args]="[0.5]"></ngt-sphere-geometry>
   <ngt-mesh-standard-material color='red'></ngt-mesh-standard-material>
 </ngt-mesh>

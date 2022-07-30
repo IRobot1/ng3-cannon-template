@@ -100,13 +100,6 @@ export class RigidBodyModelComponent {
   bodyProps = this.physicBody.useBox(() => ({
     mass: this.mass,
     args: this.bodyArgs,
-    offset: [0, -1, 0] as NgtTriple,  // center of mass
-  }));
-
-  wheelProps = this.physicBody.useSphere(() => ({
-      mass: this.mass,
-      args: [this.wheelRadius],
-      angularDamping: 0.4, // Some damping to not spin wheels too fast
   }));
 
 

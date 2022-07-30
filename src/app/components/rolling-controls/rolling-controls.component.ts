@@ -1,15 +1,16 @@
 import { Component, Input, OnDestroy } from '@angular/core';
 
-import { Mesh, Texture, Vector3 } from 'three';
+import { Mesh, Object3D, Texture, Vector3 } from 'three';
 
 import { NgtRenderState, NgtStore, NgtTriple } from '@angular-three/core';
 
-import { NgtPhysicBody } from '@angular-three/cannon';
+import { NgtPhysicBodyReturn } from '@angular-three/cannon';
+
+import { PhysicsSphereDirective } from '../../directives/physics-sphere.directive';
 
 @Component({
   selector: 'rolling-controls',
   templateUrl: 'rolling-controls.component.html',
-  providers: [NgtPhysicBody],
 })
 export class RollingControlsComponent implements OnDestroy {
   @Input() container: HTMLElement = document.body;
@@ -18,17 +19,8 @@ export class RollingControlsComponent implements OnDestroy {
   @Input() texture!: Texture;
   @Input() ballsize = 1;
 
-  ball = this.physicBody.useSphere(() => ({
-    mass: 1,
-    args: [this.ballsize],
-    position: [0, 1, 0] as NgtTriple,
-    angularDamping: 0.5,
-    linearDamping: 0.5,
-    onCollide: () => {
-      this.canJump = true;
-    }
-  }));
 
+  ball!: NgtPhysicBodyReturn<Object3D>;
 
   private keyStates = new Map<string, boolean>([]);
   private canJump = true;
@@ -37,7 +29,6 @@ export class RollingControlsComponent implements OnDestroy {
 
 
   constructor(
-    private physicBody: NgtPhysicBody,
     private store: NgtStore,
   ) { }
 
@@ -45,13 +36,15 @@ export class RollingControlsComponent implements OnDestroy {
     this.cleanup();
   }
 
-  ready(mesh: Mesh) {
-    const camera = this.store.get((s) => s.camera);
-    camera.rotation.order = 'YXZ';
+  onCollide(e: any) {
+    if (e.body.name == 'floor')
+      this.canJump = true;
+  }
 
-    // move camera relative to ball 
-    camera.position.copy(mesh.position.clone().add(new Vector3(this.cameraoffset[0], this.cameraoffset[1], 0)));
-    camera.lookAt(mesh.position);
+  ballReady(sphere: PhysicsSphereDirective) {
+    this.ball = sphere.body;
+
+    const camera = this.store.get((s) => s.camera);
 
     // move the camera as the ball change position
     this.ball.api.position.subscribe(next => {
@@ -86,11 +79,22 @@ export class RollingControlsComponent implements OnDestroy {
     }
   }
 
+  ready(mesh: Mesh) {
+
+    const camera = this.store.get((s) => s.camera);
+    camera.rotation.order = 'YXZ';
+
+    // move camera relative to ball 
+    camera.position.copy(mesh.position.clone().add(new Vector3(this.cameraoffset[0], this.cameraoffset[1], 0)));
+    camera.lookAt(mesh.position);
+
+  }
+
   private playerTorque = new Vector3();
 
   private jump() {
     if (this.canJump) {
-      this.ball.api.applyImpulse([0, 10, 0], [0, 1, 0]);
+      this.ball.api.applyImpulse([0, 5, 0], [0, 1, 0]);
       this.canJump = false;
     }
   }
@@ -120,6 +124,7 @@ export class RollingControlsComponent implements OnDestroy {
 
 
   animate({ delta }: NgtRenderState) {
-    this.moveBall(delta * this.movespeed);  // check for input
+    if (this.ball)
+      this.moveBall(delta * this.movespeed);  // check for input
   }
 }

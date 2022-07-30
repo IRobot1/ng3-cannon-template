@@ -1,0 +1,12 @@
+<ngt-mesh [position]="[0, 0, distance]"
+          #moon ="physicsSphere" physicsSphere sphereMass="1" sphereLinearDamping="0"
+          (sphereReady)="moonReady(moon)"
+          receiveShadow castShadow>
+  <ngt-sphere-geometry [args]="[0.5]"></ngt-sphere-geometry>
+  <ngt-mesh-standard-material color="gray"></ngt-mesh-standard-material>
+</ngt-mesh>
+
+<ngt-mesh physicsSphere receiveShadow castShadow>
+  <ngt-sphere-geometry [args]="[3.5]"></ngt-sphere-geometry>
+  <ngt-mesh-standard-material color="blue"></ngt-mesh-standard-material>
+</ngt-mesh>

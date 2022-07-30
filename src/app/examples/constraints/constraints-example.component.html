@@ -23,11 +23,15 @@
 
 
 <!--sphere pendulum-->
-<ngt-mesh [ref]="pendulumtop.ref" [position]="pentopposition" castShadow>
+<ngt-mesh [position]="pentopposition" castShadow
+          #pendulumtop="physicsSphere" physicsSphere>
   <ngt-sphere-geometry [args]="[pendulumsize]"></ngt-sphere-geometry>
   <ngt-mesh-standard-material color="white"></ngt-mesh-standard-material>
 </ngt-mesh>
-<ngt-mesh [ref]="pendulumbottom.ref" [position]="penbottomposition" castShadow>
+<ngt-mesh [position]="penbottomposition" castShadow
+          #pendulumbottom="physicsSphere" physicsSphere sphereMass="1"
+          sphereLinearDamping="0" sphereAngularDamping="0"
+          [sphereVelocity]="[0, 0, -5]">
   <ngt-sphere-geometry [args]="[pendulumsize]"></ngt-sphere-geometry>
   <ngt-mesh-standard-material color="red"></ngt-mesh-standard-material>
 </ngt-mesh>

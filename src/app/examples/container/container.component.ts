@@ -1,13 +1,13 @@
 import { Component } from "@angular/core";
 
-import { Color, Object3D } from "three";
+import { Color } from "three";
 import { NgtTriple } from "@angular-three/core";
 
-import { NgtPhysicBody, NgtPhysicBodyReturn } from "@angular-three/cannon";
+import { NgtPhysicBody } from "@angular-three/cannon";
 import { ContactMaterialOptions } from "@pmndrs/cannon-worker-api";
 
 class ContainerSphere {
-  constructor(public body: NgtPhysicBodyReturn<Object3D>, public color: Color) { }
+  constructor(public position: NgtTriple, public color: Color) { }
 }
 
 @Component({
@@ -35,20 +35,7 @@ export class ContainerExample {
             j * 2 - ny * 0.5 + (Math.random() - 0.5) * randRange
           ] as NgtTriple;
 
-          const sphereProps = this.physicBody.useSphere(() => ({
-            mass: 1,
-            args: [this.spheresize],
-            material: {
-              friction: 0.3,
-              restitution: 0.2,
-            },
-            allowSleep: true,
-            sleepTimeLimit: 0.1,
-            sleepSpeedLimit: 0.1,
-            position: position
-          }));
-
-          this.spheres.push(new ContainerSphere(sphereProps, new Color().setHex(Math.random() * 0xffffff)));
+          this.spheres.push(new ContainerSphere(position, new Color().setHex(Math.random() * 0xffffff)));
         }
       }
     }

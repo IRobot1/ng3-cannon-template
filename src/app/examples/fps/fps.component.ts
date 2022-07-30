@@ -6,8 +6,10 @@ import { NgtCamera, NgtState, NgtTriple } from "@angular-three/core";
 
 import { NgtPhysicBody, NgtPhysicBodyReturn } from "@angular-three/cannon";
 
+import { PhysicsSphereDirective } from "../../directives/physics-sphere.directive";
+
 class Projectile {
-  constructor(public body: NgtPhysicBodyReturn<Object3D>, public ttl: number = 30) { }
+  constructor(public position: NgtTriple, public velocity: NgtTriple, public ttl: number = 30) { }
 }
 class Target {
   constructor(public body: NgtPhysicBodyReturn<Object3D>, public color: Color) { }
@@ -67,11 +69,6 @@ export class FPSExample implements AfterViewInit, OnDestroy {
   }
 
 
-  player = this.physicBody.useSphere(() => ({
-    mass: 0,
-    args: [this.playerRadius]
-  }));
-
   private getShootDirection(): Vector3 {
     const vector = new Vector3(0, 0, 1)
     vector.unproject(this.camera)
@@ -91,21 +88,15 @@ export class FPSExample implements AfterViewInit, OnDestroy {
     ] as NgtTriple;
 
     const velocity = shootDirection.multiplyScalar(10).toArray();
-    const ball = this.physicBody.useSphere(() => ({
-      mass: 2,
-      args: [this.ballRadius],
-      position: position,
-      velocity: velocity
-    }));
 
-    this.projectiles.push(new Projectile(ball));
+    this.projectiles.push(new Projectile(position, velocity));
 
     // if setInterval is removed above, need to uncomment for ball to appear
     // this.cd.detectChanges();
   }
 
-  tick() {
-    this.player.api.position.copy(this.camera.position);
+  tick(player: PhysicsSphereDirective) {
+    player.body.api.position.copy(this.camera.position);
   }
 }
 

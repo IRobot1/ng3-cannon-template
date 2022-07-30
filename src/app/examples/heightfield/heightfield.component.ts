@@ -1,8 +1,9 @@
 import { Component } from "@angular/core";
 
-import { Object3D, Vector3 } from "three";
+import { Vector3 } from "three";
 
-import { NgtPhysicBody, NgtPhysicBodyReturn } from "@angular-three/cannon";
+import { NgtPhysicBody } from "@angular-three/cannon";
+import { NgtTriple } from "@angular-three/core";
 
 @Component({
   selector: 'heightfield-example',
@@ -12,7 +13,7 @@ import { NgtPhysicBody, NgtPhysicBodyReturn } from "@angular-three/cannon";
 export class HeightfieldExample {
 
   spheresize = 0.2;
-  spheres: Array<NgtPhysicBodyReturn<Object3D>> = [];
+  spheres: Array<NgtTriple> = [];
 
   heights: Array<Array<number>> = [];
   elementSize = 1;
@@ -44,14 +45,8 @@ export class HeightfieldExample {
           continue
         }
 
-        let position = new Vector3(i + 0.25, 3, -j + 0.25 - 1).add(this.position);
-        const body = this.physicBody.useSphere(() => ({
-          mass: 1,
-          args: [this.spheresize],
-          position: [position.x, position.y, position.z]
-        }));
-
-        this.spheres.push(body);
+        let position = new Vector3(i + 0.25, 3, -j + 0.25 - 1).add(this.position).toArray();
+        this.spheres.push(position);
       }
     }
   }

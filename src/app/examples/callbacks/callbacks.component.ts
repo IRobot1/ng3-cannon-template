@@ -3,23 +3,13 @@ import { AfterViewInit, Component, NgZone } from "@angular/core";
 import { Vector3 } from "three";
 import { NgtComponentStore, tapEffect } from "@angular-three/core";
 
-import { NgtPhysicBody } from "@angular-three/cannon";
+import { NgtPhysicBodyReturn } from "@angular-three/cannon";
+
+import { PhysicsSphereDirective } from "../../directives/physics-sphere.directive";
 
 @Component({
   selector: 'callbacks-example',
-  template: `
-        <ngt-mesh [ref]="moonProps.ref"
-                  [receiveShadow]="true" [castShadow]="true">
-          <ngt-sphere-geometry [args]="[0.5]"></ngt-sphere-geometry>
-          <ngt-mesh-standard-material color="gray"></ngt-mesh-standard-material>
-        </ngt-mesh>
-
-        <ngt-mesh [ref]="planetProps.ref"
-                  [receiveShadow]="true" [castShadow]="true">
-          <ngt-sphere-geometry [args]="[3.5]"></ngt-sphere-geometry>
-          <ngt-mesh-standard-material color="blue"></ngt-mesh-standard-material>
-        </ngt-mesh>`,
-  providers: [NgtPhysicBody],
+  templateUrl: 'callbacks-example.component.html',
 
 })
 export class CallbacksExample
@@ -28,29 +18,22 @@ export class CallbacksExample
 
   constructor(
     private zone: NgZone,
-    private physicBody: NgtPhysicBody
   ) {
     super();
   }
 
   distance = 5;
 
-  moonProps = this.physicBody.useSphere(() => ({
-    mass: 1,
-    args: [0.5],
-    linearDamping: 0,
-    position: [0, 0, this.distance],
-  }));
-
-  planetProps = this.physicBody.useSphere(() => ({
-    mass: 0,
-    args: [3.5]
-  }));
+  moonProps!:  NgtPhysicBodyReturn<any>;
 
   ngAfterViewInit(): void {
     this.zone.runOutsideAngular(() => {
       this.orbit();
     });
+  }
+
+  moonReady(moon: PhysicsSphereDirective) {
+    this.moonProps = moon.body;
   }
 
   readonly orbit = this.effect<void>(

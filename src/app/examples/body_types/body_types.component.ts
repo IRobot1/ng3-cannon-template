@@ -10,12 +10,6 @@ import { NgtPhysicBody } from "@angular-three/cannon";
 export class BodyTypesExample implements AfterViewInit, OnDestroy {
   spheresize = 0.5;
 
-  sphereRef = this.physicBody.useSphere(() => ({
-    mass: 1,
-    args: [this.spheresize],
-    position: [0, 1, 0]
-  }));
-
   boxRef = this.physicBody.useBox(() => ({
     type:'Kinematic',
     mass: 0,

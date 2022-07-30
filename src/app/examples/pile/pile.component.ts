@@ -1,13 +1,16 @@
 import { Component, OnDestroy } from "@angular/core";
 
-import { Color, Object3D } from "three";
+import { Color } from "three";
 
 import { NgtTriple } from "@angular-three/core";
 
-import { NgtPhysicBody, NgtPhysicBodyReturn } from "@angular-three/cannon";
+import { NgtPhysicBody } from "@angular-three/cannon";
+import { PhysicsSphereDirective } from "../../directives/physics-sphere.directive";
 
 class ContainerSphere {
-  constructor(public body: NgtPhysicBodyReturn<Object3D>, public color: Color) { }
+  public sphere!: PhysicsSphereDirective;
+
+  constructor(public position: NgtTriple, public color: Color) { }
 }
 
 @Component({
@@ -33,20 +36,14 @@ export class PileExample implements OnDestroy {
       ] as NgtTriple;
 
       if (this.spheres.length < max) {
-        const body = this.physicBody.useSphere(() => ({
-          mass: 1,
-          args: [this.spheresize],
-          position: position,
-        }));
-
-        this.spheres.push(new ContainerSphere(body, new Color().setHex(Math.random() * 0xffffff)));
+        this.spheres.push(new ContainerSphere(position, new Color().setHex(Math.random() * 0xffffff)));
         i++;
       } else {
         if (i < max - 1)
           i++;
         else
           i = 0;
-        this.spheres[i].body.api.position.set(position[0], position[1], position[2]);
+        this.spheres[i].sphere.body.api.position.set(position[0], position[1], position[2]);
       }
     }, 100)
   }

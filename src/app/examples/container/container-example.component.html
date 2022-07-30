@@ -1,9 +1,12 @@
 <ngt-plane-geometry #plane noAttach></ngt-plane-geometry>
 <ngt-mesh-standard-material #standard [transparent]="true" [opacity]="0" noAttach></ngt-mesh-standard-material>
 
-<ngt-mesh *ngFor="let cube of spheres" [ref]="cube.body.ref" castShadow>
+<ngt-mesh *ngFor="let item of spheres"
+          physicsSphere sphereMass="1" sphereMaterial="{ friction: 0.3, restitution: 0.2 }"
+          sphereAllowSleep="true" sphereSleepTimeLimit="0.1" sphereSleepSpeedLimit="0.1"
+          [position]="item.position" castShadow>
   <ngt-sphere-geometry></ngt-sphere-geometry>
-  <ngt-mesh-standard-material [color]="cube.color"></ngt-mesh-standard-material>
+  <ngt-mesh-standard-material [color]="item.color"></ngt-mesh-standard-material>
 </ngt-mesh>
 
 <!--walls-->

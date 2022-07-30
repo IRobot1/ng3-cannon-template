@@ -1,4 +1,6 @@
-<ngt-mesh #sphere [name]="'sphere'" [ref]="sphereProps.ref" castShadow>
+<ngt-mesh #sphere [name]="'sphere'" [position]="[0, 1, 7]" castShadow
+          #ball="physicsSphere" physicsSphere sphereMass="1" collisionFilterGroup="2"
+          sphereLinearDamping="0.5" sphereAngularDamping="0.5">
   <ngt-sphere-geometry [args]="[1, 8, 8]"></ngt-sphere-geometry>
   <ngt-mesh-standard-material color='gray'></ngt-mesh-standard-material>
 </ngt-mesh>

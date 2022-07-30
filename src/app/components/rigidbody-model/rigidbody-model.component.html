@@ -4,22 +4,22 @@
   <ngt-mesh-standard-material [color]="bodycolor"></ngt-mesh-standard-material>
 </ngt-mesh>
 
-<ngt-mesh [ref]="wheelProps.ref" [position]="leftfrontposition">
+<ngt-mesh physicsSphere [sphereMass]="mass" sphereAngularDamping="0.4" [position]="leftfrontposition">
   <ngt-sphere-geometry [args]="[wheelRadius, 8, 8]"></ngt-sphere-geometry>
   <ngt-mesh-standard-material [color]="wheelcolor"></ngt-mesh-standard-material>
 </ngt-mesh>
 
-<ngt-mesh [ref]="wheelProps.ref"  [position]="rightfrontposition">
+<ngt-mesh physicsSphere [sphereMass]="mass" sphereAngularDamping="0.4"  [position]="rightfrontposition">
   <ngt-sphere-geometry [args]="[wheelRadius, 8, 8]"></ngt-sphere-geometry>
   <ngt-mesh-standard-material [color]="wheelcolor"></ngt-mesh-standard-material>
 </ngt-mesh>
 
-<ngt-mesh [ref]="wheelProps.ref" [position]="leftbackposition">
+<ngt-mesh physicsSphere [sphereMass]="mass" sphereAngularDamping="0.4"  [position]="leftbackposition">
   <ngt-sphere-geometry [args]="[wheelRadius, 8, 8]"></ngt-sphere-geometry>
   <ngt-mesh-standard-material [color]="wheelcolor"></ngt-mesh-standard-material>
 </ngt-mesh>
 
-<ngt-mesh [ref]="wheelProps.ref" [position]="rightbackposition">
+<ngt-mesh physicsSphere [sphereMass]="mass" sphereAngularDamping="0.4"  [position]="rightbackposition">
   <ngt-sphere-geometry [args]="[wheelRadius, 8, 8]"></ngt-sphere-geometry>
   <ngt-mesh-standard-material [color]="wheelcolor"></ngt-mesh-standard-material>
 </ngt-mesh>

@@ -1,32 +1,33 @@
 <!--sleep-->
-<ngt-mesh [name]="'sleepy'"
-          [ref]="sphere1Props.ref" castShadow>
+<ngt-mesh [name]="'sleepy'" [position]="[0, 2, 0]" castShadow
+          physicsSphere sphereMass="1" sphereSleepSpeedLimit="0.1" sphereSleepTimeLimit="1">
   <ngt-sphere-geometry></ngt-sphere-geometry>
   <ngt-mesh-standard-material color='red'></ngt-mesh-standard-material>
 </ngt-mesh>
 
 <!--wake up when hit-->
-<ngt-mesh [name]="'velocity waker white'"
-          [ref]="sphereWakerProps.ref" castShadow>
+<ngt-mesh [name]="'velocity waker white'" [position]="[-3, 1, 0]" castShadow
+          physicsSphere sphereMass="1" [sphereVelocity]="[0, 0, 1]">
   <ngt-sphere-geometry></ngt-sphere-geometry>
   <ngt-mesh-standard-material color='white'></ngt-mesh-standard-material>
 </ngt-mesh>
 
-<ngt-mesh [name]="'velocity sleeper blue'"
-          [ref]="sleeper.ref" castShadow>
+<ngt-mesh [name]="'velocity sleeper blue'" [position]="[-3, 1, 4]" castShadow
+          #sleeper="physicsSphere" physicsSphere sphereMass="1"
+          (sphereCollide)="sleepCollide($event)">
   <ngt-sphere-geometry></ngt-sphere-geometry>
   <ngt-mesh-standard-material color='blue'></ngt-mesh-standard-material>
 </ngt-mesh>
 
 <!--wake up with impulse-->
-<ngt-mesh [name]="'impulse waker gray'"
-          [ref]="impulse.ref" castShadow>
+<ngt-mesh [name]="'impulse waker gray'" [position]="[-6, 1, 0]" castShadow
+          #impulse="physicsSphere" physicsSphere sphereMass="1">
   <ngt-sphere-geometry></ngt-sphere-geometry>
   <ngt-mesh-standard-material color='gray'></ngt-mesh-standard-material>
 </ngt-mesh>
 
-<ngt-mesh [name]="'impulse sleeper orange'"
-          [ref]="sphereSleeper2Props.ref" castShadow>
+<ngt-mesh [name]="'impulse sleeper orange'" [position]="[-6, 1, 4]" castShadow
+          physicsSphere sphereMass="1" (sphereCollide)="sleepCollide($event)">
   <ngt-sphere-geometry></ngt-sphere-geometry>
   <ngt-mesh-standard-material color='orange'></ngt-mesh-standard-material>
 </ngt-mesh>

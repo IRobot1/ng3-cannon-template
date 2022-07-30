@@ -178,6 +178,7 @@ import { HeightFieldGeometryComponent } from './examples/heightfield/heightfield
 import { NgtSidePipeModule } from '@angular-three/core';
 import { Chassis, RaycastVehicleComponent, Wheel } from './components/raycast-vehicle/raycast-vehicle.component';
 import { PhysicsPlaneDirective } from './directives/physics-plane.directive';
+import { PhysicsSphereDirective } from './directives/physics-sphere.directive';
 
 @NgModule({
   declarations: [
@@ -185,6 +186,7 @@ import { PhysicsPlaneDirective } from './directives/physics-plane.directive';
     HomeComponent,
 
     PhysicsPlaneDirective,
+    PhysicsSphereDirective,
 
     RollingComponent,
     RollingExampleComponent, 

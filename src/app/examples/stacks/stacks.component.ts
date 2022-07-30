@@ -60,18 +60,6 @@ export class StacksExample {
 
   }
 
-  sphere1Props = this.physicBody.useSphere(() => ({
-    mass: 1,
-    args: [1],
-    position: [0, 10, 4],
-  }));
-
-  sphere2Props = this.physicBody.useSphere(() => ({
-    mass: 1,
-    args: [1],
-    position: [0, 10, 0],
-  }));
-
   boxProps = this.physicBody.useBox(() => ({
     mass: 1,
     args: [this.cubesize, this.cubesize, this.cubesize],

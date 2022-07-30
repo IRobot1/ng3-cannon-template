@@ -1,35 +1,41 @@
 <!--Center Impulse-->
-<ngt-mesh [ref]="ci.ref" castShadow>
+<ngt-mesh [position]="[-6, 0, 0]" castShadow
+          #ci="physicsSphere" physicsSphere sphereMass="1" sphereLinearDamping="0.5" sphereAngularDamping="0.5">
   <ngt-sphere-geometry></ngt-sphere-geometry>
   <ngt-mesh-standard-material color='red'></ngt-mesh-standard-material>
 </ngt-mesh>
 
 <!--Top Impulse-->
-<ngt-mesh [ref]="ti.ref" castShadow>
+<ngt-mesh [position]="[-4, 0, 0]" castShadow
+          #ti="physicsSphere" physicsSphere sphereMass="1" sphereLinearDamping="0.5" sphereAngularDamping="0.5">
   <ngt-sphere-geometry></ngt-sphere-geometry>
   <ngt-mesh-standard-material [map]="texture"></ngt-mesh-standard-material>
 </ngt-mesh>
 
 <!--Center Force-->
-<ngt-mesh [ref]="cf.ref" castShadow>
+<ngt-mesh [position]="[-2, 0, 0]" castShadow
+          #cf="physicsSphere" physicsSphere sphereMass="1" sphereLinearDamping="0.5" sphereAngularDamping="0.5">
   <ngt-sphere-geometry></ngt-sphere-geometry>
   <ngt-mesh-standard-material color='blue'></ngt-mesh-standard-material>
 </ngt-mesh>
 
 <!--Top Force-->
-<ngt-mesh [ref]="tf.ref" castShadow>
+<ngt-mesh castShadow
+          #tf="physicsSphere" physicsSphere sphereMass="1" sphereLinearDamping="0.5" sphereAngularDamping="0.5">
   <ngt-sphere-geometry></ngt-sphere-geometry>
   <ngt-mesh-standard-material [map]="texture"></ngt-mesh-standard-material>
 </ngt-mesh>
 
 <!--Local Force-->
-<ngt-mesh [ref]="lf.ref" castShadow>
+<ngt-mesh [position]="[2, 0, 0]" [sphereRotation]="[3.14, 0, 0]" castShadow
+          #lf="physicsSphere" physicsSphere sphereMass="1" sphereLinearDamping="0.5" sphereAngularDamping="0.5">
   <ngt-sphere-geometry></ngt-sphere-geometry>
   <ngt-mesh-standard-material [map]="texture"></ngt-mesh-standard-material>
 </ngt-mesh>
 
 <!--Torque-->
-<ngt-mesh [ref]="torque.ref" castShadow>
+<ngt-mesh [position]="[4, 0, 0]" castShadow
+          #torque="physicsSphere" physicsSphere sphereMass="1" sphereLinearDamping="0.5" sphereAngularDamping="0.5">
   <ngt-sphere-geometry></ngt-sphere-geometry>
   <ngt-mesh-standard-material [map]="texture"></ngt-mesh-standard-material>
 </ngt-mesh>
