@@ -177,11 +177,14 @@ import {
 import { HeightFieldGeometryComponent } from './examples/heightfield/heightfield-geometry.component';
 import { NgtSidePipeModule } from '@angular-three/core';
 import { Chassis, RaycastVehicleComponent, Wheel } from './components/raycast-vehicle/raycast-vehicle.component';
+import { PhysicsPlaneDirective } from './directives/physics-plane.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
+
+    PhysicsPlaneDirective,
 
     RollingComponent,
     RollingExampleComponent, 
