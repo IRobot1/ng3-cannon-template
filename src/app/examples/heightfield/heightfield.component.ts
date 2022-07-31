@@ -3,7 +3,7 @@ import { Component } from "@angular/core";
 import { Vector3 } from "three";
 
 import { NgtPhysicBody } from "@angular-three/cannon";
-import { NgtTriple } from "@angular-three/core";
+import { make, NgtTriple } from "@angular-three/core";
 
 @Component({
   selector: 'heightfield-example',
@@ -18,7 +18,7 @@ export class HeightfieldExample {
   heights: Array<Array<number>> = [];
   elementSize = 1;
 
-  private position!: Vector3;
+  position: NgtTriple = [-7.5, 0, 7.5];
 
   constructor(private physicBody: NgtPhysicBody) {
     const sizeX = 15
@@ -36,7 +36,7 @@ export class HeightfieldExample {
       }
     }
 
-    this.position = new Vector3(0, 0, 7.5)
+    const position = make(Vector3, this.position);
 
     // Add spheres
     for (let i = 0; i < sizeX - 1; i++) {
@@ -45,8 +45,7 @@ export class HeightfieldExample {
           continue
         }
 
-        let position = new Vector3(i + 0.25, 3, -j + 0.25 - 1).add(this.position).toArray();
-        this.spheres.push(position);
+        this.spheres.push(new Vector3(i + 0.25, 3, -j + 0.25 - 1).add(position).toArray());
       }
     }
   }
@@ -56,7 +55,7 @@ export class HeightfieldExample {
     // https://pmndrs.github.io/cannon-es/docs/classes/Heightfield.html#constructor
     args: [this.heights, { elementSize: this.elementSize }],
     rotation: [-1.57, 0, 0],
-    position: [this.position.x, this.position.y, this.position.z],
+    position: this.position,
   }));
 
 }
