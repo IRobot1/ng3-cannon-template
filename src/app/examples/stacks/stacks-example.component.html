@@ -5,7 +5,7 @@
   <ngt-mesh-standard-material color='white'></ngt-mesh-standard-material>
 </ngt-mesh>
 
-<ngt-group [ref]="boxCompound1Props.ref" >
+<ngt-group [ref]="boxCompound1Props.ref">
   <ngt-mesh *ngFor="let position of cubes" [position]="position" [scale]="cubesize" castShadow>
     <ngt-box-geometry></ngt-box-geometry>
     <ngt-mesh-standard-material color='blue'></ngt-mesh-standard-material>
@@ -26,9 +26,8 @@
 </ngt-mesh>
 
 <!--box / compound-->
-<ngt-mesh [ref]="boxProps.ref"
-          castShadow [scale]="[cubesize, cubesize, cubesize]" >
-  <ngt-box-geometry></ngt-box-geometry>
+<ngt-mesh physicsBox boxMass="1" [position]="[0, 10, -6]" castShadow>
+  <ngt-box-geometry [args]="[cubesize, cubesize, cubesize]"></ngt-box-geometry>
   <ngt-mesh-standard-material color='white'></ngt-mesh-standard-material>
 </ngt-mesh>
 

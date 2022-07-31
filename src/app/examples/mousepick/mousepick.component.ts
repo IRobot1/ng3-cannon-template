@@ -1,15 +1,15 @@
-import { NgtPhysicBody, NgtPhysicConstraint } from '@angular-three/cannon';
+import { NgtPhysicConstraint } from '@angular-three/cannon';
 
 import {
   NgtComponentStore,
   NgtStore,
-  NgtTriple,
   tapEffect,
 } from '@angular-three/core';
 import { DOCUMENT } from '@angular/common';
 import { AfterViewInit, Component, Inject, NgZone, ViewChild } from '@angular/core';
 
 import { Camera, Mesh, Raycaster, Vector2, Vector3 } from 'three';
+import { PhysicsBoxDirective } from '../../directives/physics-box.directive';
 
 import { PhysicsSphereDirective } from '../../directives/physics-sphere.directive';
 
@@ -18,26 +18,18 @@ type PointerState = 'idle' | 'move';
 @Component({
   selector: 'mousepick-example',
   templateUrl: './mousepick-example.component.html',
-  providers: [NgtPhysicBody, NgtPhysicConstraint],
+  providers: [NgtPhysicConstraint],
 })
 export class MousePickExample
   extends NgtComponentStore<{ pointerState: PointerState }>
   implements AfterViewInit {
 
   @ViewChild('marker') sphereProps!: PhysicsSphereDirective;
+  @ViewChild('box') boxProps!: PhysicsBoxDirective;
 
   sphereRadius = 0.2;
 
-  boxProps = this.physicBody.useBox(() => ({
-    mass: 1,
-    args: [1, 1, 1],
-    position: [0, 3, 0],
-    angularFactor: [0, 0, 0] as NgtTriple, // prevent it spinning while dragging
-  }));
-
-
   constructor(
-    private physicBody: NgtPhysicBody,
     private physicConstraint: NgtPhysicConstraint,
     private store: NgtStore,
     private zone: NgZone,
@@ -68,7 +60,7 @@ export class MousePickExample
       const camera = this.store.get((s) => s.camera);
 
       const constraint = this.physicConstraint.usePointToPointConstraint(
-        this.boxProps.ref,
+        this.boxProps.body.ref,
         this.sphereProps.body.ref,
         {
           pivotA: [0, 0, 0],
@@ -83,7 +75,7 @@ export class MousePickExample
         const hitPoint = this.getHitPoint(
           event.clientX,
           event.clientY,
-          this.boxProps.ref.value as Mesh,
+          this.boxProps.body.ref.value as Mesh,
           camera
         );
 

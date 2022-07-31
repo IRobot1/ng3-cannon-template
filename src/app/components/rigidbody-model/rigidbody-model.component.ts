@@ -4,8 +4,6 @@ import { Vector3 } from "three";
 
 import { NgtEuler, NgtTriple } from "@angular-three/core";
 
-import { NgtPhysicBody } from "@angular-three/cannon";
-
 class RigidVehicle {
   setWheelForce(value: number, wheelIndex: number) { }
   setSteeringValue(value: number, wheelIndex: number) { }
@@ -15,7 +13,6 @@ class RigidVehicle {
 @Component({
   selector: 'rigidbody-model',
   templateUrl: 'rigidbody-model.component.html',
-  providers: [NgtPhysicBody],
 })
 export class RigidBodyModelComponent {
   @Input() name = 'rigidbody';
@@ -97,13 +94,8 @@ export class RigidBodyModelComponent {
     this.rightbackposition = new Vector3(2.5, this.wheelRadius, -this.axisWidth / 2).add(position).add(this.centerOfMassAdjust);
   }
 
-  bodyProps = this.physicBody.useBox(() => ({
-    mass: this.mass,
-    args: this.bodyArgs,
-  }));
 
-
- constructor(private physicBody: NgtPhysicBody) { 
+ constructor() { 
     this.updatePositions(new Vector3(this.position[0], this.position[1], this.position[2]));
   }
 

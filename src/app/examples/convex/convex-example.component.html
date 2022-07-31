@@ -28,7 +28,9 @@
 </ngt-mesh>
 
 <!--convex box-->
-<ngt-mesh *ngFor="let cube of cubes" [ref]="cube.body.ref"
+<ngt-mesh *ngFor="let position of cubes" [position]="position"
+          physicsBox boxMass="1" boxAllowSleep="true"
+          boxSleepTimeLimit="0.1" boxSleepSpeedLimit="0.1"
           castShadow [geometry]="box.instance.value">
   <ngt-mesh-standard-material color="blue"></ngt-mesh-standard-material>
 </ngt-mesh>

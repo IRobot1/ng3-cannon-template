@@ -1,0 +1,12 @@
+<ngt-mesh [position]="[0, 2, 1]" castShadow
+          physicsBox boxMass="1" [boxMaterial]="{ friction: 0.1 }" [boxVelocity]="[0, 0, -1]">
+  <ngt-box-geometry></ngt-box-geometry>
+  <ngt-mesh-standard-material color='red'></ngt-mesh-standard-material>
+</ngt-mesh>
+
+<ngt-mesh [position]="[0, 2, -1]" castShadow
+          physicsBox boxMass="1" [boxMaterial]="{ friction: 0.001 }" [boxVelocity]="[0, 0, -1]">
+  <ngt-box-geometry></ngt-box-geometry>
+  <ngt-mesh-standard-material color='blue'></ngt-mesh-standard-material>
+</ngt-mesh>
+

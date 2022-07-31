@@ -1,15 +1,15 @@
 <!--movement plane-->
-<ngt-mesh
-  (ready)="movementPlane = $event"
-  [visible]="false"
-  [rotation]="[0, 90 | radian, 0]"
->
+<ngt-mesh (ready)="movementPlane = $event"
+          [visible]="false"
+          [rotation]="[0, 90 | radian, 0]">
   <ngt-plane-geometry [args]="[100, 100]"></ngt-plane-geometry>
   <ngt-mesh-standard-material></ngt-mesh-standard-material>
 </ngt-mesh>
 
-<!--cube that's dragged-->
-<ngt-mesh [ref]="boxProps.ref" castShadow>
+<!--cube that's dragged, prevent it spinning while dragging-->
+<ngt-mesh [position]="[0, 3, 0]" castShadow
+          [boxAngularFactor]="[0, 0, 0]"
+          #box="physicsBox" physicsBox boxMass="1">
   <ngt-box-geometry></ngt-box-geometry>
   <ngt-mesh-standard-material color="blue"></ngt-mesh-standard-material>
 </ngt-mesh>

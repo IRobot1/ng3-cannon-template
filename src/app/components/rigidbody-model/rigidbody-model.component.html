@@ -1,5 +1,5 @@
 <!--rigid-vehicle-->
-<ngt-mesh [ref]="bodyProps.ref" [position]="bodyposition">
+<ngt-mesh physicsBox [boxMass]="mass" [position]="bodyposition">
   <ngt-box-geometry [args]="bodyArgs"></ngt-box-geometry>
   <ngt-mesh-standard-material [color]="bodycolor"></ngt-mesh-standard-material>
 </ngt-mesh>

@@ -1,6 +1,7 @@
-<ngt-mesh *ngFor="let block of blocks; index as index"
-          [ref]="block.body.ref" castShadow [scale]="block.scale">
-  <ngt-box-geometry></ngt-box-geometry>
+<ngt-mesh *ngFor="let block of blocks; index as index" [position]="block.position" castShadow
+          physicsBox boxMass="1" boxAllowSleep="true"
+          boxSleepTimeLimit="0.1" boxSleepSpeedLimit="0.1">
+  <ngt-box-geometry [args]="block.scale"></ngt-box-geometry>
   <ngt-mesh-standard-material [color]="block.color"></ngt-mesh-standard-material>
 </ngt-mesh>
 

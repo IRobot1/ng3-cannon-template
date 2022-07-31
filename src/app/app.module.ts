@@ -179,6 +179,7 @@ import { NgtSidePipeModule } from '@angular-three/core';
 import { Chassis, RaycastVehicleComponent, Wheel } from './components/raycast-vehicle/raycast-vehicle.component';
 import { PhysicsPlaneDirective } from './directives/physics-plane.directive';
 import { PhysicsSphereDirective } from './directives/physics-sphere.directive';
+import { PhysicsBoxDirective } from './directives/physics-box.directive';
 
 @NgModule({
   declarations: [
@@ -187,6 +188,7 @@ import { PhysicsSphereDirective } from './directives/physics-sphere.directive';
 
     PhysicsPlaneDirective,
     PhysicsSphereDirective,
+    PhysicsBoxDirective,
 
     RollingComponent,
     RollingExampleComponent, 

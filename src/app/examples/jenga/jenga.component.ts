@@ -1,25 +1,20 @@
 import { Component } from "@angular/core";
 
-import { Object3D } from "three";
-
 import { NgtTriple } from "@angular-three/core";
-
-import { NgtPhysicBody, NgtPhysicBodyReturn } from "@angular-three/cannon";
 
 
 class JengaBlock {
-  constructor(public body: NgtPhysicBodyReturn<Object3D>, public scale: NgtTriple, public color: string) { }
+  constructor(public position: NgtTriple, public scale: NgtTriple, public color: string) { }
 }
 
 @Component({
   selector: 'jenga-example',
   templateUrl: './jenga-example.component.html',
-  providers: [NgtPhysicBody],
 })
 export class JengaExample {
   blocks: Array<JengaBlock> = [];
 
-  constructor(private physicBody: NgtPhysicBody) {
+  constructor() {
     const size = 1
     const gap = 0.1
 
@@ -48,15 +43,7 @@ export class JengaExample {
           (size + gap) * (j - 1) * dz
         ] as NgtTriple
 
-        const body = this.physicBody.useBox(() => ({
-          mass: 1,
-          args: halfExtents,
-          position: position,
-          sleepTimeLimit: 0.1,
-          sleepSpeedLimit: 0.1,
-        }));
-
-        this.blocks.push(new JengaBlock(body, halfExtents, colors[j]));
+        this.blocks.push(new JengaBlock(position, halfExtents, colors[j]));
       }
     }
   }

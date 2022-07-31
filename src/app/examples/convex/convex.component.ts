@@ -6,10 +6,6 @@ import { NgtRadianPipe, NgtTriple } from "@angular-three/core";
 
 import { NgtPhysicBody, NgtPhysicBodyReturn } from "@angular-three/cannon";
 
-class Cube {
-  constructor(public body: NgtPhysicBodyReturn<Object3D>) { }
-}
-
 @Component({
   selector: 'convex-example',
   templateUrl: './convex-example.component.html',
@@ -33,7 +29,7 @@ export class ConvexExample {
   tetrageovertices: Array<number> = [];
   tetrageofaces: Array<number> = [];
 
-  cubes: Array<Cube> = [];
+  cubes: Array<NgtTriple> = [];
 
   constructor(private physicBody: NgtPhysicBody) {
     this.tetravertices.forEach(v => {
@@ -48,12 +44,7 @@ export class ConvexExample {
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 3; j++) {
         const position = [3, size * j + size * 1.2, -(size * i + 0.01) - 3] as NgtTriple;
-        const body = this.physicBody.useBox(() => ({
-          mass: 1,
-          args: [1, 1, 1],
-          position: position,
-        }));
-        this.cubes.push(new Cube(body));
+        this.cubes.push(position);
       }
     }
   }

@@ -60,12 +60,6 @@ export class StacksExample {
 
   }
 
-  boxProps = this.physicBody.useBox(() => ({
-    mass: 1,
-    args: [this.cubesize, this.cubesize, this.cubesize],
-    position: [0, 10, -6],
-  }));
-
   boxCompound1Props = this.physicBody.useCompoundBody(() => ({
     mass: 1,
     shapes: this.cubeshapes,

@@ -5,11 +5,11 @@
 </ngt-mesh>
 
 <!--stands, static 0 mass-->
-<ngt-mesh [ref]="leftbox.ref" [position]="leftstand" castShadow>
+<ngt-mesh physicsBox [position]="leftstand" castShadow>
   <ngt-box-geometry></ngt-box-geometry>
   <ngt-mesh-standard-material></ngt-mesh-standard-material>
 </ngt-mesh>
-<ngt-mesh [ref]="rightbox.ref" [position]="rightstand" castShadow>
+<ngt-mesh physicsBox [position]="rightstand" castShadow>
   <ngt-box-geometry></ngt-box-geometry>
   <ngt-mesh-standard-material></ngt-mesh-standard-material>
 </ngt-mesh>

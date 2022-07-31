@@ -1,4 +1,5 @@
-<ngt-mesh [ref]="boxProps.ref"
+<ngt-mesh #box="physicsBox" physicsBox
+          [position]="[0, 0.5, this.startz]"
           (beforeRender)="tick($event.state)">
   <ngt-box-geometry></ngt-box-geometry>
   <ngt-mesh-standard-material></ngt-mesh-standard-material>

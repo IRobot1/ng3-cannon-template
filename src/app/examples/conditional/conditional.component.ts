@@ -18,7 +18,7 @@ export class ConditionalComponent implements AfterViewInit {
     }, 750)
 
     // stop when the cube is at rest
-    this.cube.physics.api.position.subscribe(next => {
+    this.cube.physics.body.api.position.subscribe(next => {
       if (next[1] < 0.5) {
         clearInterval(timer);
       }

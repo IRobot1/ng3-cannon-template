@@ -10,12 +10,13 @@
 </ngt-mesh>
 
 <!-- sphere and box-->
-<ngt-mesh [ref]="boxProps.ref" castShadow>
+<ngt-mesh [position]="[-0.9, 0, 3]" castShadow
+          physicsBox boxMass="2" [boxVelocity]="[0, 0, -2]" boxAngularDamping="0.4">
   <ngt-box-geometry></ngt-box-geometry>
   <ngt-mesh-standard-material color="white"></ngt-mesh-standard-material>
 </ngt-mesh>
 
-<ngt-mesh physicsSphere [sphereMass]="2" [sphereVelocity]="[0, 0, 2]" [position]="[-1, 0, -3]"  castShadow>
+<ngt-mesh physicsSphere [sphereMass]="2" [sphereVelocity]="[0, 0, 2]" [position]="[-1, 0, -3]" castShadow>
   <ngt-sphere-geometry [args]="[0.5]"></ngt-sphere-geometry>
   <ngt-mesh-standard-material color="red"></ngt-mesh-standard-material>
 </ngt-mesh>
@@ -26,7 +27,7 @@
   <ngt-mesh-standard-material color="blue"></ngt-mesh-standard-material>
 </ngt-mesh>
 
-<ngt-mesh physicsSphere [sphereMass]="3" [sphereVelocity]="[0, 0, 2]" [position]="[-2, 0, -3]"  castShadow>
+<ngt-mesh physicsSphere [sphereMass]="3" [sphereVelocity]="[0, 0, 2]" [position]="[-2, 0, -3]" castShadow>
   <ngt-sphere-geometry [args]="[0.5]"></ngt-sphere-geometry>
   <ngt-mesh-standard-material color="red"></ngt-mesh-standard-material>
 </ngt-mesh>

@@ -1,10 +1,8 @@
 import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, ViewChild } from "@angular/core";
 
-import { Color, Object3D, Ray, Vector3 } from "three";
+import { Color, Ray, Vector3 } from "three";
 
 import { NgtCamera, NgtState, NgtTriple } from "@angular-three/core";
-
-import { NgtPhysicBody, NgtPhysicBodyReturn } from "@angular-three/cannon";
 
 import { PhysicsSphereDirective } from "../../directives/physics-sphere.directive";
 
@@ -12,13 +10,12 @@ class Projectile {
   constructor(public position: NgtTriple, public velocity: NgtTriple, public ttl: number = 30) { }
 }
 class Target {
-  constructor(public body: NgtPhysicBodyReturn<Object3D>, public color: Color) { }
+  constructor(public position: NgtTriple, public color: Color) { }
 }
 
 @Component({
   selector: 'fps-example',
   templateUrl: './fps-example.component.html',
-  providers: [NgtPhysicBody],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FPSExample implements AfterViewInit, OnDestroy {
@@ -32,7 +29,6 @@ export class FPSExample implements AfterViewInit, OnDestroy {
 
 
   constructor(
-    private physicBody: NgtPhysicBody,
     private cd: ChangeDetectorRef,
   ) {
     for (let i = 0; i < 30; i++) {
@@ -41,13 +37,8 @@ export class FPSExample implements AfterViewInit, OnDestroy {
         Math.random() + 1,
         -10 + Math.random() * 20
       ] as NgtTriple;
-      const body = this.physicBody.useBox(() => ({
-        mass: 1,
-        material: { friction: 1, restitution: 0.3 },
-        args: [1, 1, 1],
-        position: position,
-      }));
-      this.cubes.push(new Target(body, new Color().setHex(Math.random() * 0xffffff)));
+
+      this.cubes.push(new Target(position, new Color().setHex(Math.random() * 0xffffff)));
     }
   }
 

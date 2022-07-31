@@ -5,6 +5,7 @@ import { Object3D } from "three";
 import { NgtTriple } from "@angular-three/core";
 
 import { NgtPhysicBody, NgtPhysicConstraint, NgtPhysicBodyReturn } from "@angular-three/cannon";
+
 import { PhysicsSphereDirective } from "../../directives/physics-sphere.directive";
 
 
@@ -24,16 +25,6 @@ export class ConstraintsExample implements AfterViewInit {
   lockscale = [1, 1, 1] as NgtTriple;
   leftstand!: NgtTriple;
   rightstand!: NgtTriple;
-
-  leftbox = this.physicBody.useBox(() => ({
-    mass: 0,
-    position: this.leftstand
-  }));
-
-  rightbox = this.physicBody.useBox(() => ({
-    mass: 0,
-    position: this.rightstand
-  }));
 
   private initlocks() {
     const N = 10

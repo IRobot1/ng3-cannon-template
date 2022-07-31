@@ -13,13 +13,6 @@ import { NgtPhysicBody } from "@angular-three/cannon";
 export class CollisionFilterExample {
   filterMask = 2 | 4;
 
-  boxProps = this.physicBody.useBox(() => ({
-      mass: 1,
-      position: [0, 0, 0] as NgtTriple,
-      collisionFilterGroup: 2,
-      collisionFilterMask: 1, // it can only collide with the sphere
-      args: [1, 1, 1]
-  }));
 
   cylinderProps = this.physicBody.useCylinder(() => ({
       mass: 1,

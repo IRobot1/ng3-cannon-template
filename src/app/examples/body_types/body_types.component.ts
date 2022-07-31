@@ -1,30 +1,22 @@
-import { AfterViewInit, Component, OnDestroy } from "@angular/core";
+import { AfterViewInit, Component, OnDestroy, ViewChild } from "@angular/core";
 
-import { NgtPhysicBody } from "@angular-three/cannon";
+import { PhysicsBoxDirective } from "../../directives/physics-box.directive";
 
 @Component({
   selector: 'bodytypes-example',
   templateUrl: './body_types-example.component.html',
-  providers: [NgtPhysicBody],
 })
 export class BodyTypesExample implements AfterViewInit, OnDestroy {
+  @ViewChild('box') box!: PhysicsBoxDirective;
+
   spheresize = 0.5;
 
-  boxRef = this.physicBody.useBox(() => ({
-    type:'Kinematic',
-    mass: 0,
-    args: [1, 1, 1],
-    position: [0, 0.5, 0]
-  }));
-
   private timer!: any;
-
-  constructor(private physicBody: NgtPhysicBody) { }
 
   ngAfterViewInit(): void {
     let speed = 4;
     this.timer = setInterval(() => {
-      this.boxRef.api.velocity.set(0, speed, 0);
+      this.box.body.api.velocity.set(0, speed, 0);
       speed = -speed;
     }, 500)
   }
