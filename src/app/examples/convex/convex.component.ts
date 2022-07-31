@@ -88,12 +88,6 @@ export class ConvexExample {
     position: [3, 3, 0]
   }));
 
-  cylinderProps = this.physicBody.useCylinder(() => ({
-    mass: 1,
-    args: [0.5, 0.5, 2],
-    rotation: [1.57, 0, 0],
-    position: [0, 5, 0]
-  }));
 
   // Access to underlying Cannon object not supported by @angular-three/cannon
   //

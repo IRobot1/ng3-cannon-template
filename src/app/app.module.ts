@@ -180,6 +180,7 @@ import { Chassis, RaycastVehicleComponent, Wheel } from './components/raycast-ve
 import { PhysicsPlaneDirective } from './directives/physics-plane.directive';
 import { PhysicsSphereDirective } from './directives/physics-sphere.directive';
 import { PhysicsBoxDirective } from './directives/physics-box.directive';
+import { PhysicsCylinderDirective } from './directives/physics-cylinder.directive';
 
 @NgModule({
   declarations: [
@@ -189,6 +190,7 @@ import { PhysicsBoxDirective } from './directives/physics-box.directive';
     PhysicsPlaneDirective,
     PhysicsSphereDirective,
     PhysicsBoxDirective,
+    PhysicsCylinderDirective,
 
     RollingComponent,
     RollingExampleComponent, 
