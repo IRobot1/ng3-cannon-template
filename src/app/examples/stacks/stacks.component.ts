@@ -1,10 +1,11 @@
 import { Component } from "@angular/core";
 
+import { Vector3 } from "three";
 import { NgtTriple } from "@angular-three/core";
 
-import { Vector3 } from "three";
 import { NgtPhysicBody } from "@angular-three/cannon";
-import { BodyProps, ShapeType } from "@angular-three/cannon";
+
+import { CompoundShape } from "../../directives/physics-compound.directive";
 
 @Component({
   selector: 'stacks-example',
@@ -35,7 +36,7 @@ export class StacksExample {
 
   cubes: Array<NgtTriple> = [];
 
-  private cubeshapes: Array<BodyProps & { type: ShapeType; }>
+  cubeshapes: Array<CompoundShape>
 
   constructor(private physicBody: NgtPhysicBody) {
     this.tetravertices.forEach(v => {
@@ -55,22 +56,10 @@ export class StacksExample {
         type: 'Box',
         position: position,
         args: [this.cubesize, this.cubesize, this.cubesize]
-      } as BodyProps & { type: ShapeType; };
+      } as CompoundShape;
     })
 
   }
-
-  boxCompound1Props = this.physicBody.useCompoundBody(() => ({
-    mass: 1,
-    shapes: this.cubeshapes,
-    position: [0, 3, -5],
-  }));
-
-  boxCompound2Props = this.physicBody.useCompoundBody(() => ({
-    mass: 1,
-    shapes: this.cubeshapes,
-    position: [0, 3, 6],
-  }));
 
   tetraProps = this.physicBody.useConvexPolyhedron(() => ({
     mass: 1,

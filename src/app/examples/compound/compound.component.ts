@@ -1,10 +1,8 @@
-import { Component } from "@angular/core";
+import { Component, AfterContentInit } from "@angular/core";
 
 import { NgtTriple } from "@angular-three/core";
 
-import { NgtPhysicBody } from "@angular-three/cannon";
-import { BodyProps, ShapeType } from "@angular-three/cannon";
-import { AfterContentInit } from "@angular/core";
+import { CompoundShape } from "../../directives/physics-compound.directive";
 
 class CompoundPart {
   constructor(public position: NgtTriple, public color: string) { }
@@ -13,7 +11,6 @@ class CompoundPart {
 @Component({
   selector: 'compound-example',
   templateUrl: 'compound-example.component.html',
-  providers: [NgtPhysicBody],
 })
 export class CompoundExample implements AfterContentInit {
 
@@ -23,10 +20,10 @@ export class CompoundExample implements AfterContentInit {
   cubes: Array<CompoundPart> = [];
   spheres: Array<CompoundPart> = [];
 
-  private cubeshapes!: Array<BodyProps & { type: ShapeType; }>
-  private sphereshapes!: Array<BodyProps & { type: ShapeType; }>
+  cubeshapes!: Array<CompoundShape>
+  sphereshapes!: Array<CompoundShape>
 
-  constructor(private physicBody: NgtPhysicBody) {
+  constructor() {
     this.cubes.push(new CompoundPart([0, -this.cubesize, -this.cubesize], 'blue'));
     this.cubes.push(new CompoundPart([0, this.cubesize, -this.cubesize], 'blue'));
     this.cubes.push(new CompoundPart([0, -this.cubesize, this.cubesize], 'red'));
@@ -47,7 +44,7 @@ export class CompoundExample implements AfterContentInit {
         type: 'Box',
         position: item.position,
         args: [this.cubesize, this.cubesize, this.cubesize]
-      } as BodyProps & { type: ShapeType; };
+      } as CompoundShape;
     })
 
     this.sphereshapes = this.spheres.map(item => {
@@ -55,21 +52,10 @@ export class CompoundExample implements AfterContentInit {
         type: 'Sphere',
         position: item.position,
         args: [this.spheresize]
-      } as BodyProps & { type: ShapeType; };
+      } as CompoundShape;
     })
   }
 
-  boxCompoundProps = this.physicBody.useCompoundBody(() => ({
-    mass: 1,
-    shapes: this.cubeshapes,
-    position: [0, 5, -1]
-  }));
-
-  sphereCompoundProps = this.physicBody.useCompoundBody(() => ({
-    mass: 1,
-    shapes: this.sphereshapes,
-    position: [0, 10, 1]
-  }));
 
 }
 

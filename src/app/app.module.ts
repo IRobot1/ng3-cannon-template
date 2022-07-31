@@ -181,6 +181,7 @@ import { PhysicsPlaneDirective } from './directives/physics-plane.directive';
 import { PhysicsSphereDirective } from './directives/physics-sphere.directive';
 import { PhysicsBoxDirective } from './directives/physics-box.directive';
 import { PhysicsCylinderDirective } from './directives/physics-cylinder.directive';
+import { PhysicsCompoundDirective } from './directives/physics-compound.directive';
 
 @NgModule({
   declarations: [
@@ -191,6 +192,7 @@ import { PhysicsCylinderDirective } from './directives/physics-cylinder.directiv
     PhysicsSphereDirective,
     PhysicsBoxDirective,
     PhysicsCylinderDirective,
+    PhysicsCompoundDirective,
 
     RollingComponent,
     RollingExampleComponent, 

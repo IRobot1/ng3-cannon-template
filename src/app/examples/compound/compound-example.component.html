@@ -1,11 +1,11 @@
-<ngt-group [ref]="boxCompoundProps.ref">
+<ngt-group physicsCompound compoundMass="1" [shapes]="cubeshapes" [position]="[0, 5, -1]">
   <ngt-mesh *ngFor="let cube of cubes" [position]="cube.position" [scale]="cubesize" castShadow>
     <ngt-box-geometry></ngt-box-geometry>
     <ngt-mesh-standard-material [color]="cube.color"></ngt-mesh-standard-material>
   </ngt-mesh>
 </ngt-group>
 
-<ngt-group [ref]="sphereCompoundProps.ref">
+<ngt-group physicsCompound compoundMass="1" [shapes]="sphereshapes" [position]="[0, 10, 1]">
   <ngt-mesh *ngFor="let cube of spheres" [position]="cube.position" [scale]="spheresize" castShadow>
     <ngt-sphere-geometry></ngt-sphere-geometry>
     <ngt-mesh-standard-material [color]="cube.color"></ngt-mesh-standard-material>
