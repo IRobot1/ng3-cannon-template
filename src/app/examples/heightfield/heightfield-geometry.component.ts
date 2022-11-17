@@ -19,6 +19,10 @@ export class HeightFieldGeometryComponent extends NgtBufferGeometry {
     this.set({ heights });
   }
 
+  constructor() {
+    super();
+  }
+
   override ngOnInit() {
     super.ngOnInit();
     this.zone.runOutsideAngular(() => {
